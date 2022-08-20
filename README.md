@@ -1,3 +1,8 @@
+<h1 align="center">팀 이름</h1>
+<div align="center"><img src="https://velog.velcdn.com/images/devfrank9/post/1df259b2-e4cb-473b-8bcd-0388761a596a/image.png" alt="logo" /></div>
+
+<br />
+
 ## 👨‍👩‍👧‍👦 팀원 소개
 
 |모상빈|심소영|김성현|윤준영|박소영|
