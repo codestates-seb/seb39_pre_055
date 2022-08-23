@@ -1,14 +1,25 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
-import SharedLayout from './components/SharedLayout/SharedLayout';
+import { ReactComponent as Sprites } from './assets/img/sprites.svg';
+import { SharedLayout } from './components';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route path="/questions" element={<div>questions</div>} />
-          <Route path="/tags" element={<div>tags</div>} />
+          <Route
+            path="/questions"
+            element={<div>{'Lorem Ipsum'.repeat(200)}</div>}
+          />
+          <Route
+            path="/tags"
+            element={
+              <div>
+                <Sprites />
+              </div>
+            }
+          />
           <Route path="/users" element={<div>users</div>} />
           <Route path="/login" element={<div>login</div>} />
           <Route path="/signup" element={<div>signup</div>} />
