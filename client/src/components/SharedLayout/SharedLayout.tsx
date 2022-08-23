@@ -24,6 +24,7 @@ const SharedLayout = () => {
   return (
     <Wrapper>
       <nav>nav</nav>
+      <li>asd</li>
       <section>
         <Outlet />
       </section>

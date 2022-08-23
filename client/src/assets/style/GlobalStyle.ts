@@ -1,17 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
-
-import { reset } from './reset';
+import { reset } from 'styled-reset';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
-
+  
   * {
-    box-sizing: borderbox;
+    box-sizing: border-box;
   }
 
   :root {
     font-family: "Noto Sans KR", sans-serif;
-    font-weight: 400;
   }
 
   html,
@@ -19,6 +17,16 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     width: 100%;
     margin: 0;
+    padding: 0;
+  }
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+
+  ol, ul, li {
+    list-style: none;
   }
 `;
 
