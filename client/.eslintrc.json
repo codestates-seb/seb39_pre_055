@@ -1,0 +1,84 @@
+// {
+//     "env": {
+//         "browser": true,
+//         "es2021": true
+//     },
+//     "extends": [
+//         "eslint:recommended",
+//         "plugin:react/recommended",
+//         "plugin:@typescript-eslint/recommended"
+//     ],
+//     "parser": "@typescript-eslint/parser",
+//     "parserOptions": {
+//         "ecmaFeatures": {
+//             "jsx": true
+//         },
+//         "ecmaVersion": "latest",
+//         "sourceType": "module"
+//     },
+//     "plugins": [
+//         "react",
+//         "@typescript-eslint"
+//     ],
+//     "rules": {
+//     }
+// }
+
+{
+  "parser": "@typescript-eslint/parser",
+  "plugins": [
+    "@typescript-eslint",
+    "prettier",
+    "simple-import-sort",
+    "testing-library",
+    "jest-dom"
+  ],
+  "extends": [
+    "react-app",
+    "react-app/jest",
+    "plugin:testing-library/react",
+    "plugin:jest-dom/recommended",
+    "airbnb",
+    "plugin:react/recommended",
+    "plugin:jsx-a11y/recommended",
+    "plugin:import/errors",
+    "plugin:import/warnings",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:prettier/recommended"
+  ],
+  "rules": {
+    "simple-import-sort/imports": "error",
+    "simple-import-sort/exports": "error",
+    "linebreak-style": 0, // OS 별로 다른 방식의 줄바꿈 설정
+    "import/prefer-default-export": 0, // export default 권장
+    "import/extensions": 0, // 파일 확장자 명시
+    "no-use-before-define": 0, // 변수 선언 전 사용 금지 (호이스팅)
+    "import/no-unresolved": 0, // import 경로 느슨하게 ?
+    "react/react-in-jsx-scope": 0, // import React 안해도 됨
+    "import/no-extraneous-dependencies": 0, // 테스트 또는 개발환경을 구성하는 파일에서는 devDependency 사용을 허용
+    "no-shadow": 0, // 다른 스코프에서 동일한 변수 사용 금지
+    "react/prop-types": 0, // propTypes 강제
+    "react/require-default-props": 0, // defaultProps 정의
+    "react/jsx-filename-extension": [
+      2,
+      { "extensions": [".js", ".jsx", ".ts", ".tsx"] } // jsx 포함할 수 있는 파일 확장자 제한
+    ],
+    "jsx-a11y/no-noninteractive-element-interactions": 0, // non-interactive 태그에 이벤트 할당 제한
+    "@typescript-eslint/explicit-module-boundary-types": 0, // ts 함수의 인수, 리턴 타입 정의
+    "@typescript-eslint/no-explicit-any": 0,
+    "no-param-reassign": 0, // 매게 변수 재할당 금지 (toolkit reducer 한정)
+    "react/function-component-definition": [
+      2,
+      { "namedComponents": "arrow-function" } // 함수형 컴포넌트 형식 정의
+    ],
+    "jsx-a11y/click-events-have-key-events": 0,
+    "jsx-a11y/no-static-element-interactions": 0
+  },
+  "settings": {
+    "import/resolver": {
+      "node": {
+        "extensions": [".js", ".jsx", ".ts", ".tsx"]
+      }
+    }
+  }
+}
