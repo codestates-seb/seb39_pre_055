@@ -20,10 +20,14 @@ const Wrapper = styled.div`
   }
 `;
 
+const Nav = styled.nav`
+  height: 110px;
+`;
+
 const SharedLayout = () => {
   return (
     <Wrapper>
-      <nav>nav</nav>
+      <Nav>nav</Nav>
       <section>
         <Outlet />
       </section>
