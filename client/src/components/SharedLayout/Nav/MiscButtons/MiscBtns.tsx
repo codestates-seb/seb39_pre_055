@@ -1,12 +1,18 @@
-import { RoundBtn } from '../../../Button/style';
+import { RoundButton } from '../../../Button/Templates';
 import { Misc } from './style';
 
 const MiscBtns = () => {
   return (
     <Misc>
-      <RoundBtn color="black" mainCode="025" hoverCode="075">
+      <RoundButton color="black" mainCode="025" hoverCode="075">
+        About
+      </RoundButton>
+      <RoundButton color="black" mainCode="025" hoverCode="075">
         Products
-      </RoundBtn>
+      </RoundButton>
+      <RoundButton color="black" mainCode="025" hoverCode="075">
+        For Teams
+      </RoundButton>
     </Misc>
   );
 };
