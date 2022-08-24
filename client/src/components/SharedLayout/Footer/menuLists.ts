@@ -79,6 +79,46 @@ const company = {
   ],
 };
 
-const menus = [stackOverflow, products, company];
+const stackExchangeNetwork = {
+  upperMenu: 'STACK EXCHANGE NETWORK',
+  to: '/',
+  subMenus: [
+    {
+      title: 'Technology',
+      to: '/',
+    },
+    {
+      title: 'Culture & recreation',
+      to: '/',
+    },
+    {
+      title: 'Life & arts',
+      to: '/',
+    },
+    {
+      title: 'Science',
+      to: '/',
+    },
+    {
+      title: 'Professional',
+      to: '/',
+    },
+    {
+      title: 'Business',
+      to: '/',
+    },
+    {
+      title: 'API',
+      className: 'API',
+      to: '/',
+    },
+    {
+      title: 'Data',
+      to: '/',
+    },
+  ],
+};
+
+const menus = [stackOverflow, products, company, stackExchangeNetwork];
 
 export default menus;
