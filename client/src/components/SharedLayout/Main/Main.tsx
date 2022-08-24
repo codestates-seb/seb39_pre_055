@@ -11,8 +11,6 @@ const Section = styled.section`
   max-width: 900px;
   height: 400vh; // 컨텐츠 높이에 맞게 수정할 수 있도록
   background-color: aliceblue;
-  padding: 25px;
-  padding-right: 250px;
   overflow-x: hidden;
 `;
 
