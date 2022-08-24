@@ -9,7 +9,6 @@ const Section = styled.section`
   top: 50px;
   width: 100%;
   max-width: 900px;
-  height: 400vh; // 컨텐츠 높이에 맞게 수정할 수 있도록
   background-color: aliceblue;
   overflow-x: hidden;
 `;
@@ -20,6 +19,7 @@ const SMain = styled.main`
   display: flex;
   flex-flow: row nowrap;
   justify-content: center;
+  margin-bottom: 50px; // TODO: margin 말고 다른 방법으로 높이 맞추는 방법?
 `;
 
 const Main = () => {

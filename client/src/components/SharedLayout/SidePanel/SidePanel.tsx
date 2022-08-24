@@ -9,7 +9,6 @@ const Aside = styled.aside`
   top: 50px;
   width: 170px;
   min-width: 170px;
-  height: 100%;
   padding: 10px 0px 10px 10px;
 `;
 
