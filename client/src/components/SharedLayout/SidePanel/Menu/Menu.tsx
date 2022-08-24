@@ -88,8 +88,8 @@ const Menu = () => {
               <RiEarthLine />
               Questions
             </CutstomLink>
-            <CutstomLink to="/tags">Tags</CutstomLink>
-            <CutstomLink to="/users">Users</CutstomLink>
+            <CutstomLink to="/questions/tags">Tags</CutstomLink>
+            <CutstomLink to="/questions/users">Users</CutstomLink>
             <CutstomLink to="/">Companies</CutstomLink>
           </Li>
         </MenuList>
