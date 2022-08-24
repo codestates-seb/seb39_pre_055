@@ -1,5 +1,10 @@
+import styled from 'styled-components';
+
+import Header from './Header/Header';
+
 const QuestionList = () => {
-  return <h1>QuestionsList</h1>;
+  return 
+  <Header />
 };
 
 export default QuestionList;
