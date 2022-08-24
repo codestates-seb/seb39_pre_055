@@ -1,9 +1,12 @@
 import styled, { css } from 'styled-components';
 
-interface BtnProps {
+export interface ButtonProps {
   color: string;
   mainCode: string;
-  hoverCode?: string;
+  hoverCode?: string /* hover 시 나타낼 색상(색상 분류(blue, black, powder 등)는 같아야 함) */;
+  textColor?: string;
+  width?: string;
+  height?: string;
 }
 
 const DefaultBtn = styled.button`
@@ -17,28 +20,24 @@ const DefaultBtn = styled.button`
     transition: 0.4s all;
   }
 
-  ${({ color, mainCode, hoverCode }: BtnProps) =>
+  ${({ color, mainCode, hoverCode, textColor, width, height }: ButtonProps) =>
     color &&
     mainCode &&
     css`
+      color: ${textColor || 'white'};
       background-color: ${`var(--${color}-${mainCode})`};
+      width: ${width};
+      height: ${height};
 
       &:hover {
         background-color: ${`var(--${color}-${
           hoverCode || Number(mainCode) + 200
         })`};
       }
+      &:focus {
+        outline: ${`var(--${color}-100)`} solid 4px;
+      }
     `}
 `;
 
-export const BlueBtn = styled(DefaultBtn)`
-  color: white;
-
-  width: 60px;
-`;
-
-export const RoundBtn = styled(DefaultBtn)`
-  color: var(--black-700);
-  border-radius: 20px;
-  width: 80px;
-`;
+export default DefaultBtn;
