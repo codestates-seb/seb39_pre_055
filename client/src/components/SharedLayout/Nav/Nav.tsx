@@ -1,32 +1,24 @@
-import '../../../assets/style/GlobalVariables.css';
+import { Link } from 'react-router-dom';
 
-import styled from 'styled-components';
+import MainAuth from '../../Button/MainAuth/MainAuth';
+import MiscBtns from './MiscButtons/MiscBtns';
+import { LogoWrapper, MainLogo, SHeader, SNav } from './style';
 
-import { LogoWrapper, MainLogo, SNav } from './style';
-
-const SButton = styled.button`
-  color: var(--black-700);
-  background-color: var(--black-025);
-  width: 90px;
-  height: 35px;
-  border-radius: 20px;
-  border: 0px;
-  transition: 0.6s all;
-
-  &:hover {
-    background-color: var(--black-075);
-    transition: 0.6s all;
-  }
-`;
+<button type="button">
+  <Link to="/login">ddddd</Link>
+</button>;
 
 const Nav = () => {
   return (
-    <SNav>
-      <LogoWrapper>
-        <MainLogo />
-      </LogoWrapper>
-      <SButton>Products</SButton>
-    </SNav>
+    <SHeader>
+      <SNav>
+        <LogoWrapper>
+          <MainLogo />
+        </LogoWrapper>
+        <MiscBtns />
+        <MainAuth />
+      </SNav>
+    </SHeader>
   );
 };
 

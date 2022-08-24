@@ -1,4 +1,4 @@
-import '../../../../assets/style/GlobalVariables.css';
+import '../../../../assets/style/GlobalVariables.ts';
 
 import { RiEarthLine } from 'react-icons/ri';
 import { Link, useLocation } from 'react-router-dom';
@@ -28,7 +28,7 @@ const Li = styled.li`
 `;
 
 const CutstomLink = styled(Link)`
-  box-sizing: border-box;
+  box-sizing: border-box; // FIXME: 삭제 예정
   display: flex;
   position: relative;
   align-items: center;
