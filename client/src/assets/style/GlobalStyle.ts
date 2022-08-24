@@ -1,5 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
+import variables from './GlobalVariables';
 import { reset } from 'styled-reset';
+
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -10,6 +12,8 @@ export const GlobalStyle = createGlobalStyle`
 
   :root {
     font-family: "Noto Sans KR", sans-serif;
+    font-weight: 400;
+    ${variables}
   }
 
   html,
@@ -20,13 +24,17 @@ export const GlobalStyle = createGlobalStyle`
     padding: 0;
   }
 
-  a {
-    text-decoration: none;
-    color: inherit;
-  }
-
   ol, ul, li {
     list-style: none;
+  }
+
+  a {
+    text-decoration: none;
+
+    &:link,
+    &:visited {
+      color: black;
+    }
   }
 `;
 
