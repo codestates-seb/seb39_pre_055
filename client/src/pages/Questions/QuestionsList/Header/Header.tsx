@@ -13,10 +13,11 @@ const Qheader = styled.header`
 `;
 
 const Header = () => {
-  return;
-  <h1>
-    <Qheader />
-  </h1>;
+  return (
+    <h1>
+      <Qheader />
+    </h1>
+  );
 };
 
 export default Header;
