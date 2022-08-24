@@ -12,7 +12,6 @@ const Shared = styled.div`
 
 const SharedLayout = () => {
   return (
-
     <Shared>
       <Nav />
       <Main />
