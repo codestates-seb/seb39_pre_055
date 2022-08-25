@@ -1,12 +1,15 @@
+/* eslint-disable react/jsx-boolean-value */
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import styled from 'styled-components';
 
-import { Tag, Triangle } from '../../../components';
+import { AnswerEditor, Content, QuestionInfo } from '../../../components';
+import { answer1, answer2, question } from '../../../utils';
 
 const Container = styled.div`
   padding: 24px;
 `;
 
-const TitleContainer = styled.div`
+const Header = styled.header`
   display: flex;
   justify-content: space-between;
   margin-bottom: 8px;
@@ -17,7 +20,7 @@ const TitleContainer = styled.div`
   }
 `;
 
-const InfoContainer = styled.div`
+const SubHeader = styled.section`
   display: flex;
   padding-bottom: 8px;
   margin-bottom: 16px;
@@ -39,98 +42,59 @@ const InfoContainer = styled.div`
   }
 `;
 
-const MainContents = styled.div`
-  border: 1px solid blue;
+const AnswerHeader = styled.header`
   display: flex;
-  height: 500px;
-`;
+  justify-content: space-between;
+  padding: 20px 0;
+  color: #232629;
 
-const Votes = styled.div`
-  border: 1px solid black;
-  display: flex;
-  flex-direction: column;
-  padding-right: 16px;
-
-  div {
-    margin: 6px;
+  h2 {
     display: flex;
-    justify-content: center;
     align-items: center;
+    font-size: 24px;
+    font-weight: 500;
   }
 
-  span {
-    font-size: 21px;
-    color: var(--black-500);
+  label {
+    font-size: 12px;
   }
-`;
 
-const TextArea = styled.div`
-  border: 1px solid red;
-  flex-grow: 1;
-  font-size: 15px;
-
-  p {
-    margin-bottom: 16.5px;
+  select {
+    width: 260px;
+    padding: 6px 32px 6px 9px;
+    margin-left: 3px;
+    color: #0c0e0d;
+    font-size: 13px;
   }
-`;
-
-const Tags = styled.div`
-  margin: 24px 0;
 `;
 
 const QuestionDetail = () => {
   return (
     <Container>
-      <TitleContainer>
+      <Header>
         <h1>Stop an array while finding string</h1>
         <button type="button">Ask Question</button>
-      </TitleContainer>
-      <InfoContainer>
+      </Header>
+      <SubHeader>
+        <QuestionInfo option="Asked" value="today" />
+        <QuestionInfo option="Modified" value="today" />
+        <QuestionInfo option="Viewed" value="5 times" />
+      </SubHeader>
+      <Content type="question" body={question} />
+      <AnswerHeader>
+        <h2>2 Answers</h2>
         <div>
-          <span>Asked </span>
-          <strong>today</strong>
+          <label htmlFor="sort">Sorted by:</label>
+          <select name="sort" id="sort">
+            <option value="score">Highest score (default)</option>
+            <option value="new">Date modified (newest first)</option>
+            <option value="old">Date created (oldest first)</option>
+          </select>
         </div>
-        <div>
-          <span>Modified </span>
-          <strong>today</strong>
-        </div>
-        <div>
-          <span>Viewed </span>
-          <strong>5 times</strong>
-        </div>
-      </InfoContainer>
-      <MainContents>
-        <Votes>
-          <Triangle />
-          <div>
-            <span>0</span>
-          </div>
-          <Triangle rotate="180deg" />
-        </Votes>
-        <TextArea>
-          <p>This is my array</p>
-          <p>
-            Cyan Color | Magenta Color | Yellow Color | Cut Technical |
-            Information Technical | Pink Color | Lila Color | White Color
-          </p>
-          <p>
-            Cyan Color | Magenta Color | Yellow Color | Cut Technical |
-            Information Technical | Pink Color | Lila Color | White Color
-          </p>
-          <p>I only need the information before the Technical:</p>
-          <p>Cyan Color | Magenta Color | Yellow Color | Cut Technical</p>
-          <p>or:</p>
-          <p>
-            Cyan Color | Magenta Color | Yellow Color | Cut Technical |
-            Information Technical
-          </p>
-          <Tags>
-            <Tag name="javascript" />
-            <Tag name="arrays" />
-            <Tag name="string" />
-          </Tags>
-        </TextArea>
-      </MainContents>
+      </AnswerHeader>
+      <Content type="answer" body={answer1} />
+      <Content type="answer" body={answer2} />
+      <AnswerEditor />
     </Container>
   );
 };
