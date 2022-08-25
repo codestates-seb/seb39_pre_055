@@ -1,3 +1,10 @@
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import 'prismjs/themes/prism.css';
+
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
+import { Viewer } from '@toast-ui/react-editor';
+import Prism from 'prismjs';
+import { useState } from 'react';
 import styled from 'styled-components';
 
 import { Tag, Triangle, UserInfoCard } from '../index';
@@ -11,6 +18,7 @@ const MainContents = styled.main`
 const Votes = styled.aside`
   display: flex;
   flex-direction: column;
+  padding-top: 15px;
   padding-right: 16px;
 
   span {
@@ -28,9 +36,6 @@ const TextArea = styled.section`
   font-size: 15px;
   font-weight: 500;
   line-height: 22.5px;
-  p {
-    margin-bottom: 16.5px;
-  }
 `;
 
 const Tags = styled.section`
@@ -52,31 +57,33 @@ const Utils = styled.section`
 `;
 
 const url = 'https://graph.facebook.com/1616279655126812/picture?type=large';
-const text1 =
-  "Hi so I'm trying to learn javascript from scratch and I have this code working, its just really ugly. Can anyone tell me how I should have made this into a function? Constantly using 'let' is going to make a huge mess for me to untangle later.";
-const text2 =
-  "As you can see i am just naming a new variable for each step of the way and I'm pretty sure I could be doing this easier... I have stuff like this all throughout my code so I don't really need a fix specific to the above just in a wider since how do I package this stuff into a single function.";
-
 interface Prop {
-  background: boolean;
+  type: 'question' | 'answer';
+  body: string;
 }
 
-const Content = ({ background }: Prop) => {
+const Content = ({ type, body }: Prop) => {
+  const [vote, setVote] = useState(0);
+
   return (
     <MainContents>
       <Votes>
-        <Triangle />
-        <span>0</span>
-        <Triangle rotate="180deg" />
+        <Triangle onClick={() => setVote((prev) => prev + 1)} />
+        <span>{vote}</span>
+        <Triangle rotate="180deg" onClick={() => setVote((prev) => prev - 1)} />
       </Votes>
       <TextArea>
-        <p>{text1}</p>
-        <p>{text2}</p>
-        <Tags>
-          {['javascript', 'arrays', 'string'].map((name) => (
-            <Tag key={name} name={name} />
-          ))}
-        </Tags>
+        <Viewer
+          initialValue={body}
+          plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
+        />
+        {type === 'question' && (
+          <Tags>
+            {['javascript', 'arrays', 'string'].map((name) => (
+              <Tag key={name} name={name} />
+            ))}
+          </Tags>
+        )}
         <Utils>
           <div>
             <button type="button">Share</button>
@@ -87,7 +94,7 @@ const Content = ({ background }: Prop) => {
             date="asked 2 mins ago"
             img={url}
             name="Damian Kowalski"
-            background={background}
+            type={type}
           />
         </Utils>
       </TextArea>
