@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 
+import { Modal } from '../Modal';
 import Footer from './Footer/Footer';
 import Main from './Main/Main';
 import Nav from './Nav/Nav';
@@ -12,11 +13,13 @@ const Shared = styled.div`
 
 const SharedLayout = () => {
   return (
-    <Shared>
-      <Nav />
-      <Main />
-      <Footer />
-    </Shared>
+    <Modal width="200px" height="200px" background={false}>
+      <Shared>
+        <Nav />
+        <Main />
+        <Footer />
+      </Shared>
+    </Modal>
   );
 };
 

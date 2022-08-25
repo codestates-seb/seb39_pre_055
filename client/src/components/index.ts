@@ -1,6 +1,5 @@
-import Button from './Button/MainAuth/MainAuth';
-
-export { Button };
+export { default as DefaultBtn } from './Button/DefaultButton';
+export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as Content } from './Content/Content';
 export { default as AnswerEditor } from './Editor/Editor';
 export { default as QuestionInfo } from './QuestionInfo/QuestionInfo';
