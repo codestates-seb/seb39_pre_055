@@ -2,7 +2,10 @@ import { RefObject } from 'react';
 
 import { Search, SearchIcon, SearchWrapper } from './style';
 
-export type SearchBarSize = Pick<SearchBarProps, 'width' | 'height'>;
+export type SearchBarSize = Pick<
+  SearchBarProps,
+  'width' | 'height' | 'responsive'
+>;
 
 interface SearchBarProps {
   placeholder: string;
@@ -11,6 +14,7 @@ interface SearchBarProps {
   wrapperRef?: RefObject<HTMLInputElement>;
   onFocus?: () => void;
   onBlur?: () => void;
+  responsive?: boolean;
 }
 
 const DefaultSearchBar = ({
@@ -20,9 +24,15 @@ const DefaultSearchBar = ({
   wrapperRef,
   onFocus,
   onBlur,
+  responsive,
 }: SearchBarProps) => {
   return (
-    <SearchWrapper width={width} height={height} ref={wrapperRef}>
+    <SearchWrapper
+      width={width}
+      height={height}
+      ref={wrapperRef}
+      responsive={responsive}
+    >
       <Search
         type="text"
         placeholder={placeholder}

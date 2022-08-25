@@ -15,6 +15,13 @@ export const SearchWrapper = styled.div`
     width: ${width};
     height: ${height};
   `}
+  ${({ theme, responsive }) =>
+    responsive &&
+    css`
+      @media screen and (max-width: ${theme.breakPoints.mobile}) {
+        display: none;
+      }
+    `}
 `;
 
 export const Search = styled.input`
