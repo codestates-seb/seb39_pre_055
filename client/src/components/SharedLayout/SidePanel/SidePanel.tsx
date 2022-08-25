@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import Menu from './Menu/Menu';
 
@@ -10,6 +10,12 @@ const Aside = styled.aside`
   width: 170px;
   min-width: 170px;
   padding: 10px 0px 10px 10px;
+
+  ${({ theme }) => css`
+    @media screen and (max-width: ${theme.breakPoints.mobile}) {
+      display: none;
+    }
+  `}
 `;
 
 const SidePanel = () => {
