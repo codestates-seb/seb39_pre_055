@@ -23,6 +23,7 @@ export const SHeader = styled.header`
     width: 100%;
     height: 3px;
     background-color: var(--orange-400);
+    z-index: 2;
   }
 `;
 
