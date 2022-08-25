@@ -1,25 +1,17 @@
 /* eslint-disable consistent-return */
-
 import { useCallback, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 
+import { SearchBar } from '../..';
 import { useModal } from '../../Modal';
 import MainAuth from './MainAuth/MainAuth';
 import MiscBtns from './MiscButtons/MiscBtns';
 import { LogoWrapper, MainLogo, SHeader, SNav } from './style';
 
-const Search = styled.input`
-  height: 32px;
-  flex: 1 1 180px;
-  margin-left: 10px;
-  margin-right: 10px;
-`;
-
 const SearchHints = () => {
   return <div>TEtwetsegysgwse</div>;
 };
 
-const SearchBar = () => {
+const MainSearchBar = () => {
   const [position, setPosition] = useState({ x: '500px', y: '51px' });
   const [size, setSize] = useState({ width: '200px', height: '100px' });
   const [isFocused, setIsFocused] = useState(false);
@@ -42,28 +34,21 @@ const SearchBar = () => {
 
   useEffect(() => {
     const handleResize = () => {
-      console.log('resize', isFocused);
       if (!isFocused) return;
       resizeModal();
     };
 
     window.addEventListener('resize', handleResize);
 
-    /* return () => window.removeEventListener('resize', handleResize); */
-    // 클린업 함수 안 넣으면 매번 생성되는 handleResize의 주소가 다르므로 이밴트 핸들러가 계속 부착됨!! 그래서 수십개의 동일한 이벤트 핸들러가 실행되는 버그 발생
+    return () => window.removeEventListener('resize', handleResize);
   }, [isFocused, resizeModal]);
 
   // 1. resize 없이 처음 Modal을 열었을 때 사이즈가 useState() 초기값 그대로인 문제 수정
-  useEffect(() => resizeModal(), [resizeModal]);
-
-  // 2. blur 상태에서 resize 이벤트가 발생하고, focus 상태로 바뀌었을 때 사이즈, 위치가 이전 그대로인 문제 수정
-  // focusin 이벤트 핸들러에 추가
+  /* useEffect(() => resizeModal(), [resizeModal]); */
 
   return (
-    <Search
-      type="text"
+    <SearchBar
       placeholder="Search"
-      tabIndex={0}
       onFocus={() => {
         resizeModal();
         setIsFocused(true);
@@ -73,7 +58,7 @@ const SearchBar = () => {
         setIsFocused(false);
         closeModal();
       }}
-      ref={searchRef}
+      wrapperRef={searchRef}
     />
   );
 };
@@ -86,7 +71,7 @@ const Nav = () => {
           <MainLogo />
         </LogoWrapper>
         <MiscBtns />
-        <SearchBar />
+        <MainSearchBar />
         <MainAuth />
       </SNav>
     </SHeader>
