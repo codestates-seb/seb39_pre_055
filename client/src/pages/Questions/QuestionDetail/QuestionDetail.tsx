@@ -3,7 +3,7 @@
 import styled from 'styled-components';
 
 import { AnswerEditor, Content, QuestionInfo } from '../../../components';
-import { answer1, answer2, question } from '../../../utils';
+import { useAppSelector } from '../../../redux';
 
 const Container = styled.div`
   padding: 24px;
@@ -86,12 +86,8 @@ const Button = styled.button`
   border-radius: 3px;
 `;
 
-const PostButton = styled(Button)`
-  width: 130px;
-  margin-top: 10px;
-`;
-
 const QuestionDetail = () => {
+  const { question, answerList } = useAppSelector((state) => state.question);
   return (
     <Container>
       {/* question */}
@@ -117,12 +113,12 @@ const QuestionDetail = () => {
           </select>
         </div>
       </AnswerHeader>
-      <Content type="answer" body={answer1} />
-      <Content type="answer" body={answer2} />
+      {answerList.map((answer) => (
+        <Content key={answer} type="answer" body={answer} />
+      ))}
       {/* editor */}
       <h3>Your Answer</h3>
       <AnswerEditor />
-      <PostButton>Post Your Answer</PostButton>
     </Container>
   );
 };
