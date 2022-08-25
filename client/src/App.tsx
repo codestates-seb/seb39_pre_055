@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import { SharedLayout } from './components';
-import { AskQuestion, QuestionDetail, QuestionList } from './pages';
+import { AskQuestion, QuestionDetail, QuestionList, Tags } from './pages';
 
 const App = () => {
   return (
@@ -14,6 +14,7 @@ const App = () => {
           <Route path="/questions/ask" element={<AskQuestion />} />
           <Route path="/questions/tags" element={<AskQuestion />} />
           <Route path="/questions/users" element={<QuestionDetail />} />
+          <Route path="/questions/company" element={<Tags />} />
         </Route>
       </Routes>
     </BrowserRouter>

@@ -97,7 +97,7 @@ const Menu = () => {
             </CutstomLink>
             <CutstomLink to="/questions/tags">Tags</CutstomLink>
             <CutstomLink to="/questions/users">Users</CutstomLink>
-            <CutstomLink to="/">Companies</CutstomLink>
+            <CutstomLink to="/questions/company">Companies</CutstomLink>
           </Li>
         </MenuList>
       </ThemeProvider>
