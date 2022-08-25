@@ -5,7 +5,6 @@ import MenuList from './MenuList/MenuList';
 import menus from './menuLists';
 
 const SFooter = styled.footer`
-  box-sizing: border-box; // FIXME: 삭제 예정
   position: relative;
   display: flex;
   flex-flow: row wrap;
@@ -28,7 +27,8 @@ const SFooter = styled.footer`
 
   ${({ theme }) => css`
     @media screen and (max-width: ${theme.breakPoints.mobile}) {
-      /* height: 400px; */
+      height: auto;
+      min-height: 650px;
       /* padding-top: 20px;
       padding-bottom: 10px; */
     }
