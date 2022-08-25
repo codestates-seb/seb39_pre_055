@@ -57,7 +57,7 @@ const CutstomLink = styled(Link)`
     padding-left: 25px;
   }
 
-  ${({ to, theme }) =>
+  ${({ to, theme }: LinkProps) =>
     to === theme.currentPath &&
     css`
       background-color: var(--black-050);
@@ -73,6 +73,13 @@ const CutstomLink = styled(Link)`
       }
     `}
 `;
+interface Path {
+  currentPath: string;
+}
+interface LinkProps {
+  to: string;
+  theme: Path;
+}
 
 const Menu = () => {
   const { pathname: currentPath } = useLocation();
