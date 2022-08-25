@@ -1,10 +1,11 @@
 import styled from 'styled-components';
 
-export const UserInfo = styled.aside<{ background: boolean }>`
+export const UserInfo = styled.aside<{ type: 'question' | 'answer' }>`
   width: 187px;
   height: 100%;
   padding: 5px 7px;
-  background-color: ${(props) => (props.background ? '#d3ebf8' : 'inherit')};
+  background-color: ${(props) =>
+    props.type === 'question' ? '#d3ebf8' : 'inherit'};
   border-radius: 3px;
 
   span {

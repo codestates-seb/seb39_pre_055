@@ -2,7 +2,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import styled from 'styled-components';
 
-import { Content, QuestionInfo } from '../../../components';
+import { AnswerEditor, Content, QuestionInfo } from '../../../components';
+import { answer1, answer2, question } from '../../../utils';
 
 const Container = styled.div`
   padding: 24px;
@@ -50,7 +51,7 @@ const AnswerHeader = styled.header`
   h2 {
     display: flex;
     align-items: center;
-    font-size: 19px;
+    font-size: 24px;
     font-weight: 500;
   }
 
@@ -79,7 +80,7 @@ const QuestionDetail = () => {
         <QuestionInfo option="Modified" value="today" />
         <QuestionInfo option="Viewed" value="5 times" />
       </SubHeader>
-      <Content background={true} />
+      <Content type="question" body={question} />
       <AnswerHeader>
         <h2>2 Answers</h2>
         <div>
@@ -91,8 +92,9 @@ const QuestionDetail = () => {
           </select>
         </div>
       </AnswerHeader>
-      <Content background={false} />
-      <Content background={false} />
+      <Content type="answer" body={answer1} />
+      <Content type="answer" body={answer2} />
+      <AnswerEditor />
     </Container>
   );
 };

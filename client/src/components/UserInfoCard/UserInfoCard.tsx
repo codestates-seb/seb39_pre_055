@@ -4,12 +4,12 @@ interface Prop {
   date: string;
   img: string;
   name: string;
-  background: boolean;
+  type: 'question' | 'answer';
 }
 
-const UserInfoCard = ({ date, img, name, background }: Prop) => {
+const UserInfoCard = ({ date, img, name, type }: Prop) => {
   return (
-    <UserInfo background={background}>
+    <UserInfo type={type}>
       <span>{date}</span>
       <UserDetails>
         <img src={img} alt="user" />

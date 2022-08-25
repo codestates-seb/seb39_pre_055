@@ -15,10 +15,11 @@ const Wrapper = styled.div<Prop>`
 
 interface Prop {
   rotate?: string;
+  onClick: () => void;
 }
 
-const Triangle = ({ rotate = '0' }: Prop) => {
-  return <Wrapper rotate={rotate} />;
+const Triangle = ({ rotate = '0', onClick }: Prop) => {
+  return <Wrapper rotate={rotate} onClick={onClick} />;
 };
 
 export default Triangle;
