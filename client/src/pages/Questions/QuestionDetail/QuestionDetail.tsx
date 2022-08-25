@@ -7,6 +7,13 @@ import { answer1, answer2, question } from '../../../utils';
 
 const Container = styled.div`
   padding: 24px;
+  border-left: 1px solid rgb(227, 230, 232);
+
+  h3 {
+    font-size: 19px;
+    color: #232629;
+    margin: 20px 0;
+  }
 `;
 
 const Header = styled.header`
@@ -51,8 +58,8 @@ const AnswerHeader = styled.header`
   h2 {
     display: flex;
     align-items: center;
-    font-size: 24px;
-    font-weight: 500;
+    font-size: 19px;
+    color: #232629;
   }
 
   label {
@@ -68,12 +75,29 @@ const AnswerHeader = styled.header`
   }
 `;
 
+const Button = styled.button`
+  width: 100px;
+  height: 35px;
+  padding: 10px;
+  font-size: 13px;
+  color: white;
+  background-color: #0a95ff;
+  border: none;
+  border-radius: 3px;
+`;
+
+const PostButton = styled(Button)`
+  width: 130px;
+  margin-top: 10px;
+`;
+
 const QuestionDetail = () => {
   return (
     <Container>
+      {/* question */}
       <Header>
         <h1>Stop an array while finding string</h1>
-        <button type="button">Ask Question</button>
+        <Button>Ask Question</Button>
       </Header>
       <SubHeader>
         <QuestionInfo option="Asked" value="today" />
@@ -81,6 +105,7 @@ const QuestionDetail = () => {
         <QuestionInfo option="Viewed" value="5 times" />
       </SubHeader>
       <Content type="question" body={question} />
+      {/* answer */}
       <AnswerHeader>
         <h2>2 Answers</h2>
         <div>
@@ -94,7 +119,10 @@ const QuestionDetail = () => {
       </AnswerHeader>
       <Content type="answer" body={answer1} />
       <Content type="answer" body={answer2} />
+      {/* editor */}
+      <h3>Your Answer</h3>
       <AnswerEditor />
+      <PostButton>Post Your Answer</PostButton>
     </Container>
   );
 };
