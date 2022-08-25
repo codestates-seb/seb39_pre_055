@@ -25,9 +25,9 @@ export const PowderButton = ({ children }: TemplateButtonProps) => {
   return (
     <DefaultBtn
       color="powder"
-      mainCode="400"
-      hoverCode="600"
-      textColor="white"
+      mainCode="200"
+      hoverCode="400"
+      textColor="var(--powder-700)"
       width="60px"
     >
       {children}
