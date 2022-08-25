@@ -10,7 +10,7 @@ const Section = styled.section`
   width: 100%;
   max-width: 900px;
   height: 400vh; // 컨텐츠 높이에 맞게 수정할 수 있도록
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   overflow-x: hidden;
 `;
 
