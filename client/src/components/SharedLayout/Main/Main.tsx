@@ -9,7 +9,7 @@ const Section = styled.section`
   top: 50px;
   width: 100%;
   max-width: 900px;
-  background-color: aliceblue;
+  /* background-color: aliceblue; */
   overflow-x: hidden;
 `;
 

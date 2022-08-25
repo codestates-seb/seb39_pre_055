@@ -49,9 +49,6 @@ const variables = css`
   --powder-700: hsl(205, 47%, 42%);
   --powder-800: hsl(205, 46%, 32%);
   --powder-900: hsl(205, 46%, 22%);
-
-  --mobile: '640px';
-  --tablet: '980px';
 `;
 
 export default variables;
