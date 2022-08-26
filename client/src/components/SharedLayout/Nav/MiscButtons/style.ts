@@ -1,6 +1,5 @@
 import styled, { css } from 'styled-components';
 
-import { Theme } from '../../../../types/globalStyle';
 import { RoundButton } from '../../../Button/Templates';
 
 export const Misc = styled.div`
@@ -9,14 +8,8 @@ export const Misc = styled.div`
   margin-left: 10px;
 `;
 
-type HidableProps = {
-  isLoggedIn?: boolean;
-} & Theme;
-
 export const Hideable = styled(RoundButton)`
-  ${({ theme, isLoggedIn }: HidableProps) => css`
-    display: ${isLoggedIn ? 'none' : ''};
-
+  ${({ theme }) => css`
     @media screen and (max-width: ${theme.breakPoints.tablet}) {
       display: none;
     }
