@@ -32,7 +32,7 @@ export const EarthSVG = styled(RiEarthLine)`
   margin: 5px;
 `;
 
-export const CustomLinkA = styled(Link)`
+export const CustomLink = styled(Link)`
   display: flex;
   position: relative;
   align-items: center;

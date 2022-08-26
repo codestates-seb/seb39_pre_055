@@ -6,10 +6,7 @@ import { SearchBarSize } from './SearchBar';
 export const SearchWrapper = styled.div`
   position: relative;
   display: flex;
-  height: 32px;
   flex: 1 1 180px;
-  margin-left: 10px;
-  margin-right: 10px;
 
   ${({ width = 'auto', height = '32px' }: SearchBarSize) => css`
     width: ${width};
@@ -65,7 +62,6 @@ export const SearchButton = styled.button`
   border: 0px;
   border-radius: 10px;
   padding: 0px;
-  margin-left: auto;
   margin-right: 3px;
 
   &:focus,
@@ -76,6 +72,7 @@ export const SearchButton = styled.button`
   ${({ theme }) =>
     css`
       @media screen and (max-width: ${theme.breakPoints.mobile}) {
+        margin-left: auto;
         width: 50px;
       }
     `}
