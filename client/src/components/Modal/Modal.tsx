@@ -17,7 +17,11 @@ function useAppContext<T>(ctx: Context<T>) {
 const Modal = ({
   width,
   height,
+  minWidth,
+  minHeight,
   position,
+  borderRadius,
+  boxShadow,
   background = true,
   content,
 }: ModalProps) => {
@@ -36,6 +40,10 @@ const Modal = ({
         isMount={isOpen}
         width={width}
         height={height}
+        minWidth={minWidth}
+        minHeight={minHeight}
+        borderRadius={borderRadius}
+        boxShadow={boxShadow}
         position={position}
       >
         {/* <Close onClick={() => setIsOpen(false)}>

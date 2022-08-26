@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 
-import { MenuWrapper, SubMenuLi, SubMenuList, UpperMenu } from './style';
+import { MenuBox, MenuCategoryBox, SubMenuList, SubMenuUList } from './style';
 
 interface SubMenu {
   title: string;
@@ -8,29 +8,33 @@ interface SubMenu {
   className?: string;
 }
 
-interface MenuListProps {
-  upperMenu: string;
+interface BottomMenuBoxProps {
+  menuCategories: string;
   to: string;
   subMenus: SubMenu[];
 }
 
-const MenuList = ({ upperMenu, to, subMenus }: MenuListProps) => {
+const BottomMenuBox = ({
+  menuCategories,
+  to,
+  subMenus,
+}: BottomMenuBoxProps) => {
   return (
-    <MenuWrapper>
-      <UpperMenu>
+    <MenuBox>
+      <MenuCategoryBox>
         <Link to={to}>
-          <h4>{upperMenu}</h4>
+          <h4>{menuCategories}</h4>
         </Link>
-      </UpperMenu>
-      <SubMenuList>
+      </MenuCategoryBox>
+      <SubMenuUList>
         {subMenus.map((link, i) => (
-          <SubMenuLi key={link.title} className={link.className}>
+          <SubMenuList key={link.title} className={link.className}>
             <Link to={link.to}>{link.title}</Link>
-          </SubMenuLi>
+          </SubMenuList>
         ))}
-      </SubMenuList>
-    </MenuWrapper>
+      </SubMenuUList>
+    </MenuBox>
   );
 };
 
-export default MenuList;
+export default BottomMenuBox;

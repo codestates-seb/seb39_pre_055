@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const UpperMenu = styled.div`
+export const MenuCategoryBox = styled.div`
   display: flex;
   flex-flow: column wrap;
   font-weight: bold;
@@ -17,7 +17,7 @@ export const UpperMenu = styled.div`
   }
 `;
 
-export const SubMenuList = styled.ul`
+export const SubMenuUList = styled.ul`
   display: flex;
   flex-flow: column nowrap;
   row-gap: 12px;
@@ -31,7 +31,7 @@ export const SubMenuList = styled.ul`
   `}
 `;
 
-export const SubMenuLi = styled.li`
+export const SubMenuList = styled.li`
   a {
     color: var(--black-400);
 
@@ -59,7 +59,7 @@ export const SubMenuLi = styled.li`
   `}
 `;
 
-export const MenuWrapper = styled.div`
+export const MenuBox = styled.div`
   display: flex;
   flex-flow: column nowrap;
 

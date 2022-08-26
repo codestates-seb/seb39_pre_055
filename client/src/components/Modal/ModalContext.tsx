@@ -11,6 +11,7 @@ import Modal from './Modal';
 import {
   CustomizeContext,
   MainContext,
+  ModalContextProps,
   OpenContext,
   Position,
   Size,
@@ -28,23 +29,21 @@ const modalCommand: MainContext = {
   closeModal: null,
 };
 
-interface ModalContextProps {
-  width: number | string;
-  height: number | string;
-  background: boolean;
-  children: ReactNode;
-}
-
 export const ModalCtx = ({
   width,
   height,
+  minWidth,
+  minHeight,
+  position,
+  borderRadius,
+  boxShadow,
   background = true,
   children,
 }: ModalContextProps) => {
   const [mount, setMount] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
-  const [size, setSize] = useState<Size>({ width, height });
-  const [position, setPosition] = useState<Position>(null);
+  const [modalSize, setModalSize] = useState<Size>({ width, height });
+  const [modalPosition, setModalPosition] = useState<Position>(null);
   const [content, setContent] = useState<ReactNode>(null);
 
   const openModal = useCallback((component: ReactNode) => {
@@ -68,8 +67,8 @@ export const ModalCtx = ({
     return () => clearTimeout(timerId);
   }, [isOpen]);
 
-  customize.setSize = setSize;
-  customize.setPosition = setPosition;
+  customize.setSize = setModalSize;
+  customize.setPosition = setModalPosition;
 
   modalCommand.openModal = openModal;
   modalCommand.closeModal = closeModal;
@@ -80,9 +79,13 @@ export const ModalCtx = ({
         <OpenCtx.Provider value={{ isOpen, setIsOpen }}>
           {mount && (
             <Modal
-              width={size.width}
-              height={size.height}
-              position={position}
+              width={modalSize.width}
+              height={modalSize.height}
+              minWidth={minWidth}
+              minHeight={minHeight}
+              borderRadius={borderRadius}
+              boxShadow={boxShadow}
+              position={modalPosition}
               background={background}
               content={content}
             />

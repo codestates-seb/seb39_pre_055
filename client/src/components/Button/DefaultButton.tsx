@@ -10,8 +10,6 @@ export interface ButtonProps {
 }
 
 const DefaultBtn = styled.button`
-  width: 90px;
-  height: 32px;
   border-radius: 3px;
   border: 0px;
   transition: 0.4s all;
@@ -20,7 +18,14 @@ const DefaultBtn = styled.button`
     transition: 0.4s all;
   }
 
-  ${({ color, mainCode, hoverCode, textColor, width, height }: ButtonProps) =>
+  ${({
+    color,
+    mainCode,
+    hoverCode,
+    textColor,
+    width = 'auto',
+    height = '32px',
+  }: ButtonProps) =>
     color &&
     mainCode &&
     css`

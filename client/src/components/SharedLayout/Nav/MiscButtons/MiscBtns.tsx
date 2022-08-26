@@ -1,22 +1,4 @@
-import styled, { css } from 'styled-components';
-
-import { Theme } from '../../../../types/globalStyle';
-import { RoundButton } from '../../../Button/Templates';
-import { Misc } from './style';
-
-type HidableProps = {
-  isLoggedIn?: boolean;
-} & Theme;
-
-const Hideable = styled(RoundButton)`
-  ${({ theme, isLoggedIn }: HidableProps) => css`
-    display: ${isLoggedIn ? 'none' : ''};
-
-    @media screen and (max-width: ${theme.breakPoints.tablet}) {
-      display: none;
-    }
-  `}
-`;
+import { Hideable, Misc, Products } from './style';
 
 const MiscBtns = () => {
   return (
@@ -25,9 +7,9 @@ const MiscBtns = () => {
       <Hideable color="black" mainCode="025" hoverCode="075">
         About
       </Hideable>
-      <RoundButton color="black" mainCode="025" hoverCode="075">
+      <Products color="black" mainCode="025" hoverCode="075">
         Products
-      </RoundButton>
+      </Products>
       <Hideable color="black" mainCode="025" hoverCode="075">
         For Teams
       </Hideable>

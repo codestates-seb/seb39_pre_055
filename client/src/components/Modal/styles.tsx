@@ -1,14 +1,13 @@
 import styled, { css } from 'styled-components';
 
 import { fadeIn, fadeOut } from './animation';
-import { ModalProps } from './types';
+import { ModalStyle } from './types';
 
-interface BackgroundProps {
+export interface BackgroundProps {
   isMount: boolean;
 }
 
-type ModalMainProps = Pick<BackgroundProps, 'isMount'> &
-  Pick<ModalProps, 'width' | 'height' | 'position'>;
+type ModalMainProps = ModalStyle & BackgroundProps;
 
 export const Background = styled.div`
   position: fixed;
@@ -33,16 +32,27 @@ export const ModalMain = styled.div`
   transform: translate(-50%, -50%);
   background-color: white;
   box-shadow: 1px 1px 5px rgb(206, 206, 206);
-  border-radius: 10px;
-  padding: 20px;
   box-sizing: border-box;
   z-index: 100;
   overflow: hidden;
 
-  ${({ width, height, isMount, position }: ModalMainProps) => css`
+  ${({
+    width,
+    height,
+    minWidth,
+    minHeight,
+    isMount,
+    position,
+    borderRadius = '10px',
+    boxShadow,
+  }: ModalMainProps) => css`
     width: ${width};
     height: ${height};
+    min-width: ${minWidth};
+    min-height: ${minHeight};
     animation: ${isMount ? fadeIn : fadeOut} 0.3s ease-out;
+    border-radius: ${borderRadius};
+    box-shadow: ${boxShadow};
 
     ${position &&
     css`
