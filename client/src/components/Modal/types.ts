@@ -6,15 +6,15 @@ export interface OpenContext {
 }
 
 export type Position = {
-  x: number | string;
-  y: number | string;
+  x: string;
+  y: string;
 } | null;
 
-export type PositionParam = Position | number;
-
 export interface Size {
-  width: number | string;
-  height: number | string;
+  width: string;
+  height: string;
+  minWidth?: string;
+  minHeight?: string;
 }
 
 export type SizeParam = Size | number;
@@ -29,10 +29,22 @@ export interface MainContext {
   closeModal: null | (() => void);
 }
 
-export interface ModalProps {
-  width: string | number;
-  height: string | number;
-  position: Position | null;
+export interface ModalStyle {
+  width: string;
+  height: string;
+  minWidth?: string;
+  minHeight?: string;
+  position?: Position;
+  borderRadius?: string;
+  boxShadow?: string;
+}
+
+export interface ModalProps extends ModalStyle {
   background: boolean;
   content: ReactNode;
 }
+
+export type ModalContextProps = Exclude<ModalStyle, 'position'> & {
+  background: boolean;
+  children: ReactNode;
+};
