@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
 export const MiniMenuAside = styled.aside`
-  padding-left: 20px;
+  padding-top: 10px;
 `;
 
-export const TeamAd = styled.div`
+export const TeamAdBox = styled.div`
   display: flex;
   flex-flow: column wrap;
   justify-content: stretch;
@@ -14,6 +14,7 @@ export const TeamAd = styled.div`
   height: 200px;
   margin-top: 15px;
   margin-left: 10px;
+  padding-left: 10px;
 
   strong {
     font-weight: bold;
