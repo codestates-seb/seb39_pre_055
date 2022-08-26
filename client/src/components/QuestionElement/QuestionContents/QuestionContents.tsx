@@ -4,16 +4,16 @@ interface Prop {
   contents: string;
 }
 
-const Wrapper = styled.span`
-  margin: 2px;
-  padding: 4.8px 6px;
-  border: none;
-  color: #39739d;
-  border: 1px solid var(--black-500);
+const Container = styled.span`
+  display: flex;
+  flex-direction: column;
+  font-size: 12px;
+  margin-top: 5px;
+  padding-right: 23px;
 `;
 
 const QuestionContents = ({ contents }: Prop) => {
-  return <Wrapper>{contents}</Wrapper>;
+  return <Container>{contents}</Container>;
 };
 
 export default QuestionContents;
