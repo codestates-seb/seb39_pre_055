@@ -1,6 +1,6 @@
 import '../../../assets/style/GlobalVariables.ts';
 
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 import { ReactComponent as Sprites } from '../../../assets/img/sprites.svg';
 
@@ -23,6 +23,7 @@ export const SHeader = styled.header`
     width: 100%;
     height: 3px;
     background-color: var(--orange-400);
+    z-index: 2;
   }
 `;
 
@@ -35,15 +36,40 @@ export const SNav = styled.nav`
   height: 50px;
 `;
 
-export const LogoWrapper = styled.div`
+export const LogoBox = styled.div`
+  position: relative;
   margin-left: 15px;
   margin-top: 3px;
   width: 150px;
   height: 40px;
+  overflow: hidden;
+
+  a {
+    display: block;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+  }
+
+  ${({ theme }) =>
+    css`
+      @media screen and (max-width: ${theme.breakPoints.mobile}) {
+        width: 35px;
+        margin-left: 0px;
+      }
+    `}
 `;
 
-export const MainLogo = styled(Sprites)`
+export const MainLogoSVG = styled(Sprites)`
   position: relative;
   left: 1%;
-  top: -1244%; // TODO: 더 좋은 방법?
+  top: -1242%; // TODO: 더 좋은 방법?
+
+  ${({ theme }) =>
+    css`
+      @media screen and (max-width: ${theme.breakPoints.mobile}) {
+        left: 18%;
+      }
+    `}
 `;

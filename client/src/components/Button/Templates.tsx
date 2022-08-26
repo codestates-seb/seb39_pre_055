@@ -1,34 +1,44 @@
 import { ReactNode } from 'react';
 import styled from 'styled-components';
 
-import DefaultBtn from './DefaultButton';
+import DefaultBtn, { ButtonProps } from './DefaultButton';
 
-interface TemplateButtonProps {
+type TemplateButtonProps = Pick<ButtonProps, 'width' | 'height'> & {
   children: ReactNode;
-}
+};
 
-export const BlueButton = ({ children }: TemplateButtonProps) => {
+export const BlueButton = ({
+  width,
+  height,
+  children,
+}: TemplateButtonProps) => {
   return (
     <DefaultBtn
       color="blue"
       mainCode="400"
       hoverCode="600"
       textColor="white"
-      width="60px"
+      width={width}
+      height={height}
     >
       {children}
     </DefaultBtn>
   );
 };
 
-export const PowderButton = ({ children }: TemplateButtonProps) => {
+export const PowderButton = ({
+  width,
+  height,
+  children,
+}: TemplateButtonProps) => {
   return (
     <DefaultBtn
       color="powder"
       mainCode="200"
       hoverCode="400"
       textColor="var(--powder-700)"
-      width="60px"
+      width={width}
+      height={height}
     >
       {children}
     </DefaultBtn>
