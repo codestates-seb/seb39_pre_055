@@ -4,7 +4,7 @@ import 'prismjs/themes/prism.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
-import { useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { Tag, Triangle, UserInfoCard } from '../index';
@@ -21,12 +21,25 @@ const Content = ({ type, body, tags }: Prop) => {
   const [vote, setVote] = useState(0);
   const navigate = useNavigate();
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  const defaultVote = useMemo(() => vote, []);
+
+  const increaseVote = useCallback(() => {
+    if (vote > defaultVote) return;
+    setVote((prev) => prev + 1);
+  }, [vote, defaultVote]);
+
+  const decreaseVote = useCallback(() => {
+    if (vote < defaultVote) return;
+    setVote((prev) => prev - 1);
+  }, [vote, defaultVote]);
+
   return (
     <MainContents>
       <Votes>
-        <Triangle onClick={() => setVote((prev) => prev + 1)} />
+        <Triangle onClick={increaseVote} />
         <span>{vote}</span>
-        <Triangle rotate="180deg" onClick={() => setVote((prev) => prev - 1)} />
+        <Triangle rotate="180deg" onClick={decreaseVote} />
       </Votes>
       <TextArea>
         <Viewer
