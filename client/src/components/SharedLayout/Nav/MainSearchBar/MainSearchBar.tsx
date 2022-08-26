@@ -8,6 +8,7 @@ import SearchHints from './SearchHints';
 const MainSearchBox = styled.div`
   padding-left: 10px;
   padding-right: 10px;
+  flex: 1 1 300px;
 `;
 
 const MainSearchBar = () => {
