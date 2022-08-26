@@ -3,10 +3,11 @@ package be.user.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.Id;
+
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import javax.persistence.Id;
 
 @NoArgsConstructor
 @Getter
@@ -16,9 +17,8 @@ import java.time.LocalDateTime;
 public class User {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY) // 기본 키 생성을 데이터베이스에 위임. id 값을 null로 하면 DB가 알아서 AUTO_INCREMENT.
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    // private int userId;
 
     @Column(nullable = false)
     private LocalDateTime createdAt = LocalDateTime.now();
