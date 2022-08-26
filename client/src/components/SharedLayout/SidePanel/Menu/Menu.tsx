@@ -1,42 +1,58 @@
 import '../../../../assets/style/GlobalVariables.ts';
 
-import { RiEarthLine } from 'react-icons/ri';
 import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
-import { CutstomLink, IndentedLi, Li, MenuList, StMenu } from './style';
+import {
+  CustomLinkA,
+  EarthSVG,
+  IndentedList,
+  Li,
+  MenuBox,
+  MenuCategorySpan,
+  MenuNameSpan,
+  MenuUList,
+} from './style';
 
 const Menu = () => {
   const { pathname: currentPath } = useLocation();
 
   return (
-    <StMenu>
+    <MenuBox>
       <ThemeProvider theme={{ currentPath }}>
-        <CutstomLink to="/">Home</CutstomLink>
-        <MenuList>
+        <CustomLinkA to="/">
+          <MenuNameSpan>Home</MenuNameSpan>
+        </CustomLinkA>
+        <MenuUList>
           <Li>
-            <span>PUBLIC</span>
+            <MenuCategorySpan>PUBLIC</MenuCategorySpan>
             <ul>
               <li>
-                <CutstomLink to="/questions">
-                  <RiEarthLine />
+                <CustomLinkA to="/questions">
+                  <EarthSVG />
                   Questions
-                </CutstomLink>
+                </CustomLinkA>
               </li>
-              <IndentedLi>
-                <CutstomLink to="/questions/tags">Tags</CutstomLink>
-              </IndentedLi>
-              <IndentedLi>
-                <CutstomLink to="/questions/users">Users</CutstomLink>
-              </IndentedLi>
-              <IndentedLi>
-                <CutstomLink to="/">Companies</CutstomLink>
-              </IndentedLi>
+              <IndentedList>
+                <CustomLinkA to="/questions/tags">
+                  <MenuNameSpan>Tags</MenuNameSpan>
+                </CustomLinkA>
+              </IndentedList>
+              <IndentedList>
+                <CustomLinkA to="/questions/users">
+                  <MenuNameSpan>Users</MenuNameSpan>
+                </CustomLinkA>
+              </IndentedList>
+              <IndentedList>
+                <CustomLinkA to="/">
+                  <MenuNameSpan>Companies</MenuNameSpan>
+                </CustomLinkA>
+              </IndentedList>
             </ul>
           </Li>
-        </MenuList>
+        </MenuUList>
       </ThemeProvider>
-    </StMenu>
+    </MenuBox>
   );
 };
 

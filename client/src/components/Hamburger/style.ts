@@ -1,6 +1,6 @@
 import styled, { css } from 'styled-components';
 
-export const SHamWrapper = styled.div`
+export const HamburgerBox = styled.div`
   display: none;
   padding-top: 2px;
 
@@ -16,7 +16,7 @@ export const SHamWrapper = styled.div`
     `}
 `;
 
-export const PattyWrapper = styled.button`
+export const PattyBox = styled.button`
   position: relative;
   width: 25px;
   height: 18px;

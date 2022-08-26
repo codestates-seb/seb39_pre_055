@@ -36,7 +36,7 @@ export const SNav = styled.nav`
   height: 50px;
 `;
 
-export const LogoWrapper = styled.div`
+export const LogoBox = styled.div`
   position: relative;
   margin-left: 15px;
   margin-top: 3px;
@@ -61,7 +61,7 @@ export const LogoWrapper = styled.div`
     `}
 `;
 
-export const MainLogo = styled(Sprites)`
+export const MainLogoSVG = styled(Sprites)`
   position: relative;
   left: 1%;
   top: -1242%; // TODO: 더 좋은 방법?

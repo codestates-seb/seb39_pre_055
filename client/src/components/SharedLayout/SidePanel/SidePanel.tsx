@@ -1,11 +1,11 @@
 import Menu from './Menu/Menu';
-import { Aside } from './style';
+import { MenuAside } from './style';
 
 const SidePanel = () => {
   return (
-    <Aside>
+    <MenuAside>
       <Menu />
-    </Aside>
+    </MenuAside>
   );
 };
 

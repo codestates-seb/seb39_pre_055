@@ -1,5 +1,5 @@
 const stackOverflow = {
-  upperMenu: 'STACK OVERFLOW',
+  menuCategory: 'STACK OVERFLOW',
   to: '/',
   subMenus: [
     {
@@ -14,7 +14,7 @@ const stackOverflow = {
 };
 
 const products = {
-  upperMenu: 'PRODUCTS',
+  menuCategory: 'PRODUCTS',
   to: '/',
   subMenus: [
     {
@@ -37,7 +37,7 @@ const products = {
 };
 
 const company = {
-  upperMenu: 'COMPANY',
+  menuCategory: 'COMPANY',
   to: '/',
   subMenus: [
     {
@@ -80,7 +80,7 @@ const company = {
 };
 
 const stackExchangeNetwork = {
-  upperMenu: 'STACK EXCHANGE NETWORK',
+  menuCategory: 'STACK EXCHANGE NETWORK',
   to: '/',
   subMenus: [
     {

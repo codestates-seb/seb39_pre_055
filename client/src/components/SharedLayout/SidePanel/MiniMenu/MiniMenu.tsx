@@ -1,16 +1,20 @@
-import { ReactComponent as Promo } from '../../../../assets/img/sidebar-promo.svg';
+import { ReactComponent as PromoSVG } from '../../../../assets/img/sidebar-promo.svg';
 import Menu from '../Menu/Menu';
-import { MiniMenuAside, TeamAd } from './style';
+import { MiniMenuAside, TeamAdBox } from './style';
 
-const MiniMenu = () => {
+interface MiniMenuProps {
+  closeMenu: () => void;
+}
+
+const MiniMenu = ({ closeMenu }: MiniMenuProps) => {
   return (
-    <MiniMenuAside>
+    <MiniMenuAside onClick={closeMenu}>
       <Menu />
-      <TeamAd>
+      <TeamAdBox>
         <strong>Stack Overflow for Teams</strong>– Start collaborating and
         sharing organizational knowledge.
-        <Promo />
-      </TeamAd>
+        <PromoSVG />
+      </TeamAdBox>
     </MiniMenuAside>
   );
 };

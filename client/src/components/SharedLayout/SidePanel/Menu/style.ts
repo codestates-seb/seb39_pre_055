@@ -1,13 +1,14 @@
+import { RiEarthLine } from 'react-icons/ri';
 import { Link } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
-export const StMenu = styled.div`
+export const MenuBox = styled.div`
   position: sticky;
   display: flex;
   flex-flow: column nowrap;
 `;
 
-export const MenuList = styled.ul`
+export const MenuUList = styled.ul`
   display: flex;
   flex-flow: column wrap;
   overflow-x: hidden;
@@ -16,12 +17,6 @@ export const MenuList = styled.ul`
 
 export const Li = styled.li`
   padding-top: 10px;
-
-  span {
-    display: inline-block;
-    font-size: 0.7rem;
-    margin: 10px 0px;
-  }
 `;
 
 interface Path {
@@ -33,14 +28,20 @@ interface LinkProps {
   theme: Path;
 }
 
-export const CutstomLink = styled(Link)`
+export const EarthSVG = styled(RiEarthLine)`
+  margin: 5px;
+`;
+
+export const CustomLinkA = styled(Link)`
   display: flex;
   position: relative;
   align-items: center;
+  justify-content: stretch;
   width: 100%;
   height: 40px;
   text-decoration: none;
   font-size: 0.9rem;
+  padding-left: 10px;
   transition: 0.4s all;
 
   &:link,
@@ -48,18 +49,10 @@ export const CutstomLink = styled(Link)`
     color: var(--black-500);
   }
 
-  & > svg {
-    margin: 5px;
-  }
-
   &:hover {
     background-color: var(--black-050);
     color: var(--black-900);
     transition: 0.4s all;
-  }
-
-  &:nth-child(n + 3) {
-    padding-left: 25px;
   }
 
   ${({ to, theme }: LinkProps) =>
@@ -79,8 +72,24 @@ export const CutstomLink = styled(Link)`
     `}
 `;
 
-export const IndentedLi = styled.li`
+export const IndentedList = styled.li`
   a {
-    padding-left: 25px;
+    padding-left: 35px;
   }
+`;
+
+export const MenuCategorySpan = styled.span`
+  display: inline-block;
+  font-size: 0.7rem;
+  margin: 10px 0px;
+  padding-left: 10px;
+`;
+
+export const MenuNameSpan = styled.span`
+  flex: 1 1 100%;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.9rem;
 `;

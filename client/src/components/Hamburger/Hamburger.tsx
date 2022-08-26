@@ -1,42 +1,47 @@
 import { Dispatch, SetStateAction, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { Modal, useModal } from '../Modal';
 import MiniMenu from '../SharedLayout/SidePanel/MiniMenu/MiniMenu';
-import { Patty, PattyWrapper, SHamWrapper } from './style';
+import { HamburgerBox, Patty, PattyBox } from './style';
 
-interface HamWrapperProps {
+interface HamContainerProps {
   clicked: boolean;
   setClicked: Dispatch<SetStateAction<boolean>>;
 }
 
-const HamWrapper = ({ clicked, setClicked }: HamWrapperProps) => {
-  const { openModal, closeModal } = useModal(
-    { width: '200px', height: '500px' },
-    { x: '0px', y: '51px' }
-  );
+const HamContainer = ({ clicked, setClicked }: HamContainerProps) => {
+  const { openModal, closeModal } = useModal({
+    width: '200px',
+    height: '500px',
+    position: { x: '0px', y: '51px' },
+  });
+  const { pathname } = useLocation();
 
+  const closeMenu = () => {
+    console.log('닫음');
+    console.log(pathname);
+    setClicked(false);
+    /* setTimeout(closeModal, 2000); */
+  };
   const toggleMenu = () => {
     setClicked((prev) => !prev);
     if (!clicked) {
-      openModal(<MiniMenu />);
+      openModal(<MiniMenu closeMenu={closeMenu} />);
     } else {
       closeModal();
     }
   };
-  const closeMenu = () => {
-    setClicked(false);
-    closeModal();
-  };
 
   return (
-    <SHamWrapper onClick={toggleMenu} onBlur={closeMenu}>
-      <PattyWrapper>
+    <HamburgerBox onClick={toggleMenu} onBlur={closeMenu}>
+      <PattyBox>
         <Patty />
         <Patty />
         <Patty />
-      </PattyWrapper>
-    </SHamWrapper>
+      </PattyBox>
+    </HamburgerBox>
   );
 };
 
@@ -44,9 +49,9 @@ const Hamburger = () => {
   const [clicked, setClicked] = useState(false);
 
   return (
-    <Modal width="150px" height="150px" background={false} borderRadius="3px">
+    <Modal width="200px" height="500px" background={false} borderRadius="3px">
       <ThemeProvider theme={{ clicked }}>
-        <HamWrapper clicked={clicked} setClicked={setClicked} />
+        <HamContainer clicked={clicked} setClicked={setClicked} />
       </ThemeProvider>
     </Modal>
   );
