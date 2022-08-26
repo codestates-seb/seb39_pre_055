@@ -67,6 +67,12 @@ export const AnswerHeader = styled.header`
     margin-left: 3px;
     color: #0c0e0d;
     font-size: 13px;
+    border-radius: 3px;
+
+    &:focus {
+      border-color: var(--blue-300);
+      outline: var(--blue-100) solid 4px;
+    }
   }
 `;
 

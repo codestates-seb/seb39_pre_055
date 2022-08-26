@@ -31,6 +31,7 @@ const AnswerEditor = () => {
 
   const handleEditorChange = useCallback(() => {
     if (editorRef.current) {
+      console.log(editorRef.current?.getInstance().getMarkdown());
       setValue(editorRef.current?.getInstance().getMarkdown());
     }
   }, []);

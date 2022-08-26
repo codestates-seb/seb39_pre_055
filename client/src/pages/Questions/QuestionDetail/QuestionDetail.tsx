@@ -1,12 +1,20 @@
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
+import { useEffect } from 'react';
+
 import { AnswerEditor, Content, QuestionInfo } from '../../../components';
 import { useAppSelector } from '../../../redux';
 import { AnswerHeader, Button, Container, Header, SubHeader } from './style';
 
 const QuestionDetail = () => {
   const { question, answerList } = useAppSelector((state) => state.question);
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1);
+  }, []);
 
   return (
     <Container>
