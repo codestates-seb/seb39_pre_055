@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 import { Hamburger } from '../..';
@@ -6,8 +7,11 @@ import MainAuth from './MainAuthButtons/MainAuthButtons';
 import SearchBarBox from './MainSearchBar/MainSearchBar';
 import MiscBtns from './MiscButtons/MiscBtns';
 import { LogoBox, MainLogoSVG, SHeader, SNav } from './style';
+import UserMenus from './UserToolbar/UserToolbar';
 
 const Nav = () => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
+
   return (
     <SHeader>
       <SNav>
@@ -19,7 +23,7 @@ const Nav = () => {
         <MiscBtns />
         <SearchBarBox />
         <MiniSearchBar />
-        <MainAuth />
+        {isLoggedIn ? <UserMenus /> : <MainAuth />}
       </SNav>
     </SHeader>
   );

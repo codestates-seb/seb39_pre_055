@@ -34,6 +34,7 @@ export const SNav = styled.nav`
   width: 100%;
   max-width: 1400px;
   height: 50px;
+  padding-top: 3px;
 `;
 
 export const LogoBox = styled.div`
@@ -64,7 +65,7 @@ export const LogoBox = styled.div`
 export const MainLogoSVG = styled(Sprites)`
   position: relative;
   left: 1%;
-  top: -1242%; // TODO: 더 좋은 방법?
+  top: -1246%; // TODO: 더 좋은 방법?
 
   ${({ theme }) =>
     css`
