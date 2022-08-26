@@ -3,9 +3,14 @@
 
 import { useEffect } from 'react';
 
-import { AnswerEditor, Content, QuestionInfo } from '../../../components';
+import {
+  AnswerEditor,
+  BlueButton,
+  Content,
+  QuestionInfo,
+} from '../../../components';
 import { useAppSelector } from '../../../redux';
-import { AnswerHeader, Button, Container, Header, SubHeader } from './style';
+import { AnswerHeader, Container, Header, SubHeader } from './style';
 
 const QuestionDetail = () => {
   const { answerList, questionList } = useAppSelector(
@@ -23,7 +28,9 @@ const QuestionDetail = () => {
       {/* question */}
       <Header>
         <h1>{questionList[0].title}</h1>
-        <Button>Ask Question</Button>
+        <BlueButton width="100px" height="35px">
+          Ask Questions
+        </BlueButton>
       </Header>
       <SubHeader>
         <QuestionInfo option="Asked" value="today" />

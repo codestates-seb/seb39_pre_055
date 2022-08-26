@@ -10,17 +10,12 @@ import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
 import { addAnswer, useAppDispatch } from '../../redux';
+import { BlueButton } from '../Button/Templates';
 
-const PostButton = styled.button`
-  height: 35px;
-  width: 130px;
-  margin-top: 10px;
-  padding: 10px;
-  font-size: 13px;
-  color: white;
-  background-color: #0a95ff;
-  border: none;
-  border-radius: 3px;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
 `;
 
 const AnswerEditor = () => {
@@ -31,13 +26,12 @@ const AnswerEditor = () => {
 
   const handleEditorChange = useCallback(() => {
     if (editorRef.current) {
-      console.log(editorRef.current?.getInstance().getMarkdown());
       setValue(editorRef.current?.getInstance().getMarkdown());
     }
   }, []);
 
   return (
-    <div>
+    <Container>
       <Editor
         initialValue={value}
         useCommandShortcut={true}
@@ -52,10 +46,10 @@ const AnswerEditor = () => {
         ref={editorRef}
         onChange={handleEditorChange}
       />
-      <PostButton type="button" onClick={() => dispatch(addAnswer(value))}>
+      <BlueButton width="140px" height="35px">
         Post Your Answer
-      </PostButton>
-    </div>
+      </BlueButton>
+    </Container>
   );
 };
 

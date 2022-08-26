@@ -38,11 +38,4 @@ export const Utils = styled.section`
   justify-content: space-between;
   height: 70px;
   margin: 16px 0;
-
-  button {
-    border: none;
-    background-color: inherit;
-    color: rgb(106, 115, 124);
-    font-size: 13px;
-  }
 `;

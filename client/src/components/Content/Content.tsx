@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable no-alert */
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import 'prismjs/themes/prism.css';
 
@@ -7,7 +9,7 @@ import Prism from 'prismjs';
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { Tag, Triangle, UserInfoCard } from '../index';
+import { Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
 const url = 'https://graph.facebook.com/1616279655126812/picture?type=large';
@@ -19,9 +21,9 @@ interface Prop {
 
 const Content = ({ type, body, tags }: Prop) => {
   const [vote, setVote] = useState(0);
+  const [isFollowing, setIsFollowing] = useState(false);
   const navigate = useNavigate();
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const defaultVote = useMemo(() => vote, []);
 
   const increaseVote = useCallback(() => {
@@ -33,6 +35,14 @@ const Content = ({ type, body, tags }: Prop) => {
     if (vote < defaultVote) return;
     setVote((prev) => prev - 1);
   }, [vote, defaultVote]);
+
+  const handleDelete = () => {
+    if (window.confirm('Delete this page?')) {
+      console.log('삭제');
+    } else {
+      console.log('취소');
+    }
+  };
 
   return (
     <MainContents>
@@ -53,11 +63,13 @@ const Content = ({ type, body, tags }: Prop) => {
         )}
         <Utils>
           <div>
-            <button type="button">Share</button>
-            <button type="button" onClick={() => navigate('/questions/1')}>
-              Edit
-            </button>
-            <button type="button">Follow</button>
+            <TextButton name="Share" />
+            <TextButton name="Edit" onClick={() => navigate('/questions/1')} />
+            <TextButton name="Delete" onClick={handleDelete} />
+            <TextButton
+              name={isFollowing ? 'Follow' : 'Following'}
+              onClick={() => setIsFollowing((prev) => !prev)}
+            />
           </div>
           <UserInfoCard
             date="asked 2 mins ago"
