@@ -103,3 +103,22 @@ Output:
 
 // - 리스트1
 // - 리스트2
+
+export const questionList = [
+  {
+    id: 1,
+    title: 'Stop an array while finding string',
+    body: question,
+    tags: ['javascript', 'arrays', 'string'],
+    answerList: [
+      {
+        id: 2,
+        body: answer1,
+      },
+      {
+        id: 3,
+        body: answer2,
+      },
+    ],
+  },
+];

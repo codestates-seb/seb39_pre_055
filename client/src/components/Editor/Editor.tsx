@@ -39,8 +39,6 @@ const AnswerEditor = () => {
   return (
     <div>
       <Editor
-        previewStyle="vertical"
-        height="300px"
         initialValue={value}
         useCommandShortcut={true}
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]} // 코드블럭 하이라이트

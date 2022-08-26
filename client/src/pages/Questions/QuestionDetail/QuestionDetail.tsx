@@ -8,7 +8,9 @@ import { useAppSelector } from '../../../redux';
 import { AnswerHeader, Button, Container, Header, SubHeader } from './style';
 
 const QuestionDetail = () => {
-  const { question, answerList } = useAppSelector((state) => state.question);
+  const { answerList, questionList } = useAppSelector(
+    (state) => state.question
+  );
 
   useEffect(() => {
     setTimeout(() => {
@@ -20,7 +22,7 @@ const QuestionDetail = () => {
     <Container>
       {/* question */}
       <Header>
-        <h1>Stop an array while finding string</h1>
+        <h1>{questionList[0].title}</h1>
         <Button>Ask Question</Button>
       </Header>
       <SubHeader>
@@ -28,7 +30,11 @@ const QuestionDetail = () => {
         <QuestionInfo option="Modified" value="today" />
         <QuestionInfo option="Viewed" value="5 times" />
       </SubHeader>
-      <Content type="question" body={question} />
+      <Content
+        type="question"
+        body={questionList[0].body}
+        tags={questionList[0].tags}
+      />
       {/* answer */}
       <AnswerHeader>
         <h2>2 Answers</h2>

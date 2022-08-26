@@ -11,6 +11,7 @@ const Wrapper = styled.button`
   color: #39739d;
   background-color: #e1ecf4;
   border-radius: 3px;
+  font-size: 12px;
 `;
 
 const Tag = ({ name }: Prop) => {
