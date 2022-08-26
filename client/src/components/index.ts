@@ -1,5 +1,6 @@
 export { default as DefaultBtn } from './Button/DefaultButton';
 export { BlueButton, PowderButton } from './Button/Templates';
+export { default as TextButton } from './Button/TextButton';
 export { default as Content } from './Content/Content';
 export { default as AnswerEditor } from './Editor/Editor';
 export { default as Hamburger } from './Hamburger/Hamburger';
