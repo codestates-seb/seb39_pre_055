@@ -1,86 +1,41 @@
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import styled from 'styled-components';
+
+import { useEffect } from 'react';
 
 import { AnswerEditor, Content, QuestionInfo } from '../../../components';
-import { answer1, answer2, question } from '../../../utils';
-
-const Container = styled.div`
-  padding: 24px;
-`;
-
-const Header = styled.header`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-
-  h1 {
-    font-size: 27px;
-    color: var(--black-700);
-  }
-`;
-
-const SubHeader = styled.section`
-  display: flex;
-  padding-bottom: 8px;
-  margin-bottom: 16px;
-  border-bottom: 1px solid var(--black-100);
-
-  div {
-    margin-bottom: 8px;
-    margin-right: 16px;
-    font-size: 13px;
-  }
-
-  span {
-    margin-right: 2px;
-    color: var(--black-500);
-  }
-
-  strong {
-    color: var(--black-800);
-  }
-`;
-
-const AnswerHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
-  padding: 20px 0;
-  color: #232629;
-
-  h2 {
-    display: flex;
-    align-items: center;
-    font-size: 24px;
-    font-weight: 500;
-  }
-
-  label {
-    font-size: 12px;
-  }
-
-  select {
-    width: 260px;
-    padding: 6px 32px 6px 9px;
-    margin-left: 3px;
-    color: #0c0e0d;
-    font-size: 13px;
-  }
-`;
+import { useAppSelector } from '../../../redux';
+import { AnswerHeader, Button, Container, Header, SubHeader } from './style';
 
 const QuestionDetail = () => {
+  const { answerList, questionList } = useAppSelector(
+    (state) => state.question
+  );
+
+  useEffect(() => {
+    setTimeout(() => {
+      window.scrollTo(0, 0);
+    }, 1);
+  }, []);
+
   return (
     <Container>
+      {/* question */}
       <Header>
-        <h1>Stop an array while finding string</h1>
-        <button type="button">Ask Question</button>
+        <h1>{questionList[0].title}</h1>
+        <Button>Ask Question</Button>
       </Header>
       <SubHeader>
         <QuestionInfo option="Asked" value="today" />
         <QuestionInfo option="Modified" value="today" />
         <QuestionInfo option="Viewed" value="5 times" />
       </SubHeader>
-      <Content type="question" body={question} />
+      <Content
+        type="question"
+        body={questionList[0].body}
+        tags={questionList[0].tags}
+      />
+      {/* answer */}
       <AnswerHeader>
         <h2>2 Answers</h2>
         <div>
@@ -92,8 +47,11 @@ const QuestionDetail = () => {
           </select>
         </div>
       </AnswerHeader>
-      <Content type="answer" body={answer1} />
-      <Content type="answer" body={answer2} />
+      {answerList.map((answer) => (
+        <Content key={answer} type="answer" body={answer} />
+      ))}
+      {/* editor */}
+      <h3>Your Answer</h3>
       <AnswerEditor />
     </Container>
   );
