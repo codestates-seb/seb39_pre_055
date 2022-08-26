@@ -5,12 +5,12 @@ interface Prop {
 }
 
 const Wrapper = styled.span`
-  margin: 2px;
-  padding: 4.8px 6px;
-  border: none;
-  color: #39739d;
-  background-color: #e1ecf4;
-  border-radius: 3px;
+  margin-top: 15px;
+  font-size: 14px;
+
+  a {
+    color: var(--blue-600);
+  }
 `;
 
 const QuestionTitle = ({ title }: Prop) => {
