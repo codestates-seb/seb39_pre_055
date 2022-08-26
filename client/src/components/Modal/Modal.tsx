@@ -27,7 +27,7 @@ const Modal = ({
 }: ModalProps) => {
   const { isOpen, setIsOpen } = useAppContext(OpenCtx) || {}; // TODO: useAppContext 사용하기
 
-  if (!isOpen || !setIsOpen) {
+  if (isOpen === undefined || !setIsOpen) {
     throw new Error('useAppContext must be within Context Provider');
   }
 

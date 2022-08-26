@@ -52,7 +52,6 @@ export const ModalCtx = ({
     setContent(component);
   }, []);
   const closeModal = useCallback(() => {
-    setMount(false);
     setIsOpen(false);
   }, []);
 
@@ -62,7 +61,7 @@ export const ModalCtx = ({
     if (!isOpen) {
       timerId = setTimeout(() => setMount(false), 350);
     }
-    document.body.style.overflowY = isOpen ? 'hidden' : 'auto';
+    // document.body.style.overflowY = isOpen ? 'hidden' : 'auto';
 
     return () => clearTimeout(timerId);
   }, [isOpen]);

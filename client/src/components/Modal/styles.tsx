@@ -42,7 +42,7 @@ export const ModalMain = styled.div`
     minWidth,
     minHeight,
     isMount,
-    position,
+    position = { x: '50%', y: '50%' },
     borderRadius = '10px',
     boxShadow,
   }: ModalMainProps) => css`
