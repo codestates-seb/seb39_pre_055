@@ -1,7 +1,10 @@
 /* eslint-disable react/jsx-boolean-value */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
+import 'react-toastify/dist/ReactToastify.css';
+
 import { useEffect } from 'react';
+import { ToastContainer } from 'react-toastify';
 
 import {
   AnswerEditor,

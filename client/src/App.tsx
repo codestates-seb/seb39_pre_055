@@ -1,4 +1,5 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
 import { SharedLayout } from './components';
 import {
@@ -22,6 +23,7 @@ const App = () => {
           <Route path="/questions/company" element={<EditQuestion />} />
         </Route>
       </Routes>
+      <ToastContainer position="top-center" pauseOnFocusLoss theme="colored" />
     </BrowserRouter>
   );
 };

@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
+import { toast, ToastContainer } from 'react-toastify';
 
 import { Container, FaceBook, LinkContainer, Twitter } from './style';
 
@@ -10,6 +11,12 @@ interface Prop {
 const AnchorCard = ({ type }: Prop) => {
   const ref = useRef<HTMLInputElement>(null);
   const currentUrl = window.location.href;
+  const handleCopyClick = () => {
+    navigator.clipboard.writeText(currentUrl);
+    toast.success('Link copied to clipboard.', {
+      theme: 'colored',
+    });
+  };
 
   useEffect(() => {
     ref.current?.focus();
@@ -26,10 +33,7 @@ const AnchorCard = ({ type }: Prop) => {
         readOnly
       />
       <LinkContainer id="link-container">
-        <button
-          type="button"
-          onClick={() => navigator.clipboard.writeText(currentUrl)}
-        >
+        <button type="button" onClick={handleCopyClick}>
           Copy link
         </button>
         <div>

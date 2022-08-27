@@ -6,7 +6,7 @@ import 'prismjs/themes/prism.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
-import { useState } from 'react';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { useConfirm, useToggle, useVoted } from '../../hooks';
@@ -31,7 +31,7 @@ const Content = ({ type, body, tags }: Prop) => {
     () => console.log('Aborted')
   );
 
-  const closeShareModal = (e: React.MouseEvent) => {
+  const closeShareModal = useCallback((e: React.MouseEvent) => {
     const { tagName, parentElement } = e.target as HTMLElement;
     if (
       parentElement?.id !== 'share-modal' &&
@@ -41,12 +41,12 @@ const Content = ({ type, body, tags }: Prop) => {
     ) {
       setShareModal(false);
     }
-  };
+  }, []);
 
-  const toggleShareModal = (e: React.MouseEvent) => {
+  const toggleShareModal = useCallback((e: React.MouseEvent) => {
     e.stopPropagation();
     setShareModal((prev) => !prev);
-  };
+  }, []);
 
   return (
     <MainContents onClick={closeShareModal}>
