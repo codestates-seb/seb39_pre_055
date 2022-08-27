@@ -11,7 +11,7 @@ import { useNavigate } from 'react-router-dom';
 
 import useConfirm from '../../hooks/useConfirm';
 import { useVoted } from '../../hooks/useVoted';
-import { Tag, TextButton, Triangle, UserInfoCard } from '../index';
+import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
 const url = 'https://graph.facebook.com/1616279655126812/picture?type=large';
@@ -30,6 +30,8 @@ const Content = ({ type, body, tags }: Prop) => {
     () => console.log('Deleting the world...'),
     () => console.log('Aborted')
   );
+
+  const [toggle, setToggle] = useState(false);
 
   return (
     <MainContents>
@@ -50,7 +52,10 @@ const Content = ({ type, body, tags }: Prop) => {
         )}
         <Utils>
           <div>
-            <TextButton name="Share" />
+            <TextButton
+              name="Share"
+              onClick={() => setToggle((prev) => !prev)}
+            />
             <TextButton name="Edit" onClick={() => navigate('/questions/1')} />
             {/* 작성한 유저일 경우에만 Delete 버튼 render 되도록 수정 */}
             <TextButton name="Delete" onClick={confirmDelete} />
@@ -59,6 +64,7 @@ const Content = ({ type, body, tags }: Prop) => {
               onClick={() => setIsFollowing((prev) => !prev)}
             />
           </div>
+          {toggle && <AnchorCard />}
           <UserInfoCard
             date="asked 2 mins ago"
             img={url}

@@ -1,3 +1,4 @@
+export { default as AnchorCard } from './AnchorCard/AnchorCard';
 export { default as DefaultBtn } from './Button/DefaultButton';
 export { BlueButton, PowderButton } from './Button/Templates';
 export { default as TextButton } from './Button/TextButton';

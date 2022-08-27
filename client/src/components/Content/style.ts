@@ -34,6 +34,7 @@ export const Tags = styled.section`
 `;
 
 export const Utils = styled.section`
+  position: relative;
   display: flex;
   justify-content: space-between;
   height: 70px;
