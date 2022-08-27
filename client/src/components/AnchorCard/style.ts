@@ -15,6 +15,8 @@ export const Container = styled.div`
   border-radius: 7px;
   border: var(--black-100) solid 2px;
   z-index: 100;
+  box-shadow: 0 1px 3px hsla(0, 0%, 0%, 0.06), 0 2px 6px hsla(0, 0%, 0%, 0.06),
+    0 3px 8px hsla(0, 0%, 0%, 0.09);
 
   &:after {
     content: '';
@@ -88,9 +90,14 @@ export const LinkContainer = styled.div`
     align-items: center;
   }
 
+  a {
+    display: flex;
+    align-items: center;
+  }
+
   svg {
     margin-left: 10px;
-    font-size: 18px;
+    font-size: 20px;
     cursor: pointer;
 
     &:hover {
