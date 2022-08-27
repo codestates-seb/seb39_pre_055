@@ -4,17 +4,17 @@ import { useCallback, useMemo, useState } from 'react';
 export const useVoted = (value: number) => {
   const [vote, setVote] = useState(value);
 
-  const defaultVote = useMemo(() => vote, []);
+  const defaultValue = useMemo(() => value, []);
 
   const increaseVote = useCallback(() => {
-    if (vote > defaultVote) return;
+    if (vote > defaultValue) return;
     setVote((prev) => prev + 1);
-  }, [vote, defaultVote]);
+  }, [vote, defaultValue]);
 
   const decreaseVote = useCallback(() => {
-    if (vote < defaultVote) return;
+    if (vote < defaultValue) return;
     setVote((prev) => prev - 1);
-  }, [vote, defaultVote]);
+  }, [vote, defaultValue]);
 
   return [vote, increaseVote, decreaseVote];
 };
