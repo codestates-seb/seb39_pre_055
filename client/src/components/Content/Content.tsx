@@ -6,10 +6,11 @@ import 'prismjs/themes/prism.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
-import { useCallback, useMemo, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import useConfirm from '../../hooks/useConfirm';
+import { useVoted } from '../../hooks/useVoted';
 import { Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
@@ -21,22 +22,9 @@ interface Prop {
 }
 
 const Content = ({ type, body, tags }: Prop) => {
-  const [vote, setVote] = useState(0);
   const [isFollowing, setIsFollowing] = useState(false);
+  const [vote, increaseVote, decreaseVote] = useVoted(0);
   const navigate = useNavigate();
-
-  const defaultVote = useMemo(() => vote, []);
-
-  const increaseVote = useCallback(() => {
-    if (vote > defaultVote) return;
-    setVote((prev) => prev + 1);
-  }, [vote, defaultVote]);
-
-  const decreaseVote = useCallback(() => {
-    if (vote < defaultVote) return;
-    setVote((prev) => prev - 1);
-  }, [vote, defaultVote]);
-
   const confirmDelete = useConfirm(
     'Delete this page?',
     () => console.log('Deleting the world...'),
@@ -46,9 +34,9 @@ const Content = ({ type, body, tags }: Prop) => {
   return (
     <MainContents>
       <Votes>
-        <Triangle onClick={increaseVote} />
-        <span>{vote}</span>
-        <Triangle rotate="180deg" onClick={decreaseVote} />
+        <Triangle onClick={increaseVote as () => void} />
+        <span>{vote as number}</span>
+        <Triangle rotate="180deg" onClick={decreaseVote as () => void} />
       </Votes>
       <TextArea>
         <Viewer
