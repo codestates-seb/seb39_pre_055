@@ -3,7 +3,11 @@ import { useEffect, useRef } from 'react';
 
 import { Container, FaceBook, LinkContainer, Twitter } from './style';
 
-const AnchorCard = () => {
+interface Prop {
+  type: 'question' | 'answer';
+}
+
+const AnchorCard = ({ type }: Prop) => {
   const ref = useRef<HTMLInputElement>(null);
   const currentUrl = window.location.href;
 
@@ -12,17 +16,16 @@ const AnchorCard = () => {
   });
 
   return (
-    <Container>
-      <p>
-        Share a link to this question <span>(Inclues your use id)</span>
-      </p>
+    <Container id="share-modal">
+      <p>Share a link to this {type}</p>
       <input
         ref={ref}
         type="text"
         value={currentUrl}
         onFocus={(e) => e.target.select()}
+        readOnly
       />
-      <LinkContainer>
+      <LinkContainer id="link-container">
         <button
           type="button"
           onClick={() => navigator.clipboard.writeText(currentUrl)}

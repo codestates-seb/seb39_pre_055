@@ -14,6 +14,7 @@ export const Container = styled.div`
   -moz-border-radius: 7px;
   border-radius: 7px;
   border: var(--black-100) solid 2px;
+  z-index: 100;
 
   &:after {
     content: '';
@@ -23,7 +24,6 @@ export const Container = styled.div`
     border-color: #ffffff transparent;
     display: block;
     width: 0;
-    z-index: 1;
     top: -11px;
     left: 10px;
   }
@@ -36,7 +36,6 @@ export const Container = styled.div`
     border-color: var(--black-100) transparent;
     display: block;
     width: 0;
-    z-index: 0;
     top: -14px;
     left: 9px;
   }

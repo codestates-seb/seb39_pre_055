@@ -7,7 +7,7 @@ type ConfirmFunction = (
   onCancel: () => void
 ) => () => void;
 
-const useConfirm: ConfirmFunction = (message, onConfirm, onCancel) => {
+export const useConfirm: ConfirmFunction = (message, onConfirm, onCancel) => {
   const confirmAction = useCallback(() => {
     if (window.confirm(message)) {
       onConfirm();
@@ -17,5 +17,3 @@ const useConfirm: ConfirmFunction = (message, onConfirm, onCancel) => {
   }, [message, onConfirm, onCancel]);
   return confirmAction;
 };
-
-export default useConfirm;
