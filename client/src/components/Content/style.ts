@@ -37,6 +37,14 @@ export const Utils = styled.section`
   position: relative;
   display: flex;
   justify-content: space-between;
-  height: 70px;
   margin: 16px 0;
+
+  @media screen and (max-width: 655px) {
+    flex-direction: column;
+
+    aside {
+      margin: 10px 0 10px auto;
+      margin-left: auto;
+    }
+  }
 `;
