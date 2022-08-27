@@ -17,8 +17,19 @@ export const Header = styled.header`
   margin-bottom: 8px;
 
   h1 {
+    flex-basis: 85%;
     font-size: 27px;
     color: var(--black-700);
+    word-break: break-all;
+  }
+
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.mobile}) {
+    flex-direction: column-reverse;
+
+    button {
+      margin-left: auto;
+      margin-bottom: 10px;
+    }
   }
 `;
 
