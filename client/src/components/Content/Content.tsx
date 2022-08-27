@@ -65,6 +65,7 @@ const Content = ({ type, body, tags }: Prop) => {
           <div>
             <TextButton name="Share" />
             <TextButton name="Edit" onClick={() => navigate('/questions/1')} />
+            {/* 작성한 유저일 경우에만 Delete 버튼 render 되도록 수정 */}
             <TextButton name="Delete" onClick={handleDelete} />
             <TextButton
               name={isFollowing ? 'Follow' : 'Following'}
