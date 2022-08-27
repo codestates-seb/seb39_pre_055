@@ -33,7 +33,7 @@ export const GlobalStyle = createGlobalStyle`
 
     &:link,
     &:visited {
-      color: black;
+      color: inherit;
     }
   }
 
