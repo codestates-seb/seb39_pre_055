@@ -8,12 +8,12 @@ import {
   SwitchSVG,
   UserMenusBox,
 } from './style';
-import UserIcon from './UserIcon/UserIcon';
+import UserProfile from './UserProfile/UserProfile';
 
 const UserMenus = () => {
   return (
     <UserMenusBox>
-      <UserIcon />
+      <UserProfile />
       <MenuUList>
         <List>
           <CustomLink to="/">

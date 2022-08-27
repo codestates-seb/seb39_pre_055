@@ -7,8 +7,9 @@ import { ReactComponent as Inbox } from '../../../../assets/img/nav-inbox.svg';
 import { ReactComponent as Switch } from '../../../../assets/img/nav-switch.svg';
 
 export const UserMenusBox = styled.div`
+  flex: 0 0 220px;
   display: flex;
-  width: 220px;
+  /* width: 220px; */
   height: 100%;
 `;
 

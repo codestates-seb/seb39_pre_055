@@ -29,7 +29,7 @@ export const SHeader = styled.header`
 
 export const SNav = styled.nav`
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   align-items: center;
   width: 100%;
   max-width: 1400px;
@@ -38,10 +38,10 @@ export const SNav = styled.nav`
 `;
 
 export const LogoBox = styled.div`
+  flex: 0 0 150px;
   position: relative;
   margin-left: 15px;
   margin-top: 3px;
-  width: 150px;
   height: 40px;
   overflow: hidden;
 
@@ -56,7 +56,7 @@ export const LogoBox = styled.div`
   ${({ theme }) =>
     css`
       @media screen and (max-width: ${theme.breakPoints.mobile}) {
-        width: 35px;
+        flex: 0 0 35px;
         margin-left: 0px;
       }
     `}
