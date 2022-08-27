@@ -28,7 +28,7 @@ const QuestionDetail = () => {
       {/* question */}
       <Header>
         <h1>{questionList[0].title}</h1>
-        <BlueButton width="100px" height="35px">
+        <BlueButton width="120px" height="35px">
           Ask Questions
         </BlueButton>
       </Header>
