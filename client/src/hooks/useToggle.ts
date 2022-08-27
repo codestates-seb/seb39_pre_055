@@ -1,9 +1,9 @@
 import { useCallback, useState } from 'react';
 
 export const useToggle = () => {
-  const [isValid, setIsValid] = useState(false);
+  const [value, setValue] = useState(false);
   const toggleCallback = useCallback(() => {
-    setIsValid((current) => !current);
+    setValue((current) => !current);
   }, []);
-  return [isValid, toggleCallback];
+  return [value, toggleCallback, setValue];
 };
