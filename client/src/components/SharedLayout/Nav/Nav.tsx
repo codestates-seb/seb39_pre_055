@@ -5,7 +5,7 @@ import { Hamburger } from '../..';
 import MiniSearchBar from '../../SearchBar/MiniSearchBar';
 import MainAuth from './MainAuthButtons/MainAuthButtons';
 import SearchBarBox from './MainSearchBar/MainSearchBar';
-import MiscBtns from './MiscButtons/MiscBtns';
+import MiscLinks from './MiscLinks/MiscLinks';
 import { LogoBox, MainLogoSVG, SHeader, SNav } from './style';
 import UserMenus from './UserToolbar/UserToolbar';
 
@@ -20,7 +20,7 @@ const Nav = () => {
           <Link to="/" />
           <MainLogoSVG />
         </LogoBox>
-        <MiscBtns />
+        <MiscLinks />
         <SearchBarBox />
         <MiniSearchBar />
         {isLoggedIn ? <UserMenus /> : <MainAuth />}
