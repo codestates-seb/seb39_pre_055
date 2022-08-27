@@ -9,6 +9,7 @@ import Prism from 'prismjs';
 import { useCallback, useMemo, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
+import useConfirm from '../../hooks/useConfirm';
 import { Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
@@ -36,13 +37,11 @@ const Content = ({ type, body, tags }: Prop) => {
     setVote((prev) => prev - 1);
   }, [vote, defaultVote]);
 
-  const handleDelete = () => {
-    if (window.confirm('Delete this page?')) {
-      console.log('삭제');
-    } else {
-      console.log('취소');
-    }
-  };
+  const confirmDelete = useConfirm(
+    'Delete this page?',
+    () => console.log('Deleting the world...'),
+    () => console.log('Aborted')
+  );
 
   return (
     <MainContents>
@@ -66,7 +65,7 @@ const Content = ({ type, body, tags }: Prop) => {
             <TextButton name="Share" />
             <TextButton name="Edit" onClick={() => navigate('/questions/1')} />
             {/* 작성한 유저일 경우에만 Delete 버튼 render 되도록 수정 */}
-            <TextButton name="Delete" onClick={handleDelete} />
+            <TextButton name="Delete" onClick={confirmDelete} />
             <TextButton
               name={isFollowing ? 'Follow' : 'Following'}
               onClick={() => setIsFollowing((prev) => !prev)}
