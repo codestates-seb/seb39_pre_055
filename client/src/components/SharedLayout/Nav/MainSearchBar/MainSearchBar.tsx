@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState, useTransition } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import { SearchBar } from '../../..';
 import { Modal, useModal } from '../../../Modal';
@@ -10,20 +10,14 @@ const MainSearchBar = () => {
   const [size, setSize] = useState({ width: '200px', height: '180px' });
   const [isFocused, setIsFocused] = useState(false);
   const { openModal, closeModal } = useModal({ ...size, position });
-  const [isPending, startTransition] = useTransition();
   const searchRef = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    console.log('searchBar', size);
-  });
 
   const resizeModal = useCallback(() => {
     if (!searchRef.current) return;
     const width = searchRef.current.offsetWidth;
-    startTransition(() => {
-      setSize((prev) => {
-        return { ...prev, width: `${width}px` };
-      });
+
+    setSize((prev) => {
+      return { ...prev, width: `${width}px` };
     });
   }, []);
 
@@ -74,10 +68,11 @@ const MainSearchBar = () => {
           setIsFocused(true);
           openModal(<SearchHints />);
         }}
-        /* onBlur={() => {
+        onBlur={() => {
           setIsFocused(false);
           closeModal();
-        }} */
+        }}
+        searchHandler={{ callback: closeModal, navigatePath: '/search?q=' }}
         wrapperRef={searchRef}
         responsive
       />
