@@ -10,6 +10,10 @@ const Wrapper = styled.span`
   border: none;
   margin-top: 5px;
   font-size: 14px;
+  @media (max-width: 640px) {
+    padding-bottom: 13px;
+    margin-top: 0px;
+    justify-content: flex-start;
   }
 `;
 
