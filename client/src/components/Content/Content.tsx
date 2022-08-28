@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-alert */
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
@@ -51,9 +52,9 @@ const Content = ({ type, body, tags }: Prop) => {
   return (
     <MainContents onClick={closeShareModal}>
       <Votes>
-        <Triangle onClick={increaseVote as () => void} />
-        <span>{vote as number}</span>
-        <Triangle rotate="180deg" onClick={decreaseVote as () => void} />
+        <Triangle onClick={increaseVote} />
+        <span>{vote}</span>
+        <Triangle rotate="180deg" onClick={decreaseVote} />
       </Votes>
       <TextArea>
         <Viewer
