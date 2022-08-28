@@ -1,4 +1,3 @@
-/* eslint-disable react/jsx-boolean-value */
 import '@toast-ui/editor/dist/toastui-editor.css';
 import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
 import 'prismjs/themes/prism.css';
@@ -9,8 +8,8 @@ import Prism from 'prismjs';
 import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { addAnswer, useAppDispatch } from '../../redux';
-import { BlueButton } from '../Button/Templates';
+import { addAnswer, useAppDispatch } from '../../../redux';
+import { BlueButton } from '../../Button/Templates';
 
 const Container = styled.div`
   display: flex;
@@ -34,7 +33,7 @@ const AnswerEditor = () => {
     <Container>
       <Editor
         initialValue={value}
-        useCommandShortcut={true}
+        useCommandShortcut
         plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]} // 코드블럭 하이라이트
         toolbarItems={[
           ['bold', 'italic', 'strike'],
