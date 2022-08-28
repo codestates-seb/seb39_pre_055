@@ -10,8 +10,9 @@ interface Prop {
 const Container = styled.span`
   display: flex;
   flex-direction: column;
-  font-size: 12px;
-  margin-top: 5px;
+  font-size: 13.5px;
+  color: var(--black-700);
+  margin-top: 6px;
   padding-right: 23px;
 `;
 

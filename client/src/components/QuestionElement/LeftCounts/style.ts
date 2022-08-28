@@ -16,7 +16,7 @@ export const Wrapper2 = styled.span`
   justify-content: flex-end;
   font-size: 12px;
   color: var(--black-500);
-  margin-top: 7px;
+  margin-top: 10px;
   @media (max-width: 640px) {
     width: auto;
     margin-top: 17px;
@@ -29,7 +29,7 @@ export const Wrapper3 = styled.span`
   justify-content: flex-end;
   font-size: 12px;
   color: var(--black-500);
-  margin-top: 7px;
+  margin-top: 10px;
   @media (max-width: 640px) {
     margin-top: 17px;
 `;
