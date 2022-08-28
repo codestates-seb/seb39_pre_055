@@ -4,6 +4,7 @@ export { BlueButton, PowderButton } from './Button/Templates';
 export { default as TextButton } from './Button/TextButton';
 export { default as Content } from './Content/Content';
 export { default as AnswerEditor } from './Edit/AnswerEditor/AnswerEditor';
+export { default as CustomEditor } from './Edit/CustomEditor/CustomEditor';
 export { default as EditHeader } from './Edit/EditHeader/EditHeader';
 export { default as EditSidebar } from './Edit/EditSidebar/EditSidebar';
 export { default as Hamburger } from './Hamburger/Hamburger';
