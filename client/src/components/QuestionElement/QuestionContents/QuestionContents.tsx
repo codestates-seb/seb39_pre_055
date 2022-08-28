@@ -2,6 +2,9 @@ import styled from 'styled-components';
 
 interface Prop {
   contents: string;
+  txt: string;
+  limitLength: any;
+  lastTxt: string;
 }
 
 const Container = styled.span`
@@ -12,7 +15,17 @@ const Container = styled.span`
   padding-right: 23px;
 `;
 
-const QuestionContents = ({ contents }: Prop) => {
+const QuestionContents = ({ contents, txt, limitLength, lastTxt }: Prop) => {
+  if (limitLength === '' || limitLength === null) {
+    limitLength = 182;
+  }
+  if (lastTxt === '' || lastTxt === null) {
+    lastTxt = '...';
+  }
+  if (contents.length > limitLength) {
+    txt = contents.slice(0, limitLength) + lastTxt;
+  }
+  contents = txt;
   return <Container>{contents}</Container>;
 };
 

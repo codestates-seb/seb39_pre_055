@@ -1,7 +1,6 @@
 import styled from 'styled-components';
 
 import Tag from '../Tag/Tag';
-import LeftCounts from './LeftCounts/LeftCounts';
 import QuestionContents from './QuestionContents/QuestionContents';
 import QuestionTitle from './QuestionTitle/QuestionTitle';
 
@@ -40,12 +39,17 @@ const UserContainer = styled.span`
     margin-right: 5px;
   }
 `;
-
+// QuestionContents 마크다운으로 넘겨줘야함
 const QuestionElement = ({ userName, title, contents }: Prop) => {
   return (
     <Container>
       <QuestionTitle title="(Front-End) on-click change image to the n-th image" />
-      <QuestionContents contents="I currently have a page with thumbnails of images on the left side below the sidebar which you can click on to change the image shown in the container for the main content." />
+      <QuestionContents
+        contents="I currently have a page with thumbnails of images on the left side below the sidebar which you can click on to change the image shown in the container for the main content. 1234567891011121314151617181920"
+        txt=""
+        limitLength={182}
+        lastTxt="..."
+      />
       <ContentFooter>
         <Tags>
           <Tag name="javascript" />
