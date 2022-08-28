@@ -3,10 +3,11 @@ import styled, { css } from 'styled-components';
 
 import { SearchBarSize } from './SearchBar';
 
-export const SearchWrapper = styled.div`
+export const SearchBox = styled.div`
   position: relative;
   display: flex;
   flex: 1 1 180px;
+  margin: 7px;
 
   ${({ width = 'auto', height = '32px' }: SearchBarSize) => css`
     width: ${width};

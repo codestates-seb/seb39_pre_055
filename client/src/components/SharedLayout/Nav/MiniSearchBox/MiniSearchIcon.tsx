@@ -1,11 +1,28 @@
+import { Dispatch, RefObject, SetStateAction } from 'react';
+
 import { Icon, SearchButton } from './style';
 
-const MiniSearchBar = () => {
+interface MiniSearchIconProps {
+  setFloatSearch: Dispatch<SetStateAction<boolean>>;
+  searchInput: RefObject<HTMLInputElement>;
+}
+
+const MiniSearchIcon = ({
+  setFloatSearch,
+  searchInput,
+}: MiniSearchIconProps) => {
+  const clickHandler = () => {
+    setFloatSearch((prev) => !prev);
+    setTimeout(() => {
+      if (!searchInput.current) return;
+      searchInput.current.focus();
+    }, 0);
+  };
   return (
-    <SearchButton>
+    <SearchButton onClick={clickHandler}>
       <Icon />
     </SearchButton>
   );
 };
 
-export default MiniSearchBar;
+export default MiniSearchIcon;
