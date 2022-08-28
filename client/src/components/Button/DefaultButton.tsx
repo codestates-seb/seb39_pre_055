@@ -3,7 +3,7 @@ import { ReactNode } from 'react';
 import { Btn } from './style';
 
 export interface ButtonProps {
-  color: string;
+  color: 'black' | 'orange' | 'blue' | 'powder';
   mainCode: string;
   children: ReactNode;
   onClick?: () => void;
