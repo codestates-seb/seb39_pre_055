@@ -1,3 +1,5 @@
+import axios from 'axios';
+import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import Tag from '../Tag/Tag';
@@ -14,6 +16,8 @@ const Container = styled.span`
   display: flex;
   flex-direction: column;
   margin-left: 15px;
+  width: 100%;
+  height: auto;
 `;
 
 const ContentFooter = styled.span`
@@ -33,10 +37,14 @@ const UserContainer = styled.span`
   display: flex;
   align-items: center;
   justify-content: flex-end;
-  margin: 0px 10px 0px 200px;
-  font-size: 8px;
+  margin: 0px 20px 0px 200px;
+  font-size: 11.3px;
   img {
     margin-right: 5px;
+  }
+  span {
+    margin-right: 5px;
+    margin-top: 5px;
   }
 `;
 // QuestionContents 마크다운으로 넘겨줘야함
@@ -58,12 +66,12 @@ const QuestionElement = ({ userName, title, contents }: Prop) => {
         </Tags>
         <UserContainer>
           <img
-            width="23"
+            width="20"
             alt="스크린샷 2022-08-26 오전 1 31 23"
             src="https://user-images.githubusercontent.com/104320234/186720336-2208d3db-cfa4-4145-b9f4-48029e4672e0.png"
           />
           <span id={userName}>{userName}</span>
-          <span> lastUpdate 4 days ago</span>
+          <span> asked 4 days ago</span>
         </UserContainer>
       </ContentFooter>
     </Container>

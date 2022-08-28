@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import styled from 'styled-components';
 
 interface Prop {
@@ -7,8 +8,8 @@ interface Prop {
 
 const Wrapper = styled.button`
   border: 0.8px solid var(--black-300);
-  border-radius: 4px 0px 0px 4px;
-  font-size: 5px;
+  border-radius: 3px 0px 0px 3px;
+  font-size: 6px;
   color: var(--fc-dark);
   background-color: var(--black-075);
   padding: 8px 7px;
@@ -16,8 +17,8 @@ const Wrapper = styled.button`
 
 const Wrapper2 = styled.button`
   border: 0.8px solid var(--black-300);
-  font-size: 5px;
-  border-radius: 0px 4px 4px 0px;
+  font-size: 6px;
+  border-radius: 0px 3px 3px 0px;
   color: var(--black-500);
   background-color: white;
 `;
