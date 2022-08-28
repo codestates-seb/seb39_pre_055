@@ -5,6 +5,7 @@ export { default as TextButton } from './Button/TextButton';
 export { default as Content } from './Content/Content';
 export { default as AnswerEditor } from './Edit/AnswerEditor/AnswerEditor';
 export { default as EditHeader } from './Edit/EditHeader/EditHeader';
+export { default as EditSidebar } from './Edit/EditSidebar/EditSidebar';
 export { default as Hamburger } from './Hamburger/Hamburger';
 export { default as QuestionInfo } from './QuestionInfo/QuestionInfo';
 export { default as SearchBar } from './SearchBar/SearchBar';
