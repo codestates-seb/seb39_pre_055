@@ -75,7 +75,7 @@ const QuestionList = () => {
         <AskQuestionsButton name="Ask Question" />
       </TitleContainer>
       <InfoContainer>
-        <CountQuestions counts={22931208} />
+        <CountQuestions counts="22931208" />
         <SortTabs>
           <SortTab Newest="Newest" Views="Views" />
         </SortTabs>

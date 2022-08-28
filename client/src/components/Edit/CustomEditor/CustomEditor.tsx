@@ -40,6 +40,7 @@ const CustomEditor = ({ value, editorRef, onChange }: Prop) => {
           ['ul', 'ol', 'task', 'indent', 'outdent'],
           ['table', 'image', 'link'],
         ]}
+        autofocus={false}
         ref={editorRef}
         onChange={onChange}
         onFocus={() => setIsEditorFocus(true)}
