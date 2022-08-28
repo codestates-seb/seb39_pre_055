@@ -3,7 +3,7 @@
 import { Editor } from '@toast-ui/react-editor';
 import { KeyboardEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import {
   BlueButton,
@@ -11,7 +11,7 @@ import {
   DefaultInput,
   EditHeader,
   EditSidebar,
-  Tag,
+  TagInput,
 } from '../../components';
 import { editQuestion, useAppDispatch } from '../../redux';
 import { question } from '../../utils';
@@ -21,27 +21,6 @@ const Container = styled.div`
   font-size: 15px;
   color: #0c0d0e;
 
-  label {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 6px;
-    font-weight: 600;
-  }
-
-  input {
-    margin-bottom: 30px;
-    padding: 8px 10px;
-    width: 100%;
-    height: 35px;
-    border: 1px solid rgb(186, 191, 196);
-    border-radius: 3px;
-
-    &:focus {
-      border-color: var(--blue-300);
-      outline: var(--blue-100) solid 4px;
-    }
-  }
-
   h2 {
     margin-bottom: 6px;
     font-weight: 600;
@@ -50,35 +29,6 @@ const Container = styled.div`
 
 const EditorContainer = styled.div`
   margin-bottom: 30px;
-`;
-
-const HashTagContainer = styled.div<{ isFocus: boolean }>`
-  display: flex;
-  margin-bottom: 30px;
-  border: 1px solid rgb(186, 191, 196);
-  border-radius: 3px;
-
-  ${({ isFocus }) =>
-    isFocus &&
-    css`
-      border-color: var(--blue-300);
-      outline: var(--blue-100) solid 4px;
-    `}
-
-  input {
-    border: none;
-    margin-bottom: 0;
-
-    &:focus {
-      outline: none;
-    }
-  }
-`;
-
-const HashTags = styled.div`
-  display: flex;
-  margin: auto 0;
-  padding-left: 10px;
 `;
 
 const CancelButton = styled.button`
@@ -99,7 +49,6 @@ const CancelButton = styled.button`
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
   const editorRef = useRef<Editor>(null);
-  const [isTagsFocus, setIsTagsFocus] = useState(false);
   const [title, setTitle] = useState('Stop an array while finding string');
   const [body, setBody] = useState(question);
   const [tagInput, setTagInput] = useState('');
@@ -152,23 +101,12 @@ const EditQuestion = () => {
           onChange={handleEditorChange}
         />
       </EditorContainer>
-      <label htmlFor="tags">Tags</label>
-      <HashTagContainer isFocus={isTagsFocus}>
-        <HashTags>
-          {tagArr.map((tag) => (
-            <Tag key={tag} name={tag} />
-          ))}
-        </HashTags>
-        <input
-          type="text"
-          id="tags"
-          value={tagInput}
-          onChange={(e) => setTagInput(e.target.value)}
-          onKeyUp={handleInputOnKeyUp}
-          onFocus={() => setIsTagsFocus(true)}
-          onBlur={() => setIsTagsFocus(false)}
-        />
-      </HashTagContainer>
+      <TagInput
+        value={tagInput}
+        onChange={(e) => setTagInput(e.target.value)}
+        onKeyUp={handleInputOnKeyUp}
+        tagArr={tagArr}
+      />
       <BlueButton width="90px" onClick={handleEditButtonClick}>
         Save Edits
       </BlueButton>
