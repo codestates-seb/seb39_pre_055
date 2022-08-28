@@ -20,7 +20,7 @@ import { BlueButton, EditHeader, EditSidebar, Tag } from '../../components';
 import { editQuestion, useAppDispatch } from '../../redux';
 import { question } from '../../utils';
 
-const Container = styled.div`
+const Container = styled.form`
   padding: 24px;
   font-size: 15px;
   color: #0c0d0e;
