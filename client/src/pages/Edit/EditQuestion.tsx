@@ -16,7 +16,7 @@ import {
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { Tag } from '../../components';
+import { BlueButton, EditHeader, EditSidebar, Tag } from '../../components';
 import { editQuestion, useAppDispatch } from '../../redux';
 import { question } from '../../utils';
 
@@ -48,11 +48,12 @@ const Container = styled.div`
 `;
 
 const EditorContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 30px;
 `;
 
 const HashTagContainer = styled.div`
   display: flex;
+  margin-bottom: 30px;
   border: 1px solid rgb(186, 191, 196);
   border-radius: 3px;
 
@@ -71,10 +72,26 @@ const HashTags = styled.div`
   margin: auto 0;
   padding-left: 10px;
 `;
+
+const CancelButton = styled.button`
+  padding: 10px;
+  margin-left: 10px;
+  border: none;
+  border-radius: 3px;
+  background-color: inherit;
+  color: var(--blue-600);
+  font-size: 13px;
+
+  &:hover {
+    background-color: var(--blue-100);
+    transition: all 0.2s ease-in;
+  }
+`;
+
 const EditQuestion = () => {
   const editorRef = useRef<Editor>(null);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
+  // const dispatch = useAppDispatch();
+  // const navigate = useNavigate();
   const [hashTagInput, setHasgTagInput] = useState('');
   const [data, setData] = useState<{
     title: string;
@@ -116,13 +133,14 @@ const EditQuestion = () => {
     []
   );
 
-  const handleEditButtonClick = useCallback(() => {
-    dispatch(editQuestion(data));
-    navigate(-1);
-  }, [data, dispatch, navigate]);
+  // const handleEditButtonClick = useCallback(() => {
+  //   dispatch(editQuestion(data));
+  //   navigate(-1);
+  // }, [data, dispatch, navigate]);
 
   return (
     <Container>
+      <EditHeader />
       <label htmlFor="title">Title</label>
       <input
         type="text"
@@ -163,9 +181,9 @@ const EditQuestion = () => {
           onKeyUp={handleInputOnKeyUp}
         />
       </HashTagContainer>
-      <button type="button" onClick={handleEditButtonClick}>
-        Save Edits
-      </button>
+      <BlueButton width="90px">Save Edits</BlueButton>
+      <CancelButton>Cancel</CancelButton>
+      <EditSidebar />
     </Container>
   );
 };
