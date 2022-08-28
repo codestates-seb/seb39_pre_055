@@ -20,7 +20,7 @@ import { BlueButton, EditHeader, EditSidebar, Tag } from '../../components';
 import { editQuestion, useAppDispatch } from '../../redux';
 import { question } from '../../utils';
 
-const Container = styled.form`
+const Container = styled.div`
   padding: 24px;
   font-size: 15px;
   color: #0c0d0e;
@@ -90,8 +90,8 @@ const CancelButton = styled.button`
 
 const EditQuestion = () => {
   const editorRef = useRef<Editor>(null);
-  // const dispatch = useAppDispatch();
-  // const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
   const [hashTagInput, setHasgTagInput] = useState('');
   const [data, setData] = useState<{
     title: string;
@@ -133,10 +133,10 @@ const EditQuestion = () => {
     []
   );
 
-  // const handleEditButtonClick = useCallback(() => {
-  //   dispatch(editQuestion(data));
-  //   navigate(-1);
-  // }, [data, dispatch, navigate]);
+  const handleEditButtonClick = useCallback(() => {
+    dispatch(editQuestion(data));
+    navigate(-1);
+  }, [data, dispatch, navigate]);
 
   return (
     <Container>
@@ -181,8 +181,10 @@ const EditQuestion = () => {
           onKeyUp={handleInputOnKeyUp}
         />
       </HashTagContainer>
-      <BlueButton width="90px">Save Edits</BlueButton>
-      <CancelButton>Cancel</CancelButton>
+      <BlueButton width="90px" onClick={handleEditButtonClick}>
+        Save Edits
+      </BlueButton>
+      <CancelButton onClick={() => navigate(-1)}>Cancel</CancelButton>
       <EditSidebar />
     </Container>
   );

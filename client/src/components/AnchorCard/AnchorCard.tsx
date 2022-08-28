@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/no-autofocus */
 import { useCallback, useEffect, useRef } from 'react';
-import { toast, ToastContainer } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import { Container, FaceBook, LinkContainer, Twitter } from './style';
 

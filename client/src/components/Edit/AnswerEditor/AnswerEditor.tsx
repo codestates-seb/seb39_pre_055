@@ -11,7 +11,7 @@ import styled from 'styled-components';
 import { addAnswer, useAppDispatch } from '../../../redux';
 import { BlueButton } from '../../Button/Templates';
 
-const Container = styled.div`
+const Container = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -30,7 +30,7 @@ const AnswerEditor = () => {
   }, []);
 
   return (
-    <Container>
+    <Container onSubmit={() => dispatch(addAnswer(value))}>
       <Editor
         initialValue={value}
         useCommandShortcut
