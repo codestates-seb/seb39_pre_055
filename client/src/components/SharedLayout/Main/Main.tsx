@@ -8,7 +8,7 @@ const Section = styled.section`
   position: relative;
   top: 50px;
   width: 100%;
-  min-height: calc(100vh - 450px);
+  min-height: calc(100vh - 420px);
   max-width: 900px;
   /* background-color: aliceblue; */
   overflow-x: hidden;
