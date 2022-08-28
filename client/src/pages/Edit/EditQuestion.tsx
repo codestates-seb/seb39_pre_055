@@ -8,6 +8,7 @@ import styled, { css } from 'styled-components';
 import {
   BlueButton,
   CustomEditor,
+  DefaultInput,
   EditHeader,
   EditSidebar,
   Tag,
@@ -137,9 +138,8 @@ const EditQuestion = () => {
   return (
     <Container>
       <EditHeader />
-      <label htmlFor="title">Title</label>
-      <input
-        type="text"
+      <DefaultInput
+        label="Title"
         id="title"
         value={title}
         onChange={(e) => setTitle(e.target.value)}
