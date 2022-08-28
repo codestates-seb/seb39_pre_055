@@ -6,11 +6,8 @@ interface Prop {
 
 const Wrapper = styled.span`
   margin-top: 15px;
-  font-size: 14px;
-
-  a {
-    color: var(--blue-600);
-  }
+  font-size: 16px;
+  color: var(--blue-600);
 `;
 
 const QuestionTitle = ({ title }: Prop) => {
