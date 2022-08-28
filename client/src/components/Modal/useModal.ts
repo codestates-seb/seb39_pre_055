@@ -17,7 +17,6 @@ const useModal = ({
     throw new Error('useModal was used outside of ModalCtx.Provider.');
   }
   useEffect(() => {
-    console.log('현재 Modal 크기', { width, height });
     setSize({ width, height });
   }, [width, height, setSize]);
 

@@ -5,10 +5,12 @@ export interface OpenContext {
   setIsOpen: (isOpen: boolean) => void;
 }
 
-export type Position = {
-  x: string;
-  y: string;
-} | null;
+export type Position =
+  | {
+      x: string;
+      y: string;
+    }
+  | undefined;
 
 export interface Size {
   width: string;

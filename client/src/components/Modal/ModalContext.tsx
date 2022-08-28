@@ -43,7 +43,7 @@ export const ModalCtx = ({
   const [mount, setMount] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [modalSize, setModalSize] = useState<Size>({ width, height });
-  const [modalPosition, setModalPosition] = useState<Position>(null);
+  const [modalPosition, setModalPosition] = useState<Position>(position);
   const [content, setContent] = useState<ReactNode>(null);
 
   const openModal = useCallback((component: ReactNode) => {

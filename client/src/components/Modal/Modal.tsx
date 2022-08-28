@@ -4,10 +4,12 @@ import { OpenCtx } from './ModalContext';
 import { Background, ModalMain } from './styles';
 import { ModalProps } from './types';
 
-function useAppContext<T>(ctx: Context<T>) {
-  const context: T = useContext(ctx);
+type Nullable<S> = S | void;
 
-  if (context === null || ctx === null) {
+function useAppContext<T /* extends Nullable<T> */>(ctx: Context<T>): T {
+  const context = useContext(ctx);
+
+  if (!context || !ctx) {
     throw new Error('useAppContext must be within Context Provider');
   }
 
@@ -25,10 +27,10 @@ const Modal = ({
   background = true,
   content,
 }: ModalProps) => {
-  const { isOpen, setIsOpen } = useAppContext(OpenCtx) || {}; // TODO: useAppContext 사용하기
+  const { isOpen, setIsOpen } = useContext(OpenCtx) || {}; // TODO: useAppContext 사용하기
 
   if (isOpen === undefined || !setIsOpen) {
-    throw new Error('useAppContext must be within Context Provider');
+    throw new Error('useContext must be within Context Provider');
   }
 
   return (
@@ -46,12 +48,6 @@ const Modal = ({
         boxShadow={boxShadow}
         position={position}
       >
-        {/* <Close onClick={() => setIsOpen(false)}>
-          <img
-            src="https://img.icons8.com/color-glass/48/000000/delete-sign.png"
-            alt="close"
-          />
-        </Close> */}
         {content}
       </ModalMain>
     </>
