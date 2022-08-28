@@ -1,40 +1,19 @@
 import { useCallback, useEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 
 import { SearchBar } from '../../..';
 import { Modal, useModal } from '../../../Modal';
 import SearchHints from './SearchHints';
-
-const MainSearchBox = styled.div`
-  padding-left: 10px;
-  padding-right: 10px;
-  flex: 1 1 300px;
-`;
+import { MainSearchBox } from './style';
 
 const MainSearchBar = () => {
   const [position, setPosition] = useState({ x: '500px', y: '51px' });
-  const [size, setSize] = useState({ width: '200px', height: '200px' });
+  const [size, setSize] = useState({ width: '200px', height: '180px' });
   const [isFocused, setIsFocused] = useState(false);
   const { openModal, closeModal } = useModal({ ...size, position });
   const searchRef = useRef<HTMLInputElement>(null);
 
-  /* const resizeModal = useCallback(() => {
-    if (!searchRef.current) return;
-
-    const left = searchRef.current.offsetLeft;
-    const width = searchRef.current.offsetWidth;
-
-    setPosition((prev) => {
-      return { ...prev, x: `${left}px` };
-    });
-    setSize((prev) => {
-      return { ...prev, width: `${width}px` };
-    });
-  }, []); */
-
   const resizeModal = useCallback(() => {
     if (!searchRef.current) return;
-
     const width = searchRef.current.offsetWidth;
 
     setSize((prev) => {
@@ -46,7 +25,6 @@ const MainSearchBar = () => {
     if (!searchRef.current) return;
 
     const left = searchRef.current.offsetLeft;
-    console.log(left);
 
     setPosition((prev) => {
       return { ...prev, x: `${left}px` };
@@ -90,10 +68,11 @@ const MainSearchBar = () => {
           setIsFocused(true);
           openModal(<SearchHints />);
         }}
-        /* onBlur={() => {
-        setIsFocused(false);
-        closeModal();
-      }} */
+        onBlur={() => {
+          setIsFocused(false);
+          closeModal();
+        }}
+        searchHandler={{ callback: closeModal, navigatePath: '/search?q=' }}
         wrapperRef={searchRef}
         responsive
       />
@@ -103,7 +82,7 @@ const MainSearchBar = () => {
 
 const SearchBarBox = () => {
   return (
-    <Modal width="200px" height="200px" background={false}>
+    <Modal width="200px" height="180px" background={false} minWidth="480px">
       <MainSearchBar />
     </Modal>
   );

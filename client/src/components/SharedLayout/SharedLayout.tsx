@@ -13,13 +13,11 @@ const Shared = styled.div`
 
 const SharedLayout = () => {
   return (
-    <Modal width="200px" height="200px" background={false}>
-      <Shared>
-        <Nav />
-        <Main />
-        <Footer />
-      </Shared>
-    </Modal>
+    <Shared>
+      <Nav />
+      <Main />
+      <Footer />
+    </Shared>
   );
 };
 

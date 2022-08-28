@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { BlueButton, PowderButton } from '../../../Button/Templates';
 import { AuthBtns } from './style';
 
+// interface MainAuth {}
+
 const MainAuth = () => {
   return (
     <AuthBtns>

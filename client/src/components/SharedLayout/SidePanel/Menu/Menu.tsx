@@ -4,7 +4,7 @@ import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import {
-  CustomLinkA,
+  CustomLink,
   EarthSVG,
   IndentedList,
   Li,
@@ -20,33 +20,33 @@ const Menu = () => {
   return (
     <MenuBox>
       <ThemeProvider theme={{ currentPath }}>
-        <CustomLinkA to="/">
+        <CustomLink to="/">
           <MenuNameSpan>Home</MenuNameSpan>
-        </CustomLinkA>
+        </CustomLink>
         <MenuUList>
           <Li>
             <MenuCategorySpan>PUBLIC</MenuCategorySpan>
             <ul>
               <li>
-                <CustomLinkA to="/questions">
+                <CustomLink to="/questions">
                   <EarthSVG />
                   Questions
-                </CustomLinkA>
+                </CustomLink>
               </li>
               <IndentedList>
-                <CustomLinkA to="/questions/tags">
+                <CustomLink to="/questions/tags">
                   <MenuNameSpan>Tags</MenuNameSpan>
-                </CustomLinkA>
+                </CustomLink>
               </IndentedList>
               <IndentedList>
-                <CustomLinkA to="/questions/users">
+                <CustomLink to="/questions/users">
                   <MenuNameSpan>Users</MenuNameSpan>
-                </CustomLinkA>
+                </CustomLink>
               </IndentedList>
               <IndentedList>
-                <CustomLinkA to="/">
+                <CustomLink to="/">
                   <MenuNameSpan>Companies</MenuNameSpan>
-                </CustomLinkA>
+                </CustomLink>
               </IndentedList>
             </ul>
           </Li>

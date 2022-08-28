@@ -1,4 +1,5 @@
-import { RefObject } from 'react';
+import { KeyboardEvent, RefObject } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { Search, SearchIcon, SearchWrapper } from './style';
 
@@ -7,11 +8,17 @@ export type SearchBarSize = Pick<
   'width' | 'height' | 'responsive'
 >;
 
+interface SearchHandler {
+  callback: () => void;
+  navigatePath?: string;
+}
+
 interface SearchBarProps {
   placeholder: string;
   width?: string;
   height?: string;
   wrapperRef?: RefObject<HTMLInputElement>;
+  searchHandler?: SearchHandler;
   onFocus?: () => void;
   onBlur?: () => void;
   responsive?: boolean;
@@ -24,20 +31,38 @@ const DefaultSearchBar = ({
   wrapperRef,
   onFocus,
   onBlur,
+  searchHandler,
   responsive,
 }: SearchBarProps) => {
+  const navigate = useNavigate();
+  const { callback, navigatePath } = searchHandler || {};
+
+  const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key !== 'Enter') return;
+    const keyword = e.currentTarget.value;
+
+    e.currentTarget.blur();
+    if (callback) {
+      callback();
+    }
+    if (navigatePath) {
+      navigate(`/search?q=${keyword}`);
+    }
+  };
+
   return (
     <SearchWrapper
       width={width}
       height={height}
-      ref={wrapperRef}
       responsive={responsive}
+      ref={wrapperRef}
     >
       <Search
         type="text"
         placeholder={placeholder}
         onFocus={onFocus}
         onBlur={onBlur}
+        onKeyUp={handleSearch}
       />
       <SearchIcon />
     </SearchWrapper>

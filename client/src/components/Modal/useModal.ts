@@ -17,15 +17,13 @@ const useModal = ({
     throw new Error('useModal was used outside of ModalCtx.Provider.');
   }
   useEffect(() => {
-    console.log('size', width, height);
-    /* if (!width && !height) return; */
     setSize({ width, height });
   }, [width, height, setSize]);
 
   useEffect(() => {
     if (!position) return;
     const { x, y } = position;
-    console.log('position', x, y);
+
     setPosition({ x, y });
   }, [position, setPosition]);
 

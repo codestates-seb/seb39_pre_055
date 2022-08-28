@@ -1,33 +1,13 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
-
 import { PowderButton } from '../../../Button/Templates';
-
-const HintsBox = styled.div`
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  row-gap: 5px;
-  column-gap: 5px;
-  width: 100%;
-  height: 70%;
-  padding: 10px;
-`;
-
-const HintBox = styled.div`
-  height: 20px;
-`;
-
-const FontSmall = styled.span`
-  font-size: 0.85rem;
-`;
-
-const HintSpan = styled(FontSmall)`
-  margin-right: 5px;
-`;
-
-const ExplanationSpan = styled(FontSmall)`
-  color: var(--black-400);
-`;
+import {
+  AskLink,
+  ExplanationSpan,
+  HintsBox,
+  HintSpan,
+  MiscBox,
+  SearchHelpBox,
+  SearchHelpLink,
+} from './style';
 
 const allHints = [
   { hint: '[tag]', explanation: 'search within a tag' },
@@ -44,34 +24,6 @@ interface HintProps {
   hint: string;
   explanation: string;
 }
-
-const MiscBox = styled.div`
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-top: 1px solid var(--black-100);
-`;
-
-const AskLink = styled(Link)`
-  &:link,
-  &:visited {
-    color: inherit;
-  }
-`;
-
-const SearchHelpBox = styled.div`
-  width: 80px;
-  margin-left: auto;
-`;
-
-const SearchHelpLink = styled(Link)`
-  font-size: 0.8rem;
-
-  &:link,
-  &:visited {
-    color: var(--powder-400);
-  }
-`;
 
 const SearchMisc = () => {
   return (

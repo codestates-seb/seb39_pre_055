@@ -1,6 +1,7 @@
 import styled, { css } from 'styled-components';
 
 export const HamburgerBox = styled.div`
+  flex: 0 0 36px;
   display: none;
   padding-top: 2px;
 

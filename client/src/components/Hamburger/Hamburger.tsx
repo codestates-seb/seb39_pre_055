@@ -17,13 +17,11 @@ const HamContainer = ({ clicked, setClicked }: HamContainerProps) => {
     height: '500px',
     position: { x: '0px', y: '51px' },
   });
-  const { pathname } = useLocation();
+  // const { pathname } = useLocation(); // 왜 useLocation 쓰면 MainSearchBar의 Modal의 크기가 Hamburger로 변경되나?
 
   const closeMenu = () => {
-    console.log('닫음');
-    console.log(pathname);
     setClicked(false);
-    /* setTimeout(closeModal, 2000); */
+    closeModal();
   };
   const toggleMenu = () => {
     setClicked((prev) => !prev);

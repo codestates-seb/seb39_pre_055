@@ -6,10 +6,7 @@ import { SearchBarSize } from './SearchBar';
 export const SearchWrapper = styled.div`
   position: relative;
   display: flex;
-  height: 32px;
   flex: 1 1 180px;
-  margin-left: 10px;
-  margin-right: 10px;
 
   ${({ width = 'auto', height = '32px' }: SearchBarSize) => css`
     width: ${width};
@@ -46,37 +43,4 @@ export const SearchIcon = styled(BsSearch)`
   top: 50%;
   transform: translate(-50%, -50%);
   fill: var(--black-300);
-`;
-
-export const Icon = styled(BsSearch)`
-  height: 37%;
-  width: 37%;
-  fill: var(--black-700);
-`;
-
-export const SearchButton = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative;
-  width: 0px;
-  height: 100%;
-  background-color: rgba(0, 0, 0, 0);
-  border: 0px;
-  border-radius: 10px;
-  padding: 0px;
-  margin-left: auto;
-  margin-right: 3px;
-
-  &:focus,
-  &:hover {
-    background-color: var(--black-050);
-  }
-
-  ${({ theme }) =>
-    css`
-      @media screen and (max-width: ${theme.breakPoints.mobile}) {
-        width: 50px;
-      }
-    `}
 `;

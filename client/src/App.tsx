@@ -8,6 +8,7 @@ import {
   QuestionDetail,
   QuestionList,
 } from './pages';
+import Search from './pages/Search/Search';
 
 const App = () => {
   return (
@@ -21,6 +22,9 @@ const App = () => {
           <Route path="/questions/tags" element={<AskQuestion />} />
           <Route path="/questions/users" element={<QuestionDetail />} />
           <Route path="/questions/company" element={<EditQuestion />} />
+        </Route>
+        <Route path="/search/*" element={<SharedLayout />}>
+          <Route index element={<Search />} />
         </Route>
       </Routes>
       <ToastContainer position="top-center" pauseOnFocusLoss theme="colored" />

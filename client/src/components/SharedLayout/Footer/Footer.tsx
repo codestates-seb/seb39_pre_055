@@ -1,12 +1,14 @@
 import CopyrightsBox from './Copyrights/Copyrights';
 import MenuList from './MenuList/MenuList';
 import menus from './menuLists';
-import { BottomIconBox, BottomNav, SFooter } from './style';
+import { BottomIconBox, BottomIconSVG, BottomNav, SFooter } from './style';
 
 const Footer = () => {
   return (
     <SFooter>
-      <BottomIconBox />
+      <BottomIconBox>
+        <BottomIconSVG />
+      </BottomIconBox>
       <BottomNav>
         {menus.map(({ menuCategory, to, subMenus }) => (
           <MenuList

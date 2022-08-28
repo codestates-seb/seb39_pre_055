@@ -1,14 +1,15 @@
 import styled, { css } from 'styled-components';
 
+import { ReactComponent as BottomIcon } from '../../../assets/img/sprites.svg';
+
 export const SFooter = styled.footer`
   position: relative;
   display: flex;
   flex-flow: row wrap;
   bottom: 0px;
-  height: 400px;
   width: 100vw;
   background-color: var(--black-800);
-  padding: 50px 70px 50px 30px;
+  padding: 40px 30px 40px 30px;
 
   & > * {
     flex: 1 1 auto;
@@ -16,15 +17,8 @@ export const SFooter = styled.footer`
 
   ${({ theme }) => css`
     @media screen and (max-width: ${theme.breakPoints.tablet}) {
-      height: 500px;
+      height: max-content;
       padding-bottom: 20px;
-    }
-  `}
-
-  ${({ theme }) => css`
-    @media screen and (max-width: ${theme.breakPoints.mobile}) {
-      height: auto;
-      min-height: 650px;
     }
   `}
 `;
@@ -44,21 +38,27 @@ export const BottomNav = styled.nav`
     }
 
     @media screen and (max-width: ${theme.breakPoints.mobile}) {
-      margin-bottom: 30px;
+      min-height: 300px;
     }
   `}
 `;
 
 export const BottomIconBox = styled.div`
-  flex: 1 0 70px;
-
   ${({ theme }) => css`
     @media screen and (max-width: ${theme.breakPoints.tablet}) {
-      height: 50px;
+      width: 60px;
+      height: 70px;
     }
 
     @media screen and (max-width: ${theme.breakPoints.mobile}) {
       display: none;
     }
   `}
+`;
+
+export const BottomIconSVG = styled(BottomIcon).attrs({
+  viewBox: '0 0 40 50',
+})`
+  width: 50px;
+  height: 60px;
 `;

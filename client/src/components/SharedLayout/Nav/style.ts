@@ -29,18 +29,19 @@ export const SHeader = styled.header`
 
 export const SNav = styled.nav`
   display: flex;
-  flex-flow: row wrap;
+  flex-flow: row nowrap;
   align-items: center;
   width: 100%;
   max-width: 1400px;
   height: 50px;
+  padding-top: 3px;
 `;
 
 export const LogoBox = styled.div`
+  flex: 0 0 150px;
   position: relative;
   margin-left: 15px;
   margin-top: 3px;
-  width: 150px;
   height: 40px;
   overflow: hidden;
 
@@ -55,7 +56,7 @@ export const LogoBox = styled.div`
   ${({ theme }) =>
     css`
       @media screen and (max-width: ${theme.breakPoints.mobile}) {
-        width: 35px;
+        flex: 0 0 35px;
         margin-left: 0px;
       }
     `}
@@ -64,7 +65,7 @@ export const LogoBox = styled.div`
 export const MainLogoSVG = styled(Sprites)`
   position: relative;
   left: 1%;
-  top: -1242%; // TODO: 더 좋은 방법?
+  top: -1246%; // TODO: 더 좋은 방법?
 
   ${({ theme }) =>
     css`

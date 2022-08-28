@@ -27,8 +27,6 @@ export const Background = styled.div`
 
 export const ModalMain = styled.div`
   position: fixed;
-  left: 50%;
-  top: 50%;
   transform: translate(-50%, -50%);
   background-color: white;
   box-shadow: 1px 1px 5px rgb(206, 206, 206);
@@ -42,7 +40,7 @@ export const ModalMain = styled.div`
     minWidth,
     minHeight,
     isMount,
-    position,
+    position = { x: '50%', y: '50%' },
     borderRadius = '10px',
     boxShadow,
   }: ModalMainProps) => css`
