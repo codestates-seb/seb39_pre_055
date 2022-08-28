@@ -1,4 +1,4 @@
-/** value == '2021-11-17', '2021-11-17 00:00:00' */
+/** value == '2021-11-17' || '2021-11-17 00:00:00' */
 export const dateFormat = (value: string) => {
   const today = new Date();
   const timeValue = new Date(value);
