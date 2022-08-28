@@ -4,7 +4,9 @@ interface Prop {
   label?: string;
   id: string;
   value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => void | React.Dispatch<React.SetStateAction<string>>;
 }
 
 const DefaultInput = ({ label, id, value, onChange }: Prop) => {

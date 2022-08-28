@@ -1,7 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import { Editor } from '@toast-ui/react-editor';
-import { KeyboardEvent, useCallback, useRef, useState } from 'react';
+import React, { KeyboardEvent, useCallback, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -13,6 +13,7 @@ import {
   EditSidebar,
   TagInput,
 } from '../../components';
+import { useInput } from '../../hooks';
 import { editQuestion, useAppDispatch } from '../../redux';
 import { question } from '../../utils';
 
@@ -49,7 +50,7 @@ const CancelButton = styled.button`
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
   const editorRef = useRef<Editor>(null);
-  const [title, setTitle] = useState('Stop an array while finding string');
+  const [title, titleHandler] = useInput('Stop an array while finding string');
   const [body, setBody] = useState(question);
   const [tagInput, setTagInput] = useState('');
   const [tagArr, setTagArr] = useState(['javascript', 'react']);
@@ -90,8 +91,8 @@ const EditQuestion = () => {
       <DefaultInput
         label="Title"
         id="title"
-        value={title}
-        onChange={(e) => setTitle(e.target.value)}
+        value={title as string}
+        onChange={(e) => titleHandler(e)}
       />
       <EditorContainer>
         <h2>Body</h2>
