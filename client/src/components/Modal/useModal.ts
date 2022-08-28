@@ -16,6 +16,7 @@ const useModal = ({
   if (!openModal || !closeModal || !setSize || !setPosition) {
     throw new Error('useModal was used outside of ModalCtx.Provider.');
   }
+
   useEffect(() => {
     setSize({ width, height });
   }, [width, height, setSize]);
