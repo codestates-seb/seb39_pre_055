@@ -74,7 +74,7 @@ const Content = ({ type, body, tags }: Prop) => {
             <TextButton name="Delete" onClick={confirmDelete} />
             <TextButton
               name={following ? 'Follow' : 'Following'}
-              onClick={toggleFollowing as () => void}
+              onClick={toggleFollowing}
             />
           </div>
           {shareModal && <AnchorCard type={type} />}
