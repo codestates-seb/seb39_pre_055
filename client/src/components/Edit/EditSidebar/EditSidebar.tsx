@@ -28,6 +28,12 @@ const Sidebar = styled.div`
     font-size: 13px;
     list-style: inside;
   }
+
+  @media screen and (max-width: ${(props) => props.theme.breakPoints.mobile}) {
+    aside {
+      width: 100%;
+    }
+  }
 `;
 
 const EditSidebar = () => {

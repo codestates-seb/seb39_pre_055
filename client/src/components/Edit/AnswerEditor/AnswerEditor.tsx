@@ -44,6 +44,7 @@ const AnswerEditor = () => {
         ]}
         ref={editorRef}
         onChange={handleEditorChange}
+        autofocus={false}
       />
       <BlueButton width="140px" height="35px">
         Post Your Answer
