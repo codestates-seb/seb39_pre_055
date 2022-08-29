@@ -1,32 +1,20 @@
-import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
+import { Outlet, useLocation } from 'react-router-dom';
+import { css } from 'styled-components';
 
 import SidePanel from '../SidePanel/SidePanel';
+import { Section, SMain } from './style';
 
-// TODO: Nav 높이 바뀔 때마다 SidePanel, Section 모두 수정해줘야 함
-const Section = styled.section`
-  position: relative;
-  top: 50px;
-  width: 100%;
-  min-height: calc(100vh - 420px);
-  max-width: 900px;
-  /* background-color: aliceblue; */
-  overflow-x: hidden;
-`;
-
-const SMain = styled.main`
-  position: relative;
-  width: 100vw;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-  margin-bottom: 50px; // TODO: margin 말고 다른 방법으로 높이 맞추는 방법?
+const AskBGColor = css`
+  background-color: var(--black-050);
 `;
 
 const Main = () => {
+  const { pathname } = useLocation();
+  const isMain = pathname !== '/questions/ask';
+
   return (
-    <SMain>
-      <SidePanel />
+    <SMain bgColor={isMain || AskBGColor}>
+      {isMain && <SidePanel />}
       <Section>
         <Outlet />
       </Section>
