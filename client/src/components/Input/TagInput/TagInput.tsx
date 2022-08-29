@@ -9,9 +9,10 @@ interface Prop {
   tagArr: Array<string>;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => void;
+  onClick: (name: string) => void;
 }
 
-const TagInput = ({ value, tagArr, onChange, onKeyUp }: Prop) => {
+const TagInput = ({ value, tagArr, onChange, onKeyUp, onClick }: Prop) => {
   const [isTagsFocus, setIsTagsFocus] = useState(false);
   return (
     <>
@@ -19,7 +20,7 @@ const TagInput = ({ value, tagArr, onChange, onKeyUp }: Prop) => {
       <HashTagContainer isFocus={isTagsFocus}>
         <HashTags>
           {tagArr.map((tag) => (
-            <Tag key={tag} name={tag} />
+            <Tag key={tag} name={tag} deleteButton onClick={onClick} />
           ))}
         </HashTags>
         <input

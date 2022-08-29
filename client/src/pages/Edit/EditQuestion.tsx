@@ -66,12 +66,16 @@ const EditQuestion = () => {
   const handleInputOnKeyUp = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       const target = e.target as HTMLInputElement;
-      if (e.key === 'Enter' && target.value.trim() !== '') {
+      if (
+        e.key === 'Enter' &&
+        target.value.trim() !== '' &&
+        !tagArr.includes(target.value)
+      ) {
         setTagArr((prev) => [...prev, target.value]);
         setTagInput('');
       }
     },
-    []
+    [tagArr]
   );
 
   const handleEditButtonClick = useCallback(() => {
@@ -84,6 +88,14 @@ const EditQuestion = () => {
     );
     navigate(-1);
   }, [title, body, tagArr, dispatch, navigate]);
+
+  const handleDeleteTag = useCallback(
+    (name: string) => {
+      const deletedTags = tagArr.filter((tag) => tag !== name);
+      setTagArr(deletedTags);
+    },
+    [tagArr]
+  );
 
   return (
     <Container>
@@ -106,6 +118,7 @@ const EditQuestion = () => {
         value={tagInput}
         onChange={(e) => setTagInput(e.target.value)}
         onKeyUp={handleInputOnKeyUp}
+        onClick={handleDeleteTag}
         tagArr={tagArr}
       />
       <BlueButton width="90px" onClick={handleEditButtonClick}>
