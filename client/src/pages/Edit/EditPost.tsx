@@ -38,7 +38,7 @@ const EditQuestion = () => {
 
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
-      if (title.length > 14) {
+      if (title.trim().length > 14) {
         setTitleError(false);
       }
       titleHandler(e);
@@ -87,7 +87,7 @@ const EditQuestion = () => {
   );
 
   const handleEditButtonClick = useCallback(() => {
-    if (tagArr.length === 0 || title.length < 15) {
+    if (tagArr.length === 0 || title.trim().length < 15) {
       if (tagArr.length === 0) setTagError(true);
       if (title.length < 15) setTitleError(true);
       return;
