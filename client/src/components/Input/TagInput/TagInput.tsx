@@ -2,7 +2,13 @@
 import { useState } from 'react';
 
 import Tag from '../../Tag/Tag';
-import { Container, ErrorMsg, HashTagContainer, HashTags } from './style';
+import {
+  Container,
+  ErrorIcon,
+  ErrorMsg,
+  HashTagContainer,
+  HashTags,
+} from './style';
 
 interface Prop {
   value: string;
@@ -40,6 +46,7 @@ const TagInput = ({
           onFocus={() => setIsTagsFocus(true)}
           onBlur={() => setIsTagsFocus(false)}
         />
+        {isError && <ErrorIcon />}
       </HashTagContainer>
       {isError && (
         <ErrorMsg>
