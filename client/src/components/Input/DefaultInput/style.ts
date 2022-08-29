@@ -31,13 +31,24 @@ export const SLabel = styled.label`
   font-weight: 600;
 `;
 
-export const SInput = styled.input<{ isError: boolean }>`
+export const SCommentP = styled.p`
+  font-size: 0.8rem;
+  color: var(--black-600);
+  margin-bottom: 7px;
+`;
+
+export const SInput = styled.input`
+  margin-bottom: 30px;
   padding: 8px 10px;
   margin-bottom: 10px;
   width: 100%;
   height: 35px;
   border: 1px solid rgb(186, 191, 196);
   border-radius: 3px;
+
+  &::placeholder {
+    color: var(--black-300);
+  }
 
   &:focus {
     border-color: ${({ isError }) => !isError && 'var(--blue-300)'};
