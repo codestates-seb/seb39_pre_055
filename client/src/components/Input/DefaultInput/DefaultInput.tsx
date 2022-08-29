@@ -2,7 +2,6 @@ import { MdError } from 'react-icons/md';
 
 import { SCommentP, SInput, SLabel, Wrapper } from './style';
 
-
 interface Prop {
   label?: string;
   id: string;
