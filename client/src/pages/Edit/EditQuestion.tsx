@@ -61,7 +61,8 @@ const EditQuestion = () => {
   const [body, setBody] = useState(question);
   const [tagInput, setTagInput] = useState('');
   const [tagArr, setTagArr] = useState(['javascript', 'react']);
-  const [tagError, setTagError] = useState(false);
+  const [titleError, setTitleError] = useState(false);
+  const [tagError, setTagError] = useState(true);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -126,7 +127,8 @@ const EditQuestion = () => {
       <DefaultInput
         label="Title"
         id="title"
-        value={title as string}
+        value={title}
+        isError
         onChange={(e) => titleHandler(e)}
       />
       <EditorContainer>
