@@ -1,7 +1,7 @@
 import { Context, useContext } from 'react';
 
 import { OpenCtx } from './ModalContext';
-import { Background, ModalMain } from './styles';
+import { Background, ModalMain } from './style';
 import { ModalProps } from './types';
 
 type Nullable<S> = S | void;

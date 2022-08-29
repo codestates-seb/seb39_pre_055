@@ -1,11 +1,24 @@
 import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const MainSearchBox = styled.div`
   padding-left: 10px;
   padding-right: 10px;
   flex: 1 1 300px;
+
+  ${({ theme }) =>
+    css`
+      @media screen and (max-width: ${theme.breakPoints.mobile}) {
+        position: fixed;
+        left: 0px;
+        top: 50px;
+        flex: 1 1 100vw;
+        background-color: var(--black-050);
+        z-index: 1;
+      }
+    `}
 `;
+
 export const HintsBox = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);

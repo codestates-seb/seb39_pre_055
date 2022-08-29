@@ -1,11 +1,27 @@
-import { useCallback, useEffect, useRef, useState } from 'react';
+import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 import { SearchBar } from '../../..';
 import { Modal, useModal } from '../../../Modal';
 import SearchHints from './SearchHints';
 import { MainSearchBox } from './style';
 
-const MainSearchBar = () => {
+interface MainSearchBarProps {
+  width?: string;
+  height?: string;
+  responsive?: boolean;
+  inputRef?: RefObject<HTMLInputElement>;
+  onSearchHandler?: () => void;
+  onBlurHandler?: () => void;
+}
+
+const MainSearchBar = ({
+  width,
+  height,
+  responsive = true,
+  inputRef,
+  onSearchHandler,
+  onBlurHandler,
+}: MainSearchBarProps) => {
   const [position, setPosition] = useState({ x: '500px', y: '51px' });
   const [size, setSize] = useState({ width: '200px', height: '180px' });
   const [isFocused, setIsFocused] = useState(false);
@@ -23,11 +39,16 @@ const MainSearchBar = () => {
 
   const repositionModal = useCallback(() => {
     if (!searchRef.current) return;
-
+    const { offsetTop, offsetHeight } = searchRef.current.parentElement!;
     const left = searchRef.current.offsetLeft;
+    const top = offsetTop + offsetHeight;
 
     setPosition((prev) => {
-      return { ...prev, x: `${left}px` };
+      return {
+        ...prev,
+        x: `${left}px`,
+        y: `${top}px`,
+      };
     });
   }, []);
 
@@ -58,9 +79,27 @@ const MainSearchBar = () => {
     resizeModal();
   }, [resizeModal]);
 
+  const onSearch = () => {
+    closeModal();
+
+    if (onSearchHandler) {
+      onSearchHandler();
+    }
+  };
+  const onBlur = () => {
+    setIsFocused(false);
+    closeModal();
+
+    if (onBlurHandler) {
+      onBlurHandler();
+    }
+  };
+
   return (
     <MainSearchBox>
       <SearchBar
+        width={width}
+        height={height}
         placeholder="Search"
         onFocus={() => {
           resizeModal();
@@ -68,22 +107,34 @@ const MainSearchBar = () => {
           setIsFocused(true);
           openModal(<SearchHints />);
         }}
-        onBlur={() => {
-          setIsFocused(false);
-          closeModal();
-        }}
-        searchHandler={{ callback: closeModal, navigatePath: '/search?q=' }}
+        onBlur={onBlur}
+        onSearch={{ callback: onSearch, navigatePath: '/search?q=' }}
         wrapperRef={searchRef}
-        responsive
+        inputRef={inputRef}
+        responsive={responsive}
       />
     </MainSearchBox>
   );
 };
 
-const SearchBarBox = () => {
+const SearchBarBox = ({
+  width,
+  height,
+  responsive,
+  inputRef,
+  onSearchHandler,
+  onBlurHandler,
+}: MainSearchBarProps) => {
   return (
     <Modal width="200px" height="180px" background={false} minWidth="480px">
-      <MainSearchBar />
+      <MainSearchBar
+        width={width}
+        height={height}
+        inputRef={inputRef}
+        responsive={responsive}
+        onSearchHandler={onSearchHandler}
+        onBlurHandler={onBlurHandler}
+      />
     </Modal>
   );
 };
