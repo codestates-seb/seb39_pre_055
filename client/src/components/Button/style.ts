@@ -3,9 +3,13 @@ import styled, { css } from 'styled-components';
 import { ButtonProps } from './DefaultButton';
 
 export const Btn = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 3px;
   border: 0px;
   transition: 0.4s all;
+  font-size: 0.85rem;
 
   &:hover {
     transition: 0.4s all;
