@@ -63,6 +63,7 @@ export const SCommentP = styled.p`
   font-size: 0.8rem;
   color: var(--black-600);
   margin-bottom: 7px;
+`;
 
 export const ErrorIcon = styled(MdError)`
   color: hsl(358, 68%, 59%);
