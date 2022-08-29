@@ -1,7 +1,13 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 
 import { Editor } from '@toast-ui/react-editor';
-import React, { KeyboardEvent, useCallback, useRef, useState } from 'react';
+import React, {
+  ChangeEvent,
+  KeyboardEvent,
+  useCallback,
+  useRef,
+  useState,
+} from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -16,6 +22,7 @@ import {
 import { useInput } from '../../hooks';
 import { editQuestion, useAppDispatch } from '../../redux';
 import { question } from '../../utils';
+import { ENG_REGEX } from '../../utils/regex';
 
 const Container = styled.div`
   padding: 24px;
@@ -54,6 +61,7 @@ const EditQuestion = () => {
   const [body, setBody] = useState(question);
   const [tagInput, setTagInput] = useState('');
   const [tagArr, setTagArr] = useState(['javascript', 'react']);
+  const [tagError, setTagError] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -63,7 +71,7 @@ const EditQuestion = () => {
     }
   }, []);
 
-  const handleInputOnKeyUp = useCallback(
+  const handleTagInputOnKeyUp = useCallback(
     (e: KeyboardEvent<HTMLInputElement>) => {
       const target = e.target as HTMLInputElement;
       if (
@@ -71,6 +79,7 @@ const EditQuestion = () => {
         target.value.trim() !== '' &&
         !tagArr.includes(target.value)
       ) {
+        setTagError(false);
         setTagArr((prev) => [...prev, target.value]);
         setTagInput('');
       }
@@ -78,7 +87,29 @@ const EditQuestion = () => {
     [tagArr]
   );
 
+  const handleTagInputChange = useCallback(
+    (e: ChangeEvent<HTMLInputElement>) => {
+      const { value } = e.target;
+      if (ENG_REGEX.test(value)) {
+        setTagInput(value);
+      }
+    },
+    []
+  );
+
+  const handleTagDelete = useCallback(
+    (name: string) => {
+      const deletedTags = tagArr.filter((tag) => tag !== name);
+      setTagArr(deletedTags);
+    },
+    [tagArr]
+  );
+
   const handleEditButtonClick = useCallback(() => {
+    if (tagArr.length === 0) {
+      setTagError(true);
+      return;
+    }
     dispatch(
       editQuestion({
         title,
@@ -88,14 +119,6 @@ const EditQuestion = () => {
     );
     navigate(-1);
   }, [title, body, tagArr, dispatch, navigate]);
-
-  const handleDeleteTag = useCallback(
-    (name: string) => {
-      const deletedTags = tagArr.filter((tag) => tag !== name);
-      setTagArr(deletedTags);
-    },
-    [tagArr]
-  );
 
   return (
     <Container>
@@ -117,10 +140,10 @@ const EditQuestion = () => {
       <TagInput
         value={tagInput}
         tagArr={tagArr}
-        isError={false}
-        onChange={(e) => setTagInput(e.target.value)}
-        onKeyUp={handleInputOnKeyUp}
-        onClick={handleDeleteTag}
+        isError={tagError}
+        onChange={handleTagInputChange}
+        onKeyUp={handleTagInputOnKeyUp}
+        onClick={handleTagDelete}
       />
       <BlueButton width="90px" onClick={handleEditButtonClick}>
         Save Edits

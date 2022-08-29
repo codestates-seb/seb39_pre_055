@@ -15,8 +15,7 @@ export const HashTagContainer = styled.div<Prop>`
   border: 1px solid rgb(186, 191, 196);
   border-radius: 3px;
 
-  ${({ isFocus, isError }) =>
-    isFocus &&
+  ${({ isError }) =>
     isError &&
     css`
       border-color: rgb(208, 57, 62);
