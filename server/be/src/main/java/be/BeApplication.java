@@ -18,7 +18,10 @@ public class BeApplication {
 		return new WebMvcConfigurer() {
 			@Override
 			public void addCorsMappings(CorsRegistry registry) {
-				registry.addMapping("/**").allowedOrigins("http://13.209.17.182:8080");
+				registry.addMapping("/**").allowedOrigins("http://13.209.17.182:8080",
+						"http://localhost:8080", "http://localhost:3000",
+						"https://localhost:3000")
+						.allowedMethods("GET", "POST", "PUT", "DELETE");
 			}
 		};
 	}
