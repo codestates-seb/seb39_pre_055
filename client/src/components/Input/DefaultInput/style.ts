@@ -1,8 +1,28 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
-export const Wrapper = styled.div`
-  font-size: 15px;
+export const Wrapper = styled.div<{ isError: boolean }>`
+  position: relative;
+  margin-bottom: 30px;
   color: #0c0d0e;
+  font-size: 15px;
+
+  ${({ isError }) =>
+    isError &&
+    css`
+      svg {
+        position: absolute;
+        top: 28px;
+        right: 10px;
+        color: hsl(358, 68%, 59%);
+        font-size: 20px;
+      }
+
+      p {
+        margin-bottom: 30px;
+        color: hsl(358, 62%, 52%);
+        font-size: 12px;
+      }
+    `}
 `;
 
 export const SLabel = styled.label`
@@ -20,6 +40,7 @@ export const SCommentP = styled.p`
 export const SInput = styled.input`
   margin-bottom: 30px;
   padding: 8px 10px;
+  margin-bottom: 10px;
   width: 100%;
   height: 35px;
   border: 1px solid rgb(186, 191, 196);
@@ -30,7 +51,14 @@ export const SInput = styled.input`
   }
 
   &:focus {
-    border-color: var(--blue-300);
-    outline: var(--blue-100) solid 4px;
+    border-color: ${({ isError }) => !isError && 'var(--blue-300)'};
+    outline: ${({ isError }) => !isError && 'var(--blue-100) solid 4px'};
   }
+
+  ${({ isError }) =>
+    isError &&
+    css`
+      border-color: hsl(358, 68%, 59%);
+      outline: hsl(358, 76%, 90%) solid 4px;
+    `}
 `;

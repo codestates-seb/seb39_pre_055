@@ -12,6 +12,7 @@ export const Container = styled.div`
 `;
 
 export const HashTagContainer = styled.div<Prop>`
+  position: relative;
   display: flex;
   align-items: center;
   margin-top: 6px;
@@ -66,8 +67,10 @@ export const SCommentP = styled.p`
 `;
 
 export const ErrorIcon = styled(MdError)`
+  position: absolute;
+  top: 8px;
+  right: 10px;
   color: hsl(358, 68%, 59%);
-  margin-right: 10px;
   font-size: 20px;
 `;
 
@@ -78,7 +81,7 @@ export const HashTags = styled.div`
 `;
 
 export const ErrorMsg = styled.p`
-  margin-top: 8px;
+  margin-top: 10px;
   margin-bottom: 30px;
   color: hsl(358, 62%, 52%);
   font-size: 12px;
