@@ -32,6 +32,7 @@ const EditQuestion = () => {
   const [tagInput, setTagInput] = useState('');
   const [tagArr, setTagArr] = useState(['javascript', 'react']);
   const [titleError, setTitleError] = useState(false);
+  const [bodyError, setBodyError] = useState(false);
   const [tagError, setTagError] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -47,6 +48,12 @@ const EditQuestion = () => {
   );
 
   const handleEditorChange = useCallback(() => {
+    if (
+      editorRef.current &&
+      editorRef.current?.getInstance().getMarkdown().length > 29
+    ) {
+      setBodyError(false);
+    }
     if (editorRef.current) {
       setBody(editorRef.current?.getInstance().getMarkdown());
     }
@@ -87,9 +94,14 @@ const EditQuestion = () => {
   );
 
   const handleEditButtonClick = useCallback(() => {
-    if (tagArr.length === 0 || title.trim().length < 15) {
+    if (
+      tagArr.length === 0 ||
+      title.trim().length < 15 ||
+      body.trim().length < 30
+    ) {
       if (tagArr.length === 0) setTagError(true);
       if (title.length < 15) setTitleError(true);
+      if (body.length < 29) setBodyError(true);
       return;
     }
     dispatch(
@@ -117,6 +129,7 @@ const EditQuestion = () => {
         <CustomEditor
           value={body}
           editorRef={editorRef}
+          isError={bodyError}
           onChange={handleEditorChange}
         />
       </EditorContainer>

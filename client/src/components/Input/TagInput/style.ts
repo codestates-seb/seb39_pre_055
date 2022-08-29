@@ -33,7 +33,7 @@ export const HashTagContainer = styled.div<Prop>`
       border-color: var(--blue-300);
       outline: var(--blue-100) solid 4px;
     `}
-
+  
   ${({ marginBottom }) => css`
     margin-bottom: ${marginBottom};
   `}
