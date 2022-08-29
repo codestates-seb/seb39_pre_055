@@ -2,21 +2,33 @@
 import { useState } from 'react';
 
 import Tag from '../../Tag/Tag';
-import { HashTagContainer, HashTags } from './style';
+import { HashTagContainer, HashTags, SCommentP, SLabel } from './style';
 
 interface Prop {
   value: string;
   tagArr: Array<string>;
+  marginBottom?: string;
+  comment?: string;
+  placeholder?: string;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyUp: (e: React.KeyboardEvent<HTMLInputElement>) => void;
 }
 
-const TagInput = ({ value, tagArr, onChange, onKeyUp }: Prop) => {
+const TagInput = ({
+  value,
+  tagArr,
+  comment,
+  placeholder,
+  marginBottom = '30px',
+  onChange,
+  onKeyUp,
+}: Prop) => {
   const [isTagsFocus, setIsTagsFocus] = useState(false);
   return (
     <>
-      <label htmlFor="tags">Tags</label>
-      <HashTagContainer isFocus={isTagsFocus}>
+      <SLabel htmlFor="tags">Tags</SLabel>
+      {comment && <SCommentP>{comment}</SCommentP>}
+      <HashTagContainer isFocus={isTagsFocus} marginBottom={marginBottom}>
         <HashTags>
           {tagArr.map((tag) => (
             <Tag key={tag} name={tag} />
@@ -26,6 +38,7 @@ const TagInput = ({ value, tagArr, onChange, onKeyUp }: Prop) => {
           type="text"
           id="tags"
           value={value}
+          placeholder={placeholder}
           onChange={(e) => onChange(e)}
           onKeyUp={(e) => onKeyUp(e)}
           onFocus={() => setIsTagsFocus(true)}
