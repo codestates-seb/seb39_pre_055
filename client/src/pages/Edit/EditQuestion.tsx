@@ -116,10 +116,11 @@ const EditQuestion = () => {
       </EditorContainer>
       <TagInput
         value={tagInput}
+        tagArr={tagArr}
+        isError={false}
         onChange={(e) => setTagInput(e.target.value)}
         onKeyUp={handleInputOnKeyUp}
         onClick={handleDeleteTag}
-        tagArr={tagArr}
       />
       <BlueButton width="90px" onClick={handleEditButtonClick}>
         Save Edits
