@@ -34,9 +34,9 @@ export const HashTagContainer = styled.div<Prop>`
       outline: var(--blue-100) solid 4px;
     `}
   
-  ${({ marginBottom }) => css`
+  /* ${({ marginBottom }) => css`
     margin-bottom: ${marginBottom};
-  `}
+  `} */
 
   input {
     width: 100%;

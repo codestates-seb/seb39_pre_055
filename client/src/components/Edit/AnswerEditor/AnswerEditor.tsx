@@ -10,43 +10,46 @@ import styled from 'styled-components';
 
 import { addAnswer, useAppDispatch } from '../../../redux';
 import { BlueButton } from '../../Button/Templates';
+import CustomEditor from '../CustomEditor/CustomEditor';
 
-const Container = styled.form`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  margin-bottom: 30px;
 `;
 
 const AnswerEditor = () => {
   const editorRef = useRef<Editor>(null);
   const [value, setValue] = useState(' ');
+  const [isError, setIsError] = useState(false);
 
   const dispatch = useAppDispatch();
 
   const handleEditorChange = useCallback(() => {
+    if (value.length > 29) setIsError(false);
     if (editorRef.current) {
       setValue(editorRef.current?.getInstance().getMarkdown());
     }
-  }, []);
+  }, [value]);
+
+  const handleSubmit = useCallback(() => {
+    if (value.length < 30) {
+      setIsError(true);
+      return;
+    }
+    addAnswer(value);
+  }, [value]);
 
   return (
     <Container onSubmit={() => dispatch(addAnswer(value))}>
-      <Editor
-        initialValue={value}
-        useCommandShortcut
-        plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]} // 코드블럭 하이라이트
-        toolbarItems={[
-          ['bold', 'italic', 'strike'],
-          ['code', 'codeblock'],
-          ['hr', 'quote'],
-          ['ul', 'ol', 'task', 'indent', 'outdent'],
-          ['table', 'image', 'link'],
-        ]}
-        ref={editorRef}
+      <CustomEditor
+        height="300px"
+        value={value}
+        isError={isError}
+        editorRef={editorRef}
         onChange={handleEditorChange}
-        autofocus={false}
       />
-      <BlueButton width="140px" height="35px">
+      <BlueButton width="140px" height="35px" onClick={handleSubmit}>
         Post Your Answer
       </BlueButton>
     </Container>

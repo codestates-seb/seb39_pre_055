@@ -47,20 +47,27 @@ const ErrorMsg = styled.p`
 `;
 
 interface Prop {
+  height?: string;
   value: string;
   isError: boolean;
   editorRef: React.RefObject<Editor>;
   onChange: () => void;
 }
 
-const CustomEditor = ({ value, isError, editorRef, onChange }: Prop) => {
+const CustomEditor = ({
+  height = '500px',
+  value,
+  isError,
+  editorRef,
+  onChange,
+}: Prop) => {
   const [isEditorFocus, setIsEditorFocus] = useState(false);
   return (
     <>
       <EditorBorder isFocus={isEditorFocus} isError={isError}>
         <Editor
           initialValue={value}
-          height="500px"
+          height={height}
           useCommandShortcut
           plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]} // 코드블럭 하이라이트
           toolbarItems={[
