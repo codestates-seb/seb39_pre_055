@@ -37,7 +37,7 @@ export const SCommentP = styled.p`
   margin-bottom: 7px;
 `;
 
-export const SInput = styled.input`
+export const SInput = styled.input<{ isError: boolean }>`
   margin-bottom: 30px;
   padding: 8px 10px;
   margin-bottom: 10px;
