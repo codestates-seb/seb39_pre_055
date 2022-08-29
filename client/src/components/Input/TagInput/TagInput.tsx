@@ -2,15 +2,14 @@
 import { useState } from 'react';
 
 import Tag from '../../Tag/Tag';
-
 import {
   Container,
   ErrorIcon,
   ErrorMsg,
   HashTagContainer,
-  SCommentP,
-  SLabel
   HashTags,
+  SCommentP,
+  SLabel,
 } from './style';
 
 interface Prop {
@@ -41,7 +40,11 @@ const TagInput = ({
     <Container>
       <SLabel htmlFor="tags">Tags</SLabel>
       {comment && <SCommentP>{comment}</SCommentP>}
-      <HashTagContainer isFocus={isTagsFocus} isError={isError} marginBottom={marginBottom}>
+      <HashTagContainer
+        isFocus={isTagsFocus}
+        isError={isError}
+        marginBottom={marginBottom}
+      >
         <HashTags>
           {tagArr.map((tag) => (
             <Tag key={tag} name={tag} deleteButton onClick={onClick} />
