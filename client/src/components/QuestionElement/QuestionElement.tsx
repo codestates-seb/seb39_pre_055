@@ -37,7 +37,6 @@ const Tags = styled.span`
 const UserContainer = styled.span`
   display: flex;
   align-items: center;
-  hight: 20px;
   margin: 0px 20px 0px auto;
   font-size: 12px;
 

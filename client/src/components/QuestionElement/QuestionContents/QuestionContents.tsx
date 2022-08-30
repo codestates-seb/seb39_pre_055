@@ -14,6 +14,7 @@ const Container = styled.span`
   color: var(--black-700);
   margin-bottom: 8px;
   padding-right: 23px;
+  line-height: 17px;
   @media (max-width: 640px) {
     font-size: 11px;
   }
