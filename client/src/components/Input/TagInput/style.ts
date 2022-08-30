@@ -8,7 +8,7 @@ interface Prop {
 }
 
 export const Container = styled.div`
-  margin-bottom: 30px;
+  /* margin-bottom: 30px; */
 `;
 
 export const HashTagContainer = styled.div<Prop>`
@@ -34,10 +34,6 @@ export const HashTagContainer = styled.div<Prop>`
       outline: var(--blue-100) solid 4px;
     `}
   
-  ${({ marginBottom }) => css`
-    margin-bottom: ${marginBottom};
-  `}
-
   input {
     width: 100%;
     height: 35px;
@@ -82,7 +78,6 @@ export const HashTags = styled.div`
 
 export const ErrorMsg = styled.p`
   margin-top: 10px;
-  margin-bottom: 30px;
   color: hsl(358, 62%, 52%);
   font-size: 12px;
 `;

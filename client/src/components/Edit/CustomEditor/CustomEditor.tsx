@@ -11,7 +11,6 @@ import styled, { css } from 'styled-components';
 
 const EditorBorder = styled.div<{ isFocus: boolean; isError: boolean }>`
   position: relative;
-  margin-bottom: 10px;
 
   svg {
     position: absolute;
@@ -26,7 +25,7 @@ const EditorBorder = styled.div<{ isFocus: boolean; isError: boolean }>`
     !isError &&
     css`
       border-radius: 3px;
-      border-color: var(--blue-300);
+      border: 1px solid var(--blue-300);
       outline: var(--blue-100) solid 4px;
     `}
 
@@ -41,26 +40,32 @@ const EditorBorder = styled.div<{ isFocus: boolean; isError: boolean }>`
 
 const ErrorMsg = styled.p`
   margin-top: 10px;
-  margin-bottom: 30px;
   color: hsl(358, 62%, 52%);
   font-size: 12px;
 `;
 
 interface Prop {
+  height?: string;
   value: string;
   isError: boolean;
   editorRef: React.RefObject<Editor>;
   onChange: () => void;
 }
 
-const CustomEditor = ({ value, isError, editorRef, onChange }: Prop) => {
+const CustomEditor = ({
+  height = '500px',
+  value,
+  isError,
+  editorRef,
+  onChange,
+}: Prop) => {
   const [isEditorFocus, setIsEditorFocus] = useState(false);
   return (
     <>
       <EditorBorder isFocus={isEditorFocus} isError={isError}>
         <Editor
           initialValue={value}
-          height="500px"
+          height={height}
           useCommandShortcut
           plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]} // 코드블럭 하이라이트
           toolbarItems={[
