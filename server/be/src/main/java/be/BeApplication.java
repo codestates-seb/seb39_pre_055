@@ -7,7 +7,7 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@EnableJpaAuditing
+@EnableJpaAuditing //audit 설정에 필요한 에너테이션
 @SpringBootApplication
 public class BeApplication {
 

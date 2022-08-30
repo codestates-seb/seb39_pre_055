@@ -27,11 +27,11 @@ public class Answer {
 //    @Column(nullable = false, name = "UPDATED_AT")
 //    private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "STATUS")
     private AnswerStatus questionStatus = AnswerStatus.ANSWER_EXIST;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String body;
 
     @Column(nullable = false)
