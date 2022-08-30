@@ -7,7 +7,7 @@ import { SExplaneP, SLink } from './style';
 const NonProgCard = () => {
   return (
     <SContentBox>
-      <SContentP>
+      <SContentP as="div">
         <SLink href="https://superuser.com/help/on-topic">Super user</SLink>
         <SExplaneP>Troubleshooting hardware and software issues</SExplaneP>
         <br />
