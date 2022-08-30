@@ -9,19 +9,20 @@ import {
   QuestionList,
 } from './pages';
 import Search from './pages/Search/Search';
+import Tags from './pages/Tags/Tags';
+import Users from './pages/Users/Users';
 
 const App = () => {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<div>Landing</div>} />
-        <Route path="/questions" element={<SharedLayout />}>
+        <Route path="/" element={<SharedLayout />}>
           <Route index element={<QuestionList />} />
-          <Route path="/questions/:id" element={<EditQuestion />} />
-          <Route path="/questions/ask" element={<AskQuestion />} />
-          <Route path="/questions/tags" element={<AskQuestion />} />
-          <Route path="/questions/users" element={<QuestionDetail />} />
-          <Route path="/questions/company" element={<EditQuestion />} />
+          <Route path="/:id" element={<QuestionDetail />} />
+          <Route path="/:id/edit" element={<EditQuestion />} />
+          <Route path="/ask" element={<AskQuestion />} />
+          <Route path="/tags" element={<Tags />} />
+          <Route path="/users" element={<Users />} />
         </Route>
         <Route path="/search/*" element={<SharedLayout />}>
           <Route index element={<Search />} />
