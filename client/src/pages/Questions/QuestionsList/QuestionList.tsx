@@ -1,78 +1,48 @@
-import styled from 'styled-components';
+import axios from 'axios';
+import { useSelector } from 'react-redux';
 
-import AskQuestionsButton from '../../../components/AskQuestionsButton/AskQuestionsButton';
+import { BlueButton } from '../../../components';
 import CountQuestions from '../../../components/CountQuestions/CountQuestions';
 import LeftCounts from '../../../components/QuestionElement/LeftCounts/LeftCounts';
 import QuestionElement from '../../../components/QuestionElement/QuestionElement';
 import SortTab from '../../../components/SortTab/SortTab';
-// 컴포넌트 수정 후 통합하기
-
-const Container = styled.div`
-  border-left: 0.2px solid var(--black-100);
-`;
-
-const TitleContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 15px;
-  padding: 23px 23px 0px 23px;
-
-  h1 {
-    font-size: 27px;
-    color: var(--fc-dark);
-  }
-`;
-
-const InfoContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 9px;
-  padding: 0px 23px 0px 23px;
-`;
-
-const SortTabs = styled.span`
-  display: flex;
-`;
-
-const MainContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  border-top: 0.2px solid var(--black-100);
-`;
-
-// 하단페이지네이션탭 예시용
-const Footer = styled.span`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const PagenationButton = styled.span`
-  display: flex;
-  margin-top: 50px;
-  margin-left: 40px;
-
-  button {
-    margin: 0.8px;
-    font-size: 2px;
-  }
-`;
-
-const PerPageButton = styled.span`
-  display: flex;
-  margin: 50px 0px 0px 180px;
-
-  button {
-    margin: 0.8px;
-    font-size: 2px;
-  }
-`;
+import {
+  Container,
+  Footer,
+  InfoContainer,
+  MainContainer,
+  PagenationButton,
+  PerPageButton,
+  SortTabs,
+  TitleContainer,
+} from './style';
+// 컴포넌트 수정 후 통합하기/
 
 const QuestionList = () => {
+  //   const [page: Number, setPage] = useState(1);
+
+  //   const handlePageChange = (page) => {
+  //     setPage(page);
+  //   };
+
+  //   return (
+  //     <Pagination
+  //       activePage={page}
+  //       itemsCountPerPage={15}
+  //       totalItemsCount={}
+  //       pageRangeDisplayed={15}
+  //       prevPageText={"Prev"}
+  //       nextPageText={"Next"}
+  //       onChange={handlePageChange}
+  //     />
+  //   );
+  // };
+
   return (
     <Container>
       <TitleContainer>
         <h1>All Questions</h1>
-        <AskQuestionsButton name="Ask Question" />
+        <BlueButton>Ask Question</BlueButton>
       </TitleContainer>
       <InfoContainer>
         <CountQuestions counts="22931208" />

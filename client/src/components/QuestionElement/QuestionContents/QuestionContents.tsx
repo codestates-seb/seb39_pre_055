@@ -12,8 +12,11 @@ const Container = styled.span`
   flex-direction: column;
   font-size: 13.5px;
   color: var(--black-700);
-  margin-top: 6px;
+  margin-bottom: 8px;
   padding-right: 23px;
+  @media (max-width: 640px) {
+    font-size: 11px;
+  }
 `;
 
 const QuestionContents = ({ contents, txt, limitLength, lastTxt }: Prop) => {

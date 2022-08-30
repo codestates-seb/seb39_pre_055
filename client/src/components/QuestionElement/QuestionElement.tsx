@@ -15,7 +15,6 @@ interface Prop {
 const Container = styled.span`
   display: flex;
   flex-direction: column;
-  margin-left: 15px;
   width: 100%;
   height: auto;
 `;
@@ -24,31 +23,68 @@ const ContentFooter = styled.span`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
   padding-right: 23px;
 `;
 
 const Tags = styled.span`
   display: flex;
-  margin-top: 7px;
-  margin-bottom: 15px;
+  @media (max-width: 640px) {
+    margin-bottom: 5px;
+  }
 `;
 
 const UserContainer = styled.span`
   display: flex;
   align-items: center;
-  justify-content: flex-end;
-  margin: 0px 20px 0px 200px;
-  font-size: 11.3px;
+  hight: 20px;
+  margin: 0px 20px 0px auto;
+  font-size: 12px;
+
+  justify-content: space-between;
+  flex-wrap: wrap;
+
   img {
-    margin-right: 5px;
+    margin: 5px 5px 5px 0px;
   }
   span {
     margin-right: 5px;
-    margin-top: 5px;
+  }
+  @media (max-width: 640px) {
   }
 `;
+
+const UserName = styled.span`
+  color: var(--blue-600);
+  width: auto;
+`;
+
+const UserAsked = styled.span`
+  color: var(--black-600);
+`;
+
 // QuestionContents 마크다운으로 넘겨줘야함
 const QuestionElement = ({ userName, title, contents }: Prop) => {
+  // function App() {
+  //   const [posts, setPosts] = useState([]);
+  //   const [loading, setLoading] = useState(false);
+  //   const [currentPage, setCurrentPage] = useState(1);
+  //   const [postsPerPage, setPostsPerPage] = useState(10);
+
+  //   useEffect(() => {
+  //     const fetchData = async () => {
+  //       setLoading(true);
+  //       const response = await axios.get(
+  //         'https://'// url
+  //       );
+  //       setPosts(response.data);
+  //       setLoading(false);
+  //     };
+  //     fetchData();
+  //   }, []);
+  //   // console.log(posts);
+  // }
+
   return (
     <Container>
       <QuestionTitle title="(Front-End) on-click change image to the n-th image" />
@@ -63,6 +99,9 @@ const QuestionElement = ({ userName, title, contents }: Prop) => {
           <Tag name="javascript" />
           <Tag name="json" />
           <Tag name="html" />
+          <Tag name="javascript" />
+          <Tag name="json" />
+          <Tag name="html" />
         </Tags>
         <UserContainer>
           <img
@@ -70,8 +109,8 @@ const QuestionElement = ({ userName, title, contents }: Prop) => {
             alt="스크린샷 2022-08-26 오전 1 31 23"
             src="https://user-images.githubusercontent.com/104320234/186720336-2208d3db-cfa4-4145-b9f4-48029e4672e0.png"
           />
-          <span id={userName}>{userName}</span>
-          <span> asked 4 days ago</span>
+          <UserName>{userName}</UserName>
+          <UserAsked> asked 4 days ago</UserAsked>
         </UserContainer>
       </ContentFooter>
     </Container>

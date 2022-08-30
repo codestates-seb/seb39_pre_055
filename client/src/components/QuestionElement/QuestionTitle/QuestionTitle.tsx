@@ -5,9 +5,12 @@ interface Prop {
 }
 
 const Wrapper = styled.span`
-  margin-top: 15px;
-  font-size: 16px;
+  margin-bottom: 5px;
+  font-size: 17px;
   color: var(--blue-600);
+  @media (max-width: 640px) {
+    font-size: 14.38px;
+  }
 `;
 
 const QuestionTitle = ({ title }: Prop) => {
