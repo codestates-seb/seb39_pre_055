@@ -42,8 +42,9 @@ export const TagsContainer = styled.section`
   }
 `;
 
-export const PaginationContainer = styled.div<{ disabled: boolean }>`
-  display: ${({ disabled }) => (disabled ? 'none' : 'flex')};
+export const PaginationContainer = styled.div`
+  display: 'flex';
+  display: flex;
   justify-content: right;
   margin: 20px 0;
 `;

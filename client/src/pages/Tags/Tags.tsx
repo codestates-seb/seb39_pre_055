@@ -1,5 +1,4 @@
 import { useCallback, useEffect, useRef } from 'react';
-import styled from 'styled-components';
 
 import {
   CustomPagination,
@@ -66,14 +65,16 @@ const Tags = () => {
           <TagCard key={tag.name} name={tag.name} count={tag.count} />
         ))}
       </TagsContainer>
-      <PaginationContainer disabled={tagList.length < 90}>
-        <CustomPagination
-          activePage={page}
-          itemsCountPerPage={90}
-          totalItemsCount={900}
-          onChange={(number) => dispatch(changePage(number))}
-        />
-      </PaginationContainer>
+      {tagList.length > 90 && (
+        <PaginationContainer>
+          <CustomPagination
+            activePage={page}
+            itemsCountPerPage={90}
+            totalItemsCount={900}
+            onChange={(number) => dispatch(changePage(number))}
+          />
+        </PaginationContainer>
+      )}
     </Container>
   );
 };

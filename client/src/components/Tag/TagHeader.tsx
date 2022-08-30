@@ -10,8 +10,14 @@ const SHeader = styled.header`
   }
 
   p {
+    margin-bottom: 16px;
     font-size: 15px;
     line-height: 20px;
+  }
+
+  a {
+    color: #0074cc;
+    font-size: 13px;
   }
 `;
 
@@ -26,6 +32,9 @@ const TagHeader = () => {
         Using the right tags makes it easier for others to find and answer your
         question.
       </p>
+      <a href="https://stackoverflow.com/tags/synonyms" target="_block">
+        Show all tag synonyms
+      </a>
     </SHeader>
   );
 };
