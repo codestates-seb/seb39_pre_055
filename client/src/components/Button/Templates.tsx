@@ -4,14 +4,16 @@ import styled from 'styled-components';
 import DefaultBtn, { ButtonProps } from './DefaultButton';
 import { Btn } from './style';
 
-type TemplateButtonProps = Pick<ButtonProps, 'width' | 'height' | 'onClick'> & {
-  children: ReactNode;
-};
+type TemplateButtonProps = Pick<
+  ButtonProps,
+  'width' | 'height' | 'onClick' | 'children' | 'polymorphic'
+>;
 
 export const BlueButton = ({
   width,
   height,
   children,
+  polymorphic,
   onClick,
 }: TemplateButtonProps) => {
   return (
@@ -22,6 +24,7 @@ export const BlueButton = ({
       textColor="white"
       width={width}
       height={height}
+      polymorphic={polymorphic}
       onClick={onClick}
     >
       {children}
@@ -33,6 +36,7 @@ export const PowderButton = ({
   width,
   height,
   children,
+  polymorphic,
   onClick,
 }: TemplateButtonProps) => {
   return (
@@ -43,6 +47,7 @@ export const PowderButton = ({
       textColor="var(--powder-700)"
       width={width}
       height={height}
+      polymorphic={polymorphic}
       onClick={onClick}
     >
       {children}

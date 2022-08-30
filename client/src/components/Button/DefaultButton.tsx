@@ -11,6 +11,7 @@ export interface ButtonProps {
   textColor?: string;
   width?: string;
   height?: string;
+  polymorphic?: 'button' | 'li' | 'div';
 }
 
 const DefaultBtn = ({
@@ -20,6 +21,7 @@ const DefaultBtn = ({
   textColor,
   width,
   height,
+  polymorphic = 'button',
   children,
   onClick,
 }: ButtonProps) => {
@@ -31,6 +33,7 @@ const DefaultBtn = ({
       textColor={textColor}
       width={width}
       height={height}
+      as={polymorphic}
       onClick={onClick}
     >
       {children}

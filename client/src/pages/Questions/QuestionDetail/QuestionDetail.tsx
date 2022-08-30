@@ -3,8 +3,6 @@
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useEffect } from 'react';
-
 import {
   AnswerEditor,
   BlueButton,
@@ -18,12 +16,6 @@ const QuestionDetail = () => {
   const { answerList, questionList } = useAppSelector(
     (state) => state.question
   );
-
-  useEffect(() => {
-    setTimeout(() => {
-      window.scrollTo(0, 0);
-    }, 1);
-  }, []);
 
   return (
     <Container>
