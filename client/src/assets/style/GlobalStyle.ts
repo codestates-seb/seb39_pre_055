@@ -13,6 +13,7 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     font-family: "Noto Sans KR", sans-serif;
     font-weight: 400;
+    --toastify-toast-width: 400px;
     ${variables}
   }
 
