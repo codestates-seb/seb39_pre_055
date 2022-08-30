@@ -50,6 +50,7 @@
   },
   "devDependencies": {
     "@types/prismjs": "^1.26.0",
+    "@types/react-js-pagination": "^3.0.4",
     "@typescript-eslint/eslint-plugin": "^5.34.0",
     "@typescript-eslint/parser": "^5.34.0",
     "eslint": "^8.22.0",

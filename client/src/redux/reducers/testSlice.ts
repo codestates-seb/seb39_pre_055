@@ -28,7 +28,6 @@ const testSlice = createSlice({
       // state -> testSlice의 현재 상태
       // { payload } -> increase() 액션의 인자로 보내줄 값 dispatch(increase('보내줄값'))
       // PayloadAction<string> -> { payload } 의 타입 지정 (generic 안에 타입만 바꿔주면 됨);
-      console.log(payload);
       state.count += 1;
     },
     decrease: (state) => {
