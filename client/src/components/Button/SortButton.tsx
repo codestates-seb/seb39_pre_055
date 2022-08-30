@@ -38,6 +38,8 @@ interface Prop {
   onClick: (name: string) => void;
 }
 
+/** nameList={['Newest', 'Views']}
+ * onClick={(name) => console.log(name)} 버튼의 name을 인자로 넘겨줌 (sort requst 보낼 때 필요) */
 const SortButton = ({ nameList, onClick }: Prop) => {
   return (
     <Container>
