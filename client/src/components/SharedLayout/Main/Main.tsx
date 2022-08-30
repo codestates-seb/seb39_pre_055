@@ -10,7 +10,7 @@ const AskBGColor = css`
 
 const Main = () => {
   const { pathname } = useLocation();
-  const isMain = pathname !== '/questions/ask';
+  const isMain = pathname !== '/ask';
 
   return (
     <SMain bgColor={isMain || AskBGColor}>

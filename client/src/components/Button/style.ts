@@ -8,6 +8,7 @@ export const Btn = styled.button`
   align-items: center;
   border-radius: 3px;
   border: 0px;
+  padding: 0px 7px;
   transition: 0.4s all;
   font-size: 0.85rem;
 

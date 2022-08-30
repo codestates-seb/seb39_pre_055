@@ -1,5 +1,9 @@
 import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
+import { ReactComponent as ArrowDown } from '../../assets/img/arrow-down.svg';
+import { ReactComponent as ArrowUp } from '../../assets/img/arrow-up.svg';
+import { GuidelineCardProps } from './Accordian';
+
 interface ExtraStyles {
   extraStyles?: FlattenSimpleInterpolation;
 }
@@ -30,11 +34,14 @@ export const STitleH3 = styled.h3`
   display: block;
   width: 100%;
   color: var(--black-500);
+
+  ${({ extraStyles }: ExtraStyles) => extraStyles}
 `;
 
 interface STitleButtonProps {
   bgColor?: string;
   padding?: string;
+  extraStyles?: FlattenSimpleInterpolation;
 }
 
 export const STitleButton = styled.button`
@@ -48,9 +55,28 @@ export const STitleButton = styled.button`
   padding: 0px;
   background-color: inherit;
 
-  ${({ bgColor, padding }: STitleButtonProps) => css`
+  ${({ bgColor, padding, extraStyles }: STitleButtonProps) => css`
     background-color: ${bgColor || 'inherit'};
     padding: ${padding};
+
+    ${extraStyles}
+  `}
+`;
+
+export const ArrowUpSVG = styled(ArrowUp)`
+  margin-left: auto;
+`;
+
+export const ArrowDownSVG = styled(ArrowDown)`
+  margin-left: auto;
+`;
+
+export const SContentsBox = styled.div`
+  overflow: hidden;
+
+  transition: all 400ms;
+  ${({ isCollapsable }: Pick<GuidelineCardProps, 'isCollapsable'>) => css`
+    height: ${isCollapsable ? '0px' : 'auto'};
   `}
 `;
 
@@ -60,7 +86,7 @@ export const SContentBox = styled.div`
 `;
 
 export const SContentP = styled.p`
-  padding: 0px 15px;
+  padding: 15px 15px 15px 20px;
   color: var(--black-800);
 
   ${({ extraStyles }: ExtraStyles) => extraStyles}

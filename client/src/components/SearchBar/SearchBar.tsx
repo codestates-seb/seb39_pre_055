@@ -17,7 +17,7 @@ interface SearchBarProps {
   placeholder: string;
   width?: string;
   height?: string;
-  wrapperRef?: RefObject<HTMLInputElement>;
+  wrapperRef?: RefObject<HTMLDivElement>;
   inputRef?: RefObject<HTMLInputElement>;
   onSearch?: SearchHandler;
   onFocus?: () => void;
@@ -48,7 +48,7 @@ const DefaultSearchBar = ({
       callback();
     }
     if (navigatePath) {
-      navigate(`/search?q=${keyword}`);
+      navigate(`${navigatePath}${keyword}`);
     }
   };
 

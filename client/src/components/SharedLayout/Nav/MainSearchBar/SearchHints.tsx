@@ -28,11 +28,16 @@ interface HintProps {
 const SearchMisc = () => {
   return (
     <MiscBox>
-      <PowderButton>
-        <AskLink to="/questions">Ask a question</AskLink>
+      <PowderButton polymorphic="div">
+        <AskLink to="/ask">Ask a question</AskLink>
       </PowderButton>
       <SearchHelpBox>
-        <SearchHelpLink to="/questions">Search help</SearchHelpLink>
+        <SearchHelpLink
+          href="https://stackoverflow.com/help/searching"
+          target="_blank"
+        >
+          Search help
+        </SearchHelpLink>
       </SearchHelpBox>
     </MiscBox>
   );

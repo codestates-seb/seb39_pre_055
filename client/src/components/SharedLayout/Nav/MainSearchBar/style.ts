@@ -53,6 +53,11 @@ export const MiscBox = styled.div`
 `;
 
 export const AskLink = styled(Link)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+
   &:link,
   &:visited {
     color: inherit;
@@ -64,11 +69,11 @@ export const SearchHelpBox = styled.div`
   margin-left: auto;
 `;
 
-export const SearchHelpLink = styled(Link)`
+export const SearchHelpLink = styled.a`
   font-size: 0.8rem;
 
   &:link,
   &:visited {
-    color: var(--powder-400);
+    color: var(--powder-500);
   }
 `;

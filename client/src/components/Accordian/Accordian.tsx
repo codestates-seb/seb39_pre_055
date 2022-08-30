@@ -1,17 +1,24 @@
 /* eslint-disable consistent-return */
 import { ReactNode, useCallback, useEffect, useRef, useState } from 'react';
-import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
+import { FlattenSimpleInterpolation } from 'styled-components';
 
-import { ReactComponent as ArrowDown } from '../../../../assets/img/arrow-down.svg';
-import { ReactComponent as ArrowUp } from '../../../../assets/img/arrow-up.svg';
-import { SCardBox, STitleBox, STitleButton, STitleH3 } from './style';
+import {
+  ArrowDownSVG,
+  ArrowUpSVG,
+  SCardBox,
+  SContentsBox,
+  STitleBox,
+  STitleButton,
+  STitleH3,
+} from './style';
 
 interface ExtraStyles {
   cardBox?: FlattenSimpleInterpolation;
   titleBox?: FlattenSimpleInterpolation;
+  title?: FlattenSimpleInterpolation;
 }
 
-interface GuidelineCardProps {
+export interface GuidelineCardProps {
   title: string;
   isCollapsable: boolean;
   extraStyles?: ExtraStyles;
@@ -19,24 +26,7 @@ interface GuidelineCardProps {
   polymorphic?: 'div' | 'li';
 }
 
-const ArrowUpSVG = styled(ArrowUp)`
-  margin-left: auto;
-`;
-
-const ArrowDownSVG = styled(ArrowDown)`
-  margin-left: auto;
-`;
-
-const SContentsBox = styled.div`
-  overflow: hidden;
-
-  transition: all 400ms;
-  ${({ isCollapsable }: Pick<GuidelineCardProps, 'isCollapsable'>) => css`
-    height: ${isCollapsable ? '0px' : 'auto'};
-  `}
-`;
-
-const GuidelineCard = ({
+const Accordian = ({
   title,
   isCollapsable,
   extraStyles,
@@ -84,13 +74,16 @@ const GuidelineCard = ({
       <STitleBox extraStyles={extraStyles?.titleBox}>
         {isCollapsable ? (
           <>
-            <STitleButton onClick={() => setIsCollapsed(!isCollapsed)}>
+            <STitleButton
+              extraStyles={extraStyles?.title}
+              onClick={() => setIsCollapsed(!isCollapsed)}
+            >
               {title}
             </STitleButton>
             {isCollapsed ? <ArrowDownSVG /> : <ArrowUpSVG />}
           </>
         ) : (
-          <STitleH3>{title}</STitleH3>
+          <STitleH3 extraStyles={extraStyles?.title}>{title}</STitleH3>
         )}
       </STitleBox>
       <SContentsBox isCollapsable={isCollapsable} ref={contentRef}>
@@ -100,4 +93,4 @@ const GuidelineCard = ({
   );
 };
 
-export default GuidelineCard;
+export default Accordian;

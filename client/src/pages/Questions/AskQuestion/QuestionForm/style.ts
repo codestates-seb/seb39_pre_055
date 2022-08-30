@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-export const SDiv = styled.form`
+export const SForm = styled.form`
   display: flex;
   flex-flow: column;
   min-width: 780px;
@@ -10,6 +10,7 @@ export const SBox = styled.div`
   display: flex;
   flex-flow: column wrap;
   row-gap: 5px;
+  margin-bottom: 10px;
 `;
 
 export const SBodySection = styled.section`
@@ -36,5 +37,5 @@ export const SCommentP = styled.p`
 
 export const ButtonBox = styled.div`
   margin-top: 20px;
-  margin: 20px 0px;
+  margin-bottom: 50px;
 `;

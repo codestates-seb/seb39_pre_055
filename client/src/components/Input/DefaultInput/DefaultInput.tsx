@@ -1,6 +1,6 @@
 import { MdError } from 'react-icons/md';
 
-import { SCommentP, SInput, SLabel, Wrapper } from './style';
+import { SCommentP, SInput, SInputWrapper, SLabel, Wrapper } from './style';
 
 interface Prop {
   label?: string;
@@ -27,20 +27,22 @@ const DefaultInput = ({
     <Wrapper isError={isError}>
       {label && <SLabel htmlFor={id}>{label}</SLabel>}
       {comment && <SCommentP>{comment}</SCommentP>}
-      <SInput
-        type="text"
-        id={id}
-        value={value}
-        isError={isError}
-        placeholder={placeholder}
-        onChange={(e) => onChange(e)}
-      />
-      {isError && (
-        <>
-          <MdError />
-          <p>Title must be at least 15 characters.</p>
-        </>
-      )}
+      <SInputWrapper>
+        <SInput
+          type="text"
+          id={id}
+          value={value}
+          isError={isError}
+          placeholder={placeholder}
+          onChange={(e) => onChange(e)}
+        />
+        {isError && (
+          <>
+            <MdError />
+            <p>Title must be at least 15 characters.</p>
+          </>
+        )}
+      </SInputWrapper>
     </Wrapper>
   );
 };
