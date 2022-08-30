@@ -112,6 +112,7 @@ const Tags = () => {
         </SearchBarContainer>
         <SortButton
           nameList={['Popular', 'Activity', 'Name']}
+          clickedName={sortOption}
           onClick={handleSortBtnClick}
         />
       </FilterContainer>
