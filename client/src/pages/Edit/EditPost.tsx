@@ -22,7 +22,14 @@ import { useInput } from '../../hooks';
 import { editQuestion, useAppDispatch } from '../../redux';
 import { question } from '../../utils';
 import { ENG_REGEX } from '../../utils/regex';
-import { CancelButton, Container, EditorContainer } from './style';
+import {
+  ButtonsContainer,
+  CancelButton,
+  Container,
+  EditorContainer,
+  TagsContainer,
+  TitleContainer,
+} from './style';
 
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
@@ -117,13 +124,15 @@ const EditQuestion = () => {
   return (
     <Container>
       <EditHeader />
-      <DefaultInput
-        label="Title"
-        id="title"
-        value={title}
-        isError={titleError}
-        onChange={handleTitleChange}
-      />
+      <TitleContainer>
+        <DefaultInput
+          label="Title"
+          id="title"
+          value={title}
+          isError={titleError}
+          onChange={handleTitleChange}
+        />
+      </TitleContainer>
       <EditorContainer>
         <h2>Body</h2>
         <CustomEditor
@@ -133,18 +142,22 @@ const EditQuestion = () => {
           onChange={handleEditorChange}
         />
       </EditorContainer>
-      <TagInput
-        value={tagInput}
-        tagArr={tagArr}
-        isError={tagError}
-        onChange={handleTagInputChange}
-        onKeyUp={handleTagInputOnKeyUp}
-        onClick={handleTagDelete}
-      />
-      <BlueButton width="90px" onClick={handleEditButtonClick}>
-        Save Edits
-      </BlueButton>
-      <CancelButton onClick={() => navigate(-1)}>Cancel</CancelButton>
+      <TagsContainer>
+        <TagInput
+          value={tagInput}
+          tagArr={tagArr}
+          isError={tagError}
+          onChange={handleTagInputChange}
+          onKeyUp={handleTagInputOnKeyUp}
+          onClick={handleTagDelete}
+        />
+      </TagsContainer>
+      <ButtonsContainer>
+        <BlueButton width="90px" onClick={handleEditButtonClick}>
+          Save Edits
+        </BlueButton>
+        <CancelButton onClick={() => navigate(-1)}>Cancel</CancelButton>
+      </ButtonsContainer>
       <EditSidebar />
     </Container>
   );
