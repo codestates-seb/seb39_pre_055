@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 import styled from 'styled-components';
 
-import { SearchBar, Tag } from '../../components';
+import { SearchBar, TagCard } from '../../components';
+import { getTags, useAppDispatch, useAppSelector } from '../../redux';
 
 const Container = styled.div`
   padding: 24px;
@@ -46,20 +47,7 @@ export const TagsContainer = styled.section`
   gap: 10px;
   margin-bottom: 16px;
 
-  div {
-    padding: 12px;
-    border: 1px solid rgb(227, 230, 232);
-
-    & > span {
-      display: block;
-      margin-top: 20px;
-      margin-left: 2px;
-      color: rgb(131, 140, 149);
-      font-size: 12px;
-    }
-  }
-
-  @media screen and (min-width: 640px) {
+  @media screen and (min-width: 720px) {
     grid-template-columns: repeat(4, 1fr);
   }
 
@@ -73,19 +61,12 @@ export const TagsContainer = styled.section`
 `;
 
 const Tags = () => {
-  // const [tags, setTags] = useState([]);
+  const { tagList } = useAppSelector((state) => state.tag);
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    dispatch(getTags());
+  }, [dispatch]);
 
-  // const fetch = async () => {
-  //   const res = await axios.get(
-  //     'https://api.stackexchange.com/2.3/tags?page=1&pagesize=48&order=desc&sort=popular&site=stackoverflow'
-  //   );
-  //   setTags(res.data);
-  //   console.log(res.data);
-  // };
-
-  // useEffect(() => {
-  //   fetch();
-  // }, []);
   return (
     <Container>
       <SHeader>
@@ -109,10 +90,9 @@ const Tags = () => {
         </div>
       </FilterContainer>
       <TagsContainer>
-        <div>
-          <Tag name="javascript" />
-          <span>2416606 questions</span>
-        </div>
+        {tagList.map((tag) => (
+          <TagCard key={tag.name} name={tag.name} count={tag.count} />
+        ))}
       </TagsContainer>
     </Container>
   );
