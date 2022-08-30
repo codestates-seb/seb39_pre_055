@@ -20,32 +20,24 @@ const Menu = () => {
   return (
     <MenuBox>
       <ThemeProvider theme={{ currentPath }}>
-        <CustomLink to="/">
-          <MenuNameSpan>Home</MenuNameSpan>
-        </CustomLink>
         <MenuUList>
           <Li>
             <MenuCategorySpan>PUBLIC</MenuCategorySpan>
             <ul>
               <li>
-                <CustomLink to="/questions">
+                <CustomLink to="/">
                   <EarthSVG />
                   Questions
                 </CustomLink>
               </li>
               <IndentedList>
-                <CustomLink to="/questions/tags">
+                <CustomLink to="/tags">
                   <MenuNameSpan>Tags</MenuNameSpan>
                 </CustomLink>
               </IndentedList>
               <IndentedList>
-                <CustomLink to="/questions/users">
+                <CustomLink to="/users">
                   <MenuNameSpan>Users</MenuNameSpan>
-                </CustomLink>
-              </IndentedList>
-              <IndentedList>
-                <CustomLink to="/">
-                  <MenuNameSpan>Companies</MenuNameSpan>
                 </CustomLink>
               </IndentedList>
             </ul>
