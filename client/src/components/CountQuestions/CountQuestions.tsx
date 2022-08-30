@@ -9,7 +9,10 @@ const Wrapper = styled.span`
   justify-content: center;
   border: none;
   margin-top: 5px;
-  font-size: 14px;
+  font-size: 17px;
+  span {
+    margin-right: 5px;
+  }
   @media (max-width: 640px) {
     padding-bottom: 13px;
     margin-top: 0px;

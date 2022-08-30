@@ -9,10 +9,11 @@ export const Container = styled.div`
 export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
-  margin-bottom: 15px;
+  margin-bottom: 24px;
   padding: 23px 23px 0px 23px;
 
   h1 {
+    font-number: 200;
     font-size: 27px;
     color: var(--fc-dark);
   }
@@ -30,7 +31,6 @@ export const InfoContainer = styled.div`
 
 export const SortTabs = styled.span`
   display: flex;
-  font-size: 16px;
   @media (max-width: 640px) {
     justify-content: flex-start;
   }
@@ -40,6 +40,7 @@ export const MainContainer = styled.div`
   display: flex;
   flex-direction: row;
   border-top: 0.2px solid var(--black-100);
+  padding: 16px;
   @media (max-width: 640px) {
     justify-content: flex-start;
     flex-direction: column;
@@ -50,6 +51,13 @@ export const MainContainer = styled.div`
 export const Footer = styled.span`
   display: flex;
   justify-content: space-between;
+  min-hight: 150px;
+  align-items: flex-start;
+  padding-bottom: 200px;
+  @media (max-width: 640px) {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
 `;
 
 export const PagenationButton = styled.span`
@@ -61,7 +69,21 @@ export const PagenationButton = styled.span`
     margin: 0.8px;
     font-size: 2px;
   }
+  @media (max-width: 640px) {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
 `;
+
+// export const PageButton = styled.button`
+//   min-widht: 24px;
+//   min-hight: 27px;
+// `;
+
+// export const PageUnitButton = styled.button`
+//   min-widht: 24px;
+//   min-hight: 50px;
+// `;
 
 export const PerPageButton = styled.span`
   display: flex;
