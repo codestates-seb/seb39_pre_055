@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 import Tag from './Tag';
 
-const Container = styled.div`
+const Container = styled.li`
   padding: 12px;
   border: 1px solid rgb(227, 230, 232);
 

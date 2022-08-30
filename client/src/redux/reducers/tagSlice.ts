@@ -1,4 +1,4 @@
-import { createSlice, Reducer } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 
 import { TagInitialState } from '../../types/tag';
 import { getTags } from '../actions/tagActions';
@@ -13,7 +13,11 @@ const initialState: TagInitialState = {
 const tagSlice = createSlice({
   name: 'tag', // testSlice의 고유한 키 값 (다른 slice와 중복되지 않도록 작성)
   initialState, // testSlice의 초기 상태 값
-  reducers: {},
+  reducers: {
+    changePage: (state, { payload }: PayloadAction<number>) => {
+      state.page = payload;
+    },
+  },
   extraReducers: (builder) =>
     builder
       // getTags
@@ -30,5 +34,5 @@ const tagSlice = createSlice({
       }),
 });
 
-// export const {} = tagSlice.actions;
+export const { changePage } = tagSlice.actions;
 export const tagReducer: Reducer<typeof initialState> = tagSlice.reducer;

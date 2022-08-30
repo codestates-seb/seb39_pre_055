@@ -2,8 +2,13 @@ import { useEffect } from 'react';
 import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
 
-import { SearchBar, TagCard } from '../../components';
-import { getTags, useAppDispatch, useAppSelector } from '../../redux';
+import { CustomPagination, SearchBar, TagCard } from '../../components';
+import {
+  changePage,
+  getTags,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 
 const Container = styled.div`
   padding: 24px;
@@ -61,65 +66,14 @@ export const TagsContainer = styled.section`
   }
 `;
 
-export const PageContainer = styled.section`
-  .pagination {
-    display: flex;
-    justify-content: center;
-    margin-top: 15px;
-  }
-
-  ul {
-    list-style: none;
-    padding: 0;
-  }
-
-  ul.pagination li {
-    display: inline-block;
-    width: 30px;
-    height: 30px;
-    border: 1px solid #e2e2e2;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 1rem;
-  }
-
-  ul.pagination li:first-child {
-    border-radius: 5px 0 0 5px;
-  }
-
-  ul.pagination li:last-child {
-    border-radius: 0 5px 5px 0;
-  }
-
-  ul.pagination li a {
-    text-decoration: none;
-    color: #337ab7;
-    font-size: 1rem;
-  }
-
-  ul.pagination li.active a {
-    color: white;
-  }
-
-  ul.pagination li.active {
-    background-color: #337ab7;
-  }
-
-  ul.pagination li a:hover,
-  ul.pagination li a.active {
-    color: blue;
-  }
-
-  .page-selection {
-    width: 48px;
-    height: 30px;
-    color: #337ab7;
-  }
+export const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: right;
+  margin: 20px 0;
 `;
 
 const Tags = () => {
-  const { tagList } = useAppSelector((state) => state.tag);
+  const { tagList, page } = useAppSelector((state) => state.tag);
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getTags());
@@ -152,13 +106,14 @@ const Tags = () => {
           <TagCard key={tag.name} name={tag.name} count={tag.count} />
         ))}
       </TagsContainer>
-      <PageContainer>
-        <Pagination
-          activePage={1}
-          onChange={() => console.log('change')}
-          totalItemsCount={15}
+      <PaginationContainer>
+        <CustomPagination
+          activePage={page}
+          itemsCountPerPage={90}
+          totalItemsCount={450}
+          onChange={(page) => dispatch(changePage(page))}
         />
-      </PageContainer>
+      </PaginationContainer>
     </Container>
   );
 };
