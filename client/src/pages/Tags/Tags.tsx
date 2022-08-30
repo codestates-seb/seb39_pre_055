@@ -1,5 +1,4 @@
 import { useEffect } from 'react';
-import Pagination from 'react-js-pagination';
 import styled from 'styled-components';
 
 import { CustomPagination, SearchBar, TagCard } from '../../components';
@@ -77,7 +76,7 @@ const Tags = () => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     dispatch(getTags());
-  }, [dispatch]);
+  }, [dispatch, page]);
 
   return (
     <Container>
@@ -110,7 +109,7 @@ const Tags = () => {
         <CustomPagination
           activePage={page}
           itemsCountPerPage={90}
-          totalItemsCount={450}
+          totalItemsCount={900}
           onChange={(page) => dispatch(changePage(page))}
         />
       </PaginationContainer>
