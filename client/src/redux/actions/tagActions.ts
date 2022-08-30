@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -17,6 +18,6 @@ export const getTags = createAsyncThunk<
     );
     return response.data.items;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });

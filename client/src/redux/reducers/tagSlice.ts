@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
 import { TagInitialState } from '../../types/tag';
 import { getTags } from '../actions/tagActions';
@@ -30,7 +31,10 @@ const tagSlice = createSlice({
       })
       .addCase(getTags.rejected, (state, { payload }) => {
         state.isLoading = false;
-        // state.errorMsg = payload;
+        if (payload) {
+          state.errorMsg = payload;
+          toast.error(state.errorMsg);
+        }
       }),
 });
 
