@@ -1,3 +1,4 @@
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 interface Prop {
@@ -14,11 +15,8 @@ const Wrapper = styled.span`
 `;
 
 const QuestionTitle = ({ title }: Prop) => {
-  return (
-    <Wrapper>
-      <a href="http://localhost:3000/:id">{title}</a>
-    </Wrapper>
-  );
+  const navigate = useNavigate();
+  return <Wrapper onClick={() => navigate('/questions')}>{title}</Wrapper>;
 };
 
 export default QuestionTitle;
