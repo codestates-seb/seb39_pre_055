@@ -2,7 +2,6 @@ import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div<{ isError: boolean }>`
   position: relative;
-  margin-bottom: 30px;
   color: #0c0d0e;
   font-size: 15px;
 
@@ -18,7 +17,6 @@ export const Wrapper = styled.div<{ isError: boolean }>`
       }
 
       p {
-        margin-bottom: 30px;
         color: hsl(358, 62%, 52%);
         font-size: 12px;
       }

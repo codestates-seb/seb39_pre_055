@@ -60,6 +60,7 @@ const TagInput = ({
           onFocus={() => setIsTagsFocus(true)}
           onBlur={() => setIsTagsFocus(false)}
         />
+
         {isError && <ErrorIcon />}
       </HashTagContainer>
       {isError && (
