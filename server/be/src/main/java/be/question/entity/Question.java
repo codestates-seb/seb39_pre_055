@@ -20,13 +20,13 @@ public class Question {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long questionId;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
+//    @Column(nullable = false)
+//    private LocalDateTime createdAt = LocalDateTime.now();
+//
+//    @Column(nullable = false, name = "UPDATED_AT")
+//    private LocalDateTime updatedAt = LocalDateTime.now();
 
-    @Column(nullable = false, name = "UPDATED_AT")
-    private LocalDateTime updatedAt = LocalDateTime.now();
-
-    @Enumerated(EnumType.ORDINAL)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "STATUS")
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_EXIST;
 
@@ -36,8 +36,8 @@ public class Question {
     @Column(nullable = false)
     private String body;
 
-    @Column(nullable = false)
-    private String tag;
+//    @Column(nullable = false)
+//    private String tag;
 
     @Column(nullable = false)
     private int vote;

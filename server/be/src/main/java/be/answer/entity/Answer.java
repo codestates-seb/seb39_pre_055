@@ -21,11 +21,11 @@ public class Answer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long answerId;
 
-    @Column(nullable = false)
-    private LocalDateTime createdAt = LocalDateTime.now();
-
-    @Column(nullable = false, name = "UPDATED_AT")
-    private LocalDateTime updatedAt = LocalDateTime.now();
+//    @Column(nullable = false)
+//    private LocalDateTime createdAt = LocalDateTime.now();
+//
+//    @Column(nullable = false, name = "UPDATED_AT")
+//    private LocalDateTime updatedAt = LocalDateTime.now();
 
     @Enumerated(EnumType.ORDINAL)
     @Column(nullable = false, name = "STATUS")
