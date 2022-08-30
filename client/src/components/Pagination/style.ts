@@ -31,6 +31,7 @@ export const Container = styled.div`
   li {
     width: 30px;
     height: 30px;
+    padding-top: 3px;
     border: 1px solid var(--black-100);
     border-radius: 3px;
     display: flex;
