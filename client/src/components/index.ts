@@ -10,6 +10,7 @@ export { default as EditSidebar } from './Edit/EditSidebar/EditSidebar';
 export { default as Hamburger } from './Hamburger/Hamburger';
 export { default as DefaultInput } from './Input/DefaultInput/DefaultInput';
 export { default as TagInput } from './Input/TagInput/TagInput';
+export { default as CustomPagination } from './Pagination/CustomPagination';
 export { default as QuestionInfo } from './QuestionInfo/QuestionInfo';
 export { default as SearchBar } from './SearchBar/SearchBar';
 export { default as SharedLayout } from './SharedLayout/SharedLayout';
