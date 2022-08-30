@@ -3,9 +3,8 @@ import styled from 'styled-components';
 export const Wrapper = styled.span`
   display: flex;
   justify-content: flex-end;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--fc-dark);
-  margin-bottom: 6px;
 
   @media (max-width: 640px) {
     font-size: 13px;
@@ -16,9 +15,8 @@ export const Wrapper = styled.span`
 export const Wrapper2 = styled.span`
   display: flex;
   justify-content: flex-end;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--black-500);
-  margin-bottom: 6px;
 
   @media (max-width: 640px) {
     font-size: 13px;
@@ -29,9 +27,8 @@ export const Wrapper2 = styled.span`
 export const Wrapper3 = styled.span`
   display: flex;
   justify-content: flex-end;
-  font-size: 12px;
+  font-size: 13px;
   color: var(--black-500);
-  margin-bottom: 6px;
 
   @media (max-width: 640px) {
     font-size: 13px;
@@ -45,6 +42,7 @@ export const Container = styled.span`
   width: 108px;
   flex-shrink: 0;
   margin-right: 16px;
+  row-gap: 6px;
 
   @media (max-width: 640px) {
     margin: 0px 0px 4px 0px;

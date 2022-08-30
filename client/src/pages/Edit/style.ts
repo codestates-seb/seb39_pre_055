@@ -11,8 +11,20 @@ export const Container = styled.div`
   }
 `;
 
+export const TitleContainer = styled.div`
+  margin-bottom: 30px;
+`;
+
 export const EditorContainer = styled.div`
   margin-bottom: 30px;
+`;
+
+export const TagsContainer = styled.div`
+  margin-bottom: 30px;
+`;
+
+export const ButtonsContainer = styled.div`
+  display: flex;
 `;
 
 export const CancelButton = styled.button`

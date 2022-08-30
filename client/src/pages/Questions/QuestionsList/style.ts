@@ -10,7 +10,7 @@ export const TitleContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 24px;
-  padding: 23px 23px 0px 23px;
+  padding: 24px 16px 0px 16px;
 
   h1 {
     font-number: 200;
@@ -23,7 +23,7 @@ export const InfoContainer = styled.div`
   display: flex;
   justify-content: space-between;
   margin-bottom: 9px;
-  padding: 0px 23px 0px 23px;
+  padding: 0px 16px 0px 16px;
   @media (max-width: 640px) {
     flex-direction: column;
   }
@@ -51,7 +51,7 @@ export const MainContainer = styled.div`
 export const Footer = styled.span`
   display: flex;
   justify-content: space-between;
-  min-hight: 150px;
+  min-height: 150px;
   align-items: flex-start;
   padding-bottom: 200px;
   @media (max-width: 640px) {
@@ -77,12 +77,12 @@ export const PagenationButton = styled.span`
 
 // export const PageButton = styled.button`
 //   min-widht: 24px;
-//   min-hight: 27px;
+//   min-height: 27px;
 // `;
 
 // export const PageUnitButton = styled.button`
 //   min-widht: 24px;
-//   min-hight: 50px;
+//   min-height: 50px;
 // `;
 
 export const PerPageButton = styled.span`

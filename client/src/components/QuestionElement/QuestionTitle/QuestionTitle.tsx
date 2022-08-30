@@ -16,7 +16,7 @@ const Wrapper = styled.span`
 const QuestionTitle = ({ title }: Prop) => {
   return (
     <Wrapper>
-      <a href="http://localhost:3000/questions/users">{title}</a>
+      <a href="http://localhost:3000/:id">{title}</a>
     </Wrapper>
   );
 };

@@ -3,6 +3,8 @@
 
 import 'react-toastify/dist/ReactToastify.css';
 
+import { useNavigate } from 'react-router-dom';
+
 import {
   AnswerEditor,
   BlueButton,
@@ -13,6 +15,7 @@ import { useAppSelector } from '../../../redux';
 import { AnswerHeader, Container, Header, SubHeader } from './style';
 
 const QuestionDetail = () => {
+  const navigate = useNavigate();
   const { answerList, questionList } = useAppSelector(
     (state) => state.question
   );
@@ -22,7 +25,11 @@ const QuestionDetail = () => {
       {/* question */}
       <Header>
         <h1>{questionList[0].title}</h1>
-        <BlueButton width="120px" height="35px">
+        <BlueButton
+          width="120px"
+          height="35px"
+          onClick={() => navigate('/ask')}
+        >
           Ask Questions
         </BlueButton>
       </Header>
