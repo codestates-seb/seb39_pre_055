@@ -1,44 +1,43 @@
-import styled, { css } from 'styled-components';
+import { css } from 'styled-components';
 
-import GuidelineCard from './HelpCard/GuidelineCard';
-import { SContentBox, SContentP } from './HelpCard/style';
+import GuidelineCard from '../../../../../components/Accordian/Accordian';
+import {
+  SContentBox,
+  SContentP,
+} from '../../../../../components/Accordian/style';
+import { SBox } from '../style';
+import { DefaultList, SLink, SStepOList, SUList } from './style';
 
-const mt15 = css`
-  margin-top: 15px;
-`;
 const boxStyles = css`
   box-shadow: none;
 `;
+
 const titleBoxStyles = css`
   background-color: white;
   font-size: 0.8rem;
 `;
 
-export const SStepOList = styled.ol`
-  display: flex;
-  flex-flow: column wrap;
-  width: 100%;
+const titleStyles = css`
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--black-900);
 `;
 
 const extraStyles = {
   cardBox: boxStyles,
   titleBox: titleBoxStyles,
+  title: titleStyles,
 };
 
-export const SBox = styled.div`
-  padding-top: 15px;
-  padding-bottom: 10px;
-`;
-
-const Step1Contents = () => {
+const Step1Card = () => {
   return (
     <SContentBox>
       <SBox>
         <SContentP>
           The community is here to help you with specific coding, algorithm, or
           language problems.
-        </SContentP>
-        <SContentP extraStyles={mt15}>
+          <br />
+          <br />
           Avoid asking opinion-based questions.
         </SContentP>
       </SBox>
@@ -49,11 +48,11 @@ const Step1Contents = () => {
           extraStyles={extraStyles}
           isCollapsable
         >
-          <ul>
-            <li>Include details about your goal</li>
-            <li>Describe expected and actual</li>
-            <li>results Include any error messages</li>
-          </ul>
+          <SUList>
+            <DefaultList>Include details about your goal</DefaultList>
+            <DefaultList>Describe expected and actual</DefaultList>
+            <DefaultList>results Include any error messages</DefaultList>
+          </SUList>
         </GuidelineCard>
         <GuidelineCard
           title="Describe what you’ve tried"
@@ -61,11 +60,11 @@ const Step1Contents = () => {
           extraStyles={extraStyles}
           isCollapsable
         >
-          <p>
+          <SContentP>
             Show what you’ve tried and tell us what you found (on this site or
             elsewhere) and why it didn’t meet your needs. You can get better
             answers when you provide research.
-          </p>
+          </SContentP>
         </GuidelineCard>
         <GuidelineCard
           title="Show some code"
@@ -73,14 +72,18 @@ const Step1Contents = () => {
           extraStyles={extraStyles}
           isCollapsable
         >
-          <p>
+          <SContentP>
             When appropriate, share the minimum amount of code others need to
-            reproduce your problem (also called a minimum, reproducible example)
-          </p>
+            reproduce your problem (also called a{' '}
+            <SLink href="https://stackoverflow.com/help/minimal-reproducible-example">
+              minimum, reproducible example
+            </SLink>
+            )
+          </SContentP>
         </GuidelineCard>
       </SStepOList>
     </SContentBox>
   );
 };
 
-export default Step1Contents;
+export default Step1Card;

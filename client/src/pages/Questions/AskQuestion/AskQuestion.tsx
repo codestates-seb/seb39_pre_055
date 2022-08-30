@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-
-import GuidelineCard from './HelpCard/GuidelineCard';
+import GuidelineCard from '../../../components/Accordian/Accordian';
+import MoreHelpfulCard from './QuestionForm/Cards/MoreHelpfulCard';
+import NonProgCard from './QuestionForm/Cards/NonProgCard';
+import Step1Card from './QuestionForm/Cards/Step1Card';
 import QuestionForm from './QuestionForm/QuestionForm';
-import Step1Contents from './Step1Contents';
 import {
   SBox,
   SCardBox,
@@ -15,10 +15,18 @@ import {
 const helpCards = [
   {
     title: 'Step 1: Draft your question',
-    children: <Step1Contents />,
+    children: <Step1Card />,
+    isCollapsable: false,
   },
   {
     title: 'Have a non-programming question?',
+    children: <NonProgCard />,
+    isCollapsable: true,
+  },
+  {
+    title: 'More helpful links',
+    children: <MoreHelpfulCard />,
+    isCollapsable: true,
   },
 ];
 
@@ -33,18 +41,15 @@ const AskQuestion = () => {
       <SBox>
         <QuestionForm />
         <SCardBox>
-          <GuidelineCard
-            title="Step 1: Draft your question"
-            isCollapsable={false}
-          >
-            <Step1Contents />
-          </GuidelineCard>
-          <GuidelineCard title="Have a non-programming question?" isCollapsable>
-            <Step1Contents />
-          </GuidelineCard>
-          <GuidelineCard title="More helpful links" isCollapsable>
-            <Step1Contents />
-          </GuidelineCard>
+          {helpCards.map((e) => (
+            <GuidelineCard
+              title={e.title}
+              isCollapsable={e.isCollapsable}
+              key={e.title}
+            >
+              {e.children}
+            </GuidelineCard>
+          ))}
         </SCardBox>
       </SBox>
     </SQuestionBox>

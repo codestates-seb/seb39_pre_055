@@ -36,5 +36,5 @@ export const SCommentP = styled.p`
 
 export const ButtonBox = styled.div`
   margin-top: 20px;
-  margin: 20px 0px;
+  margin-bottom: 50px;
 `;
