@@ -1,13 +1,14 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-import { TagInitialState } from '../../types/tag';
+import { TagInitialState } from '../../types';
 import { getTags } from '../actions/tagActions';
 
 const initialState: TagInitialState = {
   page: 1,
   tagList: [],
   isLoading: false,
+  sortOption: 'popular',
   errorMsg: '',
 };
 
@@ -17,6 +18,12 @@ const tagSlice = createSlice({
   reducers: {
     changePage: (state, { payload }: PayloadAction<number>) => {
       state.page = payload;
+    },
+    changeSortOption: (state, { payload }: PayloadAction<string>) => {
+      state.sortOption = payload;
+    },
+    resetPage: (state) => {
+      state.page = 1;
     },
   },
   extraReducers: (builder) =>
@@ -38,5 +45,5 @@ const tagSlice = createSlice({
       }),
 });
 
-export const { changePage } = tagSlice.actions;
+export const { changePage, changeSortOption, resetPage } = tagSlice.actions;
 export const tagReducer: Reducer<typeof initialState> = tagSlice.reducer;

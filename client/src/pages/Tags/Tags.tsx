@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -9,7 +9,9 @@ import {
 } from '../../components';
 import {
   changePage,
+  changeSortOption,
   getTags,
+  resetPage,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
@@ -76,45 +78,21 @@ export const PaginationContainer = styled.div`
   margin: 20px 0;
 `;
 
-export const ButtonsContainer = styled.div`
-  display: flex;
-  align-items: center;
-
-  button {
-    height: 35px;
-    padding: 10px;
-    color: rgb(106, 115, 124);
-    background-color: white;
-    border: 1px solid rgb(159, 166, 173);
-    border-right: 0;
-    font-size: 13px;
-
-    &:hover {
-      background-color: #f0efef;
-    }
-
-    &:focus {
-      color: var(--black-700);
-      background-color: var(--black-075);
-    }
-  }
-
-  & > button:first-child {
-    border-radius: 3px 0 0 3px;
-  }
-
-  & > button:last-child {
-    border-right: 1px solid rgb(159, 166, 173);
-    border-radius: 0 3px 3px 0;
-  }
-`;
-
 const Tags = () => {
-  const { tagList, page } = useAppSelector((state) => state.tag);
+  const { tagList, page, sortOption } = useAppSelector((state) => state.tag);
   const dispatch = useAppDispatch();
+
+  const handleSortBtnClick = useCallback(
+    (name: string) => {
+      dispatch(changeSortOption(name));
+      dispatch(resetPage());
+    },
+    [dispatch]
+  );
+
   useEffect(() => {
     dispatch(getTags());
-  }, [dispatch, page]);
+  }, [dispatch, page, sortOption]);
 
   return (
     <Container>
@@ -133,8 +111,8 @@ const Tags = () => {
           <SearchBar placeholder="Filter by tag name" />
         </SearchBarContainer>
         <SortButton
-          nameList={['Popular', 'Name', 'New']}
-          onClick={(name) => console.log(name)}
+          nameList={['Popular', 'Activity', 'Name']}
+          onClick={handleSortBtnClick}
         />
       </FilterContainer>
       <TagsContainer>
@@ -147,7 +125,7 @@ const Tags = () => {
           activePage={page}
           itemsCountPerPage={90}
           totalItemsCount={900}
-          onChange={(page) => dispatch(changePage(page))}
+          onChange={(number) => dispatch(changePage(number))}
         />
       </PaginationContainer>
     </Container>

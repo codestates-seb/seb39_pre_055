@@ -9,6 +9,7 @@ export interface Tag {
 export interface TagInitialState {
   page: number;
   tagList: Array<Tag>;
+  sortOption: string;
   isLoading: boolean;
   errorMsg: string;
 }

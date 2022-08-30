@@ -6,7 +6,7 @@ interface Prop {
   activePage: number;
   itemsCountPerPage: number;
   totalItemsCount: number;
-  onChange: (page: number) => any;
+  onChange: (page: number) => void;
   pageRangeDisplayed?: number;
 }
 
