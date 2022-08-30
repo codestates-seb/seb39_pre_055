@@ -1,5 +1,6 @@
 export { default as AnchorCard } from './AnchorCard/AnchorCard';
 export { default as DefaultBtn } from './Button/DefaultButton';
+export { default as SortButton } from './Button/SortButton';
 export { BlueButton, PowderButton } from './Button/Templates';
 export { default as TextButton } from './Button/TextButton';
 export { default as Content } from './Content/Content';
