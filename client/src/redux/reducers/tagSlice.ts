@@ -9,21 +9,25 @@ const initialState: TagInitialState = {
   tagList: [],
   isLoading: false,
   sortOption: 'popular',
+  inName: '',
   errorMsg: '',
 };
 
 const tagSlice = createSlice({
-  name: 'tag', // testSlice의 고유한 키 값 (다른 slice와 중복되지 않도록 작성)
-  initialState, // testSlice의 초기 상태 값
+  name: 'tag',
+  initialState,
   reducers: {
     changePage: (state, { payload }: PayloadAction<number>) => {
       state.page = payload;
     },
+    resetPage: (state) => {
+      state.page = 1;
+    },
     changeSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
     },
-    resetPage: (state) => {
-      state.page = 1;
+    changeInName: (state, { payload }: PayloadAction<string>) => {
+      state.inName = payload;
     },
   },
   extraReducers: (builder) =>
@@ -45,5 +49,6 @@ const tagSlice = createSlice({
       }),
 });
 
-export const { changePage, changeSortOption, resetPage } = tagSlice.actions;
+export const { changePage, changeSortOption, resetPage, changeInName } =
+  tagSlice.actions;
 export const tagReducer: Reducer<typeof initialState> = tagSlice.reducer;

@@ -12,9 +12,9 @@ export const getTags = createAsyncThunk<
   CreateAsyncThunkTypes
 >('tag/getTags', async (_, thunkAPI) => {
   try {
-    const { page, sortOption } = thunkAPI.getState().tag;
+    const { page, sortOption, inName } = thunkAPI.getState().tag;
     const response = await axios.get(
-      `${STACK_EXCHANGE_URL}/tags?page=${page}&pagesize=90&order=desc&sort=${sortOption}&site=stackoverflow`
+      `${STACK_EXCHANGE_URL}/tags?page=${page}&pagesize=90&order=desc&sort=${sortOption}&inname=${inName}&site=stackoverflow`
     );
     return response.data.items;
   } catch (error: any) {

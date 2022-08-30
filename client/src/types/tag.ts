@@ -10,6 +10,7 @@ export interface TagInitialState {
   page: number;
   tagList: Array<Tag>;
   sortOption: string;
+  inName: string;
   isLoading: boolean;
   errorMsg: string;
 }

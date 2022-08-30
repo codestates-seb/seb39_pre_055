@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import {
@@ -8,6 +8,7 @@ import {
   TagCard,
 } from '../../components';
 import {
+  changeInName,
   changePage,
   changeSortOption,
   getTags,
@@ -18,6 +19,7 @@ import {
 
 const Container = styled.div`
   padding: 24px;
+  height: 100%;
   border-left: 1px solid rgb(227, 230, 232);
 
   h1 {
@@ -81,18 +83,18 @@ export const PaginationContainer = styled.div`
 const Tags = () => {
   const { tagList, page, sortOption } = useAppSelector((state) => state.tag);
   const dispatch = useAppDispatch();
-
+  const inputRef = useRef<HTMLInputElement>(null);
   const handleSortBtnClick = useCallback(
     (name: string) => {
-      dispatch(changeSortOption(name));
       dispatch(resetPage());
+      dispatch(changeSortOption(name));
     },
     [dispatch]
   );
 
-  useEffect(() => {
-    dispatch(getTags());
-  }, [dispatch, page, sortOption]);
+  // useEffect(() => {
+  //   dispatch(getTags());
+  // }, [dispatch, page, sortOption]);
 
   return (
     <Container>
@@ -108,7 +110,14 @@ const Tags = () => {
       </SHeader>
       <FilterContainer>
         <SearchBarContainer>
-          <SearchBar placeholder="Filter by tag name" />
+          <SearchBar
+            placeholder="Filter by tag name"
+            inputRef={inputRef}
+            onSearch={{
+              callback: () =>
+                dispatch(changeInName(inputRef.current?.value as string)),
+            }}
+          />
         </SearchBarContainer>
         <SortButton
           nameList={['Popular', 'Activity', 'Name']}
