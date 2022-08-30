@@ -1,7 +1,6 @@
 import styled, { css } from 'styled-components';
 
 export const Wrapper = styled.div<{ isError: boolean }>`
-  position: relative;
   color: #0c0d0e;
   font-size: 15px;
 
@@ -10,17 +9,22 @@ export const Wrapper = styled.div<{ isError: boolean }>`
     css`
       svg {
         position: absolute;
-        top: 28px;
+        top: 17px;
+        transform: translateY(-50%);
         right: 10px;
         color: hsl(358, 68%, 59%);
         font-size: 20px;
       }
 
-      p {
+      p:last-child {
         color: hsl(358, 62%, 52%);
         font-size: 12px;
       }
     `}
+`;
+
+export const SInputWrapper = styled.div`
+  position: relative;
 `;
 
 export const SLabel = styled.label`
