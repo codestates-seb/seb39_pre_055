@@ -1,3 +1,4 @@
+import { formatNumber } from '../../../utils';
 import {
   Badge,
   BadgeContainer,
@@ -30,18 +31,18 @@ const UserCard = (props: Prop) => {
         </a>
         {location && <Location>{location}</Location>}
         <BadgeContainer>
-          <Reputation>{reputation}</Reputation>
+          <Reputation>{formatNumber(reputation)}</Reputation>
           <Badge type="gold">
             <div />
-            <span>{gold}</span>
+            <span>{formatNumber(gold)}</span>
           </Badge>
           <Badge type="silver">
             <div />
-            <span>{silver}</span>
+            <span>{formatNumber(silver)}</span>
           </Badge>
           <Badge type="bronze">
             <div />
-            <span>{bronze}</span>
+            <span>{formatNumber(bronze)}</span>
           </Badge>
         </BadgeContainer>
       </UserInfo>
