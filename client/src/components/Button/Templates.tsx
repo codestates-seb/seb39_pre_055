@@ -5,7 +5,7 @@ import { Btn } from './style';
 
 type TemplateButtonProps = Pick<
   ButtonProps,
-  'width' | 'height' | 'onClick' | 'children' | 'polymorphic'
+  'width' | 'height' | 'onClick' | 'children' | 'polymorphic' | 'className'
 >;
 
 export const BlueButton = ({
@@ -13,6 +13,7 @@ export const BlueButton = ({
   height,
   children,
   polymorphic,
+  className,
   onClick,
 }: TemplateButtonProps) => {
   return (
@@ -24,6 +25,7 @@ export const BlueButton = ({
       width={width}
       height={height}
       polymorphic={polymorphic}
+      className={className}
       onClick={onClick}
     >
       {children}
@@ -36,6 +38,7 @@ export const PowderButton = ({
   height,
   children,
   polymorphic,
+  className,
   onClick,
 }: TemplateButtonProps) => {
   return (
@@ -47,6 +50,7 @@ export const PowderButton = ({
       width={width}
       height={height}
       polymorphic={polymorphic}
+      className={className}
       onClick={onClick}
     >
       {children}

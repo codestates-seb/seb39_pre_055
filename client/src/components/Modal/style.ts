@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 
 import { fadeIn, fadeOut } from './animation';
-import { ModalStyle } from './types';
+import { ModalStyle, Position } from './types';
 
 export interface BackgroundProps {
   isMount: boolean;
@@ -15,7 +15,7 @@ export const Background = styled.div`
   left: 0%;
   width: 100vw;
   height: 100vh;
-  background-color: #696969ba;
+  background-color: rgba(60, 60, 60, 0.645);
   opacity: 0.6;
   z-index: 99;
 
@@ -25,11 +25,15 @@ export const Background = styled.div`
   animation-fill-mode: forwards;
 `;
 
+const isPixel = ({ x, y }: Exclude<Position, undefined>) => {
+  return x.match(/px/g) && y.match(/px/);
+};
+
 export const ModalMain = styled.div`
   position: fixed;
   transform: translate(-50%, -50%);
   background-color: white;
-  box-shadow: 1px 1px 5px rgb(206, 206, 206);
+  box-shadow: 1px 1px 3px rgba(143, 143, 143, 0.897);
   box-sizing: border-box;
   z-index: 100;
   overflow: hidden;
@@ -56,7 +60,7 @@ export const ModalMain = styled.div`
     css`
       left: ${position.x};
       top: ${position.y};
-      transform: translate(0, 0);
+      transform: ${isPixel(position) && 'translate(0, 0)'};
     `}
   `}
   animation-fill-mode: forwards;
