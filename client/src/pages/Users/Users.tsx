@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
 import {
   CustomPagination,
@@ -9,6 +9,7 @@ import {
 } from '../../components';
 import {
   changeUserDateOption,
+  changeUserInName,
   changeUserPage,
   changeUserSortOption,
   useAppDispatch,
@@ -24,21 +25,30 @@ import {
 } from './style';
 
 const Users = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { sortOption, dateOption, userList, page } = useAppSelector(
+  const { sortOption, dateOption, userList, page, inName } = useAppSelector(
     (state) => state.user
   );
 
   useEffect(() => {
     dispatch(getUser());
-  }, [dispatch, sortOption, page, dateOption]);
+  }, [dispatch, sortOption, page, dateOption, inName]);
 
   return (
     <Container>
-      <h1>User</h1>
+      <h1>Users</h1>
       <FilterContainer>
         <SearchContainer>
-          <SearchBar placeholder="Filter by user" height="35px" />
+          <SearchBar
+            placeholder="Filter by user"
+            height="35px"
+            inputRef={inputRef}
+            onSearch={{
+              callback: () =>
+                dispatch(changeUserInName(inputRef.current?.value as string)),
+            }}
+          />
         </SearchContainer>
         <SortButton
           nameList={['Reputation', 'Creation', 'Name', 'Modified']}
