@@ -31,7 +31,7 @@ const Users = () => {
 
   useEffect(() => {
     dispatch(getUser());
-  }, [dispatch, sortOption, page]);
+  }, [dispatch, sortOption, page, dateOption]);
 
   return (
     <Container>

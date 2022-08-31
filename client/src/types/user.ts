@@ -3,6 +3,7 @@ export interface UserInitialState {
   userList: Array<User>;
   sortOption: string;
   dateOption: string;
+  timeStamp: string | number;
   inName: string;
   isLoading: boolean;
   errorMsg: string;
