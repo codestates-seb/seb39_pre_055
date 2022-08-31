@@ -1,5 +1,7 @@
 package be.user.mapper;
 
+
+import be.user.dto.UserPostDto;
 import be.user.dto.UserResponseDto;
 import be.user.entity.User;
 import org.mapstruct.Mapper;
@@ -7,6 +9,15 @@ import org.mapstruct.Mapper;
 @Mapper(componentModel = "spring")
 public interface UserMapper {
 
+    default User userPostDtoToUser(UserPostDto userPostDto) {
+        User user = new User();
+
+        user.setEmail(userPostDto.getEmail());
+        user.setDisplayName(userPostDto.getDisplayName());
+        user.setPassword(userPostDto.getPassword());
+
+        return user;
+    }
 
     default UserResponseDto userToUserResponseDto(User user) {
 

@@ -28,5 +28,16 @@ public class UserService {
         return findUser;
     }
 
+    public User createUser(User user) {
+        // 이미 등록된 이메일인지 확인
+        verifyExistsEmail(user.getEmail());
 
+        return userRepository.save(user);
+    }
+
+    private void verifyExistsEmail(String email) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isPresent())
+            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+    }
 }
