@@ -16,8 +16,10 @@ const SHeader = styled.header`
   }
 
   a {
-    color: #0074cc;
-    font-size: 13px;
+    & > p {
+      color: #0074cc;
+      font-size: 13px;
+    }
   }
 `;
 
@@ -33,7 +35,7 @@ const TagHeader = () => {
         question.
       </p>
       <a href="https://stackoverflow.com/tags/synonyms" target="_block">
-        Show all tag synonyms
+        <p>Show all tag synonyms</p>
       </a>
     </SHeader>
   );

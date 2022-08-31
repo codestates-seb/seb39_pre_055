@@ -16,6 +16,10 @@ const Container = styled.div`
   margin-bottom: 30px;
 `;
 
+const ButtonContainer = styled.div`
+  margin-top: 30px;
+`;
+
 const AnswerEditor = () => {
   const editorRef = useRef<Editor>(null);
   const [value, setValue] = useState(' ');
@@ -47,9 +51,11 @@ const AnswerEditor = () => {
         editorRef={editorRef}
         onChange={handleEditorChange}
       />
-      <BlueButton width="140px" height="35px" onClick={handleSubmit}>
-        Post Your Answer
-      </BlueButton>
+      <ButtonContainer>
+        <BlueButton width="140px" height="35px" onClick={handleSubmit}>
+          Post Your Answer
+        </BlueButton>
+      </ButtonContainer>
     </Container>
   );
 };
