@@ -1,7 +1,7 @@
 import { useContext, useEffect } from 'react';
 
 import { CustomizeCtx, MainCtx } from './ModalContext';
-import { ModalStyle, Position } from './types';
+import { Position } from './types';
 
 type useModalProps =
   | {
@@ -13,7 +13,7 @@ type useModalProps =
     }
   | undefined;
 
-const useModal = (props: useModalProps = undefined) => {
+const useModal = (props?: useModalProps) => {
   const { width, height, position, borderRadius, boxShadow } = props || {};
   const { openModal, closeModal } = useContext(MainCtx) || {};
   const { setSize, setPosition } = useContext(CustomizeCtx) || {};

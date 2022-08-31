@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import { BlueButton } from '../../../../components';
 import { useModal } from '../../../../components/Modal';
+import { useLocalStorage } from '../../../../hooks/useLocalStorage';
 
 export const SArticle = styled.article`
   padding: 25px;
@@ -70,18 +71,14 @@ export const SDONTButton = styled(BlueButton)`
   }
 `;
 
-const P = styled.p.attrs((props) => ({
-  class: props.className,
-}))`
-  background-color: blue;
-`;
-
-const AP = styled(P)`
-  background-color: grey;
-`;
-
 const HelpModal = () => {
   const { closeModal } = useModal();
+  const [, setHideMsg] = useLocalStorage(`${'userId'}_DONTSHOWHINT`, false);
+
+  const dontShowHints = () => {
+    closeModal();
+    setHideMsg(true);
+  };
 
   return (
     <SArticle>
@@ -110,13 +107,14 @@ const HelpModal = () => {
           <li>When appropriate, show some code</li>
         </SOList>
         <S2P>You’ll find more tips in the sidebar.</S2P>
-        <AP>P</AP>
       </SContentBox>
       <SButtonBox>
         <BlueButton height="38px" onClick={closeModal}>
           Start Writing
         </BlueButton>
-        <SDONTButton height="38px">Don’t show me this again</SDONTButton>
+        <SDONTButton height="38px" onClick={dontShowHints}>
+          Don’t show me this again
+        </SDONTButton>
       </SButtonBox>
     </SArticle>
   );
