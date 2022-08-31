@@ -2,11 +2,12 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { TagInitialState } from '../../types';
+import { TAG_DUMMY_DATA } from '../../utils/tag-data';
 import { getTags } from '../actions/tagActions';
 
 const initialState: TagInitialState = {
   page: 1,
-  tagList: [],
+  tagList: TAG_DUMMY_DATA,
   isLoading: false,
   sortOption: 'popular',
   inName: '',

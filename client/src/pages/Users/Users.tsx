@@ -11,7 +11,6 @@ import {
   changeUserDateOption,
   changeUserPage,
   changeUserSortOption,
-  resetUserPage,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
