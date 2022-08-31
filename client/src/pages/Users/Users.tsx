@@ -1,5 +1,81 @@
+import { useEffect } from 'react';
+
+import {
+  CustomPagination,
+  DateButton,
+  SearchBar,
+  SortButton,
+  UserCard,
+} from '../../components';
+import {
+  changeUserDateOption,
+  changeUserPage,
+  changeUserSortOption,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
+import { getUser } from '../../redux/actions/userAction';
+import { PaginationContainer } from '../Tags/style';
+import {
+  Container,
+  FilterContainer,
+  SearchContainer,
+  UserContainer,
+} from './style';
+
 const Users = () => {
-  return <p>1</p>;
+  const { sortOption, dateOption, userList, page } = useAppSelector(
+    (state) => state.user
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch, sortOption, page]);
+
+  return (
+    <Container>
+      <h1>User</h1>
+      <FilterContainer>
+        <SearchContainer>
+          <SearchBar placeholder="Filter by user" height="35px" />
+        </SearchContainer>
+        <SortButton
+          nameList={['Reputation', 'Creation', 'Name', 'Modified']}
+          clickedName={sortOption}
+          onClick={(name) => dispatch(changeUserSortOption(name))}
+        />
+      </FilterContainer>
+      <DateButton
+        nameList={['all', 'week', 'month', 'quarter', 'year']}
+        clickedName={dateOption}
+        onClick={(name) => dispatch(changeUserDateOption(name))}
+      />
+      <UserContainer>
+        {userList.map((user) => (
+          <UserCard
+            key={user.account_id}
+            img={user.profile_image}
+            link={user.link}
+            name={user.display_name}
+            location={user.location}
+            reputation={user.reputation}
+            gold={user.badge_counts.gold}
+            silver={user.badge_counts.silver}
+            bronze={user.badge_counts.bronze}
+          />
+        ))}
+      </UserContainer>
+      <PaginationContainer>
+        <CustomPagination
+          activePage={page}
+          itemsCountPerPage={72}
+          totalItemsCount={720}
+          onChange={(number) => dispatch(changeUserPage(number))}
+        />
+      </PaginationContainer>
+    </Container>
+  );
 };
 
 export default Users;
