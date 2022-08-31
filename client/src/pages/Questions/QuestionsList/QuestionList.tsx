@@ -1,11 +1,15 @@
 import axios from 'axios';
+import { SetStateAction, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 
-import { BlueButton } from '../../../components';
+import { BlueButton, CustomPagination } from '../../../components';
 import CountQuestions from '../../../components/CountQuestions/CountQuestions';
 import LeftCounts from '../../../components/QuestionElement/LeftCounts/LeftCounts';
 import QuestionElement from '../../../components/QuestionElement/QuestionElement';
 import SortTab from '../../../components/SortTab/SortTab';
+import { questionList } from '../../../utils';
+import { PaginationContainer } from '../../Tags/style';
 import {
   Container,
   Footer,
@@ -19,30 +23,27 @@ import {
 // 컴포넌트 수정 후 통합하기/
 
 const QuestionList = () => {
-  //   const [page: Number, setPage] = useState(1);
-
-  //   const handlePageChange = (page) => {
-  //     setPage(page);
-  //   };
-
-  //   return (
-  //     <Pagination
-  //       activePage={page}
-  //       itemsCountPerPage={15}
-  //       totalItemsCount={}
-  //       pageRangeDisplayed={15}
-  //       prevPageText={"Prev"}
-  //       nextPageText={"Next"}
-  //       onChange={handlePageChange}
-  //     />
-  //   );
-  // };
-
+  const navigate = useNavigate();
+  const [page, setPage] = useState(1);
+  const handlePageChange = (page: SetStateAction<number>) => {
+    setPage(page);
+    return (
+      <CustomPagination
+        activePage={20}
+        itemsCountPerPage={15}
+        totalItemsCount={750}
+        pageRangeDisplayed={5}
+        // prevPageText="Prev"
+        // nextPageText="Next"
+        onChange={handlePageChange}
+      />
+    );
+  };
   return (
     <Container>
       <TitleContainer>
         <h1>All Questions</h1>
-        <BlueButton>Ask Question</BlueButton>
+        <BlueButton onClick={() => navigate('/ask')}>Ask Question</BlueButton>
       </TitleContainer>
       <InfoContainer>
         <CountQuestions counts="22931208" />
@@ -64,20 +65,20 @@ const QuestionList = () => {
       </MainContainer>
       <Footer>
         <PagenationButton>
-          <button type="button">1</button>
-          <button type="button">2</button>
-          <button type="button">3</button>
-          <button type="button">4</button>
-          <button type="button">5</button>
-          <button type="button">...</button>
-          <button type="button">페이지수</button>
-          <button type="button">Next</button>
+          <CustomPagination
+            onChange={handlePageChange}
+            activePage={15}
+            itemsCountPerPage={750}
+            totalItemsCount={15}
+          />
         </PagenationButton>
         <PerPageButton>
-          <button type="button">15</button>
-          <button type="button">30</button>
-          <button type="button">50</button>
-          <button type="button">per page</button>
+          <CustomPagination
+            onChange={handlePageChange}
+            activePage={15}
+            itemsCountPerPage={750}
+            totalItemsCount={15}
+          />
         </PerPageButton>
       </Footer>
     </Container>
