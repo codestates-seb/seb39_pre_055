@@ -12,7 +12,6 @@ import {
   changeTagPage,
   changeTagSortOption,
   getTags,
-  resetTagPage,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
@@ -30,13 +29,6 @@ const Tags = () => {
   );
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
-  const handleSortBtnClick = useCallback(
-    (name: string) => {
-      dispatch(resetTagPage());
-      dispatch(changeTagSortOption(name));
-    },
-    [dispatch]
-  );
 
   useEffect(() => {
     dispatch(getTags());
@@ -59,7 +51,7 @@ const Tags = () => {
         <SortButton
           nameList={['Popular', 'Activity', 'Name']}
           clickedName={sortOption}
-          onClick={handleSortBtnClick}
+          onClick={(name) => dispatch(changeTagSortOption(name))}
         />
       </FilterContainer>
       <TagsContainer>
