@@ -4,6 +4,8 @@ import be.question.dto.QuestionResponseDto;
 import be.question.dto.QuestionTagResponseDto;
 import be.question.entity.Question;
 import be.question.entity.QuestionTag;
+import be.user.entity.User;
+import be.user.mapper.UserMapper;
 import be.user.service.UserService;
 import org.mapstruct.Mapper;
 
@@ -39,7 +41,7 @@ public interface QuestionMapper {
         return question;
     }
 
-    default QuestionResponseDto questionToQuestionResponseDto(Question question){
+    default QuestionResponseDto questionToQuestionResponseDto(UserMapper userMapper, Question question){
         List<QuestionTag> questionTags = question.getQuestionTags();
 
         QuestionResponseDto questionResponseDto = new QuestionResponseDto();
@@ -49,15 +51,22 @@ public interface QuestionMapper {
         questionResponseDto.setBody(question.getBody());
         questionResponseDto.setVote(question.getVote());
         questionResponseDto.setView(question.getView());
-        questionResponseDto.setUserId(question.getUser().getUserId());
+
+        User user = question.getUser();
+        questionResponseDto.setUser(userMapper.userToUserResponseDto(user));
         questionResponseDto.setQuestionTags(questionTagsToQuestionTagResponseDtos(
                 question.getQuestionTags()
         ));
+
+        questionResponseDto.setCreatedAt(question.getCreatedAt());
+        questionResponseDto.setUpdatedAt(question.getUpdatedAt());
 
         return questionResponseDto;
 
 
     }
+
+    List<QuestionResponseDto> questionsToQuestionResponseDtos(List <Question> questions);
 
     default List<QuestionTagResponseDto> questionTagsToQuestionTagResponseDtos(
             List<QuestionTag> questionTags) {

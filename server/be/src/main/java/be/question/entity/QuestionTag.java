@@ -1,5 +1,6 @@
 package be.question.entity;
 
+import be.audit.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,7 +12,7 @@ import javax.persistence.*;
 @Setter
 @Entity
 @Table(name = "QUESTIONS_TAG")
-public class QuestionTag {
+public class QuestionTag extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
