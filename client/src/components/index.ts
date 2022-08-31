@@ -21,5 +21,5 @@ export { default as Tag } from './Tag/Tag';
 export { default as TagCard } from './Tag/TagCard';
 export { default as TagHeader } from './Tag/TagHeader';
 export { default as Triangle } from './Triangle/Triangle';
-export { default as UserCard } from './UserInfoCard/UserCard/UserCard';
-export { default as UserInfoCard } from './UserInfoCard/UserInfoCard/UserInfoCard';
+export { default as UserCard } from './User/UserCard/UserCard';
+export { default as UserInfoCard } from './User/UserInfoCard/UserInfoCard';

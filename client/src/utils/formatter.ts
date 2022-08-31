@@ -1,5 +1,6 @@
-/** value == '2021-11-17' || '2021-11-17 00:00:00' */
-export const dateFormatToString = (value: string) => {
+/* eslint-disable consistent-return */
+/** getDateToString('2021-11-17') or getDateToString('2021-11-17 00:00:00') */
+export const getDateToString = (value: string) => {
   const today = new Date();
   const timeValue = new Date(value);
 
@@ -23,9 +24,9 @@ export const dateFormatToString = (value: string) => {
   return `${Math.floor(betweenTimeDay / 365)} years ago`;
 };
 
+/** getSpecificDate('-', -7) => 7일 전 timeStamp */
 export const getSpecificDate = (pattn: '-' | '/', num: number) => {
   const current = new Date().toString();
-  // 1000 : 밀리세컨드,  60 : 1분, 60 : 1시간, 24 : 24시간 = 86400000 밀리세컨드
   const temp = new Date(Date.parse(current) + num * 1000 * 60 * 60 * 24);
   const year = temp.getFullYear();
   let month: number | string = temp.getMonth() + 1;
@@ -35,4 +36,12 @@ export const getSpecificDate = (pattn: '-' | '/', num: number) => {
   day = day < 10 ? `0${day}` : day;
 
   return year + pattn + month + pattn + day;
+};
+
+export const formatNumber = (n: number) => {
+  if (n < 1e3) return n;
+  if (n >= 1e3 && n < 1e6) return `${+(n / 1e3).toFixed(1)}k`;
+  if (n >= 1e6 && n < 1e9) return `${+(n / 1e6).toFixed(1)}m`;
+  if (n >= 1e9 && n < 1e12) return `${+(n / 1e9).toFixed(1)}b`;
+  if (n >= 1e12) return `${+(n / 1e12).toFixed(1)}t`;
 };
