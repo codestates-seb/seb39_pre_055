@@ -24,9 +24,6 @@ const userSlice = createSlice({
     changeUserPage: (state, { payload }: PayloadAction<number>) => {
       state.page = payload;
     },
-    resetUserPage: (state) => {
-      state.page = 1;
-    },
     changeUserSortOption: (state, { payload }: PayloadAction<string>) => {
       state.page = 1;
       state.sortOption = payload;
@@ -81,7 +78,6 @@ const userSlice = createSlice({
 export const {
   changeUserPage,
   changeUserSortOption,
-  resetUserPage,
   changeUserInName,
   changeUserDateOption,
 } = userSlice.actions;

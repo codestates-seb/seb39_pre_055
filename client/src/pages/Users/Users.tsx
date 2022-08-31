@@ -33,11 +33,6 @@ const Users = () => {
     dispatch(getUser());
   }, [dispatch, sortOption, page, dateOption]);
 
-  // const handleSortBtnClick = useCallback((name: string) => {
-  //   dispatch(resetUserPage());
-  //   dispatch()
-  // }, [])
-
   return (
     <Container>
       <h1>User</h1>
