@@ -128,6 +128,7 @@ const EditQuestion = () => {
         <DefaultInput
           label="Title"
           id="title"
+          placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
           value={title}
           isError={titleError}
           onChange={handleTitleChange}
@@ -147,6 +148,7 @@ const EditQuestion = () => {
           value={tagInput}
           tagArr={tagArr}
           isError={tagError}
+          placeholder="e.g. (angular sql-server string)"
           onChange={handleTagInputChange}
           onKeyUp={handleTagInputOnKeyUp}
           onClick={handleTagDelete}
