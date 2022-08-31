@@ -31,7 +31,7 @@ const DateButton = ({ nameList, clickedName, onClick }: Prop) => {
     <DateButtonsContainer>
       {nameList.map((name) => (
         <button
-          key="name"
+          key={name}
           type="button"
           className={clickedName === name ? 'clicked' : ''}
           onClick={() => onClick(name)}

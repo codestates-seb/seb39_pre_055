@@ -12,8 +12,8 @@ interface Prop {
   img: string;
   link: string;
   name: string;
-  location: string;
-  reputation: string;
+  location?: string;
+  reputation: number;
   gold: number;
   silver: number;
   bronze: number;
@@ -28,7 +28,7 @@ const UserCard = (props: Prop) => {
         <a href={link} target="_blank" rel="noreferrer">
           <Name>{name}</Name>
         </a>
-        <Location>{location}</Location>
+        {location && <Location>{location}</Location>}
         <BadgeContainer>
           <Reputation>{reputation}</Reputation>
           <Badge type="gold">

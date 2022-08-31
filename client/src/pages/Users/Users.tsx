@@ -1,10 +1,21 @@
-import { DateButton, SearchBar, SortButton, UserCard } from '../../components';
+import { useEffect } from 'react';
+
+import {
+  CustomPagination,
+  DateButton,
+  SearchBar,
+  SortButton,
+  UserCard,
+} from '../../components';
 import {
   changeUserDateOption,
+  changeUserPage,
   changeUserSortOption,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
+import { getUser } from '../../redux/actions/userAction';
+import { PaginationContainer } from '../Tags/style';
 import {
   Container,
   FilterContainer,
@@ -13,8 +24,14 @@ import {
 } from './style';
 
 const Users = () => {
-  const { sortOption, dateOption } = useAppSelector((state) => state.user);
+  const { sortOption, dateOption, userList, page } = useAppSelector(
+    (state) => state.user
+  );
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getUser());
+  }, [dispatch, sortOption, page]);
 
   return (
     <Container>
@@ -35,17 +52,28 @@ const Users = () => {
         onClick={(name) => dispatch(changeUserDateOption(name))}
       />
       <UserContainer>
-        <UserCard
-          img="https://i.stack.imgur.com/I4fiW.jpg?s=96&g=1"
-          link="https://stackoverflow.com/users/1144035/gordon-linoff"
-          name="Jon Skeet"
-          location="Reading, United Kinkdom"
-          reputation="1.2m"
-          gold={830}
-          silver={830}
-          bronze={830}
-        />
+        {userList.map((user) => (
+          <UserCard
+            key={user.account_id}
+            img={user.profile_image}
+            link={user.link}
+            name={user.display_name}
+            location={user.location}
+            reputation={user.reputation}
+            gold={user.badge_counts.gold}
+            silver={user.badge_counts.silver}
+            bronze={user.badge_counts.bronze}
+          />
+        ))}
       </UserContainer>
+      <PaginationContainer>
+        <CustomPagination
+          activePage={page}
+          itemsCountPerPage={72}
+          totalItemsCount={720}
+          onChange={(number) => dispatch(changeUserPage(number))}
+        />
+      </PaginationContainer>
     </Container>
   );
 };

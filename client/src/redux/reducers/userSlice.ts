@@ -2,11 +2,12 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { UserInitialState } from '../../types/user';
+import { USER_DUMMY_DATA } from '../../utils/user-data';
 import { getUser } from '../actions/userAction';
 
 const initialState: UserInitialState = {
   page: 1,
-  userList: [],
+  userList: USER_DUMMY_DATA,
   isLoading: false,
   sortOption: 'reputation',
   dateOption: 'all',
