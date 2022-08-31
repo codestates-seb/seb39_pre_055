@@ -11,9 +11,9 @@ export const getUser = createAsyncThunk<
   CreateAsyncThunkTypes
 >('user/getUser', async (_, thunkAPI) => {
   try {
-    const { page, sortOption, timeStamp } = thunkAPI.getState().user;
+    const { page, sortOption, timeStamp, inName } = thunkAPI.getState().user;
     const response = await axios.get(
-      `${STACK_EXCHANGE_URL}/users?page=${page}&pagesize=72&fromdate=${timeStamp}&todate=${Date.now()}&order=desc&sort=${sortOption}&site=stackoverflow`
+      `${STACK_EXCHANGE_URL}/users?page=${page}&pagesize=72&fromdate=${timeStamp}&todate=${Date.now()}&order=desc&sort=${sortOption}&inname=${inName}&site=stackoverflow`
     );
     return response.data.items;
   } catch (error: any) {

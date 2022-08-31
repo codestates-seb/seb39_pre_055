@@ -28,6 +28,7 @@ export const UserContainer = styled.section`
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   margin-top: 25px;
+  margin-bottom: 40px;
 
   @media screen and (max-width: 1265px) {
     grid-template-columns: repeat(3, 1fr);

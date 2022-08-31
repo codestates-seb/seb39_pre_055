@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import {
   CustomPagination,
@@ -12,7 +12,6 @@ import {
   changeTagPage,
   changeTagSortOption,
   getTags,
-  resetTagPage,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
@@ -25,17 +24,10 @@ import {
 } from './style';
 
 const Tags = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
   const { tagList, page, sortOption, inName } = useAppSelector(
     (state) => state.tag
-  );
-  const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement>(null);
-  const handleSortBtnClick = useCallback(
-    (name: string) => {
-      dispatch(resetTagPage());
-      dispatch(changeTagSortOption(name));
-    },
-    [dispatch]
   );
 
   useEffect(() => {
@@ -59,7 +51,7 @@ const Tags = () => {
         <SortButton
           nameList={['Popular', 'Activity', 'Name']}
           clickedName={sortOption}
-          onClick={handleSortBtnClick}
+          onClick={(name) => dispatch(changeTagSortOption(name))}
         />
       </FilterContainer>
       <TagsContainer>

@@ -27,7 +27,7 @@ export const TagsContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 10px;
-  margin-bottom: 16px;
+  margin-bottom: 40px;
 
   @media screen and (min-width: 720px) {
     grid-template-columns: repeat(4, 1fr);
