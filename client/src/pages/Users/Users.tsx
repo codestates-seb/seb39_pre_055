@@ -1,4 +1,4 @@
-import { useCallback, useEffect } from 'react';
+import { useEffect } from 'react';
 
 import {
   CustomPagination,
@@ -24,10 +24,10 @@ import {
 } from './style';
 
 const Users = () => {
+  const dispatch = useAppDispatch();
   const { sortOption, dateOption, userList, page } = useAppSelector(
     (state) => state.user
   );
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getUser());

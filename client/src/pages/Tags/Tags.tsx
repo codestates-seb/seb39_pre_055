@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef } from 'react';
+import { useEffect, useRef } from 'react';
 
 import {
   CustomPagination,
@@ -24,11 +24,11 @@ import {
 } from './style';
 
 const Tags = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
   const { tagList, page, sortOption, inName } = useAppSelector(
     (state) => state.tag
   );
-  const dispatch = useAppDispatch();
-  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     dispatch(getTags());
