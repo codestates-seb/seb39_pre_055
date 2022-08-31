@@ -8,11 +8,11 @@ import {
   TagHeader,
 } from '../../components';
 import {
-  changeInName,
-  changePage,
-  changeSortOption,
+  changeTagInName,
+  changeTagPage,
+  changeTagSortOption,
   getTags,
-  resetPage,
+  resetTagPage,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
@@ -30,8 +30,8 @@ const Tags = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const handleSortBtnClick = useCallback(
     (name: string) => {
-      dispatch(resetPage());
-      dispatch(changeSortOption(name));
+      dispatch(resetTagPage());
+      dispatch(changeTagSortOption(name));
     },
     [dispatch]
   );
@@ -50,7 +50,7 @@ const Tags = () => {
             inputRef={inputRef}
             onSearch={{
               callback: () =>
-                dispatch(changeInName(inputRef.current?.value as string)),
+                dispatch(changeTagInName(inputRef.current?.value as string)),
             }}
           />
         </SearchBarContainer>
@@ -71,7 +71,7 @@ const Tags = () => {
             activePage={page}
             itemsCountPerPage={90}
             totalItemsCount={900}
-            onChange={(number) => dispatch(changePage(number))}
+            onChange={(number) => dispatch(changeTagPage(number))}
           />
         </PaginationContainer>
       )}

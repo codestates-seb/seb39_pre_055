@@ -17,16 +17,16 @@ const tagSlice = createSlice({
   name: 'tag',
   initialState,
   reducers: {
-    changePage: (state, { payload }: PayloadAction<number>) => {
+    changeTagPage: (state, { payload }: PayloadAction<number>) => {
       state.page = payload;
     },
-    resetPage: (state) => {
+    resetTagPage: (state) => {
       state.page = 1;
     },
-    changeSortOption: (state, { payload }: PayloadAction<string>) => {
+    changeTagSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
     },
-    changeInName: (state, { payload }: PayloadAction<string>) => {
+    changeTagInName: (state, { payload }: PayloadAction<string>) => {
       state.inName = payload;
     },
   },
@@ -49,6 +49,10 @@ const tagSlice = createSlice({
       }),
 });
 
-export const { changePage, changeSortOption, resetPage, changeInName } =
-  tagSlice.actions;
+export const {
+  changeTagPage,
+  changeTagSortOption,
+  resetTagPage,
+  changeTagInName,
+} = tagSlice.actions;
 export const tagReducer: Reducer<typeof initialState> = tagSlice.reducer;
