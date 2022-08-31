@@ -11,6 +11,8 @@ import styled, { css } from 'styled-components';
 
 const EditorBorder = styled.div<{ isFocus: boolean; isError: boolean }>`
   position: relative;
+  outline: rgba(0, 0, 0, 0) solid 4px;
+  border: 1px solid rgba(0, 0, 0, 0);
 
   svg {
     position: absolute;

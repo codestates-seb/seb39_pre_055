@@ -8,11 +8,11 @@ import {
   TagHeader,
 } from '../../components';
 import {
-  changeInName,
-  changePage,
-  changeSortOption,
+  changeTagInName,
+  changeTagPage,
+  changeTagSortOption,
   getTags,
-  resetPage,
+  resetTagPage,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
@@ -25,20 +25,22 @@ import {
 } from './style';
 
 const Tags = () => {
-  const { tagList, page, sortOption } = useAppSelector((state) => state.tag);
+  const { tagList, page, sortOption, inName } = useAppSelector(
+    (state) => state.tag
+  );
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const handleSortBtnClick = useCallback(
     (name: string) => {
-      dispatch(resetPage());
-      dispatch(changeSortOption(name));
+      dispatch(resetTagPage());
+      dispatch(changeTagSortOption(name));
     },
     [dispatch]
   );
 
   useEffect(() => {
     dispatch(getTags());
-  }, [dispatch, page, sortOption]);
+  }, [dispatch, page, sortOption, inName]);
 
   return (
     <Container>
@@ -50,7 +52,7 @@ const Tags = () => {
             inputRef={inputRef}
             onSearch={{
               callback: () =>
-                dispatch(changeInName(inputRef.current?.value as string)),
+                dispatch(changeTagInName(inputRef.current?.value as string)),
             }}
           />
         </SearchBarContainer>
@@ -65,13 +67,13 @@ const Tags = () => {
           <TagCard key={tag.name} name={tag.name} count={tag.count} />
         ))}
       </TagsContainer>
-      {tagList.length > 90 && (
+      {tagList.length > 89 && (
         <PaginationContainer>
           <CustomPagination
             activePage={page}
             itemsCountPerPage={90}
             totalItemsCount={900}
-            onChange={(number) => dispatch(changePage(number))}
+            onChange={(number) => dispatch(changeTagPage(number))}
           />
         </PaginationContainer>
       )}

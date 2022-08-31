@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint-disable consistent-return */
 import { Editor } from '@toast-ui/react-editor';
 import {
   ChangeEvent,
@@ -6,9 +8,12 @@ import {
   KeyboardEvent,
   SetStateAction,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 import { css } from 'styled-components';
 
 import {
@@ -17,6 +22,7 @@ import {
   DefaultInput,
   TagInput,
 } from '../../../../components';
+import { axiosInstance } from '../../../../utils/axiosInstance';
 import Caption from '../MDCaptions/MDCaptions';
 import { SCaptionBox } from '../MDCaptions/style';
 import {
@@ -46,10 +52,11 @@ const captionsList = [
 ];
 
 interface QuestionFormProps {
-  setErrs: Dispatch<SetStateAction<{ status: string; counts: number }>>;
+  errCount: number;
+  setErrs: Dispatch<SetStateAction<{ status: string; count: number }>>;
 }
 
-const QuestionForm = ({ setErrs }: QuestionFormProps) => {
+const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   const [title, setTitle] = useState({ value: '', isError: false });
   const [body, setBody] = useState({ value: ' ', isError: false });
   const [tags, setTags] = useState<{ value: string[]; isError: boolean }>({
@@ -57,7 +64,9 @@ const QuestionForm = ({ setErrs }: QuestionFormProps) => {
     isError: false,
   });
   const [tagInput, setTagInput] = useState('');
+  const [isPending, setIsPending] = useState(false);
   const editorRef = useRef<Editor>(null);
+  const navigate = useNavigate();
 
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -80,7 +89,7 @@ const QuestionForm = ({ setErrs }: QuestionFormProps) => {
       return;
     }
     setBody({
-      value: editorRef.current!.getInstance().getMarkdown(),
+      value: editorRef.current.getInstance().getMarkdown(),
       isError: false,
     });
   }, []);
@@ -113,6 +122,34 @@ const QuestionForm = ({ setErrs }: QuestionFormProps) => {
     e.preventDefault();
   };
 
+  useEffect(() => {
+    if (!isPending) return;
+    const controller = new AbortController();
+
+    (async () => {
+      try {
+        const reqBody = {
+          userId: '1',
+          title: title.value,
+          body: body.value,
+          questionTags: tags.value,
+        };
+        const res = await axiosInstance.post('/v1/question/write', reqBody, {
+          signal: controller.signal,
+        });
+        const { questionId } = res.data.data;
+
+        navigate(`/${questionId}`);
+      } catch (error: any) {
+        console.log(error);
+        const { status, message } = error.response.data;
+        toast.error(`${status}: ${message}`);
+      }
+    })();
+
+    return () => controller.abort();
+  }, [isPending]);
+
   const handleReview = () => {
     const titleErr = Number(title.isError || !title.value);
     const bodyErr = Number(body.isError || !body.value.trim());
@@ -129,8 +166,12 @@ const QuestionForm = ({ setErrs }: QuestionFormProps) => {
       setTags((prev) => ({ ...prev, isError: true }));
     }
 
-    setErrs({ status: 'ongoing', counts: errIssues });
+    setErrs({ status: 'ongoing', count: errIssues });
     window.scrollTo({ top: 0, behavior: 'smooth' });
+
+    if (errIssues < 1) {
+      setIsPending(true);
+    }
   };
   const suppressFormEnter = (e: KeyboardEvent) => {
     if (e.key === 'Enter') {
@@ -186,7 +227,12 @@ const QuestionForm = ({ setErrs }: QuestionFormProps) => {
         </SBox>
       </SBodySection>
       <ButtonBox>
-        <BlueButton width="150px" height="37px" onClick={handleReview}>
+        <BlueButton
+          height="37px"
+          onClick={handleReview}
+          isPending={isPending}
+          isError={errCount > 0}
+        >
           Review your question
         </BlueButton>
       </ButtonBox>

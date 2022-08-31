@@ -19,8 +19,5 @@ public class UserResponseDto {
     private String password;
     private String image;
     private User.UserStatus userStatus;
-//    private String getUserStatus() {
-//        return userStatus.getStatus();
-//    }
 
 }
