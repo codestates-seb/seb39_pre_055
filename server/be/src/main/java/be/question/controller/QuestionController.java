@@ -49,7 +49,8 @@ public class QuestionController {
 
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(userMapper,question)), HttpStatus.CREATED);
+                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(
+                        userMapper,question)), HttpStatus.CREATED);
     }
 
     /**
@@ -67,6 +68,18 @@ public class QuestionController {
         return new ResponseEntity<>(new MultiResponseDto<>(
                 mapper.questionsToQuestionResponseDtos(questions),
                 pageQuestions),HttpStatus.OK);
+    }
+
+    /**
+     * 선택 질문페이지 이동 API(뷰 증가)
+     * **/
+    @GetMapping("/{question-id}")
+    public ResponseEntity getQuestion(@PathVariable("question-id")
+                                          @Positive long questionId){
+        Question question = questionService.findQuestion(questionId);
+        return new ResponseEntity<>(new SingleResponseDto<>(
+                mapper.questionToQuestionResponseDto(userMapper,question)),
+                HttpStatus.OK);
     }
 
 
