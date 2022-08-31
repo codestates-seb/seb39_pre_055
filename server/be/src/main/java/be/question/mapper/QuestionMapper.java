@@ -22,6 +22,7 @@ public interface QuestionMapper {
         question.setVote(0);
         question.setView(0);
 
+        // changing from QuestionTagDto to QuestionTag
         List<QuestionTag> questionTags = questionPostDto.getQuestionTags()
                 .stream().map(questionTagDto -> {
                     QuestionTag questionTag = new QuestionTag();
@@ -68,6 +69,7 @@ public interface QuestionMapper {
 
     List<QuestionResponseDto> questionsToQuestionResponseDtos(List <Question> questions);
 
+    // changing from QuestionTag to QuestionTagResponseDto
     default List<QuestionTagResponseDto> questionTagsToQuestionTagResponseDtos(
             List<QuestionTag> questionTags) {
         return questionTags
