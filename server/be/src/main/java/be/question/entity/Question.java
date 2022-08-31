@@ -1,9 +1,13 @@
 package be.question.entity;
 
+import be.audit.BaseEntity;
 import be.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.Id;
 
 import javax.persistence.*;
@@ -16,7 +20,7 @@ import java.util.List;
 @Setter
 @Entity
 @Table(name = "QUESTIONS")
-public class Question {
+public class Question extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,9 +42,6 @@ public class Question {
 
     @Column(nullable = false,columnDefinition = "TEXT")
     private String body;
-
-//    @Column(nullable = false)
-//    private String tag;
 
     @Column(nullable = false)
     private int vote;

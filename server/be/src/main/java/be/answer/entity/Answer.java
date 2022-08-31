@@ -1,5 +1,6 @@
 package be.answer.entity;
 
+import be.audit.BaseEntity;
 import be.question.entity.Question;
 import be.user.entity.User;
 import lombok.Getter;
@@ -15,7 +16,7 @@ import java.time.LocalDateTime;
 @Setter
 @Entity
 @Table(name = "ANSWERS")
-public class Answer {
+public class Answer extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
