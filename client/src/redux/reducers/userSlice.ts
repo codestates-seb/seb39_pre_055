@@ -13,7 +13,8 @@ const initialState = {
   page: 1,
   userList: [],
   isLoading: false,
-  sortOption: 'popular',
+  sortOption: 'reputation',
+  dateOption: 'all',
   inName: '',
   errorMsg: '',
 };
@@ -31,6 +32,9 @@ const userSlice = createSlice({
     changeUserSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
     },
+    changeUserDateOption: (state, { payload }: PayloadAction<string>) => {
+      state.dateOption = payload;
+    },
     changeUserInName: (state, { payload }: PayloadAction<string>) => {
       state.inName = payload;
     },
@@ -42,5 +46,6 @@ export const {
   changeUserSortOption,
   resetUserPage,
   changeUserInName,
+  changeUserDateOption,
 } = userSlice.actions;
 export const userReducer: Reducer<typeof initialState> = userSlice.reducer;

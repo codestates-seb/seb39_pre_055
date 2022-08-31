@@ -1,13 +1,21 @@
-import { SearchBar, SortButton, UserCard } from '../../components';
+import { DateButton, SearchBar, SortButton, UserCard } from '../../components';
+import {
+  changeUserDateOption,
+  changeUserSortOption,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 import {
   Container,
-  DateContainer,
   FilterContainer,
   SearchContainer,
   UserContainer,
 } from './style';
 
 const Users = () => {
+  const { sortOption, dateOption } = useAppSelector((state) => state.user);
+  const dispatch = useAppDispatch();
+
   return (
     <Container>
       <h1>User</h1>
@@ -17,17 +25,15 @@ const Users = () => {
         </SearchContainer>
         <SortButton
           nameList={['Reputation', 'Creation', 'Name', 'Modified']}
-          clickedName="reputation"
-          onClick={(name) => name}
+          clickedName={sortOption}
+          onClick={(name) => dispatch(changeUserSortOption(name))}
         />
       </FilterContainer>
-      <DateContainer>
-        <button type="button">all</button>
-        <button type="button">week</button>
-        <button type="button">month</button>
-        <button type="button">quarter</button>
-        <button type="button">year</button>
-      </DateContainer>
+      <DateButton
+        nameList={['all', 'week', 'month', 'quarter', 'year']}
+        clickedName={dateOption}
+        onClick={(name) => dispatch(changeUserDateOption(name))}
+      />
       <UserContainer>
         <UserCard
           img="https://i.stack.imgur.com/I4fiW.jpg?s=96&g=1"

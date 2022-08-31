@@ -23,26 +23,6 @@ export const SearchContainer = styled.div`
   margin-left: -7px;
 `;
 
-export const DateContainer = styled.section`
-  display: flex;
-  justify-content: right;
-  margin-bottom: 10px;
-
-  button {
-    padding: 8px 8px 10px 8px;
-    border: none;
-    background-color: inherit;
-    color: #6a737c;
-    font-size: 12px;
-  }
-
-  & > button:first-child {
-    border-bottom: 1px solid rgb(244, 130, 37);
-    color: black;
-    font-weight: 700;
-  }
-`;
-
 export const UserContainer = styled.section`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
