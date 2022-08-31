@@ -28,9 +28,11 @@ const userSlice = createSlice({
       state.page = 1;
     },
     changeUserSortOption: (state, { payload }: PayloadAction<string>) => {
+      state.page = 1;
       state.sortOption = payload;
     },
     changeUserDateOption: (state, { payload }: PayloadAction<string>) => {
+      state.page = 1;
       state.dateOption = payload;
       switch (payload) {
         case 'all':
@@ -53,6 +55,7 @@ const userSlice = createSlice({
       }
     },
     changeUserInName: (state, { payload }: PayloadAction<string>) => {
+      state.page = 1;
       state.inName = payload;
     },
   },

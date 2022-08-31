@@ -230,8 +230,8 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
         <BlueButton
           height="37px"
           onClick={handleReview}
-          isPending={isPending}
-          isError={errCount > 0}
+          // isPending={isPending}
+          // isError={errCount > 0}
         >
           Review your question
         </BlueButton>

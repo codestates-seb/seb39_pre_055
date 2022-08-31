@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 
 import {
   CustomPagination,
@@ -11,6 +11,7 @@ import {
   changeUserDateOption,
   changeUserPage,
   changeUserSortOption,
+  resetUserPage,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
@@ -32,6 +33,11 @@ const Users = () => {
   useEffect(() => {
     dispatch(getUser());
   }, [dispatch, sortOption, page, dateOption]);
+
+  // const handleSortBtnClick = useCallback((name: string) => {
+  //   dispatch(resetUserPage());
+  //   dispatch()
+  // }, [])
 
   return (
     <Container>
@@ -66,14 +72,16 @@ const Users = () => {
           />
         ))}
       </UserContainer>
-      <PaginationContainer>
-        <CustomPagination
-          activePage={page}
-          itemsCountPerPage={72}
-          totalItemsCount={720}
-          onChange={(number) => dispatch(changeUserPage(number))}
-        />
-      </PaginationContainer>
+      {userList.length > 71 && (
+        <PaginationContainer>
+          <CustomPagination
+            activePage={page}
+            itemsCountPerPage={72}
+            totalItemsCount={720}
+            onChange={(number) => dispatch(changeUserPage(number))}
+          />
+        </PaginationContainer>
+      )}
     </Container>
   );
 };
