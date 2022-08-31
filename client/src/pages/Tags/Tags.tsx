@@ -25,7 +25,9 @@ import {
 } from './style';
 
 const Tags = () => {
-  const { tagList, page, sortOption } = useAppSelector((state) => state.tag);
+  const { tagList, page, sortOption, inName } = useAppSelector(
+    (state) => state.tag
+  );
   const dispatch = useAppDispatch();
   const inputRef = useRef<HTMLInputElement>(null);
   const handleSortBtnClick = useCallback(
@@ -38,7 +40,7 @@ const Tags = () => {
 
   useEffect(() => {
     dispatch(getTags());
-  }, [dispatch, page, sortOption]);
+  }, [dispatch, page, sortOption, inName]);
 
   return (
     <Container>
@@ -65,7 +67,7 @@ const Tags = () => {
           <TagCard key={tag.name} name={tag.name} count={tag.count} />
         ))}
       </TagsContainer>
-      {tagList.length > 90 && (
+      {tagList.length > 89 && (
         <PaginationContainer>
           <CustomPagination
             activePage={page}

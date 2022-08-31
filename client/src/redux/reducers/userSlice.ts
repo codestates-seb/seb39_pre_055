@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
-export interface TagInitialState {
-  page: number;
-  tagList: Array<any>;
-  sortOption: string;
-  inName: string;
-  isLoading: boolean;
-  errorMsg: string;
-}
+import { UserInitialState } from '../../types/user';
+import { getUser } from '../actions/userAction';
 
-const initialState = {
+const initialState: UserInitialState = {
   page: 1,
   userList: [],
   isLoading: false,
@@ -39,6 +34,23 @@ const userSlice = createSlice({
       state.inName = payload;
     },
   },
+  extraReducers: (builder) =>
+    builder
+      // getUser
+      .addCase(getUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.userList = payload;
+      })
+      .addCase(getUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        if (payload) {
+          state.errorMsg = payload;
+          toast.error(state.errorMsg);
+        }
+      }),
 });
 
 export const {
