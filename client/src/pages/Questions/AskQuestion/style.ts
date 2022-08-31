@@ -6,6 +6,7 @@ export const SQuestionBox = styled.div`
   display: flex;
   flex-flow: column wrap;
   padding: 0px 15px;
+  height: 1170px;
 `;
 
 export const SHelpAside = styled.aside``;
