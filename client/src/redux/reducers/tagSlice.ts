@@ -7,7 +7,7 @@ import { getTags } from '../actions/tagActions';
 
 const initialState: TagInitialState = {
   page: 1,
-  tagList: TAG_DUMMY_DATA,
+  tagList: [],
   isLoading: false,
   sortOption: 'popular',
   inName: '',
