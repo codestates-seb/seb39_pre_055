@@ -17,10 +17,6 @@ const Info1 = styled.span`
   span {
     margin-left: 10px;
     font-size: 15px;
-
-    RiQuestionnaireFill {
-      color: blue;
-    }
   }
 `;
 
@@ -29,10 +25,6 @@ const Info2 = styled.span`
   span {
     margin-left: 10px;
     font-size: 15px;
-
-    RiQuestionnaireFill {
-      color: blue;
-    }
   }
 `;
 
@@ -41,10 +33,6 @@ const Info3 = styled.span`
   span {
     margin-left: 10px;
     font-size: 15px;
-
-    RiQuestionnaireFill {
-      color: blue;
-    }
   }
 `;
 
@@ -53,10 +41,6 @@ const Info4 = styled.span`
   span {
     margin-left: 10px;
     font-size: 15px;
-
-    RiQuestionnaireFill {
-      color: blue;
-    }
   }
 `;
 
