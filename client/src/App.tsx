@@ -5,8 +5,11 @@ import { SharedLayout } from './components';
 import {
   AskQuestion,
   EditQuestion,
+  Login,
+  Logout,
   QuestionDetail,
   QuestionList,
+  Signup,
 } from './pages';
 import Search from './pages/Search/Search';
 import Tags from './pages/Tags/Tags';
@@ -23,6 +26,9 @@ const App = () => {
           <Route path="/ask" element={<AskQuestion />} />
           <Route path="/tags" element={<Tags />} />
           <Route path="/users" element={<Users />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/signup" element={<Signup />} />
         </Route>
         <Route path="/search/*" element={<SharedLayout />}>
           <Route index element={<Search />} />
