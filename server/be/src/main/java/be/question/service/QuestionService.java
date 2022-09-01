@@ -41,23 +41,19 @@ public class QuestionService {
     }
 
     public Page<Question> findQuestions(int page, int size,String sort){
-//        return questionRepository.findAll(PageRequest.of(page,size,
-//                Sort.by(sort).descending()));
-        Page<Question> findAllQuestion = questionRepository.findAllByQuestionStatus(
+
+        Page<Question> findAllQuestion = questionRepository.findAllByQuestionStatus( //삭제된 글 빼고 전체 질문글 가져옴
                 PageRequest.of(page,size,Sort.by(sort).descending()),
                 Question.QuestionStatus.QUESTION_EXIST);
 
-//        Page<Question> findAllQuestion = questionRepository.findByBody(
-//                PageRequest.of(page,size,Sort.by(sort).descending()),
-//                "제목1");
 
-        findVerifiedNoQuestion(findAllQuestion);
+        VerifiedNoQuestion(findAllQuestion);//status가 QUESTION_EXIST인 List 데이터가 0이면 예외발생
 
         return findAllQuestion;
 
     }
 
-    private void findVerifiedNoQuestion(Page<Question> findAllQuestion){//status가 QUESTION_EXIST인 List 데이터가 0이면 예외발생
+    private void VerifiedNoQuestion(Page<Question> findAllQuestion){//status가 QUESTION_EXIST인 List 데이터가 0이면 예외발생
         if(findAllQuestion.getTotalElements()==0){
             throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
         }

@@ -3,6 +3,7 @@ import { useEffect, useRef } from 'react';
 import {
   CustomPagination,
   DateButton,
+  LoadingSpinner,
   SearchBar,
   SortButton,
   UserCard,
@@ -27,13 +28,19 @@ import {
 const Users = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { sortOption, dateOption, userList, page, inName } = useAppSelector(
-    (state) => state.user
-  );
+  const {
+    sortOption,
+    dateOption,
+    userList,
+    page,
+    inName,
+    timeStamp,
+    isLoading,
+  } = useAppSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getUser());
-  }, [dispatch, sortOption, page, dateOption, inName]);
+  }, [dispatch, sortOption, page, dateOption, inName, timeStamp]);
 
   return (
     <Container>
@@ -62,19 +69,23 @@ const Users = () => {
         onClick={(name) => dispatch(changeUserDateOption(name))}
       />
       <UserContainer>
-        {userList.map((user) => (
-          <UserCard
-            key={user.account_id}
-            img={user.profile_image}
-            link={user.link}
-            name={user.display_name}
-            location={user.location}
-            reputation={user.reputation}
-            gold={user.badge_counts.gold}
-            silver={user.badge_counts.silver}
-            bronze={user.badge_counts.bronze}
-          />
-        ))}
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          userList.map((user) => (
+            <UserCard
+              key={user.account_id}
+              img={user.profile_image}
+              link={user.link}
+              name={user.display_name}
+              location={user.location}
+              reputation={user.reputation}
+              gold={user.badge_counts.gold}
+              silver={user.badge_counts.silver}
+              bronze={user.badge_counts.bronze}
+            />
+          ))
+        )}
       </UserContainer>
       {userList.length > 71 && (
         <PaginationContainer>

@@ -1,5 +1,7 @@
 package be.question.controller;
 
+import be.answer.mapper.AnswerMapper;
+import be.answer.service.AnswerService;
 import be.question.dto.QuestionPostDto;
 import be.question.entity.Question;
 import be.question.mapper.QuestionMapper;
@@ -28,15 +30,21 @@ public class QuestionController {
     private final QuestionMapper mapper;
     private final UserService userService;
     private final UserMapper userMapper;
+    private final AnswerMapper answerMapper;
+    private final AnswerService answerService;
 
     public QuestionController(QuestionService questionService,
                               QuestionMapper mapper,
                               UserService userService,
-                              UserMapper userMapper){
+                              UserMapper userMapper,
+                              AnswerMapper answerMapper,
+                              AnswerService answerService){
         this.mapper = mapper;
         this.questionService=questionService;
         this.userService = userService;
         this.userMapper = userMapper;
+        this.answerMapper = answerMapper;
+        this.answerService = answerService;
     }
 
     /**
@@ -49,8 +57,7 @@ public class QuestionController {
 
 
         return new ResponseEntity<>(
-                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(
-                        userMapper,question)), HttpStatus.CREATED);
+                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(userMapper,question)), HttpStatus.CREATED);
     }
 
     /**
@@ -75,11 +82,14 @@ public class QuestionController {
      * 선택 질문페이지 이동 API(뷰 증가)
      * **/
     @GetMapping("/{question-id}")
-    public ResponseEntity getQuestion(@PathVariable("question-id")
-                                          @Positive long questionId){
+    public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
+                                      @Positive @RequestParam("page") int answerPage,
+                                      @Positive @RequestParam("size") int answerSize,
+                                      @RequestParam("sort") String answerSort){
         Question question = questionService.findQuestion(questionId);
         return new ResponseEntity<>(new SingleResponseDto<>(
-                mapper.questionToQuestionResponseDto(userMapper,question)),
+                mapper.questionToQuestionAndAnswerResponseDto(answerService,answerMapper,userMapper,question,
+                        answerPage,answerSize,answerSort)),
                 HttpStatus.OK);
     }
 

@@ -18,10 +18,11 @@ import {
   EditSidebar,
   TagInput,
 } from '../../components';
+import { ENG_REGEX } from '../../constants/regex';
 import { useInput } from '../../hooks';
-import { useAppDispatch } from '../../redux';
-import { question } from '../../utils';
-import { ENG_REGEX } from '../../utils/regex';
+import { useAppDispatch, useAppSelector } from '../../redux';
+import { QuestionTag } from '../../types';
+import { question, tagFormat } from '../../utils';
 import {
   ButtonsContainer,
   CancelButton,
@@ -33,11 +34,12 @@ import {
 
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
+  const { data, editType } = useAppSelector((state) => state.detail);
   const editorRef = useRef<Editor>(null);
-  const [title, titleHandler] = useInput('Stop an array while finding string');
-  const [body, setBody] = useState(question);
+  const [title, titleHandler] = useInput(data?.title as string);
+  const [body, setBody] = useState(data?.body as string);
   const [tagInput, setTagInput] = useState('');
-  const [tagArr, setTagArr] = useState(['javascript', 'react']);
+  const [tagArr, setTagArr] = useState(['javascript', 'java']);
   const [titleError, setTitleError] = useState(false);
   const [bodyError, setBodyError] = useState(false);
   const [tagError, setTagError] = useState(false);
@@ -111,29 +113,24 @@ const EditQuestion = () => {
       if (body.length < 29) setBodyError(true);
       return;
     }
-    // dispatch(
-    //   editQuestion({
-    //     title,
-    //     body,
-    //     tags: tagArr,
-    //   })
-    // );
     navigate(-1);
   }, [title, body, tagArr, navigate]);
 
   return (
     <Container>
       <EditHeader />
-      <TitleContainer>
-        <DefaultInput
-          label="Title"
-          id="title"
-          placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-          value={title}
-          isError={titleError}
-          onChange={handleTitleChange}
-        />
-      </TitleContainer>
+      {editType === 'question' && (
+        <TitleContainer>
+          <DefaultInput
+            label="Title"
+            id="title"
+            placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+            value={title}
+            isError={titleError}
+            onChange={handleTitleChange}
+          />
+        </TitleContainer>
+      )}
       <EditorContainer>
         <h2>Body</h2>
         <CustomEditor
@@ -143,17 +140,19 @@ const EditQuestion = () => {
           onChange={handleEditorChange}
         />
       </EditorContainer>
-      <TagsContainer>
-        <TagInput
-          value={tagInput}
-          tagArr={tagArr}
-          isError={tagError}
-          placeholder="e.g. (angular sql-server string)"
-          onChange={handleTagInputChange}
-          onKeyUp={handleTagInputOnKeyUp}
-          onClick={handleTagDelete}
-        />
-      </TagsContainer>
+      {editType === 'question' && (
+        <TagsContainer>
+          <TagInput
+            value={tagInput}
+            tagArr={tagArr}
+            isError={tagError}
+            placeholder="e.g. (angular sql-server string)"
+            onChange={handleTagInputChange}
+            onKeyUp={handleTagInputOnKeyUp}
+            onClick={handleTagDelete}
+          />
+        </TagsContainer>
+      )}
       <ButtonsContainer>
         <BlueButton width="90px" onClick={handleEditButtonClick}>
           Save Edits

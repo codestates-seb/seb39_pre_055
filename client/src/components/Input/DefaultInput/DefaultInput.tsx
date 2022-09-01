@@ -1,12 +1,15 @@
 import { MdError } from 'react-icons/md';
 
+import { ERROR_MSG_01, ERROR_MSG_02 } from '../../../constants';
 import { SCommentP, SInput, SInputWrapper, SLabel, Wrapper } from './style';
 
 interface Prop {
+  type?: 'password' | 'text'; // 필요시 추가
   label?: string;
   id: string;
   value: string;
   isError: boolean;
+  errorMsg?: string;
   comment?: string;
   placeholder?: string;
   onChange: (
@@ -15,10 +18,12 @@ interface Prop {
 }
 
 const DefaultInput = ({
+  type = 'text',
   label,
   id,
   value,
   isError,
+  errorMsg = ERROR_MSG_02,
   comment,
   placeholder,
   onChange,
@@ -29,7 +34,7 @@ const DefaultInput = ({
       {comment && <SCommentP>{comment}</SCommentP>}
       <SInputWrapper>
         <SInput
-          type="text"
+          type={type}
           id={id}
           value={value}
           isError={isError}
@@ -39,7 +44,7 @@ const DefaultInput = ({
         {isError && (
           <>
             <MdError />
-            <p>Title must be at least 15 characters.</p>
+            <p>{errorMsg}</p>
           </>
         )}
       </SInputWrapper>
