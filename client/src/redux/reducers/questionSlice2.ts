@@ -39,7 +39,7 @@ const initialState: QuestionSliceState = {
   ],
 };
 
-const questionSlice = createSlice({
+const questionSlice2 = createSlice({
   name: 'question',
   initialState,
   reducers: {
@@ -55,6 +55,6 @@ const questionSlice = createSlice({
   },
 });
 
-export const { addAnswer, editQuestion } = questionSlice.actions;
-export const questionReducer: Reducer<typeof initialState> =
-  questionSlice.reducer;
+export const { addAnswer, editQuestion } = questionSlice2.actions;
+export const questionReducer2: Reducer<typeof initialState> =
+  questionSlice2.reducer;
