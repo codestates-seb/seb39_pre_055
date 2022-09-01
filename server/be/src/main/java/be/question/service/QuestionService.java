@@ -10,6 +10,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -40,8 +41,26 @@ public class QuestionService {
     }
 
     public Page<Question> findQuestions(int page, int size,String sort){
-        return questionRepository.findAll(PageRequest.of(page,size,
-                Sort.by(sort).descending()));
+//        return questionRepository.findAll(PageRequest.of(page,size,
+//                Sort.by(sort).descending()));
+        Page<Question> findAllQuestion = questionRepository.findAllByQuestionStatus(
+                PageRequest.of(page,size,Sort.by(sort).descending()),
+                Question.QuestionStatus.QUESTION_EXIST);
+
+//        Page<Question> findAllQuestion = questionRepository.findByBody(
+//                PageRequest.of(page,size,Sort.by(sort).descending()),
+//                "제목1");
+
+        findVerifiedNoQuestion(findAllQuestion);
+
+        return findAllQuestion;
+
+    }
+
+    private void findVerifiedNoQuestion(Page<Question> findAllQuestion){//status가 QUESTION_EXIST인 List 데이터가 0이면 예외발생
+        if(findAllQuestion.getTotalElements()==0){
+            throw new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND);
+        }
     }
 
     private Question findVerifiedQuestion(long questionId){ //요청된 질문이 DB에 없으면 에러
