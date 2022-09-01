@@ -21,6 +21,15 @@ const Wrapper = styled.button`
     background-color: var(--black-050);
     color: var(--black-600);
   }
+  :active {
+
+  }
+
+  &:focus {
+    outline-style: solid;
+    outline-color: var(--black-100);, 7px);
+    box-shadow: none;
+  }
   padding: 8px 7px;
 `;
 
@@ -32,7 +41,17 @@ const Wrapper2 = styled.button`
   background-color: white;
   :hover {
     background-color: var(--black-050);
-  
+    color: var(--black-600);
+
+    :active {
+
+    }
+    
+    &:focus {
+      outline-style: solid;
+      outline-color: var(--black-100);, 7px);
+      box-shadow: none;
+    }
 `;
 
 const SortTab = ({ Newest, Views }: Prop) => {
