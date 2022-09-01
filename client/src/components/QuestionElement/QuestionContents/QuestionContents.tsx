@@ -30,7 +30,6 @@ const QuestionContents = ({ contents, txt, limitLength, lastTxt }: Prop) => {
   if (contents.length > limitLength) {
     txt = contents.slice(0, limitLength) + lastTxt;
   }
-  contents = txt;
   return <Container>{contents}</Container>;
 };
 

@@ -2,7 +2,7 @@ import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
 import {
-  questionSortReducer,
+  questionReducer,
   tagReducer,
   testReducer,
   userReducer,
@@ -14,7 +14,7 @@ export const store = configureStore({
     test: testReducer,
     question2: questionReducer2,
     tag: tagReducer,
-    questionSort: questionSortReducer,
+    question: questionReducer,
     user: userReducer,
     // 앞으로 추가하게 될 전역 상태는 관심사에 따라 파일을 분리한 후 이곳에 추가해주세요.
     // user: userReducer,  -> user정보에 관련된 전역 상태
