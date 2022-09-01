@@ -13,21 +13,28 @@ import {
   Content,
   QuestionInfo,
 } from '../../../components';
-import { useAppDispatch, useAppSelector } from '../../../redux';
+import {
+  changeDetailSortOption,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../redux';
 import { getDetail } from '../../../redux/actions/detailAction';
 import { AnswerHeader, Container, Header, SubHeader } from './style';
 
 const QuestionDetail = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
+
+  const navigate = useNavigate();
+  const { isLoading, data, sortOption } = useAppSelector(
+    (state) => state.detail
+  );
+
   useEffect(() => {
     if (params.id) {
       dispatch(getDetail(params.id));
     }
-  }, [dispatch, params]);
-
-  const navigate = useNavigate();
-  const { isLoading, data } = useAppSelector((state) => state.detail);
+  }, [dispatch, params, sortOption]);
 
   if (isLoading) return <p>Loading...</p>;
 
@@ -59,20 +66,36 @@ const QuestionDetail = () => {
           vote={data.vote}
         />
         {/* answer */}
-        {/* <AnswerHeader>
-          <h2>2 Answers</h2>
-          <div>
-            <label htmlFor="sort">Sorted by:</label>
-            <select name="sort" id="sort">
-              <option value="score">Highest score (default)</option>
-              <option value="new">Date modified (newest first)</option>
-              <option value="old">Date created (oldest first)</option>
-            </select>
-          </div>
-        </AnswerHeader> */}
-        {/* {answerList.map((answer) => (
-          <Content key={answer} type="answer" body={answer} />
-        ))}{' '} */}
+        {data.answers.data.length > 0 && (
+          <>
+            <AnswerHeader>
+              <h2>2 Answers</h2>
+              <div>
+                <label htmlFor="sort">Sorted by:</label>
+                <select
+                  name="sort"
+                  id="sort"
+                  onChange={(e) =>
+                    dispatch(changeDetailSortOption(e.target.value))
+                  }
+                >
+                  <option value="vote">Highest score (default)</option>
+                  <option value="createdAt">Date created (newest first)</option>
+                </select>
+              </div>
+            </AnswerHeader>
+            {data.answers.data.map((answer) => (
+              <Content
+                key={answer.answerId}
+                type="answer"
+                body={answer.body}
+                user={answer.user}
+                createdAt={answer.createdAt}
+                vote={answer.vote}
+              />
+            ))}
+          </>
+        )}
         {/* editor */}
         <h3>Your Answer</h3>
         <AnswerEditor />

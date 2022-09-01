@@ -8,7 +8,7 @@ function isArrayOfString(value: Array<unknown>): value is string[] {
   return value.length > 0 && value.every((item) => typeof item === 'string');
 }
 
-export default function tagFormat(tagArr: TagArr) {
+export function tagFormat(tagArr: TagArr) {
   let formatted: typeof tagArr & TagArr = [];
 
   if (isArrayOfString(tagArr)) {
