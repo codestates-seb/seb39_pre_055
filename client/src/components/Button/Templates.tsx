@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
 import DefaultBtn, { ButtonProps } from './DefaultButton';
-import { Btn } from './style';
+import { Buttton } from './style';
 
-type TemplateButtonProps = Pick<
+type TemplateButtonProps = Omit<
   ButtonProps,
-  'width' | 'height' | 'onClick' | 'children' | 'polymorphic' | 'className'
+  'color' | 'mainCode' | 'hoverCode' | 'textColor'
 >;
 
 export const BlueButton = ({
@@ -13,6 +13,8 @@ export const BlueButton = ({
   height,
   children,
   polymorphic,
+  isError,
+  isPending,
   className,
   onClick,
 }: TemplateButtonProps) => {
@@ -27,6 +29,8 @@ export const BlueButton = ({
       polymorphic={polymorphic}
       className={className}
       onClick={onClick}
+      isPending={isPending}
+      isError={isError}
     >
       {children}
     </DefaultBtn>
@@ -38,6 +42,8 @@ export const PowderButton = ({
   height,
   children,
   polymorphic,
+  isError,
+  isPending,
   className,
   onClick,
 }: TemplateButtonProps) => {
@@ -52,13 +58,15 @@ export const PowderButton = ({
       polymorphic={polymorphic}
       className={className}
       onClick={onClick}
+      isPending={isPending}
+      isError={isError}
     >
       {children}
     </DefaultBtn>
   );
 };
 
-export const RoundButton = styled(Btn)`
+export const RoundButton = styled(Buttton)`
   color: var(--black-700);
   border-radius: 20px;
   width: 80px;
