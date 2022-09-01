@@ -1,4 +1,4 @@
-export { default as Accordian } from './Accordian/Accordian';
+export { default as Accordion } from './Accordian/Accordion';
 export { default as AnchorCard } from './AnchorCard/AnchorCard';
 export { default as DateButton } from './Button/DateButton';
 export { default as DefaultBtn } from './Button/DefaultButton';
