@@ -2,7 +2,7 @@ import styled, { css, FlattenSimpleInterpolation } from 'styled-components';
 
 import { ReactComponent as ArrowDown } from '../../assets/img/arrow-down.svg';
 import { ReactComponent as ArrowUp } from '../../assets/img/arrow-up.svg';
-import { GuidelineCardProps } from './Accordian';
+import { GuidelineCardProps } from './Accordion';
 
 interface ExtraStyles {
   extraStyles?: FlattenSimpleInterpolation;

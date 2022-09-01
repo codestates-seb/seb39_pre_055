@@ -26,7 +26,7 @@ export interface GuidelineCardProps {
   polymorphic?: 'div' | 'li';
 }
 
-const Accordian = ({
+const Accordion = ({
   title,
   isCollapsable,
   extraStyles,
@@ -93,4 +93,4 @@ const Accordian = ({
   );
 };
 
-export default Accordian;
+export default Accordion;

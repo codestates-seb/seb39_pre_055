@@ -17,7 +17,7 @@ import { AnswerHeader, Container, Header, SubHeader } from './style';
 const QuestionDetail = () => {
   const navigate = useNavigate();
   const { answerList, questionList } = useAppSelector(
-    (state) => state.question
+    (state) => state.question2
   );
 
   return (

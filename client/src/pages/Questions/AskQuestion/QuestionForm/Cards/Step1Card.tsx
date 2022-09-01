@@ -1,6 +1,6 @@
 import { css } from 'styled-components';
 
-import GuidelineCard from '../../../../../components/Accordian/Accordian';
+import GuidelineCard from '../../../../../components/Accordian/Accordion';
 import {
   SContentBox,
   SContentP,

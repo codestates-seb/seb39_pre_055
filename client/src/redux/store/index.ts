@@ -7,12 +7,12 @@ import {
   testReducer,
   userReducer,
 } from '../reducers';
-import { questionReducer } from '../reducers/questionSlice';
+import { questionReducer2 } from '../reducers/questionSlice2';
 
 export const store = configureStore({
   reducer: {
     test: testReducer,
-    question: questionReducer,
+    question2: questionReducer2,
     tag: tagReducer,
     questionSort: questionSortReducer,
     user: userReducer,
