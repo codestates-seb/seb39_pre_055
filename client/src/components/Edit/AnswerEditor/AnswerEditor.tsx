@@ -6,7 +6,7 @@ import { Editor } from '@toast-ui/react-editor';
 import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { addAnswer, useAppDispatch } from '../../../redux';
+import { useAppDispatch } from '../../../redux';
 import { BlueButton } from '../../Button/Templates';
 import CustomEditor from '../CustomEditor/CustomEditor';
 
@@ -39,11 +39,12 @@ const AnswerEditor = () => {
       setIsError(true);
       return;
     }
-    addAnswer(value);
+    // addAnswer(value);
+    console.log('submit');
   }, [value]);
 
   return (
-    <Container onSubmit={() => dispatch(addAnswer(value))}>
+    <Container>
       <CustomEditor
         height="300px"
         value={value}

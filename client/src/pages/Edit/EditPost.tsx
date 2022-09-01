@@ -19,7 +19,7 @@ import {
   TagInput,
 } from '../../components';
 import { useInput } from '../../hooks';
-import { editQuestion, useAppDispatch } from '../../redux';
+import { useAppDispatch } from '../../redux';
 import { question } from '../../utils';
 import { ENG_REGEX } from '../../utils/regex';
 import {
@@ -111,15 +111,15 @@ const EditQuestion = () => {
       if (body.length < 29) setBodyError(true);
       return;
     }
-    dispatch(
-      editQuestion({
-        title,
-        body,
-        tags: tagArr,
-      })
-    );
+    // dispatch(
+    //   editQuestion({
+    //     title,
+    //     body,
+    //     tags: tagArr,
+    //   })
+    // );
     navigate(-1);
-  }, [title, body, tagArr, dispatch, navigate]);
+  }, [title, body, tagArr, navigate]);
 
   return (
     <Container>
