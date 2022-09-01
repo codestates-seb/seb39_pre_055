@@ -5,7 +5,7 @@ interface ServerTag {
 type TagArr = string[] | ServerTag[];
 
 function isArrayOfString(value: Array<unknown>): value is string[] {
-  return value.every((item) => typeof item === 'string');
+  return value.length > 0 && value.every((item) => typeof item === 'string');
 }
 
 export default function tagFormat(tagArr: TagArr) {
