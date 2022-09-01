@@ -30,6 +30,12 @@ export const UserContainer = styled.section`
   margin-top: 25px;
   margin-bottom: 40px;
 
+  & > div:last-child {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+  }
+
   @media screen and (max-width: 1265px) {
     grid-template-columns: repeat(3, 1fr);
   }

@@ -8,8 +8,8 @@ import { getUser } from '../actions/userAction';
 
 const initialState: UserInitialState = {
   page: 1,
-  userList: USER_DUMMY_DATA,
-  isLoading: false,
+  userList: [],
+  isLoading: true,
   sortOption: 'reputation',
   dateOption: 'all',
   timeStamp: '',
