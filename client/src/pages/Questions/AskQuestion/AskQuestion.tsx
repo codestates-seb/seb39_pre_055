@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-import GuidelineCard from '../../../components/Accordian/Accordian';
+import GuidelineCard from '../../../components/Accordian/Accordion';
 import { useModal } from '../../../components/Modal';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import MoreHelpfulCard from './QuestionForm/Cards/MoreHelpfulCard';
