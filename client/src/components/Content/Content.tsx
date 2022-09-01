@@ -14,17 +14,26 @@ import { useConfirm, useToggle, useVoted } from '../../hooks';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
-const url = 'https://graph.facebook.com/1616279655126812/picture?type=large';
 interface Prop {
   type: 'question' | 'answer';
   body: string;
-  tags?: Array<string>;
+  tags?: Array<{ tagName: string }>;
+  user: {
+    userId: number;
+    displayName: string;
+    email: string;
+    password: string;
+    image: string;
+    userStatus: string;
+  };
+  createdAt: string;
+  vote: number;
 }
 
-const Content = ({ type, body, tags }: Prop) => {
+const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
   const [following, toggleFollowing] = useToggle();
   const [shareModal, setShareModal] = useState(false);
-  const [vote, increaseVote, decreaseVote] = useVoted(0);
+  const [currentVote, increaseVote, decreaseVote] = useVoted(vote);
   const navigate = useNavigate();
   const confirmDelete = useConfirm(
     'Delete this page?',
@@ -53,7 +62,7 @@ const Content = ({ type, body, tags }: Prop) => {
     <MainContents onClick={closeShareModal}>
       <Votes>
         <Triangle onClick={increaseVote} />
-        <span>{vote}</span>
+        <span>{currentVote}</span>
         <Triangle rotate="180deg" onClick={decreaseVote} />
       </Votes>
       <TextArea>
@@ -63,7 +72,8 @@ const Content = ({ type, body, tags }: Prop) => {
         />
         {type === 'question' && (
           <Tags>
-            {tags && tags.map((name) => <Tag key={name} name={name} />)}
+            {tags &&
+              tags.map((tag) => <Tag key={tag.tagName} name={tag.tagName} />)}
           </Tags>
         )}
         <Utils>
@@ -79,9 +89,9 @@ const Content = ({ type, body, tags }: Prop) => {
           </div>
           {shareModal && <AnchorCard type={type} />}
           <UserInfoCard
-            date="asked 2 mins ago"
-            img={url}
-            name="Damian Kowalski"
+            date={createdAt}
+            img={user.image}
+            name={user.displayName}
             type={type}
           />
         </Utils>

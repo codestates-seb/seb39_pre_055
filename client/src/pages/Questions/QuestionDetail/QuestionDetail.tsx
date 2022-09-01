@@ -3,7 +3,7 @@
 
 import 'react-toastify/dist/ReactToastify.css';
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   AnswerEditor,
@@ -15,16 +15,17 @@ import { useAppSelector } from '../../../redux';
 import { AnswerHeader, Container, Header, SubHeader } from './style';
 
 const QuestionDetail = () => {
+  const params = useParams();
+  console.log(params.id);
   const navigate = useNavigate();
-  const { answerList, questionList } = useAppSelector(
-    (state) => state.question2
-  );
+  const { title, body, vote, view, user, questionTags, createdAt, updatedAt } =
+    useAppSelector((state) => state.detail);
 
   return (
     <Container>
       {/* question */}
       <Header>
-        <h1>{questionList[0].title}</h1>
+        <h1>{title}</h1>
         <BlueButton
           width="120px"
           height="35px"
@@ -34,17 +35,20 @@ const QuestionDetail = () => {
         </BlueButton>
       </Header>
       <SubHeader>
-        <QuestionInfo option="Asked" value="today" />
-        <QuestionInfo option="Modified" value="today" />
-        <QuestionInfo option="Viewed" value="5 times" />
+        <QuestionInfo option="Asked" value={createdAt} />
+        <QuestionInfo option="Modified" value={updatedAt} />
+        <QuestionInfo option="Viewed" value={view} isViewd={true} />
       </SubHeader>
       <Content
         type="question"
-        body={questionList[0].body}
-        tags={questionList[0].tags}
+        body={body}
+        tags={questionTags}
+        user={user}
+        createdAt={createdAt}
+        vote={vote}
       />
       {/* answer */}
-      <AnswerHeader>
+      {/* <AnswerHeader>
         <h2>2 Answers</h2>
         <div>
           <label htmlFor="sort">Sorted by:</label>
@@ -57,7 +61,7 @@ const QuestionDetail = () => {
       </AnswerHeader>
       {answerList.map((answer) => (
         <Content key={answer} type="answer" body={answer} />
-      ))}
+      ))} */}
       {/* editor */}
       <h3>Your Answer</h3>
       <AnswerEditor />
