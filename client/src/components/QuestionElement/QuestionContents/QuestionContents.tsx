@@ -2,35 +2,33 @@ import styled from 'styled-components';
 
 interface Prop {
   contents: string;
-  txt: string;
-  limitLength: any;
-  lastTxt: string;
 }
 
-const Container = styled.span`
-  display: flex;
-  flex-direction: column;
-  font-size: 13.5px;
+const Container = styled.div`
+  font-size: 14px;
   color: var(--black-700);
   margin-bottom: 8px;
   padding-right: 23px;
-  line-height: 17px;
+  line-height: 1.3rem;
+  max-height: 43px;
+  width: calc(100%);
+  overflow: hidden;
+
   @media (max-width: 640px) {
-    font-size: 11px;
+    font-size: 12px;
   }
 `;
 
-const QuestionContents = ({ contents, txt, limitLength, lastTxt }: Prop) => {
-  if (limitLength === '' || limitLength === null) {
-    limitLength = 182;
-  }
-  if (lastTxt === '' || lastTxt === null) {
-    lastTxt = '...';
-  }
-  if (contents.length > limitLength) {
-    txt = contents.slice(0, limitLength) + lastTxt;
-  }
-  return <Container>{contents}</Container>;
+const limitLength = 182;
+
+const QuestionContents = ({ contents }: Prop) => {
+  const txt = contents;
+
+  /* if (contents.length > limitLength) {
+    txt = `${contents.slice(0, limitLength)} ...`;
+  } */
+
+  return <Container>{txt}</Container>;
 };
 
 export default QuestionContents;
