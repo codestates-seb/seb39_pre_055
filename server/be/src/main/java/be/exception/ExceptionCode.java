@@ -7,7 +7,8 @@ public enum ExceptionCode {
     USER_EXISTS(409, "User exists"),
     QUESTION_NOT_FOUND(404, "Question not found"),
     QUESTION_EXISTS(409, "Question exists"),
-    ORDER_NOT_FOUND(404, "Order not found"),
+    ANSWER_NOT_FOUND(404, "Answer not found"),
+    ANSWER_EXISTS(409, "Answer exists"),
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),
     INVALID_MEMBER_STATUS(400, "Invalid member status");  // TO 추가된 부분
