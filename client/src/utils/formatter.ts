@@ -24,7 +24,7 @@ export const getDateToString = (value: string) => {
   return `${Math.floor(betweenTimeDay / 365)} years ago`;
 };
 
-/** getSpecificDate('-', -7) => 7일 전 timeStamp */
+/** getSpecificDate('-', -7) => 7일 전 timeStamp (1692305000) */
 export const getSpecificDate = (pattn: '-' | '/', num: number) => {
   const current = new Date().toString();
   const temp = new Date(Date.parse(current) + num * 1000 * 60 * 60 * 24);
@@ -38,6 +38,7 @@ export const getSpecificDate = (pattn: '-' | '/', num: number) => {
   return year + pattn + month + pattn + day;
 };
 
+/** formatNumber(12000) => 1.2m */
 export const formatNumber = (n: number) => {
   if (n < 1e3) return n;
   if (n >= 1e3 && n < 1e6) return `${+(n / 1e3).toFixed(1)}k`;
