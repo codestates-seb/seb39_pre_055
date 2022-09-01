@@ -2,6 +2,7 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
+import { User } from '../../types/question';
 import Tag from '../Tag/Tag';
 import QuestionContents from './QuestionContents/QuestionContents';
 import QuestionTitle from './QuestionTitle/QuestionTitle';
@@ -9,7 +10,9 @@ import QuestionTitle from './QuestionTitle/QuestionTitle';
 interface Prop {
   contents: string;
   title: string;
-  userName: string;
+  user: User;
+  tagList: Array<{ tagName: string }>;
+  createdAt: string;
 }
 
 const Container = styled.span`
@@ -62,33 +65,33 @@ const UserAsked = styled.span`
   color: var(--black-600);
 `;
 
-const QuestionElement = ({ userName, title, contents }: Prop) => {
+const QuestionElement = ({
+  user,
+  title,
+  contents,
+  tagList,
+  createdAt,
+}: Prop) => {
   return (
     <Container>
-      <QuestionTitle title="(Front-End) on-click change image to the n-th image" />
+      <QuestionTitle title={title} />
       <QuestionContents
-        contents="I currently have a page with thumbnails of images on the left side below the sidebar which you can click on to change the image shown in the container for the main content. 1234567891011121314151617181920"
+        contents={contents}
         txt=""
         limitLength={182}
         lastTxt="..."
       />
       <ContentFooter>
         <Tags>
-          <Tag name="javascript" />
-          <Tag name="json" />
-          <Tag name="html" />
-          <Tag name="javascript" />
-          <Tag name="json" />
-          <Tag name="html" />
+          {tagList.map((tag) => (
+            // 나중에 수정해야 함
+            <Tag key={tag.tagName} name={tag.tagName} />
+          ))}
         </Tags>
         <UserContainer>
-          <img
-            width="20"
-            alt="스크린샷 2022-08-26 오전 1 31 23"
-            src="https://user-images.githubusercontent.com/104320234/186720336-2208d3db-cfa4-4145-b9f4-48029e4672e0.png"
-          />
-          <UserName>{userName}</UserName>
-          <UserAsked> asked 4 days ago</UserAsked>
+          <img width="20" alt="user" src={user.image} />
+          <UserName>{user.displayName}</UserName>
+          <UserAsked> {createdAt}</UserAsked>
         </UserContainer>
       </ContentFooter>
     </Container>

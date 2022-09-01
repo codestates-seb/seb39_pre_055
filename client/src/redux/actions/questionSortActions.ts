@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { QuestionSortList } from '../../types/questionSort';
+import { QuestionSortList } from '../../types/question';
 import { STACK_EXCHANGE_URL } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 

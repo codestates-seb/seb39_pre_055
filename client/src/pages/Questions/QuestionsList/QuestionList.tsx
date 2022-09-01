@@ -15,7 +15,7 @@ import {
   changeQPage,
   changeQSortOption,
   resetQPage,
-} from '../../../redux/reducers/qustionSortSlice';
+} from '../../../redux/reducers/questionSlice';
 import {
   Container,
   Footer,
@@ -32,7 +32,7 @@ const QuestionList = () => {
   const navigate = useNavigate();
   // const [page, setPage] = useState(1);
   const { questionList, page, sortOption } = useAppSelector(
-    (state) => state.questionSort
+    (store) => store.question
   );
   const handleQSortBtnClick = useCallback(
     (name: string) => {
@@ -73,11 +73,17 @@ const QuestionList = () => {
       <MainContainer>
         {questionList.map((questionList) => (
           <>
-            <LeftCounts votes={0} answers={0} views={0} />
+            <LeftCounts
+              votes={questionList.vote}
+              answers={0}
+              views={questionList.view}
+            />
             <QuestionElement
-              contents="contents"
-              title="title"
-              userName="Mark"
+              contents={questionList.body}
+              title={questionList.title}
+              user={questionList.user}
+              tagList={questionList.questionTags}
+              createdAt={questionList.createdAt}
             />
           </>
         ))}
