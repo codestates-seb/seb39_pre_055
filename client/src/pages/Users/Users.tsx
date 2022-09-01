@@ -27,13 +27,12 @@ import {
 const Users = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { sortOption, dateOption, userList, page, inName } = useAppSelector(
-    (state) => state.user
-  );
+  const { sortOption, dateOption, userList, page, inName, timeStamp } =
+    useAppSelector((state) => state.user);
 
   useEffect(() => {
     dispatch(getUser());
-  }, [dispatch, sortOption, page, dateOption, inName]);
+  }, [dispatch, sortOption, page, dateOption, inName, timeStamp]);
 
   return (
     <Container>
