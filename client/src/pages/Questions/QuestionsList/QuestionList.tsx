@@ -1,15 +1,12 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-import axios from 'axios';
-import { SetStateAction, useCallback, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { BlueButton, CustomPagination, SortButton } from '../../../components';
 import CountQuestions from '../../../components/CountQuestions/CountQuestions';
 import LeftCounts from '../../../components/QuestionElement/LeftCounts/LeftCounts';
 import QuestionElement from '../../../components/QuestionElement/QuestionElement';
-import SortTab from '../../../components/SortTab/SortTab';
 import { useAppDispatch, useAppSelector } from '../../../redux';
 import {
   changeQPage,
@@ -20,10 +17,11 @@ import {
   Container,
   Footer,
   InfoContainer,
-  MainContainer,
+  MainUList,
   PagenationButton,
   SortTabs,
-  TitleContainer,
+  SQuestionList,
+  TitleHeader,
 } from './style';
 // 컴포넌트 수정 후 통합하기
 
@@ -56,10 +54,10 @@ const QuestionList = () => {
 
   return (
     <Container>
-      <TitleContainer>
+      <TitleHeader>
         <h1>All Questions</h1>
         <BlueButton onClick={() => navigate('/ask')}>Ask Question</BlueButton>
-      </TitleContainer>
+      </TitleHeader>
       <InfoContainer>
         <CountQuestions counts="counts" />
         <SortTabs>
@@ -70,85 +68,21 @@ const QuestionList = () => {
           />
         </SortTabs>
       </InfoContainer>
-      <MainContainer>
-        {questionList.map((questionList) => (
-          <>
-            <LeftCounts
-              votes={questionList.vote}
-              answers={0}
-              views={questionList.view}
-            />
+      <MainUList>
+        {questionList.map((q) => (
+          <SQuestionList key={q.questionId}>
+            <LeftCounts votes={q.vote} answers={0} views={q.view} />
             <QuestionElement
-              contents={questionList.body}
-              title={questionList.title}
-              user={questionList.user}
-              tagList={questionList.questionTags}
-              createdAt={questionList.createdAt}
+              contents={q.body}
+              title={q.title}
+              user={q.user}
+              questionId={q.questionId}
+              tagList={q.questionTags}
+              createdAt={q.createdAt}
             />
-          </>
+          </SQuestionList>
         ))}
-      </MainContainer>
-
-      {/* <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer>
-      <MainContainer>
-        <LeftCounts votes={0} answers={0} views={0} />
-        <QuestionElement contents="contents" title="title" userName="Mark" />
-      </MainContainer> */}
+      </MainUList>
       <Footer>
         <PagenationButton>
           <CustomPagination
@@ -158,9 +92,6 @@ const QuestionList = () => {
             totalItemsCount={750} // 서버에서 받아올 총 개수
           />
         </PagenationButton>
-        {/* <PerPageButton>
-          <PerPagination />
-        </PerPageButton> */}
       </Footer>
     </Container>
   );

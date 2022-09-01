@@ -1,5 +1,3 @@
-import axios from 'axios';
-import { useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { User } from '../../types/question';
@@ -10,19 +8,21 @@ import QuestionTitle from './QuestionTitle/QuestionTitle';
 interface Prop {
   contents: string;
   title: string;
+  questionId: number;
   user: User;
   tagList: Array<{ tagName: string }>;
   createdAt: string;
 }
 
-const Container = styled.span`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
+  row-gap: 3px;
   width: 100%;
   height: auto;
 `;
 
-const ContentFooter = styled.span`
+const ContentFooter = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -30,14 +30,14 @@ const ContentFooter = styled.span`
   padding-right: 23px;
 `;
 
-const Tags = styled.span`
+const Tags = styled.div`
   display: flex;
   @media (max-width: 640px) {
     margin-bottom: 5px;
   }
 `;
 
-const UserContainer = styled.span`
+const UserContainer = styled.div`
   display: flex;
   align-items: center;
   margin: 0px 20px 0px auto;
@@ -49,19 +49,19 @@ const UserContainer = styled.span`
   img {
     margin: 5px 5px 5px 0px;
   }
-  span {
+  div {
     margin-right: 5px;
   }
   @media (max-width: 640px) {
   }
 `;
 
-const UserName = styled.span`
+const UserName = styled.div`
   color: var(--blue-600);
   width: auto;
 `;
 
-const UserAsked = styled.span`
+const UserAsked = styled.div`
   color: var(--black-600);
 `;
 
@@ -69,12 +69,13 @@ const QuestionElement = ({
   user,
   title,
   contents,
+  questionId,
   tagList,
   createdAt,
 }: Prop) => {
   return (
     <Container>
-      <QuestionTitle title={title} />
+      <QuestionTitle title={title} questionId={questionId} />
       <QuestionContents
         contents={contents}
         txt=""
