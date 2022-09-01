@@ -8,12 +8,10 @@ import {
   testReducer,
   userReducer,
 } from '../reducers';
-import { questionReducer2 } from '../reducers/questionSlice2';
 
 export const store = configureStore({
   reducer: {
     test: testReducer,
-    question2: questionReducer2,
     tag: tagReducer,
     question: questionReducer,
     user: userReducer,

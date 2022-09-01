@@ -1,15 +1,21 @@
 import { createSlice, Reducer } from '@reduxjs/toolkit';
+import { toast } from 'react-toastify';
 
-import { question } from '../../utils';
+import { getDetail } from '../actions/detailAction';
 
 export interface DetailInitialState {
   isLoading: boolean;
+  data: DetailData | null;
+}
+
+export interface DetailData {
   questionId: number;
   questionStatus: string;
   title: string;
   body: string;
   vote: number;
   view: number;
+  answers: Array<any>;
   user: {
     userId: number;
     displayName: string;
@@ -25,42 +31,27 @@ export interface DetailInitialState {
 
 const initialState: DetailInitialState = {
   isLoading: false,
-  questionId: 28,
-  questionStatus: 'QUESTION_EXIST',
-  title: 'React Router v5.1.0 with hooks',
-  body: question,
-  vote: 3,
-  view: 50,
-  user: {
-    userId: 1,
-    displayName: 'mosangbin',
-    email: 'mosangbin@gmail.com',
-    password: '1234',
-    image: 'https://graph.facebook.com/1616279655126812/picture?type=large',
-    userStatus: 'USER_EXIST',
-  },
-  questionTags: [
-    {
-      tagName: 'javascript',
-    },
-    {
-      tagName: 'java',
-    },
-  ],
-  createdAt: '2022-09-01T00:20:09',
-  updatedAt: '2022-09-01T04:12:36.714032',
+  data: null,
 };
 
 const detailSlice = createSlice({
   name: 'detail',
   initialState,
   reducers: {},
-  // extraReducers: (builder) =>
-  //   builder
-  //     // getDetail
-  //     .addCase(getDetail.pending, (state) => {
-  //       state.isLoading = true;
-  //     }),
+  extraReducers: (builder) =>
+    builder
+      // getDetail
+      .addCase(getDetail.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getDetail.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.data = payload;
+      })
+      .addCase(getDetail.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      }),
 });
 
 // export const {} = detailSlice.actions;
