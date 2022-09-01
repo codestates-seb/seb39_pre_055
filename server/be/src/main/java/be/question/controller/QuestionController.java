@@ -68,6 +68,7 @@ public class QuestionController {
         return new ResponseEntity<>(new MultiResponseDto<>(
                 mapper.questionsToQuestionResponseDtos(questions),
                 pageQuestions),HttpStatus.OK);
+
     }
 
     /**
