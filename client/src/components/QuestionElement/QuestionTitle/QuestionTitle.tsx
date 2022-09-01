@@ -13,10 +13,9 @@ const Wrapper = styled.span`
     font-size: 14.38px;
   }
 `;
-
 const QuestionTitle = ({ title }: Prop) => {
   const navigate = useNavigate();
-  return <Wrapper onClick={() => navigate('/questions')}>{title}</Wrapper>;
+  return <Wrapper onClick={() => navigate('/:id')}>{title}</Wrapper>;
 };
 
 export default QuestionTitle;

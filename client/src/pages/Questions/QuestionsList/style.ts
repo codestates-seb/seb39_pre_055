@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { BlueButton } from '../../../components';
-
 export const Container = styled.div`
   border-left: 0.2px solid var(--black-100);
 `;
@@ -47,7 +45,7 @@ export const MainContainer = styled.div`
   }
 `;
 
-// 하단페이지네이션탭 예시용
+// 하단페이지네이션탭
 export const Footer = styled.span`
   display: flex;
   justify-content: space-between;
@@ -65,32 +63,14 @@ export const PagenationButton = styled.span`
   margin-top: 50px;
   margin-left: 40px;
 
-  button {
-    margin: 0.8px;
-    font-size: 2px;
-  }
   @media (max-width: 640px) {
     margin-left: 24px;
     margin-right: 24px;
   }
 `;
 
-// export const PageButton = styled.button`
-//   min-widht: 24px;
-//   min-height: 27px;
-// `;
-
-// export const PageUnitButton = styled.button`
-//   min-widht: 24px;
-//   min-height: 50px;
-// `;
-
 export const PerPageButton = styled.span`
   display: flex;
-  margin: 50px 0px 0px 180px;
-
-  button {
-    margin: 0.8px;
-    font-size: 2px;
+  margin: 50px 39px 0px 180px;
   }
 `;
