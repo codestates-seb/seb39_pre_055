@@ -62,28 +62,7 @@ const UserAsked = styled.span`
   color: var(--black-600);
 `;
 
-// QuestionContents 마크다운으로 넘겨줘야함
 const QuestionElement = ({ userName, title, contents }: Prop) => {
-  // function App() {
-  //   const [posts, setPosts] = useState([]);
-  //   const [loading, setLoading] = useState(false);
-  //   const [currentPage, setCurrentPage] = useState(1);
-  //   const [postsPerPage, setPostsPerPage] = useState(10);
-
-  //   useEffect(() => {
-  //     const fetchData = async () => {
-  //       setLoading(true);
-  //       const response = await axios.get(
-  //         'https://'// url
-  //       );
-  //       setPosts(response.data);
-  //       setLoading(false);
-  //     };
-  //     fetchData();
-  //   }, []);
-  //   // console.log(posts);
-  // }
-
   return (
     <Container>
       <QuestionTitle title="(Front-End) on-click change image to the n-th image" />
