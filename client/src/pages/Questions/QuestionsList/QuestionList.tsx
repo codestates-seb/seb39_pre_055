@@ -7,7 +7,6 @@ import { useNavigate } from 'react-router-dom';
 
 import { BlueButton, CustomPagination, SortButton } from '../../../components';
 import CountQuestions from '../../../components/CountQuestions/CountQuestions';
-import PerPagination from '../../../components/PerPagination/PerPagination';
 import LeftCounts from '../../../components/QuestionElement/LeftCounts/LeftCounts';
 import QuestionElement from '../../../components/QuestionElement/QuestionElement';
 import SortTab from '../../../components/SortTab/SortTab';

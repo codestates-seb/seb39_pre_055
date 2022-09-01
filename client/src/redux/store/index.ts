@@ -1,7 +1,12 @@
 import { configureStore } from '@reduxjs/toolkit';
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux';
 
-import { tagReducer, testReducer, userReducer, questionSortReducer } from '../reducers';
+import {
+  questionSortReducer,
+  tagReducer,
+  testReducer,
+  userReducer,
+} from '../reducers';
 import { questionReducer } from '../reducers/questionSlice';
 
 export const store = configureStore({
