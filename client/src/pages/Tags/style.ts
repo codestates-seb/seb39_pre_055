@@ -29,6 +29,12 @@ export const TagsContainer = styled.section`
   gap: 10px;
   margin-bottom: 40px;
 
+  & > div:last-child {
+    position: absolute;
+    top: 40%;
+    left: 50%;
+  }
+
   @media screen and (min-width: 720px) {
     grid-template-columns: repeat(4, 1fr);
   }
