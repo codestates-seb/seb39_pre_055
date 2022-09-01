@@ -8,6 +8,7 @@ import {
   testReducer,
   userReducer,
 } from '../reducers';
+import { searchReducer } from '../reducers/searchSlice';
 
 export const store = configureStore({
   reducer: {
@@ -16,6 +17,7 @@ export const store = configureStore({
     question: questionReducer,
     user: userReducer,
     detail: detailReducer,
+    search: searchReducer,
     // 앞으로 추가하게 될 전역 상태는 관심사에 따라 파일을 분리한 후 이곳에 추가해주세요.
     // user: userReducer,  -> user정보에 관련된 전역 상태
     // mountain: mountainReducer,  -> 산과 관련된 전역 상태
