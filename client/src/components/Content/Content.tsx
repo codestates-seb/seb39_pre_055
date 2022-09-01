@@ -8,9 +8,10 @@ import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
 import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle, useVoted } from '../../hooks';
+import { changeEditType, useAppDispatch } from '../../redux';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
@@ -34,7 +35,9 @@ const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
   const [following, toggleFollowing] = useToggle();
   const [shareModal, setShareModal] = useState(false);
   const [currentVote, increaseVote, decreaseVote] = useVoted(vote);
+  const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const confirmDelete = useConfirm(
     'Delete this page?',
     () => console.log('Deleting the world...'),
@@ -58,6 +61,13 @@ const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
     setShareModal((prev) => !prev);
   }, []);
 
+  const handleEditBtnClick = () => {
+    dispatch(changeEditType(type));
+    if (params.id) {
+      navigate(`/${params.id}/edit`);
+    }
+  };
+
   return (
     <MainContents onClick={closeShareModal}>
       <Votes>
@@ -79,7 +89,7 @@ const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
         <Utils>
           <div>
             <TextButton name="Share" onClick={toggleShareModal} />
-            <TextButton name="Edit" onClick={() => navigate('/1/edit')} />
+            <TextButton name="Edit" onClick={handleEditBtnClick} />
             {/* 작성한 유저일 경우에만 Delete 버튼 render 되도록 수정 */}
             <TextButton name="Delete" onClick={confirmDelete} />
             <TextButton

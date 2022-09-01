@@ -1,5 +1,6 @@
 export interface DetailInitialState {
   isLoading: boolean;
+  editType: string;
   sortOption: string;
   data: DetailData | null;
 }
