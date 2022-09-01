@@ -1,23 +1,30 @@
 package be.question.entity;
 
+import be.audit.BaseEntity;
 import be.user.entity.User;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+
 import javax.persistence.Id;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
 @Setter
 @Entity
 @Table(name = "QUESTIONS")
-public class Question {
+public class Question extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(columnDefinition = "INT")
     private Long questionId;
 
 //    @Column(nullable = false)
@@ -30,14 +37,11 @@ public class Question {
     @Column(nullable = false, name = "STATUS")
     private QuestionStatus questionStatus = QuestionStatus.QUESTION_EXIST;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String title;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String body;
-
-//    @Column(nullable = false)
-//    private String tag;
 
     @Column(nullable = false)
     private int vote;
@@ -52,6 +56,10 @@ public class Question {
     public void addUser(User user) {
         this.user = user;
     }
+
+    @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
+    private List<QuestionTag> questionTags = new ArrayList<>();
+
 
     public enum QuestionStatus {
         QUESTION_NOT_EXIST("존재하지 않는 질문"),

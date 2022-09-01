@@ -2,11 +2,12 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { TagInitialState } from '../../types';
+import { TAG_DUMMY_DATA } from '../../utils/tag-data';
 import { getTags } from '../actions/tagActions';
 
 const initialState: TagInitialState = {
   page: 1,
-  tagList: [],
+  tagList: TAG_DUMMY_DATA,
   isLoading: false,
   sortOption: 'popular',
   inName: '',
@@ -17,16 +18,15 @@ const tagSlice = createSlice({
   name: 'tag',
   initialState,
   reducers: {
-    changePage: (state, { payload }: PayloadAction<number>) => {
+    changeTagPage: (state, { payload }: PayloadAction<number>) => {
       state.page = payload;
     },
-    resetPage: (state) => {
+    changeTagSortOption: (state, { payload }: PayloadAction<string>) => {
       state.page = 1;
-    },
-    changeSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
     },
-    changeInName: (state, { payload }: PayloadAction<string>) => {
+    changeTagInName: (state, { payload }: PayloadAction<string>) => {
+      state.page = 1;
       state.inName = payload;
     },
   },
@@ -49,6 +49,6 @@ const tagSlice = createSlice({
       }),
 });
 
-export const { changePage, changeSortOption, resetPage, changeInName } =
+export const { changeTagPage, changeTagSortOption, changeTagInName } =
   tagSlice.actions;
 export const tagReducer: Reducer<typeof initialState> = tagSlice.reducer;

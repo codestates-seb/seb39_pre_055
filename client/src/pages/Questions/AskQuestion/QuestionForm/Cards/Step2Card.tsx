@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 import { ReactComponent as Error } from '../../../../../assets/img/error.svg';
 import { ReactComponent as Success } from '../../../../../assets/img/success.svg';

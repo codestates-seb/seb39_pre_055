@@ -3,10 +3,10 @@ package be.exception;
 import lombok.Getter;
 
 public enum ExceptionCode {
-    USER_NOT_FOUND(404, "Member not found"),
-    USER_EXISTS(409, "Member exists"),
-    COFFEE_NOT_FOUND(404, "Coffee not found"),
-    COFFEE_CODE_EXISTS(409, "Coffee Code exists"),
+    USER_NOT_FOUND(404, "User not found"),
+    USER_EXISTS(409, "User exists"),
+    QUESTION_NOT_FOUND(404, "Question not found"),
+    QUESTION_EXISTS(409, "Question exists"),
     ORDER_NOT_FOUND(404, "Order not found"),
     CANNOT_CHANGE_ORDER(403, "Order can not change"),
     NOT_IMPLEMENTATION(501, "Not Implementation"),

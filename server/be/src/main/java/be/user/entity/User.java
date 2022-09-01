@@ -1,5 +1,6 @@
 package be.user.entity;
 
+import be.audit.BaseEntity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -14,7 +15,7 @@ import javax.persistence.Id;
 @Setter
 @Entity
 @Table(name = "USERS")
-public class User {
+public class User extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,17 +31,17 @@ public class User {
     @Column(nullable = false, name = "STATUS")
     private UserStatus userStatus = UserStatus.USER_EXIST;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String displayName;
 
-    @Column(nullable = false, updatable = false,unique = true)
+    @Column(nullable = false, updatable = false,unique = true,columnDefinition = "TEXT")
     private String email;
 
-    @Column(nullable = false)
+    @Column(nullable = false,columnDefinition = "TEXT")
     private String password;
 
     @Column(nullable = false)
-    private String imag = "https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800";
+    private String image = "https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800";
 
 
     public User(String displayName, String email, String password) {

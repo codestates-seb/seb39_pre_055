@@ -6,12 +6,13 @@ export interface ButtonProps {
   color: 'black' | 'orange' | 'blue' | 'powder';
   mainCode: string;
   children: ReactNode;
+  className?: string;
   onClick?: () => void;
   hoverCode?: string /* hover 시 나타낼 색상(색상 분류(blue, black, powder 등)는 같아야 함) */;
   textColor?: string;
   width?: string;
   height?: string;
-  polymorphic?: 'button' | 'li' | 'div';
+  polymorphic?: 'li' | 'div' | 'a';
 }
 
 const DefaultBtn = ({
@@ -21,7 +22,8 @@ const DefaultBtn = ({
   textColor,
   width,
   height,
-  polymorphic = 'button',
+  polymorphic,
+  className,
   children,
   onClick,
 }: ButtonProps) => {
@@ -33,7 +35,8 @@ const DefaultBtn = ({
       textColor={textColor}
       width={width}
       height={height}
-      as={polymorphic}
+      as={polymorphic || 'button'}
+      className={className}
       onClick={onClick}
     >
       {children}

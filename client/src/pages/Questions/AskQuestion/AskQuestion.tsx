@@ -1,10 +1,13 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import GuidelineCard from '../../../components/Accordian/Accordian';
+import { useModal } from '../../../components/Modal';
+import { useLocalStorage } from '../../../hooks/useLocalStorage';
 import MoreHelpfulCard from './QuestionForm/Cards/MoreHelpfulCard';
 import NonProgCard from './QuestionForm/Cards/NonProgCard';
 import Step1Card from './QuestionForm/Cards/Step1Card';
 import Step2Card from './QuestionForm/Cards/Step2Card';
+import HelpModal from './QuestionForm/HelpModal';
 import QuestionForm from './QuestionForm/QuestionForm';
 import {
   SBox,
@@ -34,14 +37,24 @@ const helpCards = [
 ];
 
 const AskQuestion = () => {
-  const [errs, setErrs] = useState({ status: 'unknown', counts: 0 });
+  const [errs, setErrs] = useState({ status: 'unknown', count: 0 });
+  const { openModal, closeModal } = useModal();
+  const [hideMsg] = useLocalStorage(`${'userId'}_DONTSHOWHINT`, false);
   const step2Card = [
     {
       title: 'Step 2: Review your question',
-      children: <Step2Card errCount={errs.counts} />,
+      children: <Step2Card errCount={errs.count} />,
       isCollapsable: false,
     },
   ];
+
+  useEffect(() => {
+    if (!hideMsg) {
+      openModal(<HelpModal />);
+    }
+
+    return () => closeModal();
+  }, [hideMsg, openModal, closeModal]);
 
   return (
     <SQuestionBox>
@@ -49,9 +62,8 @@ const AskQuestion = () => {
         <STitleH1>Ask a public question</STitleH1>
         <SRobotSVG viewBox="0 0 580 126" />
       </STitleBox>
-
       <SBox>
-        <QuestionForm setErrs={setErrs} />
+        <QuestionForm errCount={errs.count} setErrs={setErrs} />
         <SCardBox>
           {(errs.status === 'ongoing' ? step2Card : helpCards).map((e) => (
             <GuidelineCard

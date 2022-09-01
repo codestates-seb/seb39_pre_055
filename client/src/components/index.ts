@@ -1,5 +1,6 @@
 export { default as Accordian } from './Accordian/Accordian';
 export { default as AnchorCard } from './AnchorCard/AnchorCard';
+export { default as DateButton } from './Button/DateButton';
 export { default as DefaultBtn } from './Button/DefaultButton';
 export { default as SortButton } from './Button/SortButton';
 export { BlueButton, PowderButton } from './Button/Templates';
@@ -20,4 +21,5 @@ export { default as Tag } from './Tag/Tag';
 export { default as TagCard } from './Tag/TagCard';
 export { default as TagHeader } from './Tag/TagHeader';
 export { default as Triangle } from './Triangle/Triangle';
-export { default as UserInfoCard } from './UserInfoCard/UserInfoCard';
+export { default as UserCard } from './User/UserCard/UserCard';
+export { default as UserInfoCard } from './User/UserInfoCard/UserInfoCard';
