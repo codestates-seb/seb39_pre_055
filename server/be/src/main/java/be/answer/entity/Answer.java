@@ -30,7 +30,7 @@ public class Answer extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false, name = "STATUS")
-    private AnswerStatus questionStatus = AnswerStatus.ANSWER_EXIST;
+    private AnswerStatus answerStatus = AnswerStatus.ANSWER_EXIST;
 
     @Column(nullable = false,columnDefinition = "TEXT")
     private String body;

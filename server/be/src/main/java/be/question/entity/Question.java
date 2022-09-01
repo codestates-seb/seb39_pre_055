@@ -1,5 +1,6 @@
 package be.question.entity;
 
+import be.answer.entity.Answer;
 import be.audit.BaseEntity;
 import be.user.entity.User;
 import lombok.Getter;
@@ -59,6 +60,9 @@ public class Question extends BaseEntity {
 
     @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
     private List<QuestionTag> questionTags = new ArrayList<>();
+
+    @OneToMany(mappedBy = "question",cascade = CascadeType.PERSIST)
+    private List<Answer> answers = new ArrayList<>();
 
 
     public enum QuestionStatus {
