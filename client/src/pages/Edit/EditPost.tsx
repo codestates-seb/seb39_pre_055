@@ -18,10 +18,10 @@ import {
   EditSidebar,
   TagInput,
 } from '../../components';
+import { ENG_REGEX } from '../../constants/regex';
 import { useInput } from '../../hooks';
 import { useAppDispatch } from '../../redux';
 import { question } from '../../utils';
-import { ENG_REGEX } from '../../utils/regex';
 import {
   ButtonsContainer,
   CancelButton,
