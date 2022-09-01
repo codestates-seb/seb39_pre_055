@@ -2,13 +2,13 @@ import styled, { css } from 'styled-components';
 
 import { ButtonProps } from './DefaultButton';
 
-export const Btn = styled.button`
+export const Buttton = styled.button`
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 3px;
   border: 0px;
-  padding: 0px 7px;
+  padding: 2px 9px;
   transition: 0.4s all;
   font-size: 0.85rem;
 
@@ -39,6 +39,20 @@ export const Btn = styled.button`
       }
       &:focus {
         outline: ${`var(--${color}-100)`} solid 4px;
+      }
+    `}
+
+  ${({ isError }) =>
+    isError &&
+    css`
+      background-color: #f05b41;
+
+      &:hover {
+        background-color: #f0321b;
+      }
+
+      &:focus {
+        outline: #f0cbca solid 4px;
       }
     `}
 `;

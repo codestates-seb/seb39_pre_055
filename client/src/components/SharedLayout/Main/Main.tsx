@@ -1,4 +1,4 @@
-import { Outlet, useLocation } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { css } from 'styled-components';
 
 import { Modal } from '../../Modal';
@@ -9,10 +9,11 @@ const AskBGColor = css`
   background-color: var(--black-050);
 `;
 
-const Main = () => {
-  const { pathname } = useLocation();
-  const isMain = pathname !== '/ask';
+interface MainProps {
+  asideHide: boolean;
+}
 
+const Main = ({ asideHide }: MainProps) => {
   return (
     <Modal
       width="450px"
@@ -20,8 +21,8 @@ const Main = () => {
       position={{ x: '50%', y: '50%' }}
       background
     >
-      <SMain bgColor={isMain || AskBGColor}>
-        {isMain && <SidePanel />}
+      <SMain bgColor={!asideHide || AskBGColor}>
+        {!asideHide && <SidePanel />}
         <Section>
           <Outlet />
         </Section>

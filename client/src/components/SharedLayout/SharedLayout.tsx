@@ -1,4 +1,5 @@
 import { useRef, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import styled from 'styled-components';
 
 import Footer from './Footer/Footer';
@@ -12,9 +13,15 @@ const Shared = styled.div`
   justify-content: center;
 `;
 
+const asideHideURL = ['/ask', '/login', '/logout', '/signup'];
+const footerHideURL = ['/login', '/logout', '/signup'];
+
 const SharedLayout = () => {
   const [floatSearch, setFloatSearch] = useState(false);
-  const searchInput = useRef(null); // FIXME: 넘겨줘야 할 함수, 객체가 많아졌는데 줄일 수 있는 방법
+  const searchInput = useRef(null);
+  const { pathname } = useLocation();
+  const asideHide = asideHideURL.includes(pathname);
+  const footerHide = footerHideURL.includes(pathname);
 
   return (
     <Shared>
@@ -28,8 +35,8 @@ const SharedLayout = () => {
           inputRef={searchInput}
         />
       )}
-      <Main />
-      <Footer />
+      <Main asideHide={asideHide} />
+      {footerHide || <Footer />}
     </Shared>
   );
 };
