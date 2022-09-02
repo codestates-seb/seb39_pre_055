@@ -79,4 +79,9 @@ export const ErrorMsg = styled.p`
   margin-top: 10px;
   color: hsl(358, 62%, 52%);
   font-size: 12px;
+
+  & > a > strong {
+    color: rgb(146, 32, 36);
+    text-decoration: underline;
+  }
 `;
