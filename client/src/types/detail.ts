@@ -2,6 +2,7 @@ export interface DetailInitialState {
   isLoading: boolean;
   editType: string;
   sortOption: string;
+  clickedId: null | number;
   data: DetailData | null;
 }
 

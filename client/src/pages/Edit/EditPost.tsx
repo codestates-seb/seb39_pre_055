@@ -5,6 +5,7 @@ import {
   ChangeEvent,
   KeyboardEvent,
   useCallback,
+  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -21,7 +22,7 @@ import {
 import { ENG_REGEX } from '../../constants/regex';
 import { useInput } from '../../hooks';
 import { useAppDispatch, useAppSelector } from '../../redux';
-import { QuestionTag } from '../../types';
+import { AnswerInfo, QuestionTag } from '../../types';
 import { question, tagFormat } from '../../utils';
 import {
   ButtonsContainer,
@@ -34,7 +35,7 @@ import {
 
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
-  const { data, editType } = useAppSelector((state) => state.detail);
+  const { data, editType, clickedId } = useAppSelector((state) => state.detail);
   const editorRef = useRef<Editor>(null);
   const [title, titleHandler] = useInput(data?.title as string);
   const [body, setBody] = useState(data?.body as string);
@@ -45,6 +46,19 @@ const EditQuestion = () => {
   const [tagError, setTagError] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (editType === 'question') setBody('1');
+    if (editType === 'answer') {
+      const target = data?.answers.data.filter(
+        (answer) => answer.answerId === clickedId
+      );
+      if (target) {
+        console.log(target[0].body);
+        setBody(target[0].body);
+      }
+    }
+  }, [body, clickedId, editType, data?.answers.data, data?.body]);
 
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {

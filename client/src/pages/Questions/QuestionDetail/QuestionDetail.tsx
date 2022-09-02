@@ -36,7 +36,7 @@ const QuestionDetail = () => {
     }
   }, [dispatch, params, sortOption]);
 
-  if (isLoading) return <p>Loading...</p>;
+  // if (isLoading) return <p>Loading...</p>;
 
   if (data)
     return (
@@ -66,10 +66,10 @@ const QuestionDetail = () => {
           vote={data.vote}
         />
         {/* answer */}
-        {data.answers.data.length > 0 && (
+        {data.answers && (
           <>
             <AnswerHeader>
-              <h2>2 Answers</h2>
+              <h2>{data.answers.data.length} Answers</h2>
               <div>
                 <label htmlFor="sort">Sorted by:</label>
                 <select
@@ -92,6 +92,7 @@ const QuestionDetail = () => {
                 user={answer.user}
                 createdAt={answer.createdAt}
                 vote={answer.vote}
+                answerId={answer.answerId}
               />
             ))}
           </>
