@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { DetailData } from '../../types';
@@ -55,6 +56,20 @@ export const deleteQuestion = createAsyncThunk(
       return response.data;
     } catch (error: any) {
       return rejectWithValue(error.message);
+    }
+  }
+);
+
+export const changeVote = createAsyncThunk(
+  'detail/changeVote',
+  async (payload: number, { rejectWithValue }) => {
+    try {
+      const response = await axiosInstance.patch(`/v1/question/${payload}`, {
+        vote: payload,
+      });
+      return response.data;
+    } catch (error: any) {
+      rejectWithValue(error.message);
     }
   }
 );
