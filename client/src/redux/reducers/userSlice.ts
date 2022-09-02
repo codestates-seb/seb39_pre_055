@@ -63,6 +63,9 @@ const userSlice = createSlice({
       state.page = 1;
       state.inName = payload;
     },
+    logOut: (state) => {
+      state.user = null;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -88,5 +91,6 @@ export const {
   changeUserSortOption,
   changeUserInName,
   changeUserDateOption,
+  logOut,
 } = userSlice.actions;
 export const userReducer: Reducer<typeof initialState> = userSlice.reducer;
