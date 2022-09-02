@@ -11,7 +11,12 @@ import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle, useVoted } from '../../hooks';
-import { changeEditBody, deleteQuestion, useAppDispatch } from '../../redux';
+import {
+  changeEditBody,
+  deleteQuestion,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
@@ -47,6 +52,7 @@ const Content = ({
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const { user: loginUser } = useAppSelector((state) => state.user);
   const confirmDelete = useConfirm(
     'Delete this page?',
     () => dispatch(deleteQuestion(answerId as number)),
@@ -101,9 +107,12 @@ const Content = ({
         <Utils>
           <div>
             <TextButton name="Share" onClick={toggleShareModal} />
-            <TextButton name="Edit" onClick={handleEditBtnClick} />
-            {/* 작성한 유저일 경우에만 Delete 버튼 render 되도록 수정 */}
-            <TextButton name="Delete" onClick={confirmDelete} />
+            {user.userId === loginUser?.userId && (
+              <>
+                <TextButton name="Edit" onClick={handleEditBtnClick} />
+                <TextButton name="Delete" onClick={confirmDelete} />
+              </>
+            )}
             <TextButton
               name={following ? 'Follow' : 'Following'}
               onClick={toggleFollowing}

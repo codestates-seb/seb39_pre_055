@@ -9,7 +9,6 @@ import {
   useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import {
   BlueButton,
@@ -113,14 +112,13 @@ const EditQuestion = () => {
         if (body.length < 29) setBodyError(true);
         return;
       }
-      dispatch(
-        editQuestion({
-          id: data?.questionId as number,
-          title,
-          body,
-          questionTags: tagArr,
-        })
-      );
+      const payload = {
+        id: data?.questionId as number,
+        title,
+        body,
+        questionTags: tagArr,
+      };
+      dispatch(editQuestion(payload));
     }
     if (editType === 'answer') {
       if (body.trim().length < 30) {
@@ -130,7 +128,7 @@ const EditQuestion = () => {
       console.log(body);
     }
     navigate(-1);
-  }, [title, body, tagArr, navigate, editType, data?.questionId]);
+  }, [title, body, tagArr, navigate, editType, data?.questionId, dispatch]);
 
   return (
     <Container>
