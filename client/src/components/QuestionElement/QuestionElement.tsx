@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import { memo } from 'react';
 
-import { getQInfos, useAppSelector } from '../../redux';
+import { selectQInfos, useAppSelector } from '../../redux';
 import Tag from '../Tag/Tag';
 import {
   Container,
@@ -19,7 +19,9 @@ interface Prop {
 }
 
 const UserFooter = memo(({ id }: Prop) => {
-  const { user, createdAt } = useAppSelector((state) => getQInfos(state, id));
+  const { user, createdAt } = useAppSelector((state) =>
+    selectQInfos(state, id)
+  );
 
   return (
     <UserContainer>
@@ -32,7 +34,7 @@ const UserFooter = memo(({ id }: Prop) => {
 
 const QuestionElement = ({ id }: Prop) => {
   const { title, body, questionTags } = useAppSelector((state) =>
-    getQInfos(state, id)
+    selectQInfos(state, id)
   );
 
   return (

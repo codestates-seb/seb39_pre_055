@@ -13,7 +13,6 @@ import { getQuestionList } from '../../../redux/actions/questionListActions';
 import {
   changeQPage,
   changeQSortOption,
-  resetQPage,
   selectQIds,
 } from '../../../redux/reducers/questionSlice';
 import {
@@ -38,10 +37,11 @@ const QuestionList = () => {
     dispatch(getQuestionList());
   }, [dispatch]);
 
-  const handleQSortBtnClick = useCallback(
+  const handleSort = useCallback(
     (name: string) => {
-      dispatch(resetQPage());
+      dispatch(changeQPage(1));
       dispatch(changeQSortOption(name));
+      dispatch(getQuestionList());
     },
     [dispatch]
   );
@@ -66,9 +66,9 @@ const QuestionList = () => {
         <CountQuestions />
         <SortTabs>
           <SortButton
-            nameList={['Newest', 'Views']}
+            nameList={['Newest', 'Votes']}
             clickedName={sortOption}
-            onClick={handleQSortBtnClick}
+            onClick={handleSort}
           />
         </SortTabs>
       </InfoContainer>
