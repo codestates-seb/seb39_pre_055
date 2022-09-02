@@ -8,7 +8,7 @@ import { AuthBtns } from './style';
 const MainAuth = () => {
   return (
     <AuthBtns>
-      <Link to="/questions">
+      <Link to="/login">
         <PowderButton>Log in</PowderButton>
       </Link>
       <Link to="/signup">
