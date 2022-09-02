@@ -1,0 +1,13 @@
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://rds-pre055.cxerpdhgfjnw.ap-northeast-2.rds.amazonaws.com:3306/pre055?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: admin
+    password: psy411301
+  jpa:
+    hibernate:
+      ddl-auto: validate  # (1) 스키마 자동 생성
+    show-sql: true # (2) SQL 쿼리 출력
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL5InnoDBDialect
