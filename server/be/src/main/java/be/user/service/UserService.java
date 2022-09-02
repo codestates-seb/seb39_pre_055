@@ -36,8 +36,13 @@ public class UserService {
     }
 
     private void verifyExistsEmail(String email) {
-        Optional<User> user = userRepository.findByEmail(email);
-        if (user.isPresent())
+//        Optional<User> user = userRepository.findByEmail(email);
+//        if (user.isPresent())
+//            throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
+
+        User user = userRepository.findByEmail(email);
+        Optional<User> joinedUser = Optional.ofNullable(user);
+        if (joinedUser.isPresent())
             throw new BusinessLogicException(ExceptionCode.USER_EXISTS);
     }
 }
