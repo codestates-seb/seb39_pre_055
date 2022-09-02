@@ -19,6 +19,10 @@ export const TitleContainer = styled.div`
 
 export const EditorContainer = styled.div`
   margin-bottom: 30px;
+
+  & > h2 {
+    font-size: 15px;
+  }
 `;
 
 export const TagsContainer = styled.div`

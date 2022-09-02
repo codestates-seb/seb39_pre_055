@@ -1,13 +1,18 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-import { DetailInitialState } from '../../types/detail';
-import { getDetail } from '../actions/detailAction';
+import { AnswerInfo, DetailInitialState } from '../../types/detail';
+import {
+  changeVote,
+  deleteQuestion,
+  editQuestion,
+  getDetail,
+} from '../actions';
 
 const initialState: DetailInitialState = {
   isLoading: false,
   editType: 'question',
-  clickedId: null,
+  editBody: '1',
   sortOption: 'vote',
   data: null,
 };
@@ -19,11 +24,38 @@ const detailSlice = createSlice({
     changeDetailSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
     },
-    changeEditType: (state, { payload }: PayloadAction<string>) => {
-      state.editType = payload;
+    changeEditBody: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        type: 'question' | 'answer';
+        body: string;
+        answerId?: number;
+      }>
+    ) => {
+      const { type, body, answerId: id } = payload;
+      if (type === 'question') {
+        state.editType = type;
+        state.editBody = body;
+      }
+      if (type === 'answer') {
+        const target = state.data?.answers.data.filter(
+          (el) => el.answerId === id
+        ) as Array<AnswerInfo>;
+        state.editType = type;
+        state.editBody = target[0].body;
+      }
     },
-    changeClickedId: (state, { payload }: PayloadAction<number>) => {
-      state.clickedId = payload;
+    increaseVote: (state) => {
+      if (state.data) {
+        state.data.vote += 1;
+      }
+    },
+    decreaseVote: (state) => {
+      if (state.data) {
+        state.data.vote -= 1;
+      }
     },
   },
   extraReducers: (builder) =>
@@ -39,9 +71,46 @@ const detailSlice = createSlice({
       .addCase(getDetail.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      })
+      .addCase(editQuestion.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editQuestion.fulfilled, (state) => {
+        state.isLoading = false;
+        toast.success('edit success');
+      })
+      .addCase(editQuestion.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      })
+      .addCase(deleteQuestion.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteQuestion.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        toast.success(payload);
+      })
+      .addCase(deleteQuestion.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload as string);
+      })
+      .addCase(changeVote.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(changeVote.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        toast.success(payload);
+      })
+      .addCase(changeVote.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload as string);
       }),
 });
 
-export const { changeDetailSortOption, changeEditType, changeClickedId } =
-  detailSlice.actions;
+export const {
+  changeDetailSortOption,
+  changeEditBody,
+  increaseVote,
+  decreaseVote,
+} = detailSlice.actions;
 export const detailReducer: Reducer<typeof initialState> = detailSlice.reducer;

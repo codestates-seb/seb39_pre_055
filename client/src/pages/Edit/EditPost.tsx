@@ -5,7 +5,6 @@ import {
   ChangeEvent,
   KeyboardEvent,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from 'react';
@@ -21,9 +20,7 @@ import {
 } from '../../components';
 import { ENG_REGEX } from '../../constants/regex';
 import { useInput } from '../../hooks';
-import { useAppDispatch, useAppSelector } from '../../redux';
-import { AnswerInfo, QuestionTag } from '../../types';
-import { question, tagFormat } from '../../utils';
+import { editQuestion, useAppDispatch, useAppSelector } from '../../redux';
 import {
   ButtonsContainer,
   CancelButton,
@@ -35,30 +32,17 @@ import {
 
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
-  const { data, editType, clickedId } = useAppSelector((state) => state.detail);
+  const { data, editType, editBody } = useAppSelector((state) => state.detail);
   const editorRef = useRef<Editor>(null);
   const [title, titleHandler] = useInput(data?.title as string);
   const [body, setBody] = useState(data?.body as string);
   const [tagInput, setTagInput] = useState('');
-  const [tagArr, setTagArr] = useState(['javascript', 'java']);
+  const [tagArr, setTagArr] = useState(data?.questionTags as string[]);
   const [titleError, setTitleError] = useState(false);
   const [bodyError, setBodyError] = useState(false);
   const [tagError, setTagError] = useState(false);
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (editType === 'question') setBody('1');
-    if (editType === 'answer') {
-      const target = data?.answers.data.filter(
-        (answer) => answer.answerId === clickedId
-      );
-      if (target) {
-        console.log(target[0].body);
-        setBody(target[0].body);
-      }
-    }
-  }, [body, clickedId, editType, data?.answers.data, data?.body]);
 
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -117,18 +101,34 @@ const EditQuestion = () => {
   );
 
   const handleEditButtonClick = useCallback(() => {
-    if (
-      tagArr.length === 0 ||
-      title.trim().length < 15 ||
-      body.trim().length < 30
-    ) {
-      if (tagArr.length === 0) setTagError(true);
-      if (title.length < 15) setTitleError(true);
-      if (body.length < 29) setBodyError(true);
-      return;
+    if (editType === 'question') {
+      if (
+        tagArr.length === 0 ||
+        title.trim().length < 15 ||
+        body.trim().length < 30
+      ) {
+        if (tagArr.length === 0) setTagError(true);
+        if (title.length < 15) setTitleError(true);
+        if (body.length < 29) setBodyError(true);
+        return;
+      }
+      const payload = {
+        id: data?.questionId as number,
+        title,
+        body,
+        questionTags: tagArr,
+      };
+      dispatch(editQuestion(payload));
+    }
+    if (editType === 'answer') {
+      if (body.trim().length < 30) {
+        setBodyError(true);
+        return;
+      }
+      console.log(body);
     }
     navigate(-1);
-  }, [title, body, tagArr, navigate]);
+  }, [title, body, tagArr, navigate, editType, data?.questionId, dispatch]);
 
   return (
     <Container>
@@ -148,7 +148,7 @@ const EditQuestion = () => {
       <EditorContainer>
         <h2>Body</h2>
         <CustomEditor
-          value={body}
+          value={editBody}
           editorRef={editorRef}
           isError={bodyError}
           onChange={handleEditorChange}
