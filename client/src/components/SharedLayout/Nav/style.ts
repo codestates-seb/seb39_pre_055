@@ -10,7 +10,6 @@ export const SHeader = styled.header`
   position: fixed;
   width: 100%;
   height: 50px;
-  overflow: hidden;
   background-color: var(--black-025);
   box-shadow: 0px 1px 2px var(--black-100);
   z-index: 2;
