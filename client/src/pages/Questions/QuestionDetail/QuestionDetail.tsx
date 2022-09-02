@@ -34,6 +34,10 @@ const QuestionDetail = () => {
     }
   }, [dispatch, params, sortOption]);
 
+  if (data?.questionStatus === 'QUESTION_NOT_EXIST') {
+    return <div>not found</div>;
+  }
+
   if (data)
     return (
       <Container>
