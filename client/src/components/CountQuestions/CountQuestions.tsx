@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-interface Prop {
-  counts: number;
-}
+import { useAppSelector } from '../../redux';
 
 const Wrapper = styled.p`
   display: flex;
@@ -20,10 +18,12 @@ const Wrapper = styled.p`
   }
 `;
 
-const CountQuestions = ({ counts }: Prop) => {
+const CountQuestions = () => {
+  const totalCounts = useAppSelector((store) => store.question.totalElements);
+
   return (
     <Wrapper>
-      <span>{counts.toLocaleString('ko-KR')}</span>
+      <span>{totalCounts.toLocaleString('ko-KR')}</span>
       <span>questions</span>
     </Wrapper>
   );
