@@ -5,10 +5,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-
 import javax.persistence.*;
-import java.time.LocalDateTime;
-import javax.persistence.Id;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 @NoArgsConstructor
 @Getter
@@ -43,7 +43,6 @@ public class User extends BaseEntity {
     @Column(nullable = false)
     private String image = "https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800";
 
-
     public User(String displayName, String email, String password) {
         this.displayName = displayName;
         this.email = email;
@@ -60,5 +59,16 @@ public class User extends BaseEntity {
         UserStatus(String status) {
             this.status = status;
         }
+    }
+
+    @Column(nullable = false)
+    private String role; // 이 부분은 role이 1개라도 -> 그 role에 따라 권한이 다르므로 -> 사용한다
+
+    // ENUM으로 안하고 ,로 해서 구분해서 ROLE을 입력 -> 그걸 파싱!!
+    public List<String> getRoleList() {
+        if (this.role.length() > 0) {
+            return Arrays.asList(this.role.split(","));
+        }
+        return new ArrayList<>();
     }
 }
