@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { QuestionSortList } from '../../types/question';
+import { Question } from '../../types/question';
 import { STACK_EXCHANGE_URL } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
 export const getQuestionSortList = createAsyncThunk<
-  Array<QuestionSortList>,
+  Array<Question>,
   undefined,
   CreateAsyncThunkTypes
 >('questionSort/getQuestionSortList', async (_, thunkAPI) => {

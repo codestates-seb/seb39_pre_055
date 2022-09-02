@@ -1,5 +1,7 @@
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
+import { useAppDispatch } from '../../../../redux';
+import { setKeyword } from '../../../../redux/reducers/searchSlice';
 import { SearchBar } from '../../..';
 import { Modal, useModal } from '../../../Modal';
 import SearchHints from './SearchHints';
@@ -26,6 +28,7 @@ const MainSearchBar = ({
   const [size, setSize] = useState({ width: '200px', height: '180px' });
   const [isFocused, setIsFocused] = useState(false);
   const { openModal, closeModal } = useModal({ ...size, position });
+  const dispatch = useAppDispatch();
   const searchRef = useRef<HTMLInputElement>(null);
 
   const resizeModal = useCallback(() => {
@@ -40,6 +43,7 @@ const MainSearchBar = ({
   const repositionModal = useCallback(() => {
     if (!searchRef.current) return;
     const { offsetTop, offsetHeight } = searchRef.current.parentElement!;
+    const { offsetTop: refTop, offsetHeight: refHeight } = searchRef.current;
     const left = searchRef.current.offsetLeft;
     const top = offsetTop + offsetHeight;
 
@@ -108,7 +112,7 @@ const MainSearchBar = ({
           openModal(<SearchHints />);
         }}
         onBlur={onBlur}
-        onSearch={{ callback: onSearch, navigatePath: '/search?q=' }}
+        onSearch={{ callback: onSearch, navigatePath: '/search?search=' }}
         wrapperRef={searchRef}
         inputRef={inputRef}
         responsive={responsive}

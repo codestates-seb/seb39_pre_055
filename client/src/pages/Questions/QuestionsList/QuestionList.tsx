@@ -1,6 +1,6 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { BlueButton, CustomPagination, SortButton } from '../../../components';
@@ -8,6 +8,7 @@ import CountQuestions from '../../../components/CountQuestions/CountQuestions';
 import LeftCounts from '../../../components/QuestionElement/LeftCounts/LeftCounts';
 import QuestionElement from '../../../components/QuestionElement/QuestionElement';
 import { useAppDispatch, useAppSelector } from '../../../redux';
+import { getQuestionList } from '../../../redux/actions/questionListActions';
 import {
   changeQPage,
   changeQSortOption,
@@ -28,8 +29,7 @@ import {
 const QuestionList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  // const [page, setPage] = useState(1);
-  const { questionList, page, sortOption } = useAppSelector(
+  const { questionList, page, totalPages, sortOption } = useAppSelector(
     (store) => store.question
   );
   const handleQSortBtnClick = useCallback(
@@ -39,6 +39,10 @@ const QuestionList = () => {
     },
     [dispatch]
   );
+
+  useEffect(() => {
+    dispatch(getQuestionList());
+  }, []);
   // const handlePageChange = (page: SetStateAction<number>) => {
   //   setPage(page);
   //   return (
@@ -59,7 +63,7 @@ const QuestionList = () => {
         <BlueButton onClick={() => navigate('/ask')}>Ask Question</BlueButton>
       </TitleHeader>
       <InfoContainer>
-        <CountQuestions counts="counts" />
+        <CountQuestions />
         <SortTabs>
           <SortButton
             nameList={['Newest', 'Views']}

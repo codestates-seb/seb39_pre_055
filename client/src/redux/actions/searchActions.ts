@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { axiosInstance } from '../../utils';
@@ -16,8 +15,7 @@ export const getSearchResults = createAsyncThunk<
       `/v1/question/search?search=${keyword}`
     );
 
-    console.log(response);
-    return response.data.items;
+    return response.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.message);
   }
