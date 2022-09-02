@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { UserInitialState } from '../../types/user';
-import { getSpecificDate } from '../../utils';
+import { getSpecificDate, removeUserFromLocalStorage } from '../../utils';
 import { getUserList } from '../actions/userAction';
 
 const initialState: UserInitialState = {
@@ -65,6 +65,8 @@ const userSlice = createSlice({
     },
     logOut: (state) => {
       state.user = null;
+      removeUserFromLocalStorage();
+      toast.success('로그아웃 성공');
     },
   },
   extraReducers: (builder) =>

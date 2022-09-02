@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-import { AnswerInfo, DetailInitialState } from '../../types/detail';
+import { AnswerInfo, DetailInitialState, Tbody } from '../../types';
 import {
   changeVote,
   deleteQuestion,
@@ -24,16 +24,7 @@ const detailSlice = createSlice({
     changeDetailSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
     },
-    changeEditBody: (
-      state,
-      {
-        payload,
-      }: PayloadAction<{
-        type: 'question' | 'answer';
-        body: string;
-        answerId?: number;
-      }>
-    ) => {
+    changeEditBody: (state, { payload }: PayloadAction<Tbody>) => {
       const { type, body, answerId: id } = payload;
       if (type === 'question') {
         state.editType = type;
@@ -114,4 +105,4 @@ export const {
   increaseVote,
   decreaseVote,
 } = detailSlice.actions;
-export const detailReducer: Reducer<typeof initialState> = detailSlice.reducer;
+export const detailReducer: Reducer<DetailInitialState> = detailSlice.reducer;

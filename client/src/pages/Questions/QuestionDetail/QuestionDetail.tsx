@@ -44,7 +44,7 @@ const QuestionDetail = () => {
     if (params.id) {
       dispatch(getDetail(params.id));
     }
-  }, [dispatch, params, sortOption]);
+  }, [dispatch, params, sortOption, data?.body]);
 
   if (isLoading)
     return (
