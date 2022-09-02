@@ -15,7 +15,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+// 커밋위해
 @NoArgsConstructor
 @Getter
 @Setter
