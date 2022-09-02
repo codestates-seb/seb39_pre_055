@@ -60,16 +60,17 @@ export const deleteQuestion = createAsyncThunk(
   }
 );
 
-export const changeVote = createAsyncThunk(
+export const changeVote = createAsyncThunk<any, string, CreateAsyncThunkTypes>(
   'detail/changeVote',
-  async (payload: number, { rejectWithValue }) => {
+  async (payload, thunkAPI) => {
     try {
+      const { data } = thunkAPI.getState().detail;
       const response = await axiosInstance.patch(`/v1/question/${payload}`, {
-        vote: payload,
+        vote: data?.vote,
       });
       return response.data;
     } catch (error: any) {
-      rejectWithValue(error.message);
+      thunkAPI.rejectWithValue(error.message);
     }
   }
 );

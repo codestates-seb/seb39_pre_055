@@ -7,13 +7,16 @@ import 'prismjs/themes/prism.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useConfirm, useToggle, useVoted } from '../../hooks';
+import { useConfirm, useToggle } from '../../hooks';
 import {
   changeEditBody,
+  changeVote,
+  decreaseVote,
   deleteQuestion,
+  increaseVote,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
@@ -48,7 +51,6 @@ const Content = ({
 }: Prop) => {
   const [following, toggleFollowing] = useToggle();
   const [shareModal, setShareModal] = useState(false);
-  const [currentVote, increaseVote, decreaseVote] = useVoted(vote);
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
@@ -58,7 +60,6 @@ const Content = ({
     () => dispatch(deleteQuestion(answerId as number)),
     () => console.log('Aborted')
   );
-
   const closeShareModal = useCallback((e: React.MouseEvent) => {
     const { tagName, parentElement } = e.target as HTMLElement;
     if (
@@ -71,10 +72,10 @@ const Content = ({
     }
   }, []);
 
-  const toggleShareModal = useCallback((e: React.MouseEvent) => {
+  const toggleShareModal = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShareModal((prev) => !prev);
-  }, []);
+  };
 
   const handleEditBtnClick = () => {
     if (params.id) {
@@ -89,12 +90,26 @@ const Content = ({
     }
   };
 
+  const currentVote = useMemo(() => vote, []);
+
+  const upVote = () => {
+    if (vote > currentVote) return;
+    dispatch(increaseVote());
+    dispatch(changeVote(params.id as string));
+  };
+
+  const downVote = () => {
+    if (vote < currentVote) return;
+    dispatch(decreaseVote());
+    dispatch(changeVote(params.id as string));
+  };
+
   return (
     <MainContents onClick={closeShareModal}>
       <Votes>
-        <Triangle onClick={increaseVote} />
-        <span>{currentVote}</span>
-        <Triangle rotate="180deg" onClick={decreaseVote} />
+        <Triangle onClick={upVote} />
+        <span>{vote}</span>
+        <Triangle rotate="180deg" onClick={downVote} />
       </Votes>
       <TextArea>
         <Viewer

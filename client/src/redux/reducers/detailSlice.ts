@@ -2,7 +2,12 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { AnswerInfo, DetailInitialState } from '../../types/detail';
-import { deleteQuestion, editQuestion, getDetail } from '../actions';
+import {
+  changeVote,
+  deleteQuestion,
+  editQuestion,
+  getDetail,
+} from '../actions';
 
 const initialState: DetailInitialState = {
   isLoading: false,
@@ -42,6 +47,16 @@ const detailSlice = createSlice({
         state.editBody = target[0].body;
       }
     },
+    increaseVote: (state) => {
+      if (state.data) {
+        state.data.vote += 1;
+      }
+    },
+    decreaseVote: (state) => {
+      if (state.data) {
+        state.data.vote -= 1;
+      }
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -78,8 +93,24 @@ const detailSlice = createSlice({
       .addCase(deleteQuestion.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload as string);
+      })
+      .addCase(changeVote.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(changeVote.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        toast.success(payload);
+      })
+      .addCase(changeVote.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload as string);
       }),
 });
 
-export const { changeDetailSortOption, changeEditBody } = detailSlice.actions;
+export const {
+  changeDetailSortOption,
+  changeEditBody,
+  increaseVote,
+  decreaseVote,
+} = detailSlice.actions;
 export const detailReducer: Reducer<typeof initialState> = detailSlice.reducer;

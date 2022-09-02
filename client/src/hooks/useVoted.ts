@@ -1,11 +1,13 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useCallback, useMemo, useState } from 'react';
 
-type VotedFunction = (value: number) => [number, () => void, () => void];
+type VotedFunction = (
+  value: number,
+  callback: (vote: number) => void
+) => [number, () => void, () => void];
 
-export const useVoted: VotedFunction = (value) => {
+export const useVoted: VotedFunction = (value, callback) => {
   const [vote, setVote] = useState(value);
-
   const defaultValue = useMemo(() => value, []);
 
   const increaseVote = useCallback(() => {
