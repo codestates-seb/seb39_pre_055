@@ -60,10 +60,10 @@ export const SQuestionList = styled.li`
 // 하단페이지네이션탭
 export const Footer = styled.footer`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   min-height: 150px;
-  align-items: flex-start;
-  padding-bottom: 200px;
+  padding-right: 24px;
+  padding-bottom: 100px;
   @media (max-width: 640px) {
     margin-left: 24px;
     margin-right: 24px;
@@ -77,7 +77,6 @@ export const PagenationButton = styled.div`
 
   @media (max-width: 640px) {
     margin-left: 24px;
-    margin-right: 24px;
   }
 `;
 

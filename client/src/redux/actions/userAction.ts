@@ -1,12 +1,12 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-import { User } from '../../types';
+import { UserInfo } from '../../types';
 import { STACK_EXCHANGE_URL } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
 export const getUser = createAsyncThunk<
-  Array<User>,
+  Array<UserInfo>,
   undefined,
   CreateAsyncThunkTypes
 >('user/getUser', async (_, thunkAPI) => {

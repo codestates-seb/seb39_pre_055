@@ -11,7 +11,7 @@ export const SQuestionBox = styled.div`
 
 export const SHelpAside = styled.aside``;
 
-export const STitleBox = styled.div`
+export const STitleHeader = styled.header`
   display: flex;
   flex-flow: row nowrap;
   align-items: center;
@@ -35,7 +35,7 @@ export const SBox = styled.div`
   column-gap: 20px;
 `;
 
-export const SCardBox = styled.div`
+export const SCardAside = styled.aside`
   display: flex;
   flex-flow: column nowrap;
   row-gap: 30px;

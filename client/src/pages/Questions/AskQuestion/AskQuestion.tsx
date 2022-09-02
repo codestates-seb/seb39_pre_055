@@ -11,11 +11,11 @@ import HelpModal from './QuestionForm/HelpModal';
 import QuestionForm from './QuestionForm/QuestionForm';
 import {
   SBox,
-  SCardBox,
+  SCardAside,
   SQuestionBox,
   SRobotSVG,
-  STitleBox,
   STitleH1,
+  STitleHeader,
 } from './style';
 
 const helpCards = [
@@ -58,13 +58,13 @@ const AskQuestion = () => {
 
   return (
     <SQuestionBox>
-      <STitleBox>
+      <STitleHeader>
         <STitleH1>Ask a public question</STitleH1>
         <SRobotSVG viewBox="0 0 580 126" />
-      </STitleBox>
+      </STitleHeader>
       <SBox>
         <QuestionForm errCount={errs.count} setErrs={setErrs} />
-        <SCardBox>
+        <SCardAside>
           {(errs.status === 'ongoing' ? step2Card : helpCards).map((e) => (
             <GuidelineCard
               title={e.title}
@@ -74,7 +74,7 @@ const AskQuestion = () => {
               {e.children}
             </GuidelineCard>
           ))}
-        </SCardBox>
+        </SCardAside>
       </SBox>
     </SQuestionBox>
   );

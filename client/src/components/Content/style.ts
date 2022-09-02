@@ -31,6 +31,7 @@ export const TextArea = styled.section`
 
 export const Tags = styled.section`
   display: flex;
+  flex-wrap: wrap;
   margin: 24px 0;
 `;
 

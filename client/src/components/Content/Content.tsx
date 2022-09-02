@@ -7,17 +7,26 @@ import 'prismjs/themes/prism.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
-import { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useCallback, useMemo, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
 
-import { useConfirm, useToggle, useVoted } from '../../hooks';
+import { useConfirm, useToggle } from '../../hooks';
+import {
+  changeEditBody,
+  changeVote,
+  decreaseVote,
+  deleteQuestion,
+  increaseVote,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
 interface Prop {
   type: 'question' | 'answer';
   body: string;
-  tags?: Array<{ tagName: string }>;
+  tags?: Array<string>;
   user: {
     userId: number;
     displayName: string;
@@ -28,19 +37,29 @@ interface Prop {
   };
   createdAt: string;
   vote: number;
+  answerId?: number;
 }
 
-const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
+const Content = ({
+  type,
+  body,
+  tags,
+  user,
+  createdAt,
+  vote,
+  answerId,
+}: Prop) => {
   const [following, toggleFollowing] = useToggle();
   const [shareModal, setShareModal] = useState(false);
-  const [currentVote, increaseVote, decreaseVote] = useVoted(vote);
+  const params = useParams();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { user: loginUser } = useAppSelector((state) => state.user);
   const confirmDelete = useConfirm(
     'Delete this page?',
-    () => console.log('Deleting the world...'),
+    () => dispatch(deleteQuestion(params.id as string)),
     () => console.log('Aborted')
   );
-
   const closeShareModal = useCallback((e: React.MouseEvent) => {
     const { tagName, parentElement } = e.target as HTMLElement;
     if (
@@ -53,17 +72,44 @@ const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
     }
   }, []);
 
-  const toggleShareModal = useCallback((e: React.MouseEvent) => {
+  const toggleShareModal = (e: React.MouseEvent) => {
     e.stopPropagation();
     setShareModal((prev) => !prev);
-  }, []);
+  };
+
+  const handleEditBtnClick = () => {
+    if (params.id) {
+      dispatch(
+        changeEditBody({
+          type,
+          body,
+          answerId,
+        })
+      );
+      navigate(`/${params.id}/edit`);
+    }
+  };
+
+  const currentVote = useMemo(() => vote, []);
+
+  const upVote = () => {
+    if (vote > currentVote) return;
+    dispatch(increaseVote());
+    dispatch(changeVote(params.id as string));
+  };
+
+  const downVote = () => {
+    if (vote < currentVote) return;
+    dispatch(decreaseVote());
+    dispatch(changeVote(params.id as string));
+  };
 
   return (
     <MainContents onClick={closeShareModal}>
       <Votes>
-        <Triangle onClick={increaseVote} />
-        <span>{currentVote}</span>
-        <Triangle rotate="180deg" onClick={decreaseVote} />
+        <Triangle onClick={upVote} />
+        <span>{vote}</span>
+        <Triangle rotate="180deg" onClick={downVote} />
       </Votes>
       <TextArea>
         <Viewer
@@ -71,17 +117,17 @@ const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
           plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
         />
         {type === 'question' && (
-          <Tags>
-            {tags &&
-              tags.map((tag) => <Tag key={tag.tagName} name={tag.tagName} />)}
-          </Tags>
+          <Tags>{tags && tags.map((tag) => <Tag key={tag} name={tag} />)}</Tags>
         )}
         <Utils>
           <div>
             <TextButton name="Share" onClick={toggleShareModal} />
-            <TextButton name="Edit" onClick={() => navigate('/1/edit')} />
-            {/* 작성한 유저일 경우에만 Delete 버튼 render 되도록 수정 */}
-            <TextButton name="Delete" onClick={confirmDelete} />
+            {user.userId === loginUser?.userId && (
+              <>
+                <TextButton name="Edit" onClick={handleEditBtnClick} />
+                <TextButton name="Delete" onClick={confirmDelete} />
+              </>
+            )}
             <TextButton
               name={following ? 'Follow' : 'Following'}
               onClick={toggleFollowing}

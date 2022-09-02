@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 
-const Sidebar = styled.div`
+const Sidebar = styled.div<{ width: string }>`
   aside {
-    width: 360px;
+    width: ${(props) => props.width};
     margin: 0 auto;
-    margin-top: 30px;
     border: 1px solid hsl(47, 65%, 84%);
     background-color: hsl(47, 83%, 91%);
     color: rgb(59, 64, 69);
@@ -36,9 +35,13 @@ const Sidebar = styled.div`
   }
 `;
 
-const EditSidebar = () => {
+interface Prop {
+  width?: string;
+}
+
+const EditSidebar = ({ width = '360px' }: Prop) => {
   return (
-    <Sidebar>
+    <Sidebar width={width}>
       <aside>
         <header>How to Edit</header>
         <ul>

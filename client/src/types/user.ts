@@ -1,6 +1,9 @@
+import { User } from './detail';
+
 export interface UserInitialState {
   page: number;
-  userList: Array<User>;
+  user: User | null;
+  userList: Array<UserInfo>;
   sortOption: string;
   dateOption: string;
   timeStamp: string | number;
@@ -9,7 +12,7 @@ export interface UserInitialState {
   errorMsg: string;
 }
 
-export interface User {
+export interface UserInfo {
   badge_counts: BadgeCounts;
   collectives?: CollectiveElement[];
   account_id?: number;

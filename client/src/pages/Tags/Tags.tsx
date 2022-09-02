@@ -2,6 +2,7 @@ import { useEffect, useRef } from 'react';
 
 import {
   CustomPagination,
+  LoadingSpinner,
   SearchBar,
   SortButton,
   TagCard,
@@ -26,7 +27,7 @@ import {
 const Tags = () => {
   const inputRef = useRef<HTMLInputElement>(null);
   const dispatch = useAppDispatch();
-  const { tagList, page, sortOption, inName } = useAppSelector(
+  const { tagList, page, sortOption, inName, isLoading } = useAppSelector(
     (state) => state.tag
   );
 
@@ -55,9 +56,13 @@ const Tags = () => {
         />
       </FilterContainer>
       <TagsContainer>
-        {tagList.map((tag) => (
-          <TagCard key={tag.name} name={tag.name} count={tag.count} />
-        ))}
+        {isLoading ? (
+          <LoadingSpinner />
+        ) : (
+          tagList.map((tag) => (
+            <TagCard key={tag.name} name={tag.name} count={tag.count} />
+          ))
+        )}
       </TagsContainer>
       {tagList.length > 89 && (
         <PaginationContainer>

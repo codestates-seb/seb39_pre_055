@@ -3,13 +3,21 @@ import { toast } from 'react-toastify';
 
 import { UserInitialState } from '../../types/user';
 import { getSpecificDate } from '../../utils';
-import { USER_DUMMY_DATA } from '../../utils/user-data';
 import { getUser } from '../actions/userAction';
 
 const initialState: UserInitialState = {
+  user: {
+    userId: 1,
+    displayName: 'sangbin',
+    email: 'verz@gmail.com',
+    password: 'fd423423ccd34@!s',
+    image:
+      'https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800',
+    userStatus: 'USER_EXIST',
+  },
   page: 1,
-  userList: USER_DUMMY_DATA,
-  isLoading: false,
+  userList: [],
+  isLoading: true,
   sortOption: 'reputation',
   dateOption: 'all',
   timeStamp: '',
