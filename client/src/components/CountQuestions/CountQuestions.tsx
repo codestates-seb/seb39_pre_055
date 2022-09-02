@@ -1,3 +1,5 @@
+/* eslint-disable react/display-name */
+import { memo } from 'react';
 import styled from 'styled-components';
 
 import { useAppSelector } from '../../redux';
@@ -18,7 +20,7 @@ const Wrapper = styled.p`
   }
 `;
 
-const CountQuestions = () => {
+const CountQuestions = memo(() => {
   const totalCounts = useAppSelector((store) => store.question.totalElements);
 
   return (
@@ -27,6 +29,6 @@ const CountQuestions = () => {
       <span>questions</span>
     </Wrapper>
   );
-};
+});
 
 export default CountQuestions;
