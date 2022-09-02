@@ -24,7 +24,7 @@ const AnchorCard = ({ type }: Prop) => {
 
   return (
     <Container id="share-modal">
-      <p>Share a link to this {type}</p>
+      <p data-testid="text">Share a link to this {type}</p>
       <input
         ref={ref}
         type="text"
