@@ -75,9 +75,10 @@ const detailSlice = createSlice({
       .addCase(editQuestion.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(editQuestion.fulfilled, (state) => {
+      .addCase(editQuestion.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        toast.success('edit success');
+        state.data = payload;
+        toast.success('Successfully edited your question.');
       })
       .addCase(editQuestion.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -88,11 +89,11 @@ const detailSlice = createSlice({
       })
       .addCase(deleteQuestion.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        toast.success(payload);
+        toast.success('Question has been successfully deleted.');
       })
       .addCase(deleteQuestion.rejected, (state, { payload }) => {
         state.isLoading = false;
-        toast.error(payload as string);
+        toast.error(payload);
       })
       .addCase(changeVote.pending, (state) => {
         state.isLoading = true;
