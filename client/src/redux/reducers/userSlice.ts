@@ -3,7 +3,6 @@ import { toast } from 'react-toastify';
 
 import { UserInitialState } from '../../types/user';
 import { getSpecificDate } from '../../utils';
-import { USER_DUMMY_DATA } from '../../utils/user-data';
 import { getUser } from '../actions/userAction';
 
 const initialState: UserInitialState = {

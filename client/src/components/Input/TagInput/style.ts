@@ -72,7 +72,6 @@ export const ErrorIcon = styled(MdError)`
 
 export const HashTags = styled.div`
   display: flex;
-  margin: auto 0;
   padding-left: 2px;
 `;
 

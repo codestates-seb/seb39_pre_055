@@ -11,6 +11,7 @@ import {
   AnswerEditor,
   BlueButton,
   Content,
+  NotFound,
   QuestionInfo,
 } from '../../../components';
 import {
@@ -26,9 +27,7 @@ const QuestionDetail = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-  const { isLoading, data, sortOption } = useAppSelector(
-    (state) => state.detail
-  );
+  const { data, sortOption } = useAppSelector((state) => state.detail);
 
   useEffect(() => {
     if (params.id) {
@@ -36,7 +35,9 @@ const QuestionDetail = () => {
     }
   }, [dispatch, params, sortOption]);
 
-  // if (isLoading) return <p>Loading...</p>;
+  if (data?.questionStatus === 'QUESTION_NOT_EXIST') {
+    return <NotFound />;
+  }
 
   if (data)
     return (

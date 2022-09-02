@@ -1,8 +1,8 @@
 export interface DetailInitialState {
   isLoading: boolean;
   editType: string;
+  editBody: string;
   sortOption: string;
-  clickedId: null | number;
   data: DetailData | null;
 }
 
@@ -15,7 +15,7 @@ export interface DetailData {
   view: number;
   user: User;
   answers: Answers;
-  questionTags: QuestionTag[];
+  questionTags: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -49,8 +49,4 @@ export interface PageInfo {
   size: number;
   totalElements: number;
   totalPages: number;
-}
-
-export interface QuestionTag {
-  tagName: string;
 }
