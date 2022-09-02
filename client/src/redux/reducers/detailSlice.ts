@@ -86,9 +86,6 @@ const detailSlice = createSlice({
         state.isLoading = false;
         toast.error(payload);
       })
-      .addCase(changeVote.pending, (state) => {
-        state.isLoading = true;
-      })
       .addCase(changeVote.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         toast.success(payload);

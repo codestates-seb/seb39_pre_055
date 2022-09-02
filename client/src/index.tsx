@@ -8,7 +8,7 @@ import { ThemeProvider } from 'styled-components';
 import App from './App';
 import GlobalStyle from './assets/style/GlobalStyle';
 import { theme } from './assets/style/Theme';
-import { store } from './redux';
+import { setupStore } from './redux';
 
 // 이후 해결
 // if (process.env.NODE_ENV === 'development') {
@@ -20,7 +20,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <BrowserRouter>
-    <Provider store={store}>
+    <Provider store={setupStore()}>
       <ThemeProvider theme={theme}>
         <GlobalStyle />
         <App />
