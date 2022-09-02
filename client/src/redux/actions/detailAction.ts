@@ -48,7 +48,7 @@ export const editQuestion = createAsyncThunk<
 
 export const deleteQuestion = createAsyncThunk(
   'detail/deleteQuestion',
-  async (payload: number, { rejectWithValue }) => {
+  async (payload: string, { rejectWithValue }) => {
     try {
       const response = await axiosInstance.patch(`/v1/question/${payload}`, {
         questionStatus: 'QUESTION_NOT_EXIST',
@@ -70,7 +70,7 @@ export const changeVote = createAsyncThunk<any, string, CreateAsyncThunkTypes>(
       });
       return response.data;
     } catch (error: any) {
-      thunkAPI.rejectWithValue(error.message);
+      return thunkAPI.rejectWithValue(error.message);
     }
   }
 );
