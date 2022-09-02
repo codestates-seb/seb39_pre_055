@@ -11,7 +11,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle, useVoted } from '../../hooks';
-import { changeEditBody, useAppDispatch } from '../../redux';
+import { changeEditBody, deleteQuestion, useAppDispatch } from '../../redux';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
@@ -49,7 +49,7 @@ const Content = ({
   const dispatch = useAppDispatch();
   const confirmDelete = useConfirm(
     'Delete this page?',
-    () => console.log('Deleting the world...'),
+    () => dispatch(deleteQuestion(answerId as number)),
     () => console.log('Aborted')
   );
 

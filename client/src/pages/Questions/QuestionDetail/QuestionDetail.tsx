@@ -26,17 +26,13 @@ const QuestionDetail = () => {
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-  const { isLoading, data, sortOption } = useAppSelector(
-    (state) => state.detail
-  );
+  const { data, sortOption } = useAppSelector((state) => state.detail);
 
   useEffect(() => {
     if (params.id) {
       dispatch(getDetail(params.id));
     }
   }, [dispatch, params, sortOption]);
-
-  // if (isLoading) return <p>Loading...</p>;
 
   if (data)
     return (

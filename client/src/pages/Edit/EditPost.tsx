@@ -5,11 +5,11 @@ import {
   ChangeEvent,
   KeyboardEvent,
   useCallback,
-  useEffect,
   useRef,
   useState,
 } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { toast } from 'react-toastify';
 
 import {
   BlueButton,
@@ -21,8 +21,7 @@ import {
 } from '../../components';
 import { ENG_REGEX } from '../../constants/regex';
 import { useInput } from '../../hooks';
-import { changeEditBody, useAppDispatch, useAppSelector } from '../../redux';
-import { AnswerInfo } from '../../types';
+import { editQuestion, useAppDispatch, useAppSelector } from '../../redux';
 import {
   ButtonsContainer,
   CancelButton,
@@ -34,7 +33,7 @@ import {
 
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
-  const { data, editType } = useAppSelector((state) => state.detail);
+  const { data, editType, editBody } = useAppSelector((state) => state.detail);
   const editorRef = useRef<Editor>(null);
   const [title, titleHandler] = useInput(data?.title as string);
   const [body, setBody] = useState(data?.body as string);
@@ -44,7 +43,6 @@ const EditQuestion = () => {
   const [bodyError, setBodyError] = useState(false);
   const [tagError, setTagError] = useState(false);
   const dispatch = useAppDispatch();
-  const { editBody } = useAppSelector((state) => state.detail);
   const navigate = useNavigate();
 
   const handleTitleChange = useCallback(
@@ -115,8 +113,14 @@ const EditQuestion = () => {
         if (body.length < 29) setBodyError(true);
         return;
       }
-      console.log(title, body, tagArr);
-      navigate(-1);
+      dispatch(
+        editQuestion({
+          id: data?.questionId as number,
+          title,
+          body,
+          questionTags: tagArr,
+        })
+      );
     }
     if (editType === 'answer') {
       if (body.trim().length < 30) {
@@ -124,9 +128,9 @@ const EditQuestion = () => {
         return;
       }
       console.log(body);
-      navigate(-1);
     }
-  }, [title, body, tagArr, navigate, editType]);
+    navigate(-1);
+  }, [title, body, tagArr, navigate, editType, data?.questionId]);
 
   return (
     <Container>

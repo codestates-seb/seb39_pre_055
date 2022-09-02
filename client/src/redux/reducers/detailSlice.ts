@@ -2,7 +2,7 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { AnswerInfo, DetailInitialState } from '../../types/detail';
-import { getDetail } from '../actions/detailAction';
+import { deleteQuestion, editQuestion, getDetail } from '../actions';
 
 const initialState: DetailInitialState = {
   isLoading: false,
@@ -56,6 +56,28 @@ const detailSlice = createSlice({
       .addCase(getDetail.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload);
+      })
+      .addCase(editQuestion.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(editQuestion.fulfilled, (state) => {
+        state.isLoading = false;
+        toast.success('edit success');
+      })
+      .addCase(editQuestion.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      })
+      .addCase(deleteQuestion.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(deleteQuestion.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        toast.success(payload);
+      })
+      .addCase(deleteQuestion.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload as string);
       }),
 });
 
