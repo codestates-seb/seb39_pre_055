@@ -3,7 +3,7 @@ import axios, {
   AxiosResponseTransformer,
 } from 'axios';
 
-import tagFormat from './tagFormat';
+import { tagFormat } from './tagFormat';
 
 export const STACK_EXCHANGE_URL = 'https://api.stackexchange.com/2.3';
 
