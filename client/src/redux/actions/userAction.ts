@@ -13,7 +13,7 @@ export const getUser = createAsyncThunk<
   try {
     const { page, sortOption, timeStamp, inName } = thunkAPI.getState().user;
     const response = await axios.get(
-      `${STACK_EXCHANGE_URL}/users?page=${page}&pagesize=73&fromdate=${timeStamp
+      `${STACK_EXCHANGE_URL}/users?page=${page}&pagesize=72&fromdate=${timeStamp
         .toString()
         .slice(0, 10)}&todate=${Date.now()
         .toString()

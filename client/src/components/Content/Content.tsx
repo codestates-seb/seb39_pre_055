@@ -11,7 +11,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle, useVoted } from '../../hooks';
-import { changeEditType, useAppDispatch } from '../../redux';
+import { changeClickedId, changeEditType, useAppDispatch } from '../../redux';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
@@ -29,9 +29,18 @@ interface Prop {
   };
   createdAt: string;
   vote: number;
+  answerId?: number;
 }
 
-const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
+const Content = ({
+  type,
+  body,
+  tags,
+  user,
+  createdAt,
+  vote,
+  answerId,
+}: Prop) => {
   const [following, toggleFollowing] = useToggle();
   const [shareModal, setShareModal] = useState(false);
   const [currentVote, increaseVote, decreaseVote] = useVoted(vote);
@@ -64,6 +73,7 @@ const Content = ({ type, body, tags, user, createdAt, vote }: Prop) => {
   const handleEditBtnClick = () => {
     dispatch(changeEditType(type));
     if (params.id) {
+      dispatch(changeClickedId(answerId as number));
       navigate(`/${params.id}/edit`);
     }
   };

@@ -7,6 +7,7 @@ import { getDetail } from '../actions/detailAction';
 const initialState: DetailInitialState = {
   isLoading: false,
   editType: 'question',
+  clickedId: null,
   sortOption: 'vote',
   data: null,
 };
@@ -20,6 +21,9 @@ const detailSlice = createSlice({
     },
     changeEditType: (state, { payload }: PayloadAction<string>) => {
       state.editType = payload;
+    },
+    changeClickedId: (state, { payload }: PayloadAction<number>) => {
+      state.clickedId = payload;
     },
   },
   extraReducers: (builder) =>
@@ -38,5 +42,6 @@ const detailSlice = createSlice({
       }),
 });
 
-export const { changeDetailSortOption, changeEditType } = detailSlice.actions;
+export const { changeDetailSortOption, changeEditType, changeClickedId } =
+  detailSlice.actions;
 export const detailReducer: Reducer<typeof initialState> = detailSlice.reducer;

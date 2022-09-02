@@ -68,7 +68,7 @@ const Users = () => {
         clickedName={dateOption}
         onClick={(name) => dispatch(changeUserDateOption(name))}
       />
-      <UserContainer>
+      <UserContainer isLoading={isLoading}>
         {isLoading ? (
           <LoadingSpinner />
         ) : (
