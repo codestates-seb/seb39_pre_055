@@ -57,7 +57,7 @@ const Content = ({
   const { user: loginUser } = useAppSelector((state) => state.user);
   const confirmDelete = useConfirm(
     'Delete this page?',
-    () => dispatch(deleteQuestion(answerId as number)),
+    () => dispatch(deleteQuestion(params.id as string)),
     () => console.log('Aborted')
   );
   const closeShareModal = useCallback((e: React.MouseEvent) => {

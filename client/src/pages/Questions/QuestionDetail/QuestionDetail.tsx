@@ -9,9 +9,9 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   AnswerEditor,
+  Aside,
   BlueButton,
   Content,
-  EditSidebar,
   NotFound,
   QuestionInfo,
 } from '../../../components';
@@ -21,15 +21,7 @@ import {
   useAppSelector,
 } from '../../../redux';
 import { getDetail } from '../../../redux/actions/detailAction';
-import {
-  AnswerHeader,
-  Container,
-  Header,
-  Side,
-  Sidebar,
-  SMain,
-  SubHeader,
-} from './style';
+import { AnswerHeader, Container, Header, SMain, SubHeader } from './style';
 
 const QuestionDetail = () => {
   const params = useParams();
@@ -117,38 +109,12 @@ const QuestionDetail = () => {
             <h3>Your Answer</h3>
             <AnswerEditor />
           </section>
-          <Side>
-            <Sidebar>
-              <header>The Overflow Blog</header>
-              <ul>
-                <li>ideal fit for developing blockchains</li>
-                <li>Environments on-demand (Ep. 479)</li>
-                <li>Add related resources or links</li>
-                <li>Always respect the author’s intent</li>
-                <li>Don’t use edits to reply to the author</li>
-              </ul>
-              <header>Featured on Meta</header>
-              <ul>
-                <li>Student Ambassador Program</li>
-                <li>Google Analytics 4 (GA4) upgrade</li>
-                <li>Question Lifecycle</li>
-                <li>The [option] tag is being burninated</li>
-                <li>WSO2 launches, and Google Go sunsets</li>
-              </ul>
-            </Sidebar>
-            <a href="https://www.udemy.com/" target="_blank" rel="noreferrer">
-              <img
-                src="https://tpc.googlesyndication.com/simgad/8943515588817423167"
-                alt="udemy"
-              />
-            </a>
-            <EditSidebar width="100%" />
-          </Side>
+          <Aside />
         </SMain>
       </Container>
     );
 
-  return <div>not found</div>;
+  return <NotFound />;
 };
 
 export default QuestionDetail;

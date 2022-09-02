@@ -15,6 +15,7 @@ export const HashTagContainer = styled.div<Prop>`
   position: relative;
   display: flex;
   align-items: center;
+  width: 100%;
   margin-top: 6px;
   border: 1px solid rgb(186, 191, 196);
   border-radius: 3px;
@@ -79,4 +80,9 @@ export const ErrorMsg = styled.p`
   margin-top: 10px;
   color: hsl(358, 62%, 52%);
   font-size: 12px;
+
+  & > a > strong {
+    color: rgb(146, 32, 36);
+    text-decoration: underline;
+  }
 `;

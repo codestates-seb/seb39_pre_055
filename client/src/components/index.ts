@@ -1,5 +1,6 @@
 export { default as Accordion } from './Accordian/Accordion';
 export { default as AnchorCard } from './AnchorCard/AnchorCard';
+export { default as Aside } from './Aside/Aside';
 export { default as DateButton } from './Button/DateButton';
 export { default as DefaultBtn } from './Button/DefaultButton';
 export { default as SortButton } from './Button/SortButton';
