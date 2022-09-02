@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import { QuestionList } from '../../types/question';
 import { getQuestionList } from '../actions/questionListActions';
+import { RootState } from '../store';
 
 // types에서 interface 선언 가져와서 초기화
 const initialState: QuestionList = {
@@ -10,7 +11,7 @@ const initialState: QuestionList = {
   totalElements: 0,
   totalPages: 1,
   questionList: [],
-  sortOption: 'createdAt',
+  sortOption: 'newest',
   inName: '',
   errorMsg: '',
   isLoading: false,
@@ -23,9 +24,6 @@ const questionSlice = createSlice({
   reducers: {
     changeQPage: (state, { payload }: PayloadAction<number>) => {
       state.page = payload;
-    },
-    resetQPage: (state) => {
-      state.page = 1;
     },
     changeQSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
@@ -56,7 +54,14 @@ const questionSlice = createSlice({
         }
       }),
 });
+
+/* Selectors */
+export const selectQIds = (state: RootState) =>
+  state.question.questionList.map((q) => q.questionId);
+export const selectQInfos = (state: RootState, id: number) =>
+  state.question.questionList.filter((q) => q.questionId === id)[0];
+
 // 리듀서 & 액션 리턴
-export const { changeQPage, changeQSortOption, resetQPage, changeQInName } =
+export const { changeQPage, changeQSortOption, changeQInName } =
   questionSlice.actions;
 export const questionReducer: Reducer<QuestionList> = questionSlice.reducer;

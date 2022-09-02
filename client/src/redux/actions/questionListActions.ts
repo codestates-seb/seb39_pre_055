@@ -14,6 +14,11 @@ interface ServerQList {
   pageInfo: PageInfo;
 }
 
+const serverSortOptions = {
+  newest: 'createdAt',
+  votes: 'vote',
+};
+
 export const getQuestionList = createAsyncThunk<
   ServerQList,
   undefined,
@@ -21,8 +26,10 @@ export const getQuestionList = createAsyncThunk<
 >('question/getQuestionList', async (_, thunkAPI) => {
   try {
     const { page, sortOption } = thunkAPI.getState().question;
+    const sort =
+      serverSortOptions[sortOption as keyof typeof serverSortOptions];
     const response = await axiosInstance.get(
-      `/v1/question?page=${page}&size=15&sort=${sortOption}`
+      `/v1/question?page=${page}&size=15&sort=${sort}`
     );
 
     return response.data;

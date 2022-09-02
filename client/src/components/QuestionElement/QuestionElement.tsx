@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import styled from 'styled-components';
+/* eslint-disable react/display-name */
+import { memo } from 'react';
 
-import { User } from '../../types/question';
+import { selectQInfos, useAppSelector } from '../../redux';
 import Tag from '../Tag/Tag';
 import {
   Container,
@@ -15,37 +15,39 @@ import {
 } from './style';
 
 interface Prop {
-  contents: string;
-  title: string;
-  questionId: number;
-  user: User;
-  tagList: Array<string>;
-  createdAt: string;
+  id: number;
 }
 
-const QuestionElement = ({
-  user,
-  title,
-  contents,
-  questionId,
-  tagList,
-  createdAt,
-}: Prop) => {
+const UserFooter = memo(({ id }: Prop) => {
+  const { user, createdAt } = useAppSelector((state) =>
+    selectQInfos(state, id)
+  );
+
+  return (
+    <UserContainer>
+      <img width="20" alt={`thumbnail of ${user}`} src={user.image} />
+      <UserName>{user.displayName}</UserName>
+      <UserAsked> {createdAt}</UserAsked>
+    </UserContainer>
+  );
+});
+
+const QuestionElement = ({ id }: Prop) => {
+  const { title, body, questionTags } = useAppSelector((state) =>
+    selectQInfos(state, id)
+  );
+
   return (
     <Container>
-      <STitleLink to={`/${questionId}`}>{title}</STitleLink>
-      <STextP>{contents}</STextP>
+      <STitleLink to={`/${id}`}>{title}</STitleLink>
+      <STextP>{body}</STextP>
       <ContentFooter>
         <Tags>
-          {tagList.map((tag) => (
+          {questionTags.map((tag) => (
             <Tag key={tag} name={tag} />
           ))}
         </Tags>
-        <UserContainer>
-          <img width="20" alt={`thumbnail of ${user}`} src={user.image} />
-          <UserName>{user.displayName}</UserName>
-          <UserAsked> {createdAt}</UserAsked>
-        </UserContainer>
+        <UserFooter id={id} />
       </ContentFooter>
     </Container>
   );

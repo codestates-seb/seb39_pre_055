@@ -1,6 +1,7 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 
 import { useCallback, useEffect, useState } from 'react';
+import { shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
 import { BlueButton, CustomPagination, SortButton } from '../../../components';
@@ -12,7 +13,7 @@ import { getQuestionList } from '../../../redux/actions/questionListActions';
 import {
   changeQPage,
   changeQSortOption,
-  resetQPage,
+  selectQIds,
 } from '../../../redux/reducers/questionSlice';
 import {
   Container,
@@ -24,37 +25,36 @@ import {
   SQuestionList,
   TitleHeader,
 } from './style';
-// 컴포넌트 수정 후 통합하기
 
 const QuestionList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { questionList, page, totalPages, sortOption } = useAppSelector(
-    (store) => store.question
-  );
-  const handleQSortBtnClick = useCallback(
+  const { questionList, page, totalPages, totalElements, sortOption } =
+    useAppSelector((store) => store.question);
+  const qusetionIds = useAppSelector(selectQIds, shallowEqual);
+
+  useEffect(() => {
+    dispatch(getQuestionList());
+  }, [dispatch]);
+
+  const handleSort = useCallback(
     (name: string) => {
-      dispatch(resetQPage());
+      dispatch(changeQPage(1));
       dispatch(changeQSortOption(name));
+      dispatch(getQuestionList());
     },
     [dispatch]
   );
 
-  useEffect(() => {
+  const handlePageChange = (page: number) => {
+    dispatch(changeQPage(page));
     dispatch(getQuestionList());
-  }, []);
-  // const handlePageChange = (page: SetStateAction<number>) => {
-  //   setPage(page);
-  //   return (
-  //     <CustomPagination
-  //       activePage={1}
-  //       itemsCountPerPage={15}
-  //       totalItemsCount={750}
-  //       pageRangeDisplayed={5}
-  //       onChange={handlePageChange}
-  //     />
-  //   );
-  // };
+
+    window.scroll({
+      top: 0,
+      behavior: 'auto',
+    });
+  };
 
   return (
     <Container>
@@ -66,34 +66,28 @@ const QuestionList = () => {
         <CountQuestions />
         <SortTabs>
           <SortButton
-            nameList={['Newest', 'Views']}
+            nameList={['Newest', 'Votes']}
             clickedName={sortOption}
-            onClick={handleQSortBtnClick}
+            onClick={handleSort}
           />
         </SortTabs>
       </InfoContainer>
       <MainUList>
-        {questionList.map((q) => (
-          <SQuestionList key={q.questionId}>
-            <LeftCounts votes={q.vote} answers={0} views={q.view} />
-            <QuestionElement
-              contents={q.body}
-              title={q.title}
-              user={q.user}
-              questionId={q.questionId}
-              tagList={q.questionTags}
-              createdAt={q.createdAt}
-            />
+        {qusetionIds.map((id) => (
+          <SQuestionList key={id}>
+            <LeftCounts id={id} />
+            <QuestionElement id={id} />
           </SQuestionList>
         ))}
       </MainUList>
       <Footer>
         <PagenationButton>
           <CustomPagination
-            onChange={(number) => dispatch(changeQPage(number))}
+            onChange={handlePageChange}
             activePage={page}
-            itemsCountPerPage={15} // 한 페이지에 표시할 게시글의 수
-            totalItemsCount={750} // 서버에서 받아올 총 개수
+            itemsCountPerPage={15}
+            totalItemsCount={totalElements}
+            pageRangeDisplayed={totalPages < 5 ? totalPages : 5}
           />
         </PagenationButton>
       </Footer>
