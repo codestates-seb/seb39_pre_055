@@ -26,6 +26,7 @@ import {
   CancelButton,
   Container,
   EditorContainer,
+  SMain,
   TagsContainer,
   TitleContainer,
 } from './style';
@@ -132,47 +133,49 @@ const EditQuestion = () => {
 
   return (
     <Container>
-      <EditHeader />
-      {editType === 'question' && (
-        <TitleContainer>
-          <DefaultInput
-            label="Title"
-            id="title"
-            placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
-            value={title}
-            isError={titleError}
-            onChange={handleTitleChange}
+      <SMain>
+        <EditHeader />
+        {editType === 'question' && (
+          <TitleContainer>
+            <DefaultInput
+              label="Title"
+              id="title"
+              placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
+              value={title}
+              isError={titleError}
+              onChange={handleTitleChange}
+            />
+          </TitleContainer>
+        )}
+        <EditorContainer>
+          <h2>Body</h2>
+          <CustomEditor
+            value={editBody}
+            editorRef={editorRef}
+            isError={bodyError}
+            onChange={handleEditorChange}
           />
-        </TitleContainer>
-      )}
-      <EditorContainer>
-        <h2>Body</h2>
-        <CustomEditor
-          value={editBody}
-          editorRef={editorRef}
-          isError={bodyError}
-          onChange={handleEditorChange}
-        />
-      </EditorContainer>
-      {editType === 'question' && (
-        <TagsContainer>
-          <TagInput
-            value={tagInput}
-            tagArr={tagArr}
-            isError={tagError}
-            placeholder="e.g. (angular sql-server string)"
-            onChange={handleTagInputChange}
-            onKeyUp={handleTagInputOnKeyUp}
-            onClick={handleTagDelete}
-          />
-        </TagsContainer>
-      )}
-      <ButtonsContainer>
-        <BlueButton width="90px" onClick={handleEditButtonClick}>
-          Save Edits
-        </BlueButton>
-        <CancelButton onClick={() => navigate(-1)}>Cancel</CancelButton>
-      </ButtonsContainer>
+        </EditorContainer>
+        {editType === 'question' && (
+          <TagsContainer>
+            <TagInput
+              value={tagInput}
+              tagArr={tagArr}
+              isError={tagError}
+              placeholder="e.g. (angular sql-server string)"
+              onChange={handleTagInputChange}
+              onKeyUp={handleTagInputOnKeyUp}
+              onClick={handleTagDelete}
+            />
+          </TagsContainer>
+        )}
+        <ButtonsContainer>
+          <BlueButton width="90px" onClick={handleEditButtonClick}>
+            Save Edits
+          </BlueButton>
+          <CancelButton onClick={() => navigate(-1)}>Cancel</CancelButton>
+        </ButtonsContainer>
+      </SMain>
       <EditSidebar />
     </Container>
   );

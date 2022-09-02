@@ -33,6 +33,7 @@ export const Header = styled.header`
     font-size: 27px;
     color: var(--black-700);
     word-break: break-all;
+    line-height: 31px;
   }
 
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
