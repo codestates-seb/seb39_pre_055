@@ -11,6 +11,7 @@ import {
   AnswerEditor,
   BlueButton,
   Content,
+  NotFound,
   QuestionInfo,
 } from '../../../components';
 import {
@@ -35,7 +36,7 @@ const QuestionDetail = () => {
   }, [dispatch, params, sortOption]);
 
   if (data?.questionStatus === 'QUESTION_NOT_EXIST') {
-    return <div>not found</div>;
+    return <NotFound />;
   }
 
   if (data)

@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { SharedLayout } from './components';
+import { NotFound, SharedLayout } from './components';
 import {
   AskQuestion,
   EditQuestion,
@@ -29,6 +29,7 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/search/*" element={<SharedLayout />}>
           <Route index element={<Search />} />
