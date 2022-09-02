@@ -1,13 +1,13 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-import { DetailInitialState } from '../../types/detail';
+import { AnswerInfo, DetailInitialState } from '../../types/detail';
 import { getDetail } from '../actions/detailAction';
 
 const initialState: DetailInitialState = {
   isLoading: false,
   editType: 'question',
-  clickedId: null,
+  editBody: '1',
   sortOption: 'vote',
   data: null,
 };
@@ -19,11 +19,28 @@ const detailSlice = createSlice({
     changeDetailSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
     },
-    changeEditType: (state, { payload }: PayloadAction<string>) => {
-      state.editType = payload;
-    },
-    changeClickedId: (state, { payload }: PayloadAction<number>) => {
-      state.clickedId = payload;
+    changeEditBody: (
+      state,
+      {
+        payload,
+      }: PayloadAction<{
+        type: 'question' | 'answer';
+        body: string;
+        answerId?: number;
+      }>
+    ) => {
+      const { type, body, answerId: id } = payload;
+      if (type === 'question') {
+        state.editType = type;
+        state.editBody = body;
+      }
+      if (type === 'answer') {
+        const target = state.data?.answers.data.filter(
+          (el) => el.answerId === id
+        ) as Array<AnswerInfo>;
+        state.editType = type;
+        state.editBody = target[0].body;
+      }
     },
   },
   extraReducers: (builder) =>
@@ -42,6 +59,5 @@ const detailSlice = createSlice({
       }),
 });
 
-export const { changeDetailSortOption, changeEditType, changeClickedId } =
-  detailSlice.actions;
+export const { changeDetailSortOption, changeEditBody } = detailSlice.actions;
 export const detailReducer: Reducer<typeof initialState> = detailSlice.reducer;

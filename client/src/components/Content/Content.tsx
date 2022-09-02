@@ -11,7 +11,7 @@ import { useCallback, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle, useVoted } from '../../hooks';
-import { changeClickedId, changeEditType, useAppDispatch } from '../../redux';
+import { changeEditBody, useAppDispatch } from '../../redux';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 
@@ -71,9 +71,14 @@ const Content = ({
   }, []);
 
   const handleEditBtnClick = () => {
-    dispatch(changeEditType(type));
     if (params.id) {
-      dispatch(changeClickedId(answerId as number));
+      dispatch(
+        changeEditBody({
+          type,
+          body,
+          answerId,
+        })
+      );
       navigate(`/${params.id}/edit`);
     }
   };
