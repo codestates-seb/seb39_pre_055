@@ -114,7 +114,7 @@ const QuestionDetail = () => {
       </Container>
     );
 
-  return <div>not found</div>;
+  return <NotFound />;
 };
 
 export default QuestionDetail;

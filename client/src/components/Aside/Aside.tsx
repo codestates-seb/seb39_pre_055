@@ -28,6 +28,10 @@ export const Sidebar = styled.div`
     font-weight: 700;
   }
 
+  & > header:nth-child(3) {
+    border-top: 1px solid hsl(47, 65%, 84%);
+  }
+
   ul {
     padding: 4px 15px;
     background-color: #faf5e6;
