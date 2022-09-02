@@ -3,10 +3,8 @@ import be.answer.dto.AnswerResponseDto;
 import be.answer.entity.Answer;
 import be.answer.mapper.AnswerMapper;
 import be.answer.service.AnswerService;
-import be.question.dto.QuestionAndAnswerResponseDto;
-import be.question.dto.QuestionPostDto;
-import be.question.dto.QuestionResponseDto;
-import be.question.dto.QuestionTagResponseDto;
+import be.exception.BusinessLogicException;
+import be.question.dto.*;
 import be.question.entity.Question;
 import be.question.entity.QuestionTag;
 import be.response.MultiResponseDto;
@@ -16,6 +14,7 @@ import be.user.service.UserService;
 import org.mapstruct.Mapper;
 import org.springframework.data.domain.Page;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,13 +29,14 @@ public interface QuestionMapper {
         question.setView(0);
 
         // changing from QuestionTagDto to QuestionTag
-        List<QuestionTag> questionTags = questionPostDto.getQuestionTags()
-                .stream().map(questionTagDto -> {
-                    QuestionTag questionTag = new QuestionTag();
-                questionTag.addQuestion(question);
-                questionTag.setTagName(questionTagDto.getTagName());
-                return questionTag;
-                }).collect(Collectors.toList());
+        List<QuestionTag> questionTags =questionTagsDtosToQuestionTags(questionPostDto.getQuestionTags(),question);
+//        List<QuestionTag> questionTags = questionPostDto.getQuestionTags()
+//                .stream().map(questionTagDto -> {
+//                    QuestionTag questionTag = new QuestionTag();
+//                questionTag.addQuestion(question);
+//                questionTag.setTagName(questionTagDto.getTagName());
+//                return questionTag;
+//                }).collect(Collectors.toList());
 
         question.setQuestionTags(questionTags);
 
@@ -45,6 +45,37 @@ public interface QuestionMapper {
         question.setUser(userService.findUser(  //questionPostDto에 입력받은 userId에 해당하는 User 객체 불러옴
                 questionPostDto.getUserId()
         ));
+
+        return question;
+    }
+
+    default List<QuestionTag> questionTagsDtosToQuestionTags(List<QuestionTagDto> questionTagsDtos,Question question){
+        // changing from QuestionTagDto to QuestionTag
+        return questionTagsDtos.stream().map(questionTagDto -> {
+            QuestionTag questionTag = new QuestionTag();
+            questionTag.addQuestion(question);
+            questionTag.setTagName(questionTagDto.getTagName());
+            return questionTag;
+        }).collect(Collectors.toList());
+    }
+
+
+    default  Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto){
+        Question question = new Question();
+        question.setQuestionId(questionPatchDto.getQuestionId());
+
+        // changing from QuestionTagDto to QuestionTag
+
+        if(questionPatchDto.getQuestionTags()==null){
+            questionPatchDto.setQuestionTags(new ArrayList<>());
+        }
+        List<QuestionTag> questionTags =questionTagsDtosToQuestionTags(questionPatchDto.getQuestionTags(),question);
+        question.setQuestionTags(questionTags);
+        System.out.println(questionTags);
+        question.setBody(questionPatchDto.getBody());
+        question.setTitle(questionPatchDto.getTitle());
+        question.setVote(questionPatchDto.getVote());
+        question.setQuestionStatus(questionPatchDto.getQuestionStatus());
 
         return question;
     }
@@ -60,9 +91,10 @@ public interface QuestionMapper {
         questionResponseDto.setVote(question.getVote());
         questionResponseDto.setView(question.getView());
 
-        User user = question.getUser();
-        questionResponseDto.setUser(userMapper.userToUserResponseDto(user));
-        questionResponseDto.setQuestionTags(questionTagsToQuestionTagResponseDtos(
+        User user = question.getUser();//질문 작성자 속성 추가
+        questionResponseDto.setUser(userMapper.userToUserResponseDto(user));//질문 작성자 속성 추가
+
+        questionResponseDto.setQuestionTags(questionTagsToQuestionTagResponseDtos(//질문에 대한 태그 속성 추가
                 question.getQuestionTags()
         ));
 
@@ -73,6 +105,8 @@ public interface QuestionMapper {
 
 
     }
+
+    List<QuestionResponseDto> questionsToQuestionResponseDtos(List <Question> questions);
 
     default QuestionAndAnswerResponseDto questionToQuestionAndAnswerResponseDto(AnswerService answerService, AnswerMapper answerMapper,
                                                                                 UserMapper userMapper, Question question, Integer answerPage, Integer answerSize,
@@ -86,33 +120,46 @@ public interface QuestionMapper {
         questionAndAnswerResponseDto.setVote(question.getVote());
         questionAndAnswerResponseDto.setView(question.getView());
 
-        User user = question.getUser();
-        questionAndAnswerResponseDto.setUser(userMapper.userToUserResponseDto(user));
-        questionAndAnswerResponseDto.setQuestionTags(questionTagsToQuestionTagResponseDtos(
+        User user = question.getUser(); //질문 작성자 속성 추가
+        questionAndAnswerResponseDto.setUser(userMapper.userToUserResponseDto(user));//질문 작성자 속성 추가
+
+        questionAndAnswerResponseDto.setQuestionTags(questionTagsToQuestionTagResponseDtos( //질문에 대한 태그 속성 추가
                 question.getQuestionTags()
         ));
 
         questionAndAnswerResponseDto.setCreatedAt(question.getCreatedAt());
         questionAndAnswerResponseDto.setUpdatedAt(question.getUpdatedAt());
 
-        Page<Answer> pageAnswers = answerService.findAnswers(
-                question,answerPage,answerSize,answerSort); // 해당 question에 해당하는 answer의 sort 와 pagenation 결과를 가져온다.
-        List<Answer> answers = pageAnswers.getContent();
+        try{
+            Page<Answer> pageAnswers = answerService.findAnswers(
+                    question,answerPage,answerSize,answerSort); // 해당 question에 해당하는 answer의 sort 와 pagenation 결과를 가져온다.
+            List<Answer> answers = pageAnswers.getContent();
 //        questionAndAnswerResponseDto.setAnswers(new MultiResponseDto<>(
 //                answerMapper.answersToAnswerResponseDtos(userMapper,answers), pageAnswers));
-        questionAndAnswerResponseDto.setAnswers(new MultiResponseDto<>(
-                answerMapper.answersToAnswerResponseDtos(answers), pageAnswers));
+            questionAndAnswerResponseDto.setAnswers(new MultiResponseDto<>(
+                    answerMapper.answersToAnswerResponseDtos(answers), pageAnswers));
+        }catch(BusinessLogicException e){
+
+        }
+
 
         return questionAndAnswerResponseDto;
 
 
     }
 
-    List<QuestionResponseDto> questionsToQuestionResponseDtos(List <Question> questions);
+
 
     // changing from QuestionTag to QuestionTagResponseDto
     default List<QuestionTagResponseDto> questionTagsToQuestionTagResponseDtos(
             List<QuestionTag> questionTags) {
+//        return questionTags
+//                .stream()
+//                .map(questionTag -> QuestionTagResponseDto
+//                        .builder()
+//                        .tagName(questionTag.getTagName())
+//                        .build())
+//                .collect(Collectors.toList());
         return questionTags
                 .stream()
                 .map(questionTag -> QuestionTagResponseDto

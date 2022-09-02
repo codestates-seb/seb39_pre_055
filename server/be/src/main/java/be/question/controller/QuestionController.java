@@ -2,10 +2,13 @@ package be.question.controller;
 
 import be.answer.mapper.AnswerMapper;
 import be.answer.service.AnswerService;
+import be.question.dto.QuestionPatchDto;
 import be.question.dto.QuestionPostDto;
 import be.question.entity.Question;
+import be.question.entity.QuestionTag;
 import be.question.mapper.QuestionMapper;
 import be.question.service.QuestionService;
+import be.question.service.QuestionTagService;
 import be.response.MultiResponseDto;
 import be.response.SingleResponseDto;
 import be.user.mapper.UserMapper;
@@ -18,6 +21,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import java.util.List;
 
@@ -32,19 +36,22 @@ public class QuestionController {
     private final UserMapper userMapper;
     private final AnswerMapper answerMapper;
     private final AnswerService answerService;
+    private final QuestionTagService questionTagService;
 
     public QuestionController(QuestionService questionService,
                               QuestionMapper mapper,
                               UserService userService,
                               UserMapper userMapper,
                               AnswerMapper answerMapper,
-                              AnswerService answerService){
+                              AnswerService answerService,
+                              QuestionTagService questionTagService){
         this.mapper = mapper;
         this.questionService=questionService;
         this.userService = userService;
         this.userMapper = userMapper;
         this.answerMapper = answerMapper;
         this.answerService = answerService;
+        this.questionTagService = questionTagService;
     }
 
     /**
@@ -72,6 +79,8 @@ public class QuestionController {
         Page<Question> pageQuestions = questionService.findQuestions(page-1,size,sort);
 
         List<Question> questions = pageQuestions.getContent();
+        questions.stream().forEach(question -> question.setQuestionTags(questionTagService.findVerifiedQuestionTags(question))); //해당 질문의 Tag상태가 QUESTIONS_TAG_EXIST만 표시
+
         return new ResponseEntity<>(new MultiResponseDto<>(
                 mapper.questionsToQuestionResponseDtos(questions),
                 pageQuestions),HttpStatus.OK);
@@ -92,6 +101,33 @@ public class QuestionController {
                         answerPage,answerSize,answerSort)),
                 HttpStatus.OK);
     }
+
+
+    /**
+     *본인 질문 글 수정 API
+     * **/
+    @PatchMapping("/{question-id}")
+    public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
+                                        @Valid @RequestBody QuestionPatchDto questionPatchDto){
+        questionPatchDto.setQuestionId(questionId);
+        Question question = mapper.questionPatchDtoToQuestion(questionPatchDto);
+        Question updatedQuestion = questionService.updateQuestion(question);
+
+//        if(!question.getQuestionTags().isEmpty()){//태그 업데이트
+//            questionTagService.deleteQuestionTags(question);
+//            System.out.println("태그 삭제됌");
+//            List<QuestionTag> questionTags = questionTagService.createQuestionTags(question.getQuestionTags());
+//            System.out.println("태그 업데이트됌");
+//            updatedQuestion.setQuestionTags(questionTags);
+//        }
+
+
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(userMapper,updatedQuestion)),
+                HttpStatus.OK);
+    }
+
 
 
 
