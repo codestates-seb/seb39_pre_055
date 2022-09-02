@@ -1,6 +1,5 @@
 /* eslint-disable testing-library/no-render-in-setup */
 import { render, screen } from '@testing-library/react';
-import userEvent from '@testing-library/user-event';
 
 import AnchorCard from '../../components/AnchorCard/AnchorCard';
 
