@@ -16,7 +16,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
-import { getUser } from '../../redux/actions/userAction';
+import { getUserList } from '../../redux/actions/userAction';
 import { PaginationContainer } from '../Tags/style';
 import {
   Container,
@@ -39,7 +39,7 @@ const Users = () => {
   } = useAppSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(getUser());
+    dispatch(getUserList());
   }, [dispatch, sortOption, page, dateOption, inName, timeStamp]);
 
   return (

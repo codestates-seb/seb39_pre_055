@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 
 import { UserInitialState } from '../../types/user';
 import { getSpecificDate } from '../../utils';
-import { getUser } from '../actions/userAction';
+import { getUserList } from '../actions/userAction';
 
 const initialState: UserInitialState = {
   user: {
@@ -70,14 +70,14 @@ const userSlice = createSlice({
   extraReducers: (builder) =>
     builder
       // getUser
-      .addCase(getUser.pending, (state) => {
+      .addCase(getUserList.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getUser.fulfilled, (state, { payload }) => {
+      .addCase(getUserList.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.userList = payload;
       })
-      .addCase(getUser.rejected, (state, { payload }) => {
+      .addCase(getUserList.rejected, (state, { payload }) => {
         state.isLoading = false;
         if (payload) {
           state.errorMsg = payload;
