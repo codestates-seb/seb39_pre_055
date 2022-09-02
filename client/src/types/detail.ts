@@ -50,3 +50,9 @@ export interface PageInfo {
   totalElements: number;
   totalPages: number;
 }
+
+export type Tbody = {
+  type: 'question' | 'answer';
+  body: string;
+  answerId?: number;
+};
