@@ -35,7 +35,7 @@ export const editQuestion = createAsyncThunk<
 >('detail/editQuestion', async (payload, thunkAPI) => {
   const { id, title, body, questionTags } = payload;
   try {
-    const response = await axiosInstance.patch(`/v1/question1/${id}`, {
+    const response = await axiosInstance.patch(`/v1/question/${id}`, {
       title,
       body,
       questionTags,
