@@ -87,7 +87,7 @@ const Users = () => {
           ))
         )}
       </UserContainer>
-      {userList.length > 71 && (
+      {userList.length > 71 && !isLoading && (
         <PaginationContainer>
           <CustomPagination
             activePage={page}
