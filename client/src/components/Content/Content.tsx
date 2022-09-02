@@ -18,7 +18,7 @@ import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 interface Prop {
   type: 'question' | 'answer';
   body: string;
-  tags?: Array<{ tagName: string }>;
+  tags?: Array<string>;
   user: {
     userId: number;
     displayName: string;
@@ -91,10 +91,7 @@ const Content = ({
           plugins={[[codeSyntaxHighlight, { highlighter: Prism }]]}
         />
         {type === 'question' && (
-          <Tags>
-            {tags &&
-              tags.map((tag) => <Tag key={tag.tagName} name={tag.tagName} />)}
-          </Tags>
+          <Tags>{tags && tags.map((tag) => <Tag key={tag} name={tag} />)}</Tags>
         )}
         <Utils>
           <div>

@@ -22,7 +22,7 @@ import {
 import { ENG_REGEX } from '../../constants/regex';
 import { useInput } from '../../hooks';
 import { useAppDispatch, useAppSelector } from '../../redux';
-import { AnswerInfo, QuestionTag } from '../../types';
+import { AnswerInfo } from '../../types';
 import { question, tagFormat } from '../../utils';
 import {
   ButtonsContainer,
