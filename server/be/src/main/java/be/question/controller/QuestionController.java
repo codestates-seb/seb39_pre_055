@@ -120,6 +120,26 @@ public class QuestionController {
                 HttpStatus.OK);
     }
 
+    /**
+     *질문글 검색 API
+     *
+     * **/
+    @GetMapping("/question/search")
+    public ResponseEntity getQuestions(@RequestParam("search") String keyWord,
+                                       @Positive @RequestParam("page") int page,
+                                       @Positive @RequestParam("size") int size,
+                                       @RequestParam("sort") String sort){
+
+        Page<Question> searchResult = questionService.searchQuestions(keyWord,page-1,size,sort);
+
+        List<Question> questions = searchResult.getContent();
+        questions.stream().forEach(question -> question.setQuestionTags(questionTagService.findVerifiedQuestionTags(question))); //해당 질문의 Tag상태가 QUESTIONS_TAG_EXIST만 표시
+
+        return new ResponseEntity<>(new MultiResponseDto<>(
+                mapper.questionsToQuestionResponseDtos(questions),
+                searchResult),HttpStatus.OK);
+
+    }
 
 
 
