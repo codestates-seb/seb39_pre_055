@@ -1,6 +1,7 @@
-import { Dispatch, RefObject, SetStateAction, useState } from 'react';
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 
+import { useAppSelector } from '../../../redux';
 import { Hamburger } from '../..';
 import MainAuth from './MainAuthButtons/MainAuthButtons';
 import SearchBarBox from './MainSearchBar/MainSearchBar';
@@ -15,7 +16,7 @@ interface NavProps {
 }
 
 const Nav = ({ setFloatSearch, searchInput }: NavProps) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const isLoggedIn = !!useAppSelector((state) => state.user.user);
 
   return (
     <SHeader>

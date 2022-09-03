@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 
 export const Container = styled.div`
+  display: flex;
+  gap: 30px;
   height: 100%;
   padding: 24px;
   border-left: 1px solid rgb(227, 230, 232);
@@ -11,6 +13,16 @@ export const Container = styled.div`
     margin-bottom: 6px;
     font-weight: 600;
   }
+
+  @media screen and (max-width: 1250px) {
+    flex-direction: column;
+  }
+`;
+
+export const SMain = styled.section`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 `;
 
 export const TitleContainer = styled.div`
@@ -19,6 +31,10 @@ export const TitleContainer = styled.div`
 
 export const EditorContainer = styled.div`
   margin-bottom: 30px;
+
+  & > h2 {
+    font-size: 15px;
+  }
 `;
 
 export const TagsContainer = styled.div`
@@ -27,6 +43,7 @@ export const TagsContainer = styled.div`
 
 export const ButtonsContainer = styled.div`
   display: flex;
+  margin-bottom: 30px;
 `;
 
 export const CancelButton = styled.button`

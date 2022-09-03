@@ -5,7 +5,7 @@ import { UserInfo } from '../../types';
 import { STACK_EXCHANGE_URL } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
-export const getUser = createAsyncThunk<
+export const getUserList = createAsyncThunk<
   Array<UserInfo>,
   undefined,
   CreateAsyncThunkTypes
@@ -13,7 +13,7 @@ export const getUser = createAsyncThunk<
   try {
     const { page, sortOption, timeStamp, inName } = thunkAPI.getState().user;
     const response = await axios.get(
-      `${STACK_EXCHANGE_URL}/users?page=${page}&pagesize=73&fromdate=${timeStamp
+      `${STACK_EXCHANGE_URL}/users?page=${page}&pagesize=72&fromdate=${timeStamp
         .toString()
         .slice(0, 10)}&todate=${Date.now()
         .toString()

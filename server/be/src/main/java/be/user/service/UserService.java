@@ -4,6 +4,7 @@ import be.exception.BusinessLogicException;
 import be.exception.ExceptionCode;
 import be.user.entity.User;
 import be.user.repository.UserRepository;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -12,9 +13,13 @@ import java.util.Optional;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public UserService(UserRepository userRepository){
+    public UserService(UserRepository userRepository,
+                       BCryptPasswordEncoder bCryptPasswordEncoder){
+
         this.userRepository = userRepository;
+        this.bCryptPasswordEncoder = bCryptPasswordEncoder;
     }
 
     public User findUser(long userId){
@@ -31,6 +36,9 @@ public class UserService {
     public User createUser(User user) {
         // 이미 등록된 이메일인지 확인
         verifyExistsEmail(user.getEmail());
+
+        user.setPassword(bCryptPasswordEncoder.encode(user.getPassword()));
+        user.setRole("ROLE_USER");
 
         return userRepository.save(user);
     }

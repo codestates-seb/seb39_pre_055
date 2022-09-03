@@ -94,6 +94,7 @@ const Footer = styled.div`
   }
 `;
 
+
 const ServiceLink = styled.span`
   color: var(--blue-600);
 `;

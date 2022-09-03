@@ -15,7 +15,7 @@ import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-
+// 커밋위해
 @NoArgsConstructor
 @Getter
 @Setter
@@ -25,7 +25,6 @@ public class Question extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(columnDefinition = "INT")
     private Long questionId;
 
 //    @Column(nullable = false)

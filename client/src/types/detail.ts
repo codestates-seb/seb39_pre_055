@@ -1,6 +1,7 @@
 export interface DetailInitialState {
   isLoading: boolean;
   editType: string;
+  editBody: string;
   sortOption: string;
   data: DetailData | null;
 }
@@ -14,7 +15,7 @@ export interface DetailData {
   view: number;
   user: User;
   answers: Answers;
-  questionTags: QuestionTag[];
+  questionTags: string[];
   createdAt: string;
   updatedAt: string;
 }
@@ -50,6 +51,8 @@ export interface PageInfo {
   totalPages: number;
 }
 
-export interface QuestionTag {
-  tagName: string;
-}
+export type Tbody = {
+  type: 'question' | 'answer';
+  body: string;
+  answerId?: number;
+};

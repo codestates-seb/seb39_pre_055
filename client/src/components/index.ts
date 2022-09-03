@@ -1,5 +1,6 @@
 export { default as Accordion } from './Accordian/Accordion';
 export { default as AnchorCard } from './AnchorCard/AnchorCard';
+export { default as Aside } from './Aside/Aside';
 export { default as DateButton } from './Button/DateButton';
 export { default as DefaultBtn } from './Button/DefaultButton';
 export { default as SortButton } from './Button/SortButton';
@@ -14,6 +15,7 @@ export { default as Hamburger } from './Hamburger/Hamburger';
 export { default as DefaultInput } from './Input/DefaultInput/DefaultInput';
 export { default as TagInput } from './Input/TagInput/TagInput';
 export { default as LoadingSpinner } from './LoadingSpinner/LoadingSpinner';
+export { default as NotFound } from './NotFound/NotFound';
 export { default as CustomPagination } from './Pagination/CustomPagination';
 export { default as QuestionInfo } from './QuestionInfo/QuestionInfo';
 export { default as SearchBar } from './SearchBar/SearchBar';

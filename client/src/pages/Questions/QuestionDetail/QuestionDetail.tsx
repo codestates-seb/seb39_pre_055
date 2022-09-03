@@ -9,8 +9,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   AnswerEditor,
+  Aside,
   BlueButton,
   Content,
+  LoadingSpinner,
+  NotFound,
   QuestionInfo,
 } from '../../../components';
 import {
@@ -19,14 +22,21 @@ import {
   useAppSelector,
 } from '../../../redux';
 import { getDetail } from '../../../redux/actions/detailAction';
-import { AnswerHeader, Container, Header, SubHeader } from './style';
+import {
+  AnswerHeader,
+  Container,
+  Header,
+  SMain,
+  SubHeader,
+  Wrapper,
+} from './style';
 
 const QuestionDetail = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-  const { isLoading, data, sortOption } = useAppSelector(
+  const { data, sortOption, isLoading } = useAppSelector(
     (state) => state.detail
   );
 
@@ -34,9 +44,18 @@ const QuestionDetail = () => {
     if (params.id) {
       dispatch(getDetail(params.id));
     }
-  }, [dispatch, params, sortOption]);
+  }, [dispatch, params, sortOption, data?.body]);
 
-  if (isLoading) return <p>Loading...</p>;
+  if (isLoading)
+    return (
+      <Wrapper>
+        <LoadingSpinner />
+      </Wrapper>
+    );
+
+  if (data?.questionStatus === 'QUESTION_NOT_EXIST') {
+    return <NotFound />;
+  }
 
   if (data)
     return (
@@ -44,65 +63,75 @@ const QuestionDetail = () => {
         {/* question */}
         <Header>
           <h1>{data.title}</h1>
-          <BlueButton
-            width="120px"
-            height="35px"
-            onClick={() => navigate('/ask')}
-          >
-            Ask Questions
-          </BlueButton>
+          <div>
+            <BlueButton
+              width="120px"
+              height="35px"
+              onClick={() => navigate('/ask')}
+            >
+              Ask Questions
+            </BlueButton>
+          </div>
         </Header>
         <SubHeader>
           <QuestionInfo option="Asked" value={data.createdAt} />
           <QuestionInfo option="Modified" value={data.updatedAt} />
           <QuestionInfo option="Viewed" value={data.view} isViewd={true} />
         </SubHeader>
-        <Content
-          type="question"
-          body={data.body}
-          tags={data.questionTags}
-          user={data.user}
-          createdAt={data.createdAt}
-          vote={data.vote}
-        />
-        {/* answer */}
-        {data.answers.data.length > 0 && (
-          <>
-            <AnswerHeader>
-              <h2>2 Answers</h2>
-              <div>
-                <label htmlFor="sort">Sorted by:</label>
-                <select
-                  name="sort"
-                  id="sort"
-                  onChange={(e) =>
-                    dispatch(changeDetailSortOption(e.target.value))
-                  }
-                >
-                  <option value="vote">Highest score (default)</option>
-                  <option value="createdAt">Date created (newest first)</option>
-                </select>
-              </div>
-            </AnswerHeader>
-            {data.answers.data.map((answer) => (
-              <Content
-                key={answer.answerId}
-                type="answer"
-                body={answer.body}
-                user={answer.user}
-                createdAt={answer.createdAt}
-                vote={answer.vote}
-              />
-            ))}
-          </>
-        )}
-        {/* editor */}
-        <h3>Your Answer</h3>
-        <AnswerEditor />
+        <SMain>
+          <section>
+            <Content
+              type="question"
+              body={data.body}
+              tags={data.questionTags}
+              user={data.user}
+              createdAt={data.createdAt}
+              vote={data.vote}
+            />
+            {/* answer */}
+            {data.answers && (
+              <>
+                <AnswerHeader>
+                  <h2>{data.answers.data.length} Answers</h2>
+                  <div>
+                    <label htmlFor="sort">Sorted by:</label>
+                    <select
+                      name="sort"
+                      id="sort"
+                      onChange={(e) =>
+                        dispatch(changeDetailSortOption(e.target.value))
+                      }
+                    >
+                      <option value="vote">Highest score (default)</option>
+                      <option value="createdAt">
+                        Date created (newest first)
+                      </option>
+                    </select>
+                  </div>
+                </AnswerHeader>
+                {data.answers.data.map((answer) => (
+                  <Content
+                    key={answer.answerId}
+                    type="answer"
+                    body={answer.body}
+                    user={answer.user}
+                    createdAt={answer.createdAt}
+                    vote={answer.vote}
+                    answerId={answer.answerId}
+                  />
+                ))}
+              </>
+            )}
+            {/* editor */}
+            <h3>Your Answer</h3>
+            <AnswerEditor />
+          </section>
+          <Aside />
+        </SMain>
       </Container>
     );
 
-  return <div>not found</div>;
+  return <NotFound />;
 };
 
 export default QuestionDetail;
