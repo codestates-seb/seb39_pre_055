@@ -5,6 +5,7 @@ import be.exception.ExceptionCode;
 import be.question.entity.Question;
 import be.question.entity.QuestionTag;
 import be.question.repository.QuestionRepository;
+import be.user.entity.User;
 import be.user.service.UserService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -59,6 +60,10 @@ public class QuestionService {
         return findAllQuestion;
 
     }
+    public User findQuestionUser(long questionId){
+        Question findQuestion = findVerifiedQuestion(questionId); //요청된 질문이 DB에 없으면 에러
+        return findQuestion.getUser();
+    }
 
     public Page<Question> searchQuestions(String keyWord,int page, int size,String sort){//전체 question에 pagenation과 sort 구현
 
@@ -72,6 +77,13 @@ public class QuestionService {
         return searchResult;
 
     }
+    public Question voteQuestion(long questionId,int vote){ //추천수 바꿔주는 메소드
+        Question findQuestion = findVerifiedQuestion(questionId);//요청된 질문이 DB에 없으면 에러
+        findQuestion.setVote(vote);
+        Question updatedQuestion =questionRepository.save(findQuestion);
+        updatedQuestion.setQuestionTags(questionTagService.findVerifiedQuestionTags(updatedQuestion)); //해당 질문의 Tag상태가 QUESTIONS_TAG_EXIST만 표시
+        return updatedQuestion;
+    }
 
     public Question updateQuestion(Question question){
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());//요청된 질문이 DB에 없으면 에러
@@ -82,9 +94,6 @@ public class QuestionService {
         Optional.ofNullable(question.getBody()) //내용수정
                 .ifPresent(questionBody->findQuestion.setBody(questionBody));
 
-
-//        Optional.ofNullable(question.getQuestionTags()) //태그수정
-//                .ifPresent(QuestionTags->findQuestion.setQuestionTags(QuestionTags));
 
 
         Optional.ofNullable(question.getVote()) //추천 수 수정
@@ -99,7 +108,7 @@ public class QuestionService {
 
         Question updatedQuestion = questionRepository.save(findQuestion);
 
-        if(!question.getQuestionTags().isEmpty()){//태그 업데이트
+        if(!question.getQuestionTags().isEmpty()){//태그 수정 (태그 DB업데이트)
             questionTagService.deleteQuestionTags(question); //기존 태그 삭제(QUESTIONS_TAG_NOT_EXIST)됌
 
             questionTagService.createQuestionTags(question.getQuestionTags()); //새 태그로 갱신
@@ -114,7 +123,7 @@ public class QuestionService {
         }
     }
 
-    private Question findVerifiedQuestion(long questionId){ //요청된 질문이 DB에 없으면 에러
+    public Question findVerifiedQuestion(long questionId){ //요청된 질문이 DB에 없으면 에러
         Optional<Question> optionalQuestion = questionRepository.findById(questionId);
         Question findQuestion = optionalQuestion.orElseThrow(()->
                 new BusinessLogicException(ExceptionCode.QUESTION_NOT_FOUND));

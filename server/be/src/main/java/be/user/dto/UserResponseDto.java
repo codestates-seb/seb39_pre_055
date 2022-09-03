@@ -13,7 +13,7 @@ import javax.validation.constraints.NotBlank;
 @NoArgsConstructor
 public class UserResponseDto {
 
-    private long userId;
+//    private long userId;
     private String displayName;
     private String email;
 //    private String password;

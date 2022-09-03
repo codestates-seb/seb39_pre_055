@@ -2,8 +2,11 @@ package be.question.controller;
 
 import be.answer.mapper.AnswerMapper;
 import be.answer.service.AnswerService;
+import be.exception.BusinessLogicException;
+import be.exception.ExceptionCode;
 import be.question.dto.QuestionPatchDto;
 import be.question.dto.QuestionPostDto;
+import be.question.dto.QuestionVoteDto;
 import be.question.entity.Question;
 import be.question.entity.QuestionTag;
 import be.question.mapper.QuestionMapper;
@@ -13,6 +16,7 @@ import be.response.MultiResponseDto;
 import be.response.SingleResponseDto;
 import be.user.mapper.UserMapper;
 import be.user.service.UserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
@@ -29,6 +33,7 @@ import java.util.List;
 @RequestMapping("/v1")
 @Validated
 @Slf4j
+@AllArgsConstructor
 public class QuestionController {
     private final QuestionService questionService;
     private final QuestionMapper mapper;
@@ -39,21 +44,6 @@ public class QuestionController {
     private final QuestionTagService questionTagService;
 
 
-    public QuestionController(QuestionService questionService,
-                              QuestionMapper mapper,
-                              UserService userService,
-                              UserMapper userMapper,
-                              AnswerMapper answerMapper,
-                              AnswerService answerService,
-                              QuestionTagService questionTagService){
-        this.mapper = mapper;
-        this.questionService=questionService;
-        this.userService = userService;
-        this.userMapper = userMapper;
-        this.answerMapper = answerMapper;
-        this.answerService = answerService;
-        this.questionTagService = questionTagService;
-    }
 
     /**
      * 질문 작성 API
@@ -106,17 +96,32 @@ public class QuestionController {
 
     /**
      *본인 질문 글 수정 API
-     *참고로 우리 스택오버플로우는 추천,비추천은 회원만 가능
+     *참고로 우리 스택오버플로우는 추천,비추천은 회원만 가능 -> X
+     * 자기가 작성한 글만 수정 가능
      * **/
     @PatchMapping("/user/question/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto){
+
         questionPatchDto.setQuestionId(questionId);
-        Question question = mapper.questionPatchDtoToQuestion(questionPatchDto);
+        Question question = mapper.questionPatchDtoToQuestion(questionService,userService,questionPatchDto);
         Question updatedQuestion = questionService.updateQuestion(question);
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToQuestionResponseDto(userMapper,updatedQuestion)),
+                HttpStatus.OK);
+    }
+    /**
+     * 질문글 추천 or 비추천
+     * **/
+    @PatchMapping("/question/vote/{question-id}")
+    public ResponseEntity voteQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
+                                        @Valid @RequestBody QuestionVoteDto questionVoteDto){
+
+        Question votedQuestion = questionService.voteQuestion(questionId,questionVoteDto.getVote());
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.questionToQuestionResponseDto(userMapper,votedQuestion)),
                 HttpStatus.OK);
     }
 
