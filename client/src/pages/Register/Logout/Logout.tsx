@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { BlueButton } from '../../../components';
 import { LINK_DATA } from '../../../constants';
-import { logOut, useAppDispatch } from '../../../redux';
+import { logOutUser, useAppDispatch } from '../../../redux';
 import {
   ButtonContainer,
   Checkbox,
@@ -18,7 +18,7 @@ const Logout = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const handleLogout = () => {
-    dispatch(logOut());
+    dispatch(logOutUser());
     navigate('/');
   };
   const handleCancel = () => {

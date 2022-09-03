@@ -1,18 +1,27 @@
 /* eslint-disable react/no-unescaped-entities */
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { BlueButton, DefaultInput } from '../../../components';
 import { ERROR_MSG_01, ERROR_MSG_03 } from '../../../constants';
+import { loginUser, useAppDispatch, useAppSelector } from '../../../redux';
 import { EMAIL_REGEX } from '../../../utils';
 import { BottomIconSVG, Container, LoginCard, TextCard } from './style';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isLoading, user } = useAppSelector((state) => state.user);
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
   const [passwordError, setPasswordError] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     if (EMAIL_REGEX.test(e.target.value)) {
@@ -34,7 +43,12 @@ const Login = () => {
       if (passwordValue.length < 4) setPasswordError(true);
       return;
     }
-    navigate('/');
+    dispatch(
+      loginUser({
+        email: emailValue,
+        password: passwordValue,
+      })
+    );
   };
 
   return (
@@ -58,7 +72,7 @@ const Login = () => {
           errorMsg={ERROR_MSG_03}
           onChange={handleChangePassword}
         />
-        <BlueButton height="35px" onClick={handleSubmit}>
+        <BlueButton height="35px" onClick={handleSubmit} isPending={isLoading}>
           Log in
         </BlueButton>
       </LoginCard>

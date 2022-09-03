@@ -60,3 +60,9 @@ export interface ExternalLink {
   type: string;
   link: string;
 }
+
+export interface LoginPayload {
+  displayName?: string;
+  email: string;
+  password: string;
+}

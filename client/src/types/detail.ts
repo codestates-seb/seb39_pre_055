@@ -42,6 +42,7 @@ export interface User {
   password: string;
   image: string;
   userStatus: string;
+  token: string;
 }
 
 export interface PageInfo {
