@@ -1,5 +1,8 @@
+import { User } from './detail';
+
 export interface UserInitialState {
   page: number;
+  user: User | null;
   userList: Array<UserInfo>;
   sortOption: string;
   dateOption: string;

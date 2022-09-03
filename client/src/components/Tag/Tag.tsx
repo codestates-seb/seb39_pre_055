@@ -12,6 +12,10 @@ const Wrapper = styled.button`
   font-size: 12px;
   cursor: auto;
 
+  span {
+    white-space: nowrap;
+  }
+
   div {
     display: flex;
     align-items: center;

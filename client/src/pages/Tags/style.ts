@@ -25,7 +25,7 @@ export const SearchBarContainer = styled.div`
 
 export const TagsContainer = styled.section`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(2, 1fr);
   gap: 10px;
   margin-bottom: 40px;
 

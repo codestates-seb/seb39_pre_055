@@ -1,10 +1,10 @@
+/* eslint-disable react/display-name */
+import { memo } from 'react';
 import styled from 'styled-components';
 
-interface Prop {
-  counts: string;
-}
+import { useAppSelector } from '../../redux';
 
-const Wrapper = styled.span`
+const Wrapper = styled.p`
   display: flex;
   justify-content: center;
   border: none;
@@ -20,16 +20,15 @@ const Wrapper = styled.span`
   }
 `;
 
-const CountQuestions = ({ counts }: Prop) => {
-  const setCounts = 22936387; // 질문의 총 개수 값이 들어오게 수정해야함
-  const result = setCounts.toLocaleString('ko-KR');
-  counts = result;
+const CountQuestions = memo(() => {
+  const totalCounts = useAppSelector((store) => store.question.totalElements);
+
   return (
     <Wrapper>
-      <span>{counts}</span>
+      <span>{totalCounts.toLocaleString('ko-KR')}</span>
       <span>questions</span>
     </Wrapper>
   );
-};
+});
 
 export default CountQuestions;

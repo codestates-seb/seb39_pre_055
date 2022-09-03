@@ -1,7 +1,7 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
-import { SharedLayout } from './components';
+import { NotFound, SharedLayout } from './components';
 import {
   AskQuestion,
   EditQuestion,
@@ -17,7 +17,7 @@ import Users from './pages/Users/Users';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<QuestionList />} />
@@ -29,13 +29,14 @@ const App = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/logout" element={<Logout />} />
           <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="/search/*" element={<SharedLayout />}>
           <Route index element={<Search />} />
         </Route>
       </Routes>
       <ToastContainer position="top-center" pauseOnFocusLoss theme="colored" />
-    </BrowserRouter>
+    </>
   );
 };
 

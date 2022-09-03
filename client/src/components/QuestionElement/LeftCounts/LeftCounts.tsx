@@ -1,19 +1,25 @@
+/* eslint-disable react/display-name */
+import { memo } from 'react';
+
+import { selectQInfos, useAppSelector } from '../../../redux';
 import { Container, Wrapper, Wrapper2, Wrapper3 } from './style';
 
 interface Prop {
-  votes: number;
-  answers: number;
-  views: number;
+  id: number;
 }
 
-const LeftCounts = ({ votes, answers, views }: Prop) => {
+const LeftCounts = memo(({ id }: Prop) => {
+  const { vote, view /* answers */ } = useAppSelector((state) =>
+    selectQInfos(state, id)
+  );
+
   return (
     <Container>
-      <Wrapper>{votes} votes</Wrapper>
-      <Wrapper2>{answers} answers</Wrapper2>
-      <Wrapper3>{views} views</Wrapper3>
+      <Wrapper>{vote} votes</Wrapper>
+      <Wrapper2>{/* answers */} answers</Wrapper2>
+      <Wrapper3>{view} views</Wrapper3>
     </Container>
   );
-};
+});
 
 export default LeftCounts;

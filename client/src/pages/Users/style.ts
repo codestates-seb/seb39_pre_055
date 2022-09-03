@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
   height: 100%;
@@ -23,18 +23,22 @@ export const SearchContainer = styled.div`
   margin-left: -7px;
 `;
 
-export const UserContainer = styled.section`
+export const UserContainer = styled.section<{ isLoading: boolean }>`
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 10px;
   margin-top: 25px;
   margin-bottom: 40px;
 
-  & > div:last-child {
-    position: absolute;
-    top: 40%;
-    left: 50%;
-  }
+  ${({ isLoading }) =>
+    isLoading &&
+    css`
+      & > div:last-child {
+        position: absolute;
+        top: 40%;
+        left: 50%;
+      }
+    `}
 
   @media screen and (max-width: 1265px) {
     grid-template-columns: repeat(3, 1fr);

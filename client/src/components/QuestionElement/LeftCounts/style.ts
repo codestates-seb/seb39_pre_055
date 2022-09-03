@@ -36,7 +36,7 @@ export const Wrapper3 = styled.div`
   }
 `;
 
-export const Container = styled.div`
+export const Container = styled.section`
   display: flex;
   flex-direction: column;
   align-items: flex-end;

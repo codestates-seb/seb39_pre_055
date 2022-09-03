@@ -7,7 +7,7 @@ export interface User {
   userStatus: string;
 }
 
-export interface QuestionSortList {
+export interface Question {
   questionId: number;
   questionStatus: string;
   title: string;
@@ -15,14 +15,16 @@ export interface QuestionSortList {
   vote: number;
   view: number;
   user: User;
-  questionTags: Array<{ tagName: string }>;
+  questionTags: Array<string>;
   createdAt: string;
   updatedAt: string;
 }
 
-export interface QuestionSortInitialState {
+export interface QuestionList {
   page: number;
-  questionList: Array<QuestionSortList>;
+  totalElements: number;
+  totalPages: number;
+  questionList: Array<Question>;
   sortOption: string;
   inName: string;
   isLoading: boolean;

@@ -1,7 +1,26 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
+export const SMain = styled.div`
+  display: flex;
+  width: 100%;
+
+  & > section {
+    width: 100%;
+  }
+`;
+
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 24px;
+  height: 100%;
   border-left: 1px solid rgb(227, 230, 232);
 
   h3 {
@@ -21,14 +40,19 @@ export const Header = styled.header`
     font-size: 27px;
     color: var(--black-700);
     word-break: break-all;
+    line-height: 31px;
   }
 
-  @media screen and (max-width: ${({ theme }) => theme.breakPoints.mobile}) {
+  @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
     flex-direction: column-reverse;
+
+    & > div {
+      height: 35px;
+      margin-bottom: 10px;
+    }
 
     button {
       margin-left: auto;
-      margin-bottom: 10px;
     }
   }
 `;
