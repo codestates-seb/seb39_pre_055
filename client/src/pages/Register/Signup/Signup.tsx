@@ -1,9 +1,10 @@
 import { ChangeEvent, Dispatch, SetStateAction } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { BlueButton, DefaultInput } from '../../../components';
+import { BlueButton } from '../../../components';
 import Checkbox from '../../../components/Checkbox/Checkbox';
+import SignupInput from '../../../components/SignupInput/SignupInput';
 import SignupSideInfo from '../../../components/SignupSideInfo/SignupSideInfo';
 
 interface Prop {
@@ -39,11 +40,9 @@ const SideContainer = styled.span`
       flex-direction: column;
     }
 
-    @media (max-width: 640px) {
-      visibility: hidden;
+    @media (max-width: 817px) {
+      display: none;
       }
-    }
-  }
 `;
 
 const SignUpContainer = styled.div`
@@ -53,7 +52,6 @@ const SignUpContainer = styled.div`
   align-items: center;
   width: 316px;
   height: 934px;
-  // border: 1px solid black;
 `;
 
 const UserInputContainer = styled.div`
@@ -72,76 +70,11 @@ const UserInputContainer = styled.div`
   margin-bottom: 24px;
 `;
 
-const SocialSignup = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  width: 316px;
-  height: 137px;
-  margin-bottom: 16px;
-`;
-
-const GoogleSignup = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  border-radius: 5px;
-  font-size: 13px;
-  color: var(--black-800);
-  border: 1px solid var(--black-100);
-  width: 316px;
-  height: 38px;
-  margin: 4px 0px;
-  padding: 10.4px;
-
-  :hover {
-    background-color: var(--black-30);
-  }
-`;
-
-const GitHubSignup = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--black-700);
-  border-radius: 5px;
-  font-size: 13px;
-  color: white;
-  border: 1px solid var(--black-100);
-  width: 316px;
-  height: 38px;
-  margin: 4px 0px;
-  padding: 10.4px;
-
-  :hover {
-    background-color: var(--black-800);
-  }
-`;
-
-const FacebookSignup = styled.button`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: var(--blue-800);
-  border-radius: 5px;
-  font-size: 13px;
-  color: white;
-  border: 1px solid var(--black-100);
-  width: 316px;
-  height: 38px;
-  margin: 4px 0px;
-  padding: 10.4px;
-
-  :hover {
-    background-color: var(--blue-900);
-  }
-`;
-
 const CookieInfo = styled.div`
   font-size: 12px;
   line-height: 15.7px;
-  font-weight: 400;
+  font-weight: 500;
+  color: var(--black-500);
 `;
 
 const Footer = styled.div`
@@ -161,7 +94,21 @@ const Footer = styled.div`
   }
 `;
 
+
+const ServiceLink = styled.span`
+  color: var(--blue-600);
+`;
+
+const PrivacyLink = styled.span`
+  color: var(--blue-600);
+`;
+
+const CookieLink = styled.span`
+  color: var(--blue-600);
+`;
+
 const Signup = () => {
+  const navigate = useNavigate();
   return (
     <Container>
       <SideContainer>
@@ -172,22 +119,39 @@ const Signup = () => {
         <SignupSideInfo icon="icon" text="Get unstuck — ask a question" />
       </SideContainer>
       <SignUpContainer>
-        <SocialSignup>
-          <GoogleSignup>Sign up with Google</GoogleSignup>
-          <GitHubSignup>Sign up with GitHub</GitHubSignup>
-          <FacebookSignup>Sign up with Facebook</FacebookSignup>
-        </SocialSignup>
         <UserInputContainer>
-          <div>Display name</div>
-          <div>Email</div>
-          <div>password</div>
+          <SignupInput />
           <Checkbox />
-          <BlueButton width="268px" height="38px">
+          <BlueButton
+            width="268px"
+            height="38px"
+            onClick={() => navigate('/login')}
+          >
             Sign up
           </BlueButton>
           <CookieInfo>
-            By clicking “Sign up”, you agree to our terms of service, privacy
-            policy and cookie policy
+            <span>By clicking “Sign up”, you agree to our </span>
+            <ServiceLink
+              onClick={() =>
+                navigate('/stackoverflow.com/legal/terms-of-service/public')
+              }
+            >
+              terms of service
+            </ServiceLink>
+            <span>, </span>
+            <PrivacyLink
+              onClick={() =>
+                navigate('https://stackoverflow.com/legal/privacy-policy')
+              }
+            >
+              privacy policy
+            </PrivacyLink>
+            <span> and </span>
+            <CookieLink
+              onClick={() => 'https://stackoverflow.com/legal/cookie-policy'}
+            >
+              cookie policy
+            </CookieLink>
           </CookieInfo>
         </UserInputContainer>
         <Footer>
