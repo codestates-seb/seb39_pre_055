@@ -38,9 +38,10 @@ export const Header = styled.header`
   h1 {
     flex-basis: 85%;
     font-size: 27px;
+    font-weight: 600;
     color: var(--black-700);
     word-break: break-all;
-    line-height: 31px;
+    line-height: 36px;
   }
 
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {
