@@ -8,6 +8,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.*;
 import javax.persistence.Id;
 
 @NoArgsConstructor
@@ -61,4 +62,14 @@ public class User extends BaseEntity {
             this.status = status;
         }
     }
+
+    @Column(nullable = true)
+    private String role; //USER
+
+//    public List<String> getRoleList(){
+//        if(this.roles.length()>0){
+//            return Arrays.asList(this.roles.split(","));
+//        }
+//        return new ArrayList<>();
+//    }
 }

@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping("/v1")
 @Validated
 @Slf4j
 public class UserController {
@@ -39,6 +39,10 @@ public class UserController {
                 HttpStatus.CREATED);
     }
 
+<<<<<<< HEAD
+//    @PostMapping("/login")
+=======
     // test
+>>>>>>> 782476257cf6698acd92fc57114a2e7164391269
 
 }
