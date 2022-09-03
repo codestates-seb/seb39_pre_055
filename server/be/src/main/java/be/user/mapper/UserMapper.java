@@ -23,7 +23,7 @@ public interface UserMapper {
 
         UserResponseDto userResponseDto = new UserResponseDto();
 
-        userResponseDto.setUserId(user.getUserId());
+//        userResponseDto.setUserId(user.getUserId());
         userResponseDto.setEmail(user.getEmail());
         userResponseDto.setDisplayName(user.getDisplayName());
 //        userResponseDto.setPassword(user.getPassword());

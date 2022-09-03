@@ -41,19 +41,6 @@ public class SecurityConfig{
                         .anyRequest().permitAll())
                 .build();
 
-//        http.addFilterBefore(new MyFilter(), SecurityContextPersistenceFilter.class);
-//
-//        http.csrf().disable();
-//        http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)//세션 사용 안함
-//                .and()
-//                .addFilter(corsFilter)
-//                .formLogin().disable()
-//                .addFilter(new JwtAuthenticationFilter(authenticationManager()))//AuthenticcationManager
-//                .httpBasic().disable()
-//                .authorizeRequests()
-//                .antMatchers("/v1/user/**")
-//                .access("hasRole('ROLE_USER')")
-//                .anyRequest().permitAll(); //나머지는 권한 없어도 허용
 
     }
     public class MyCustomDsl extends AbstractHttpConfigurer<MyCustomDsl, HttpSecurity> {

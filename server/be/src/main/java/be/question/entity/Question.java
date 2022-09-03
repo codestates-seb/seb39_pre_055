@@ -43,8 +43,8 @@ public class Question extends BaseEntity {
     @Column(nullable = false,columnDefinition = "TEXT")
     private String body;
 
-    @Column(nullable = false)
-    private int vote;
+//    @Column(nullable = false)
+    private Integer vote;
 
     @Column(nullable = false)
     private int view;
