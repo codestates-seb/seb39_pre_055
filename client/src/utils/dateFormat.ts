@@ -2,13 +2,13 @@
 /** getDateToString('2021-11-17') or getDateToString('2021-11-17 00:00:00') */
 export const getDateToString = (value: string) => {
   const today = new Date();
-  const timeValue = new Date(value);
+  const timeValue = new Date(`${value}Z`);
 
   const betweenTime = Math.floor(
     (today.getTime() - timeValue.getTime()) / 1000 / 60
   );
   if (betweenTime < 60) {
-    return `${betweenTime} mins ago`;
+    return `${betweenTime + 1} mins ago`;
   }
 
   const betweenTimeHour = Math.floor(betweenTime / 60);

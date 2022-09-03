@@ -12,6 +12,7 @@ import {
   Aside,
   BlueButton,
   Content,
+  LoadingSpinner,
   NotFound,
   QuestionInfo,
 } from '../../../components';
@@ -21,20 +22,36 @@ import {
   useAppSelector,
 } from '../../../redux';
 import { getDetail } from '../../../redux/actions/detailAction';
-import { AnswerHeader, Container, Header, SMain, SubHeader } from './style';
+import {
+  AnswerHeader,
+  Container,
+  Header,
+  SMain,
+  SubHeader,
+  Wrapper,
+} from './style';
 
 const QuestionDetail = () => {
   const params = useParams();
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
-  const { data, sortOption } = useAppSelector((state) => state.detail);
+  const { data, sortOption, isLoading } = useAppSelector(
+    (state) => state.detail
+  );
 
   useEffect(() => {
     if (params.id) {
       dispatch(getDetail(params.id));
     }
-  }, [dispatch, params, sortOption]);
+  }, [dispatch, params, sortOption, data?.body]);
+
+  if (isLoading)
+    return (
+      <Wrapper>
+        <LoadingSpinner />
+      </Wrapper>
+    );
 
   if (data?.questionStatus === 'QUESTION_NOT_EXIST') {
     return <NotFound />;

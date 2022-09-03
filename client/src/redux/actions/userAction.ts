@@ -5,7 +5,7 @@ import { UserInfo } from '../../types';
 import { STACK_EXCHANGE_URL } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
-export const getUser = createAsyncThunk<
+export const getUserList = createAsyncThunk<
   Array<UserInfo>,
   undefined,
   CreateAsyncThunkTypes

@@ -16,7 +16,7 @@ public class UserResponseDto {
     private long userId;
     private String displayName;
     private String email;
-    private String password;
+//    private String password;
     private String image;
     private User.UserStatus userStatus;
 

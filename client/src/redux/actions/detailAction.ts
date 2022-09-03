@@ -46,19 +46,20 @@ export const editQuestion = createAsyncThunk<
   }
 });
 
-export const deleteQuestion = createAsyncThunk(
-  'detail/deleteQuestion',
-  async (payload: string, { rejectWithValue }) => {
-    try {
-      const response = await axiosInstance.patch(`/v1/question/${payload}`, {
-        questionStatus: 'QUESTION_NOT_EXIST',
-      });
-      return response.data;
-    } catch (error: any) {
-      return rejectWithValue(error.message);
-    }
+export const deleteQuestion = createAsyncThunk<
+  DetailData,
+  string,
+  CreateAsyncThunkTypes
+>('detail/deleteQuestion', async (payload: string, { rejectWithValue }) => {
+  try {
+    const response = await axiosInstance.patch(`/v1/question/${payload}`, {
+      questionStatus: 'QUESTION_NOT_EXIST',
+    });
+    return response.data.data;
+  } catch (error: any) {
+    return rejectWithValue(error.message);
   }
-);
+});
 
 export const changeVote = createAsyncThunk<any, string, CreateAsyncThunkTypes>(
   'detail/changeVote',
