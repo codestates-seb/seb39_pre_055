@@ -109,7 +109,7 @@ const Content = ({
 
   const currentVote = useMemo(() => vote, []);
 
-  const upVote = () => {
+  const upVote = useCallback(() => {
     if (!loginUser) {
       openModal(<VoteModal type="upvote" />);
       return;
@@ -117,9 +117,9 @@ const Content = ({
     if (vote > currentVote) return;
     dispatch(increaseVote());
     dispatch(changeVote(params.id as string));
-  };
+  }, []);
 
-  const downVote = () => {
+  const downVote = useCallback(() => {
     if (!loginUser) {
       openModal(<VoteModal type="downvote" />);
       return;
@@ -127,7 +127,7 @@ const Content = ({
     if (vote < currentVote) return;
     dispatch(decreaseVote());
     dispatch(changeVote(params.id as string));
-  };
+  }, []);
 
   return (
     <MainContents onClick={closeShareModal}>

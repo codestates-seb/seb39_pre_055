@@ -1,4 +1,5 @@
 import { GrFormClose } from 'react-icons/gr';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { BlueButton, PowderButton } from '..';
@@ -54,6 +55,7 @@ interface Prop {
 }
 
 const VoteModal = ({ type }: Prop) => {
+  const navigate = useNavigate();
   const { closeModal } = useModal();
 
   return (
@@ -93,10 +95,18 @@ const VoteModal = ({ type }: Prop) => {
         </S1P>
       </SContentBox>
       <SButtonBox>
-        <PowderButton width="100%" height="38px" onClick={closeModal}>
+        <PowderButton
+          width="100%"
+          height="38px"
+          onClick={() => navigate('/login')}
+        >
           Log in
         </PowderButton>
-        <BlueButton width="100%" height="38px" onClick={closeModal}>
+        <BlueButton
+          width="100%"
+          height="38px"
+          onClick={() => navigate('/signup')}
+        >
           Sign up
         </BlueButton>
       </SButtonBox>
