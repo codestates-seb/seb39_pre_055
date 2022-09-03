@@ -36,7 +36,8 @@ const SideContainer = styled.span`
 
     @media (max-width: 817px) {
       display: none;
-      }
+    }
+  }
 `;
 
 const SignUpContainer = styled.div`
