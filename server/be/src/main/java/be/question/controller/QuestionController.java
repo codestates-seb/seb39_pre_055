@@ -26,7 +26,7 @@ import javax.validation.constraints.Positive;
 import java.util.List;
 
 @RestController
-@RequestMapping("/v1/question")
+@RequestMapping("/v1")
 @Validated
 @Slf4j
 public class QuestionController {
@@ -37,6 +37,7 @@ public class QuestionController {
     private final AnswerMapper answerMapper;
     private final AnswerService answerService;
     private final QuestionTagService questionTagService;
+
 
     public QuestionController(QuestionService questionService,
                               QuestionMapper mapper,
@@ -57,7 +58,7 @@ public class QuestionController {
     /**
      * 질문 작성 API
      * **/
-    @PostMapping("/write")
+    @PostMapping("/user/question/write")
     public ResponseEntity postQuestion(@Valid @RequestBody QuestionPostDto questionPostDto){
         Question question = questionService.createQuestion(
                 mapper.questionPostDtoToQuestion(userService,questionPostDto));
@@ -71,7 +72,7 @@ public class QuestionController {
      *
      * 전체 질문페이지 이동 API
      * **/
-    @GetMapping()
+    @GetMapping("/question")
     public ResponseEntity getQuestions(@Positive @RequestParam("page") int page,
                                        @Positive @RequestParam("size") int size,
                                        @RequestParam("sort") String sort){
@@ -90,7 +91,7 @@ public class QuestionController {
     /**
      * 선택 질문페이지 이동 API(뷰 증가)
      * **/
-    @GetMapping("/{question-id}")
+    @GetMapping("/question/{question-id}")
     public ResponseEntity getQuestion(@PathVariable("question-id") @Positive long questionId,
                                       @Positive @RequestParam("page") int answerPage,
                                       @Positive @RequestParam("size") int answerSize,
@@ -105,23 +106,14 @@ public class QuestionController {
 
     /**
      *본인 질문 글 수정 API
+     *참고로 우리 스택오버플로우는 추천,비추천은 회원만 가능
      * **/
-    @PatchMapping("/{question-id}")
+    @PatchMapping("/user/question/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,
                                         @Valid @RequestBody QuestionPatchDto questionPatchDto){
         questionPatchDto.setQuestionId(questionId);
         Question question = mapper.questionPatchDtoToQuestion(questionPatchDto);
         Question updatedQuestion = questionService.updateQuestion(question);
-
-//        if(!question.getQuestionTags().isEmpty()){//태그 업데이트
-//            questionTagService.deleteQuestionTags(question);
-//            System.out.println("태그 삭제됌");
-//            List<QuestionTag> questionTags = questionTagService.createQuestionTags(question.getQuestionTags());
-//            System.out.println("태그 업데이트됌");
-//            updatedQuestion.setQuestionTags(questionTags);
-//        }
-
-
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.questionToQuestionResponseDto(userMapper,updatedQuestion)),

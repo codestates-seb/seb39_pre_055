@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 @RestController
-@RequestMapping("/v1/user")
+@RequestMapping("/v1")
 @Validated
 @Slf4j
 public class UserController {
@@ -38,5 +38,7 @@ public class UserController {
                 new SingleResponseDto<>(mapper.userToUserResponseDto(createdUser)),
                 HttpStatus.CREATED);
     }
+
+//    @PostMapping("/login")
 
 }
