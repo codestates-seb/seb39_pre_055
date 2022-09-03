@@ -7,7 +7,7 @@ import 'prismjs/themes/prism.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle } from '../../hooks';
@@ -21,7 +21,9 @@ import {
   useAppSelector,
 } from '../../redux';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
+import { useModal } from '../Modal';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
+import VoteModal from './VoteModal';
 
 interface Prop {
   type: 'question' | 'answer';
@@ -49,12 +51,20 @@ const Content = ({
   vote,
   answerId,
 }: Prop) => {
-  const [following, toggleFollowing] = useToggle();
-  const [shareModal, setShareModal] = useState(false);
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user: loginUser } = useAppSelector((state) => state.user);
+  const [shareModal, setShareModal] = useState(false);
+  const [following, toggleFollowing] = useToggle();
+  const { openModal, closeModal } = useModal({
+    position: { x: '50%', y: '50%' },
+    height: '200px',
+  });
+
+  useEffect(() => {
+    return () => closeModal();
+  }, []);
 
   const closeShareModal = useCallback((e: React.MouseEvent) => {
     const { tagName, parentElement } = e.target as HTMLElement;
@@ -100,12 +110,20 @@ const Content = ({
   const currentVote = useMemo(() => vote, []);
 
   const upVote = () => {
+    if (!loginUser) {
+      openModal(<VoteModal type="upvote" />);
+      return;
+    }
     if (vote > currentVote) return;
     dispatch(increaseVote());
     dispatch(changeVote(params.id as string));
   };
 
   const downVote = () => {
+    if (!loginUser) {
+      openModal(<VoteModal type="downvote" />);
+      return;
+    }
     if (vote < currentVote) return;
     dispatch(decreaseVote());
     dispatch(changeVote(params.id as string));
