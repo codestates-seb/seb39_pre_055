@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
-import { AnswerInfo, DetailInitialState } from '../../types/detail';
+import { AnswerInfo, DetailInitialState, Tbody } from '../../types';
 import {
   changeVote,
   deleteQuestion,
@@ -24,16 +24,7 @@ const detailSlice = createSlice({
     changeDetailSortOption: (state, { payload }: PayloadAction<string>) => {
       state.sortOption = payload;
     },
-    changeEditBody: (
-      state,
-      {
-        payload,
-      }: PayloadAction<{
-        type: 'question' | 'answer';
-        body: string;
-        answerId?: number;
-      }>
-    ) => {
+    changeEditBody: (state, { payload }: PayloadAction<Tbody>) => {
       const { type, body, answerId: id } = payload;
       if (type === 'question') {
         state.editType = type;
@@ -75,9 +66,10 @@ const detailSlice = createSlice({
       .addCase(editQuestion.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(editQuestion.fulfilled, (state) => {
+      .addCase(editQuestion.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        toast.success('edit success');
+        state.data = payload;
+        toast.success('Successfully edited your question.');
       })
       .addCase(editQuestion.rejected, (state, { payload }) => {
         state.isLoading = false;
@@ -88,14 +80,11 @@ const detailSlice = createSlice({
       })
       .addCase(deleteQuestion.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        toast.success(payload);
+        toast.success('Question has been successfully deleted.');
       })
       .addCase(deleteQuestion.rejected, (state, { payload }) => {
         state.isLoading = false;
-        toast.error(payload as string);
-      })
-      .addCase(changeVote.pending, (state) => {
-        state.isLoading = true;
+        toast.error(payload);
       })
       .addCase(changeVote.fulfilled, (state, { payload }) => {
         state.isLoading = false;
@@ -113,4 +102,4 @@ export const {
   increaseVote,
   decreaseVote,
 } = detailSlice.actions;
-export const detailReducer: Reducer<typeof initialState> = detailSlice.reducer;
+export const detailReducer: Reducer<DetailInitialState> = detailSlice.reducer;

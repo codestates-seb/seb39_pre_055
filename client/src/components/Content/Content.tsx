@@ -55,11 +55,7 @@ const Content = ({
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user: loginUser } = useAppSelector((state) => state.user);
-  const confirmDelete = useConfirm(
-    'Delete this page?',
-    () => dispatch(deleteQuestion(params.id as string)),
-    () => console.log('Aborted')
-  );
+
   const closeShareModal = useCallback((e: React.MouseEvent) => {
     const { tagName, parentElement } = e.target as HTMLElement;
     if (
@@ -77,6 +73,11 @@ const Content = ({
     setShareModal((prev) => !prev);
   };
 
+  const handleDelete = () => {
+    dispatch(deleteQuestion(params.id as string));
+    navigate('/');
+  };
+
   const handleEditBtnClick = () => {
     if (params.id) {
       dispatch(
@@ -89,6 +90,12 @@ const Content = ({
       navigate(`/${params.id}/edit`);
     }
   };
+
+  const confirmDelete = useConfirm(
+    'Delete this page?',
+    () => handleDelete(),
+    () => console.log('Cancel')
+  );
 
   const currentVote = useMemo(() => vote, []);
 
