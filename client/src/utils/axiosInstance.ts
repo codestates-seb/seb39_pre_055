@@ -7,6 +7,14 @@ import { tagFormat } from './tagFormat';
 
 export const STACK_EXCHANGE_URL = 'https://api.stackexchange.com/2.3';
 
+export const authHeader = (thunkAPI: any) => {
+  return {
+    headers: {
+      authorization: `Bearer ${thunkAPI.getState().user.user.token}`,
+    },
+  };
+};
+
 export const axiosInstance = axios.create({
   baseURL: 'http://13.209.17.182:8080', // 서버 url
   transformRequest: [
