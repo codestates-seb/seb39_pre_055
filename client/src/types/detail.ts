@@ -42,6 +42,7 @@ export interface User {
   password: string;
   image: string;
   userStatus: string;
+  token: string;
 }
 
 export interface PageInfo {
@@ -56,3 +57,10 @@ export type Tbody = {
   body: string;
   answerId?: number;
 };
+
+export interface EditBody {
+  id: number;
+  title: string;
+  body: string;
+  questionTags: string[];
+}

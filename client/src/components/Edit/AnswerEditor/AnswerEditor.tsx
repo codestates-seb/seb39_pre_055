@@ -6,7 +6,7 @@ import { Editor } from '@toast-ui/react-editor';
 import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { useAppDispatch } from '../../../redux';
+import { useAppDispatch, useAppSelector } from '../../../redux';
 import { BlueButton } from '../../Button/Templates';
 import CustomEditor from '../CustomEditor/CustomEditor';
 
@@ -26,6 +26,7 @@ const AnswerEditor = () => {
   const [isError, setIsError] = useState(false);
 
   const dispatch = useAppDispatch();
+  const { isLoading } = useAppSelector((state) => state.detail);
 
   const handleEditorChange = useCallback(() => {
     if (value.length > 29) setIsError(false);

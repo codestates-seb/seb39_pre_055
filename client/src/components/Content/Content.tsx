@@ -7,7 +7,7 @@ import 'prismjs/themes/prism.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle } from '../../hooks';
@@ -20,41 +20,39 @@ import {
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
+import { User } from '../../types';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
+import { useModal } from '../Modal';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
+import VoteModal from './VoteModal';
 
 interface Prop {
   type: 'question' | 'answer';
   body: string;
   tags?: Array<string>;
-  user: {
-    userId: number;
-    displayName: string;
-    email: string;
-    password: string;
-    image: string;
-    userStatus: string;
-  };
+  user: User;
   createdAt: string;
   vote: number;
   answerId?: number;
 }
 
-const Content = ({
-  type,
-  body,
-  tags,
-  user,
-  createdAt,
-  vote,
-  answerId,
-}: Prop) => {
-  const [following, toggleFollowing] = useToggle();
-  const [shareModal, setShareModal] = useState(false);
+const Content = (props: Prop) => {
+  const { type, body, tags, user, createdAt, vote, answerId } = props;
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user: loginUser } = useAppSelector((state) => state.user);
+  const currentVote = useMemo(() => vote, []);
+  const [shareModal, setShareModal] = useState(false);
+  const [following, toggleFollowing] = useToggle();
+  const { openModal, closeModal } = useModal({
+    position: { x: '50%', y: '50%' },
+    height: '200px',
+  });
+
+  useEffect(() => {
+    return () => closeModal();
+  }, []);
 
   const closeShareModal = useCallback((e: React.MouseEvent) => {
     const { tagName, parentElement } = e.target as HTMLElement;
@@ -97,19 +95,25 @@ const Content = ({
     () => console.log('Cancel')
   );
 
-  const currentVote = useMemo(() => vote, []);
-
-  const upVote = () => {
+  const upVote = useCallback(() => {
+    if (!loginUser) {
+      openModal(<VoteModal type="upvote" />);
+      return;
+    }
     if (vote > currentVote) return;
     dispatch(increaseVote());
     dispatch(changeVote(params.id as string));
-  };
+  }, [vote]);
 
-  const downVote = () => {
+  const downVote = useCallback(() => {
+    if (!loginUser) {
+      openModal(<VoteModal type="downvote" />);
+      return;
+    }
     if (vote < currentVote) return;
     dispatch(decreaseVote());
     dispatch(changeVote(params.id as string));
-  };
+  }, [vote]);
 
   return (
     <MainContents onClick={closeShareModal}>

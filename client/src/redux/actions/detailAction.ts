@@ -1,8 +1,8 @@
-/* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-import { DetailData } from '../../types';
-import { axiosInstance } from '../../utils';
+/* eslint-disable consistent-return */
+import { DetailData, EditBody } from '../../types';
+import { authHeader, axiosInstance } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
 export const getDetail = createAsyncThunk<
@@ -21,25 +21,23 @@ export const getDetail = createAsyncThunk<
   }
 });
 
-interface EditBody {
-  id: number;
-  title: string;
-  body: string;
-  questionTags: string[];
-}
-
 export const editQuestion = createAsyncThunk<
   DetailData,
   EditBody,
   CreateAsyncThunkTypes
 >('detail/editQuestion', async (payload, thunkAPI) => {
   const { id, title, body, questionTags } = payload;
+  const requestBody = {
+    title,
+    body,
+    questionTags,
+  };
   try {
-    const response = await axiosInstance.patch(`/v1/question/${id}`, {
-      title,
-      body,
-      questionTags,
-    });
+    const response = await axiosInstance.patch(
+      `/v1/user/question/${id}`,
+      requestBody,
+      authHeader(thunkAPI)
+    );
     return response.data.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.message);
@@ -50,14 +48,18 @@ export const deleteQuestion = createAsyncThunk<
   DetailData,
   string,
   CreateAsyncThunkTypes
->('detail/deleteQuestion', async (payload: string, { rejectWithValue }) => {
+>('detail/deleteQuestion', async (payload: string, thunkAPI) => {
   try {
-    const response = await axiosInstance.patch(`/v1/question/${payload}`, {
-      questionStatus: 'QUESTION_NOT_EXIST',
-    });
+    const response = await axiosInstance.patch(
+      `/v1/user/question/${payload}`,
+      {
+        questionStatus: 'QUESTION_NOT_EXIST',
+      },
+      authHeader(thunkAPI)
+    );
     return response.data.data;
   } catch (error: any) {
-    return rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -66,9 +68,14 @@ export const changeVote = createAsyncThunk<any, string, CreateAsyncThunkTypes>(
   async (payload, thunkAPI) => {
     try {
       const { data } = thunkAPI.getState().detail;
-      const response = await axiosInstance.patch(`/v1/question/${payload}`, {
+      const body = {
         vote: data?.vote,
-      });
+      };
+      const response = await axiosInstance.patch(
+        `/v1/user/question/${payload}`,
+        body,
+        authHeader(thunkAPI)
+      );
       return response.data;
     } catch (error: any) {
       return thunkAPI.rejectWithValue(error.message);

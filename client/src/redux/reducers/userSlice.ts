@@ -3,21 +3,26 @@ import { toast } from 'react-toastify';
 
 import { UserInitialState } from '../../types/user';
 import { getSpecificDate, removeUserFromLocalStorage } from '../../utils';
-import { getUserList } from '../actions/userAction';
+import {
+  addUserToLocalStorage,
+  getUserFromLocalStorage,
+} from '../../utils/localStorage';
+import { getUserList, loginUser, registerUser } from '../actions';
 
 const initialState: UserInitialState = {
-  user: {
-    userId: 1,
-    displayName: 'sangbin',
-    email: 'verz@gmail.com',
-    password: 'fd423423ccd34@!s',
-    image:
-      'https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800',
-    userStatus: 'USER_EXIST',
-  },
+  user: getUserFromLocalStorage(),
+  // {
+  //   userId: 1,
+  //   displayName: 'sangbin',
+  //   email: 'verz@gmail.com',
+  //   password: 'fd423423ccd34@!s',
+  //   image:
+  //     'https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800',
+  //   userStatus: 'USER_EXIST',
+  // },
   page: 1,
   userList: [],
-  isLoading: true,
+  isLoading: false,
   sortOption: 'reputation',
   dateOption: 'all',
   timeStamp: '',
@@ -29,6 +34,11 @@ const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {
+    logOutUser: (state) => {
+      state.user = null;
+      removeUserFromLocalStorage();
+      toast.success('Logout completed successfully.');
+    },
     changeUserPage: (state, { payload }: PayloadAction<number>) => {
       state.page = payload;
     },
@@ -63,11 +73,6 @@ const userSlice = createSlice({
       state.page = 1;
       state.inName = payload;
     },
-    logOut: (state) => {
-      state.user = null;
-      removeUserFromLocalStorage();
-      toast.success('로그아웃 성공');
-    },
   },
   extraReducers: (builder) =>
     builder
@@ -85,6 +90,30 @@ const userSlice = createSlice({
           state.errorMsg = payload;
           toast.error(state.errorMsg);
         }
+      })
+      .addCase(loginUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(loginUser.fulfilled, (state, { payload }) => {
+        state.isLoading = false;
+        state.user = payload;
+        addUserToLocalStorage(state.user);
+        toast.success(`Hello, ${payload.displayName}!`);
+      })
+      .addCase(loginUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
+      })
+      .addCase(registerUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(registerUser.fulfilled, (state) => {
+        state.isLoading = false;
+        toast.success('Sign up has been successfully completed.');
+      })
+      .addCase(registerUser.rejected, (state, { payload }) => {
+        state.isLoading = false;
+        toast.error(payload);
       }),
 });
 
@@ -93,6 +122,6 @@ export const {
   changeUserSortOption,
   changeUserInName,
   changeUserDateOption,
-  logOut,
+  logOutUser,
 } = userSlice.actions;
 export const userReducer: Reducer<typeof initialState> = userSlice.reducer;

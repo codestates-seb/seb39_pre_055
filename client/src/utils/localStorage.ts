@@ -1,4 +1,4 @@
-import { User } from '../types/question';
+import { User } from '../types';
 
 export const addUserToLocalStorage = (user: User) => {
   localStorage.setItem('user', JSON.stringify(user));

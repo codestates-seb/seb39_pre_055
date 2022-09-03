@@ -33,27 +33,24 @@ import {
 
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
-  const { data, editType, editBody } = useAppSelector((state) => state.detail);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const editorRef = useRef<Editor>(null);
+  const { data, editType, editBody } = useAppSelector((state) => state.detail);
   const [title, titleHandler] = useInput(data?.title as string);
+  const [titleError, setTitleError] = useState(false);
   const [body, setBody] = useState(data?.body as string);
+  const [bodyError, setBodyError] = useState(false);
   const [tagInput, setTagInput] = useState('');
   const [tagArr, setTagArr] = useState(data?.questionTags as string[]);
-  const [titleError, setTitleError] = useState(false);
-  const [bodyError, setBodyError] = useState(false);
   const [tagError, setTagError] = useState(false);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const handleTitleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      if (title.trim().length > 14) {
-        setTitleError(false);
-      }
-      titleHandler(e);
-    },
-    [titleHandler, title]
-  );
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (title.trim().length > 14) {
+      setTitleError(false);
+    }
+    titleHandler(e);
+  };
 
   const handleEditorChange = useCallback(() => {
     if (
@@ -83,23 +80,17 @@ const EditQuestion = () => {
     [tagArr]
   );
 
-  const handleTagInputChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
-      if (ENG_REGEX.test(value)) {
-        setTagInput(value);
-      }
-    },
-    []
-  );
+  const handleTagInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (ENG_REGEX.test(value)) {
+      setTagInput(value);
+    }
+  };
 
-  const handleTagDelete = useCallback(
-    (name: string) => {
-      const deletedTags = tagArr.filter((tag) => tag !== name);
-      setTagArr(deletedTags);
-    },
-    [tagArr]
-  );
+  const handleTagDelete = (name: string) => {
+    const deletedTags = tagArr.filter((tag) => tag !== name);
+    setTagArr(deletedTags);
+  };
 
   const handleEditButtonClick = useCallback(() => {
     if (editType === 'question') {
