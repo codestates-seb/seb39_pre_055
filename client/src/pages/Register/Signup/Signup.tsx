@@ -7,11 +7,6 @@ import Checkbox from '../../../components/Checkbox/Checkbox';
 import SignupInput from '../../../components/SignupInput/SignupInput';
 import SignupSideInfo from '../../../components/SignupSideInfo/SignupSideInfo';
 
-interface Prop {
-  icon: string;
-  text: string;
-}
-
 const Container = styled.div`
   display: flex;
   flex-direction: row;
