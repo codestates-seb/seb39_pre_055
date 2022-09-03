@@ -60,6 +60,19 @@ public class QuestionService {
 
     }
 
+    public Page<Question> searchQuestions(String keyWord,int page, int size,String sort){//전체 question에 pagenation과 sort 구현
+
+        Page<Question> searchResult = questionRepository.searchQuestionsByKeyWord( //삭제된 글 빼고 전체 질문글 가져옴
+                PageRequest.of(page,size,Sort.by(sort).descending()),
+                keyWord);
+
+
+        VerifiedNoQuestion(searchResult);//status가 QUESTION_EXIST인 List 데이터가 0이면 예외발생
+
+        return searchResult;
+
+    }
+
     public Question updateQuestion(Question question){
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());//요청된 질문이 DB에 없으면 에러
 
