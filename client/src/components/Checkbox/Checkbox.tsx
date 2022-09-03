@@ -40,6 +40,7 @@ const Container = styled.div`
   display: flex;
   align-items: flex-start;
   margin-left: 4px;
+`;
 
 const Info = styled.span`
   font-size: 12px;

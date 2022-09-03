@@ -1,4 +1,3 @@
-import { ChangeEvent, Dispatch, SetStateAction } from 'react';
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
@@ -6,11 +5,6 @@ import { BlueButton } from '../../../components';
 import Checkbox from '../../../components/Checkbox/Checkbox';
 import SignupInput from '../../../components/SignupInput/SignupInput';
 import SignupSideInfo from '../../../components/SignupSideInfo/SignupSideInfo';
-
-interface Prop {
-  icon: string;
-  text: string;
-}
 
 const Container = styled.div`
   display: flex;
@@ -93,7 +87,6 @@ const Footer = styled.div`
     color: var(--blue-600);
   }
 `;
-
 
 const ServiceLink = styled.span`
   color: var(--blue-600);
