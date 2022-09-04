@@ -129,7 +129,7 @@ const detailSlice = createSlice({
       .addCase(deleteAnswer.rejected, (state, { payload }) => {
         toast.error(payload);
       })
-      .addCase(changeAnswerVote.rejected, (state, { payload }) => {
+      .addCase(changeAnswerVote.rejected, (_, { payload }) => {
         toast.error(payload as string);
       }),
 });

@@ -1,9 +1,9 @@
 /* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-/* eslint-disable consistent-return */
 import { AnswerInfo, DetailData, EditBody } from '../../types';
-import { AnswerPayload } from '../../types/detail';
+import { AnswerPayload, Answers } from '../../types/detail';
 import { authHeader, axiosInstance } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
@@ -139,10 +139,11 @@ export const changeAnswerVote = createAsyncThunk<
   number,
   CreateAsyncThunkTypes
 >('/detail/changeAnswerVote', async (payload, thunkAPI) => {
-  // const { data } = thunkAPI.getState().detail.data?.answers as Answer;
+  const { data } = thunkAPI.getState().detail.data?.answers as Answers;
+  const idx = data.findIndex((answer) => answer.answerId === payload);
   try {
-    await axiosInstance.patch(`/v1/answer/vote/${payload}`, {
-      vote: 1,
+    await axiosInstance.patch(`/v1/answer/vote1/${payload}`, {
+      vote: data[idx].vote,
     });
     return;
   } catch (error: any) {
