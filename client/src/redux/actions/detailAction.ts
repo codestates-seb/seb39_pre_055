@@ -1,7 +1,9 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 /* eslint-disable consistent-return */
 import { AnswerInfo, DetailData, EditBody } from '../../types';
+import { AnswerPayload } from '../../types/detail';
 import { authHeader, axiosInstance } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
@@ -69,30 +71,26 @@ export const deleteQuestion = createAsyncThunk<
   }
 });
 
-export const changeVote = createAsyncThunk<any, string, CreateAsyncThunkTypes>(
-  'detail/changeVote',
-  async (payload, thunkAPI) => {
-    try {
-      const { data } = thunkAPI.getState().detail;
-      const body = {
-        vote: data?.vote,
-      };
-      const response = await axiosInstance.patch(
-        `/v1/question/vote/${payload}`,
-        body,
-        authHeader(thunkAPI)
-      );
-      return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
-    }
+export const changeQuestionVote = createAsyncThunk<
+  undefined,
+  string,
+  CreateAsyncThunkTypes
+>('detail/changeQuestionVote', async (payload, thunkAPI) => {
+  try {
+    const { data } = thunkAPI.getState().detail;
+    const body = {
+      vote: data?.vote,
+    };
+    await axiosInstance.patch(
+      `/v1/question/vote/${payload}`,
+      body,
+      authHeader(thunkAPI)
+    );
+    return;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
-
-export interface AnswerPayload {
-  questionId: string;
-  body: string;
-}
+});
 
 export const addAnswer = createAsyncThunk<
   AnswerInfo,
@@ -129,10 +127,25 @@ export const deleteAnswer = createAsyncThunk<
       return response.data.data;
     }
   } catch (error: any) {
-    console.log(error);
     if (error.response.status === 403) {
       return thunkAPI.rejectWithValue(error.response.data.message);
     }
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const changeAnswerVote = createAsyncThunk<
+  undefined,
+  number,
+  CreateAsyncThunkTypes
+>('/detail/changeAnswerVote', async (payload, thunkAPI) => {
+  // const { data } = thunkAPI.getState().detail.data?.answers as Answer;
+  try {
+    await axiosInstance.patch(`/v1/answer/vote/${payload}`, {
+      vote: 1,
+    });
+    return;
+  } catch (error: any) {
     return thunkAPI.rejectWithValue(error.message);
   }
 });

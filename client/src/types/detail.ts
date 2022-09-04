@@ -64,3 +64,8 @@ export interface EditBody {
   body: string;
   questionTags: string[];
 }
+
+export interface AnswerPayload {
+  questionId: string;
+  body: string;
+}
