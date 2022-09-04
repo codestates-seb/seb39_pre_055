@@ -81,7 +81,7 @@ const Footer = styled.div`
   font-size: 13px;
   color: var(--black-700);
 
-  a {
+  & > div > a {
     margin-left: 5px;
     color: var(--blue-600);
   }
