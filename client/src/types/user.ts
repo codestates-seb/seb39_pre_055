@@ -9,6 +9,7 @@ export interface UserInitialState {
   timeStamp: string | number;
   inName: string;
   isLoading: boolean;
+  isSignupDone: boolean;
   errorMsg: string;
 }
 

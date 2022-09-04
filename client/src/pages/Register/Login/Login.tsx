@@ -4,14 +4,21 @@ import { Link, useNavigate } from 'react-router-dom';
 
 import { BlueButton, DefaultInput } from '../../../components';
 import { ERROR_MSG_01, ERROR_MSG_03 } from '../../../constants';
-import { loginUser, useAppDispatch, useAppSelector } from '../../../redux';
+import {
+  changeSignupIsDone,
+  loginUser,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../redux';
 import { EMAIL_REGEX } from '../../../utils';
 import { BottomIconSVG, Container, LoginCard, TextCard } from './style';
 
 const Login = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { isLoading, user } = useAppSelector((state) => state.user);
+  const { isLoading, user, isSignupDone } = useAppSelector(
+    (state) => state.user
+  );
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
@@ -21,7 +28,11 @@ const Login = () => {
     if (user) {
       navigate('/');
     }
-  }, [user, navigate]);
+
+    if (isSignupDone) {
+      dispatch(changeSignupIsDone());
+    }
+  }, [user, navigate, dispatch, isSignupDone]);
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     if (EMAIL_REGEX.test(e.target.value)) {

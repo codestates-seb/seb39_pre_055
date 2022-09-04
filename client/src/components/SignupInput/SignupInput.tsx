@@ -1,4 +1,5 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 import {
@@ -7,6 +8,7 @@ import {
   ERROR_MSG_07,
   ERROR_MSG_08,
 } from '../../constants';
+import { registerUser, useAppDispatch, useAppSelector } from '../../redux';
 import { BlueButton } from '../Button/Templates';
 import Checkbox from '../Checkbox/Checkbox';
 import DefaultInput from '../Input/DefaultInput/DefaultInput';
@@ -83,6 +85,15 @@ const SignupInput = () => {
   const [emailErr, setEmailErr] = useState(false);
   const [password, setPassword] = useState('');
   const [passwordErr, setPasswordErr] = useState(false);
+  const dispatch = useAppDispatch();
+  const { isSignupDone } = useAppSelector((state) => state.user);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isSignupDone) {
+      navigate('/login');
+    }
+  }, [navigate, isSignupDone]);
 
   const handleDisplayNameChange = (e: ChangeEvent<HTMLInputElement>) => {
     setDisplayName(e.target.value);
@@ -111,7 +122,13 @@ const SignupInput = () => {
       if (password.length < 8) setPasswordErr(true);
       return;
     }
-    console.log(submitValues);
+    dispatch(
+      registerUser({
+        displayName,
+        email,
+        password,
+      })
+    );
   };
 
   return (
