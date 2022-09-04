@@ -1,10 +1,5 @@
 import React from 'react';
-import { pureFinalPropsSelectorFactory } from 'react-redux/es/connect/selectorFactory';
 import styled from 'styled-components';
-
-interface Prop {
-  text: string;
-}
 
 const StyledInput = styled.input`
   appearance: none;
@@ -47,14 +42,6 @@ const Info = styled.span`
   font-weight: 400;
   color: var(--black-500);
 `;
-
-// const CheckboxContainer = styled.span`
-//   display: inline-block;
-//   border: ${(props) => (props.checked ? 'none' : 'solid 0.1rem #dddddd')};
-// 	background: ${(props) => (props.checked ? 'black' : 'white')};
-// `;
-
-// const StyledCheckbox =
 
 const Checkbox = () => {
   return (

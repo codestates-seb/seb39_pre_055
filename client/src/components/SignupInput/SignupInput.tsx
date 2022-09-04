@@ -1,7 +1,14 @@
-import { ChangeEvent, useCallback, useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import styled from 'styled-components';
 
-import { ERROR_MSG_06, ERROR_MSG_07, ERROR_MSG_08 } from '../../constants';
+import {
+  EMAIL_REGEX,
+  ERROR_MSG_06,
+  ERROR_MSG_07,
+  ERROR_MSG_08,
+} from '../../constants';
+import { BlueButton } from '../Button/Templates';
+import Checkbox from '../Checkbox/Checkbox';
 import DefaultInput from '../Input/DefaultInput/DefaultInput';
 
 const Container = styled.div`
@@ -52,57 +59,52 @@ const PasswordComment = styled.div`
   color: var(--black-500);
 `;
 
+const CheckAndSubmit = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  div {
+    margin: 40px 0px 10px 0px;
+  }
+`;
+
 const SignupInput = () => {
-  const [displayName, setDisplayName] = useState({ value: '', isError: false });
-  const [email, setEmail] = useState({ value: '', isError: false });
-  const [password, setPassword] = useState({ value: '', isError: false });
-  const isIncludeAlhabet = (s: string) => /[a-zA-Z]/g.test(s);
-  const isIncludeNumber = (s: string) => /\d/g.test(s);
+  const [displayName, setDisplayName] = useState('');
+  const [email, setEmail] = useState('');
+  const [emailErr, setEmailErr] = useState(false);
+  const [password, setPassword] = useState('');
+  const [passwordErr, setPasswordErr] = useState(false);
 
-  const handleDisplayNameChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      let error = false;
+  const handleDisplayNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setDisplayName(e.target.value);
+  };
 
-      if (displayName.value === email.value) {
-        error = true;
-      }
-      setDisplayName({ value: e.target.value, isError: error });
-    },
-    [displayName]
-  );
+  const handleEmailChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (EMAIL_REGEX.test(e.target.value)) {
+      setEmailErr(false);
+    }
+    setEmail(e.target.value);
+  };
 
-  const handleEmailChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      let error = false;
-      if (!email.value.includes('@' || '.com')) {
-        setEmail({ value: e.target.value, isError: error });
-        error = true;
-      } else {
-        setEmail({ value: e.target.value, isError: error });
-      }
-    },
-    [email]
-  );
+  const handlePasswordChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const passwordInput = e.target.value;
+    if (passwordInput.length >= 8) {
+      setPasswordErr(false);
+    }
+    setPassword(e.target.value);
+  };
 
-  const handlePasswordChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      let error = false;
-      const passwordInput = e.target.value;
-      for (let i = 0; i < passwordInput.length; i += 1) {
-        if (
-          passwordInput.length < 8 ||
-          !isIncludeAlhabet(passwordInput) ||
-          !isIncludeNumber(passwordInput)
-        ) {
-          setPassword({ value: e.target.value, isError: error });
-          error = true;
-        } else {
-          setPassword({ value: e.target.value, isError: error });
-        }
-      }
-    },
-    [password]
-  );
+  const submitValues = { displayName, email, password };
+
+  const handleSubmit = () => {
+    if (!EMAIL_REGEX.test(email) || password.length < 8) {
+      if (!EMAIL_REGEX.test(email)) setEmailErr(true);
+      if (password.length < 8) setPasswordErr(true);
+      return;
+    }
+    console.log(submitValues);
+  };
 
   return (
     <Container>
@@ -110,36 +112,44 @@ const SignupInput = () => {
         <div>Display name</div>
         <DefaultInput
           id="displayName"
-          value={displayName.value}
+          value={displayName}
           onChange={handleDisplayNameChange}
           errorMsg={ERROR_MSG_06}
-          isError={displayName.isError}
+          isError={false}
         />
       </DisplayName>
       <Email>
         <div>Email</div>
         <DefaultInput
           id="email"
-          value={email.value}
+          value={email}
           onChange={handleEmailChange}
           errorMsg={ERROR_MSG_07}
-          isError={email.isError}
+          isError={emailErr}
         />
       </Email>
       <Password>
         <div>password</div>
         <DefaultInput
           id="password"
-          value={password.value}
+          value={password}
           onChange={handlePasswordChange}
           errorMsg={ERROR_MSG_08}
-          isError={password.isError}
+          isError={passwordErr}
         />
         <PasswordComment>
           Passwords must contain at least eight characters, including at least 1
           letter and 1 number.
         </PasswordComment>
       </Password>
+      <CheckAndSubmit>
+        <Checkbox />
+        <div>
+          <BlueButton width="268px" height="38px" onClick={handleSubmit}>
+            Sign up
+          </BlueButton>
+        </div>
+      </CheckAndSubmit>
     </Container>
   );
 };
