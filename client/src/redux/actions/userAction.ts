@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
@@ -61,14 +62,13 @@ export const registerUser = createAsyncThunk<
   LoginPayload,
   CreateAsyncThunkTypes
 >('user/registerUser', async (payload, { rejectWithValue }) => {
-  const { displayName, email, password } = payload;
   try {
-    return await axiosInstance.post('/v1/sign-up', {
-      displayName,
-      email,
-      password,
-    });
+    await axiosInstance.post('/v1/sign-up', payload);
+    return;
   } catch (error: any) {
+    if (error.response.data.status === 409) {
+      return rejectWithValue(error.response.data.message);
+    }
     return rejectWithValue(error.message);
   }
 });

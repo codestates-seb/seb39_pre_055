@@ -23,6 +23,7 @@ const initialState: UserInitialState = {
   page: 1,
   userList: [],
   isLoading: false,
+  isSignupDone: false,
   sortOption: 'reputation',
   dateOption: 'all',
   timeStamp: '',
@@ -73,6 +74,9 @@ const userSlice = createSlice({
       state.page = 1;
       state.inName = payload;
     },
+    changeSignupIsDone: (state) => {
+      state.isSignupDone = false;
+    },
   },
   extraReducers: (builder) =>
     builder
@@ -106,13 +110,16 @@ const userSlice = createSlice({
       })
       .addCase(registerUser.pending, (state) => {
         state.isLoading = true;
+        state.isSignupDone = false;
       })
       .addCase(registerUser.fulfilled, (state) => {
         state.isLoading = false;
+        state.isSignupDone = true;
         toast.success('Sign up has been successfully completed.');
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.isLoading = false;
+        state.isSignupDone = false;
         toast.error(payload);
       }),
 });
@@ -123,5 +130,6 @@ export const {
   changeUserInName,
   changeUserDateOption,
   logOutUser,
+  changeSignupIsDone,
 } = userSlice.actions;
 export const userReducer: Reducer<typeof initialState> = userSlice.reducer;

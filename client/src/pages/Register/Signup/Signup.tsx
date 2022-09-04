@@ -11,7 +11,7 @@ const Container = styled.div`
   align-items: center;
   padding: 24px;
   width: 100%;
-  heigt: 1500px;
+  height: calc(100vh - 50px);
 `;
 
 const SideContainer = styled.span`
