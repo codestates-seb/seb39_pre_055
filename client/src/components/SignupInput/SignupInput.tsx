@@ -42,10 +42,19 @@ const Password = styled.div`
   display: flex;
   flex-direction: column;
   margin: 6px 0px;
+  font: . 9rem 'Fira Sans', sans-serif;
   div {
     margin: 2px 0px;
     padding: 0px 2px;
   }
+`;
+
+const InputPassword = styled.div`
+  type: "password";
+  id: "pass";
+  name: "password";
+  minlength: 8; 
+  required;
 `;
 
 const PasswordComment = styled.div`
@@ -63,7 +72,6 @@ const CheckAndSubmit = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-
   div {
     margin: 40px 0px 10px 0px;
   }
@@ -130,13 +138,16 @@ const SignupInput = () => {
       </Email>
       <Password>
         <div>password</div>
-        <DefaultInput
-          id="password"
-          value={password}
-          onChange={handlePasswordChange}
-          errorMsg={ERROR_MSG_08}
-          isError={passwordErr}
-        />
+        <InputPassword>
+          <DefaultInput
+            type="password"
+            id="password"
+            value={password}
+            onChange={handlePasswordChange}
+            errorMsg={ERROR_MSG_08}
+            isError={passwordErr}
+          />
+        </InputPassword>
         <PasswordComment>
           Passwords must contain at least eight characters, including at least 1
           letter and 1 number.
