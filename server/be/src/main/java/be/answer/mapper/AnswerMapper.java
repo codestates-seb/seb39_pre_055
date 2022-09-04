@@ -1,8 +1,12 @@
 package be.answer.mapper;
 
+import be.answer.dto.AnswerPatchDto;
 import be.answer.dto.AnswerPostDto;
 import be.answer.dto.AnswerResponseDto;
 import be.answer.entity.Answer;
+import be.answer.service.AnswerService;
+import be.exception.BusinessLogicException;
+import be.exception.ExceptionCode;
 import be.question.service.QuestionService;
 import be.user.entity.User;
 import be.user.mapper.UserMapper;
@@ -23,6 +27,17 @@ public interface AnswerMapper {
         answer.setQuestion(questionService.findVerifiedQuestion(answerPostDto.getQuestionId()));
         // 현재 로그인한 토큰으로 유저정보 불러옴
         answer.setUser(userService.getLoginUser());
+
+        return answer;
+    }
+    default Answer answerPatchDtoToAnswer(AnswerService answerService,UserService userService, AnswerPatchDto answerPatchDto) {
+        if (userService.getLoginUser().getUserId() != answerService.findAnswerUser(answerPatchDto.getAnswerId()).getUserId()) { //해당 유저가 쓴 답 글 아니므로 수정 삭제 불가
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
+        }
+        Answer answer = new Answer();
+        answer.setAnswerId(answerPatchDto.getAnswerId());
+        answer.setBody(answerPatchDto.getBody());
+        answer.setAnswerStatus(answerPatchDto.getAnswerStatus());
 
         return answer;
     }

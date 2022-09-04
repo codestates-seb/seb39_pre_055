@@ -62,7 +62,7 @@ public interface QuestionMapper {
     }
 
     default  Question questionPatchDtoToQuestion(QuestionService questionService,UserService userService, QuestionPatchDto questionPatchDto){
-        if(userService.getLoginUser().getUserId()!= questionService.findQuestionUser(questionPatchDto.getQuestionId()).getUserId()){ //해당 유저가 쓴 글 아니므로 수정 삭제 불가
+        if(userService.getLoginUser().getUserId()!= questionService.findQuestionUser(questionPatchDto.getQuestionId()).getUserId()){ //해당 유저가 쓴 질문글 아니므로 수정 삭제 불가
             throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
         }
         Question question = new Question();

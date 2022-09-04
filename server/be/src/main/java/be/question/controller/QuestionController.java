@@ -96,8 +96,8 @@ public class QuestionController {
 
     /**
      *본인 질문 글 수정 API
-     *참고로 우리 스택오버플로우는 추천,비추천은 회원만 가능 -> X
-     * 자기가 작성한 글만 수정 가능
+     * 자기가 작성한 글만 수정,삭제 가능
+     * 자기 질문 아닌데 접근?->Access Denied User 예외 발생
      * **/
     @PatchMapping("/user/question/{question-id}")
     public ResponseEntity patchQuestion(@PathVariable("question-id") @Positive @NotNull long questionId,

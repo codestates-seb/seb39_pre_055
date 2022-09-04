@@ -36,7 +36,7 @@ public class Answer extends BaseEntity {
     private String body;
 
     @Column(nullable = false)
-    private int vote;
+    private int vote=0;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID")
