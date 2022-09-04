@@ -95,10 +95,6 @@ public class QuestionService {
                 .ifPresent(questionBody->findQuestion.setBody(questionBody));
 
 
-
-        Optional.ofNullable(question.getVote()) //추천 수 수정
-                .ifPresent(Vote->findQuestion.setVote(Vote));
-
         Optional.ofNullable(question.getQuestionStatus()) //글 삭제
                 .ifPresent(questionStatus->findQuestion.setQuestionStatus(questionStatus));
 
