@@ -13,9 +13,8 @@ export const getDetail = createAsyncThunk<
   CreateAsyncThunkTypes
 >('detail/getDetail', async (payload, thunkAPI) => {
   try {
-    const { sortOption } = thunkAPI.getState().detail;
     const response = await axiosInstance.get(
-      `/v1/question/${payload}?page=1&size=999&sort=${sortOption}`
+      `/v1/question/${payload}?page=1&size=999&sort=vote`
     );
     return response.data.data;
   } catch (error: any) {
@@ -142,11 +141,56 @@ export const changeAnswerVote = createAsyncThunk<
   const { data } = thunkAPI.getState().detail.data?.answers as Answers;
   const idx = data.findIndex((answer) => answer.answerId === payload);
   try {
-    await axiosInstance.patch(`/v1/answer/vote1/${payload}`, {
+    await axiosInstance.patch(`/v1/answer/vote/${payload}`, {
       vote: data[idx].vote,
     });
     return;
   } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const editAnswer = createAsyncThunk<
+  undefined,
+  {
+    answerId: number;
+    body: string;
+  },
+  CreateAsyncThunkTypes
+>('/detail/editAnswer', async (payload, thunkAPI) => {
+  const { answerId, body } = payload;
+  try {
+    await axiosInstance.patch(
+      `/v1/user/answer/${answerId}`,
+      {
+        body,
+      },
+      authHeader(thunkAPI)
+    );
+    return;
+  } catch (error: any) {
+    if (error.response.data.status === 403) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const sortAnswers = createAsyncThunk<
+  DetailData,
+  {
+    questionId: string;
+    value: string;
+  },
+  CreateAsyncThunkTypes
+>('detail/sortAnswers', async (payload, thunkAPI) => {
+  try {
+    const response = await axiosInstance.get(
+      `/v1/question/${payload.questionId}?page=1&size=999&sort=${payload.value}`
+    );
+    return response.data.data;
+  } catch (error: any) {
+    console.log(error);
     return thunkAPI.rejectWithValue(error.message);
   }
 });
