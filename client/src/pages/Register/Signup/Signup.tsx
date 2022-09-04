@@ -1,8 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { BlueButton } from '../../../components';
-import Checkbox from '../../../components/Checkbox/Checkbox';
 import SignupInput from '../../../components/SignupInput/SignupInput';
 import SignupSideInfo from '../../../components/SignupSideInfo/SignupSideInfo';
 
@@ -103,6 +101,7 @@ const CookieLink = styled.span`
 
 const Signup = () => {
   const navigate = useNavigate();
+
   return (
     <Container>
       <SideContainer>
@@ -115,14 +114,6 @@ const Signup = () => {
       <SignUpContainer>
         <UserInputContainer>
           <SignupInput />
-          <Checkbox />
-          <BlueButton
-            width="268px"
-            height="38px"
-            onClick={() => navigate('/login')}
-          >
-            Sign up
-          </BlueButton>
           <CookieInfo>
             <span>By clicking “Sign up”, you agree to our </span>
             <ServiceLink
