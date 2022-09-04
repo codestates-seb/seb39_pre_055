@@ -5,6 +5,7 @@ import { AnswerInfo, DetailInitialState, Tbody } from '../../types';
 import {
   addAnswer,
   changeVote,
+  deleteAnswer,
   deleteQuestion,
   editQuestion,
   getDetail,
@@ -88,12 +89,7 @@ const detailSlice = createSlice({
         state.isLoading = false;
         toast.error(payload);
       })
-      .addCase(changeVote.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        toast.success(payload);
-      })
       .addCase(changeVote.rejected, (state, { payload }) => {
-        state.isLoading = false;
         toast.error(payload as string);
       })
       .addCase(addAnswer.pending, (state) => {
@@ -103,8 +99,18 @@ const detailSlice = createSlice({
         state.isPostLoading = false;
         state.data?.answers.data.push(payload);
       })
-      .addCase(addAnswer.rejected, (state) => {
+      .addCase(addAnswer.rejected, (state, { payload }) => {
         state.isPostLoading = false;
+        toast.error(payload);
+      })
+      .addCase(deleteAnswer.fulfilled, (state, { payload }) => {
+        const targetIdx = state.data?.answers.data.findIndex(
+          (answer) => answer.answerId === payload.answerId
+        );
+        state.data?.answers.data.splice(targetIdx as number, 1);
+      })
+      .addCase(deleteAnswer.rejected, (state, { payload }) => {
+        toast.error(payload);
       }),
 });
 

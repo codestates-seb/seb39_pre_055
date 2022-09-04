@@ -56,7 +56,7 @@ const AnswerEditor = () => {
       />
       <ButtonContainer>
         <BlueButton
-          width="140px"
+          width="180px"
           height="35px"
           onClick={handleSubmit}
           isPending={isPostLoading}

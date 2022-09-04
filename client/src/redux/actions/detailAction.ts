@@ -17,7 +17,7 @@ export const getDetail = createAsyncThunk<
     );
     return response.data.data;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.response.data.message);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -50,15 +50,21 @@ export const deleteQuestion = createAsyncThunk<
   CreateAsyncThunkTypes
 >('detail/deleteQuestion', async (payload: string, thunkAPI) => {
   try {
-    const response = await axiosInstance.patch(
-      `/v1/user/question/${payload}`,
-      {
-        questionStatus: 'QUESTION_NOT_EXIST',
-      },
-      authHeader(thunkAPI)
-    );
-    return response.data.data;
+    const { user } = thunkAPI.getState().user;
+    if (user) {
+      const response = await axiosInstance.patch(
+        `/v1/user/question/${payload}`,
+        {
+          questionStatus: 'QUESTION_NOT_EXIST',
+        },
+        authHeader(thunkAPI)
+      );
+      return response.data.data;
+    }
   } catch (error: any) {
+    if (error.response.data.status === 403) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
     return thunkAPI.rejectWithValue(error.message);
   }
 });
@@ -99,9 +105,34 @@ export const addAnswer = createAsyncThunk<
       payload,
       authHeader(thunkAPI)
     );
-    // thunkAPI.dispatch(getDetail(payload.questionId));
     return response.data.data;
   } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const deleteAnswer = createAsyncThunk<
+  AnswerInfo,
+  number,
+  CreateAsyncThunkTypes
+>('detail/deleteAnswer', async (payload, thunkAPI) => {
+  try {
+    const { user } = thunkAPI.getState().user;
+    if (user) {
+      const response = await axiosInstance.patch(
+        `v1/user/answer/${payload}`,
+        {
+          answerStatus: 'ANSWER_NOT_EXIST',
+        },
+        authHeader(thunkAPI)
+      );
+      return response.data.data;
+    }
+  } catch (error: any) {
+    console.log(error);
+    if (error.response.status === 403) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
     return thunkAPI.rejectWithValue(error.message);
   }
 });

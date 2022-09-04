@@ -15,6 +15,7 @@ import {
   changeEditBody,
   changeVote,
   decreaseVote,
+  deleteAnswer,
   deleteQuestion,
   increaseVote,
   useAppDispatch,
@@ -26,8 +27,10 @@ import { useModal } from '../Modal';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 import VoteModal from './VoteModal';
 
+type PostType = 'question' | 'answer';
+
 interface Prop {
-  type: 'question' | 'answer';
+  type: PostType;
   body: string;
   tags?: Array<string>;
   user: User;
@@ -71,12 +74,17 @@ const Content = (props: Prop) => {
     setShareModal((prev) => !prev);
   };
 
-  const handleDelete = () => {
-    dispatch(deleteQuestion(params.id as string));
-    navigate('/');
+  const handleDelete = (type: PostType) => {
+    if (type === 'question') {
+      dispatch(deleteQuestion(params.id as string));
+      navigate('/');
+    }
+    if (type === 'answer') {
+      dispatch(deleteAnswer(answerId as number));
+    }
   };
 
-  const handleEditBtnClick = () => {
+  const handlePost = () => {
     if (params.id) {
       dispatch(
         changeEditBody({
@@ -91,7 +99,7 @@ const Content = (props: Prop) => {
 
   const confirmDelete = useConfirm(
     'Delete this page?',
-    () => handleDelete(),
+    () => handleDelete(type),
     () => console.log('Cancel')
   );
 
@@ -136,7 +144,7 @@ const Content = (props: Prop) => {
             {/** email 수정 예정 */}
             {user.userId === loginUser?.userId && (
               <>
-                <TextButton name="Edit" onClick={handleEditBtnClick} />
+                <TextButton name="Edit" onClick={handlePost} />
                 <TextButton name="Delete" onClick={confirmDelete} />
               </>
             )}

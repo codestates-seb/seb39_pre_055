@@ -41,9 +41,7 @@ const QuestionDetail = () => {
   );
 
   useEffect(() => {
-    if (params.id) {
-      dispatch(getDetail(params.id));
-    }
+    dispatch(getDetail(params.id as string));
   }, [dispatch, params, sortOption, data?.body]);
 
   if (isLoading)
