@@ -9,10 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -39,6 +36,17 @@ public class UserController {
                 HttpStatus.CREATED);
     }
 
-//    @PostMapping("/login")
+    /**
+     * 토근에 해당하는 User 정보를
+     * 클라이언트에게 전달
+     **/
+    @GetMapping("/user")
+    public ResponseEntity getUser(){
+        User user =  userService.getLoginUser();
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.userToUserResponseDto(user)),
+                HttpStatus.OK);
+    }
 
 }
