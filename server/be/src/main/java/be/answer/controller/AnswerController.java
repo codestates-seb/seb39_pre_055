@@ -2,11 +2,13 @@ package be.answer.controller;
 
 import be.answer.dto.AnswerPatchDto;
 import be.answer.dto.AnswerPostDto;
+import be.answer.dto.AnswerVoteDto;
 import be.answer.entity.Answer;
 import be.answer.mapper.AnswerMapper;
 import be.answer.service.AnswerService;
 import be.question.dto.QuestionPatchDto;
 import be.question.dto.QuestionPostDto;
+import be.question.dto.QuestionVoteDto;
 import be.question.entity.Question;
 import be.question.service.QuestionService;
 import be.response.SingleResponseDto;
@@ -62,6 +64,20 @@ public class AnswerController {
 
         return new ResponseEntity<>(
                 new SingleResponseDto<>(mapper.answerToAnswerResponseDto(userMapper,updatedAnswer)),
+                HttpStatus.OK);
+    }
+
+    /**
+     * 답글 추천 or 비추천
+     * **/
+    @PatchMapping("/answer/vote/{answer-id}")
+    public ResponseEntity voteAnswer(@PathVariable("answer-id") @Positive @NotNull long answerId,
+                                       @Valid @RequestBody AnswerVoteDto answerVoteDto){
+
+        Answer votedAnswer = answerService.voteAnswer(answerId,answerVoteDto.getVote());
+
+        return new ResponseEntity<>(
+                new SingleResponseDto<>(mapper.answerToAnswerResponseDto(userMapper,votedAnswer)),
                 HttpStatus.OK);
     }
 

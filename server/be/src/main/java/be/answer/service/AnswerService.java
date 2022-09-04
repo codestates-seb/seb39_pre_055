@@ -48,6 +48,12 @@ public class AnswerService {
 
         return findAllAnswer;
     }
+    public Answer voteAnswer(long answerId,int vote){//추천수 바꿔주는 메소드
+        Answer findAnswer = findVerifiedAnswer(answerId);//요청된 답이 DB에 없으면 에러
+        findAnswer.setVote(vote);
+        Answer updatedAnswer = answerRepository.save(findAnswer);
+        return updatedAnswer;
+    }
     public Answer updateAnswer(Answer answer){
         Answer findAnswer = findVerifiedAnswer(answer.getAnswerId());//요청된 답이 DB에 없으면 에러
 
