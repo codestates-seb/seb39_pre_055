@@ -3,6 +3,7 @@ import { toast } from 'react-toastify';
 
 import { AnswerInfo, DetailInitialState, Tbody } from '../../types';
 import {
+  addAnswer,
   changeVote,
   deleteQuestion,
   editQuestion,
@@ -15,6 +16,7 @@ const initialState: DetailInitialState = {
   editBody: '1',
   sortOption: 'vote',
   data: null,
+  isPostLoading: false,
 };
 
 const detailSlice = createSlice({
@@ -93,6 +95,16 @@ const detailSlice = createSlice({
       .addCase(changeVote.rejected, (state, { payload }) => {
         state.isLoading = false;
         toast.error(payload as string);
+      })
+      .addCase(addAnswer.pending, (state) => {
+        state.isPostLoading = true;
+      })
+      .addCase(addAnswer.fulfilled, (state, { payload }) => {
+        state.isPostLoading = false;
+        state.data?.answers.data.push(payload);
+      })
+      .addCase(addAnswer.rejected, (state) => {
+        state.isPostLoading = false;
       }),
 });
 

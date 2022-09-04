@@ -133,6 +133,7 @@ const Content = (props: Prop) => {
         <Utils>
           <div>
             <TextButton name="Share" onClick={toggleShareModal} />
+            {/** email 수정 예정 */}
             {user.userId === loginUser?.userId && (
               <>
                 <TextButton name="Edit" onClick={handleEditBtnClick} />

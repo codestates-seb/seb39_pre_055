@@ -6,7 +6,7 @@ import { Editor } from '@toast-ui/react-editor';
 import { useCallback, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-import { useAppDispatch, useAppSelector } from '../../../redux';
+import { addAnswer, useAppDispatch, useAppSelector } from '../../../redux';
 import { BlueButton } from '../../Button/Templates';
 import CustomEditor from '../CustomEditor/CustomEditor';
 
@@ -26,7 +26,7 @@ const AnswerEditor = () => {
   const [isError, setIsError] = useState(false);
 
   const dispatch = useAppDispatch();
-  const { isLoading } = useAppSelector((state) => state.detail);
+  const { data, isPostLoading } = useAppSelector((state) => state.detail);
 
   const handleEditorChange = useCallback(() => {
     if (value.length > 29) setIsError(false);
@@ -40,9 +40,10 @@ const AnswerEditor = () => {
       setIsError(true);
       return;
     }
-    // addAnswer(value);
-    console.log('submit');
-  }, [value]);
+    if (data?.questionId) {
+      dispatch(addAnswer({ questionId: data.questionId, body: value }));
+    }
+  }, [value, dispatch, data?.questionId]);
 
   return (
     <Container>
@@ -54,7 +55,12 @@ const AnswerEditor = () => {
         onChange={handleEditorChange}
       />
       <ButtonContainer>
-        <BlueButton width="140px" height="35px" onClick={handleSubmit}>
+        <BlueButton
+          width="140px"
+          height="35px"
+          onClick={handleSubmit}
+          isPending={isPostLoading}
+        >
           Post Your Answer
         </BlueButton>
       </ButtonContainer>

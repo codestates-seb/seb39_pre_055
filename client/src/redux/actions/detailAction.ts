@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 /* eslint-disable consistent-return */
-import { DetailData, EditBody } from '../../types';
+import { AnswerInfo, DetailData, EditBody } from '../../types';
 import { authHeader, axiosInstance } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
@@ -13,7 +13,7 @@ export const getDetail = createAsyncThunk<
   try {
     const { sortOption } = thunkAPI.getState().detail;
     const response = await axiosInstance.get(
-      `/v1/question/${payload}?page=1&size=3&sort=${sortOption}`
+      `/v1/question/${payload}?page=1&size=999&sort=${sortOption}`
     );
     return response.data.data;
   } catch (error: any) {
@@ -72,7 +72,7 @@ export const changeVote = createAsyncThunk<any, string, CreateAsyncThunkTypes>(
         vote: data?.vote,
       };
       const response = await axiosInstance.patch(
-        `/v1/user/question/${payload}`,
+        `/v1/question/vote/${payload}`,
         body,
         authHeader(thunkAPI)
       );
@@ -82,3 +82,26 @@ export const changeVote = createAsyncThunk<any, string, CreateAsyncThunkTypes>(
     }
   }
 );
+
+export interface AnswerPayload {
+  questionId: string;
+  body: string;
+}
+
+export const addAnswer = createAsyncThunk<
+  AnswerInfo,
+  AnswerPayload,
+  CreateAsyncThunkTypes
+>('detail/addAnswer', async (payload, thunkAPI) => {
+  try {
+    const response = await axiosInstance.post(
+      '/v1/user/answer/write',
+      payload,
+      authHeader(thunkAPI)
+    );
+    // thunkAPI.dispatch(getDetail(payload.questionId));
+    return response.data.data;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});

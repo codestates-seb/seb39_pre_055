@@ -4,10 +4,11 @@ export interface DetailInitialState {
   editBody: string;
   sortOption: string;
   data: DetailData | null;
+  isPostLoading: boolean;
 }
 
 export interface DetailData {
-  questionId: number;
+  questionId: string;
   questionStatus: string;
   title: string;
   body: string;
@@ -39,7 +40,6 @@ export interface User {
   userId: number;
   displayName: string;
   email: string;
-  password: string;
   image: string;
   userStatus: string;
   token: string;
@@ -59,7 +59,7 @@ export type Tbody = {
 };
 
 export interface EditBody {
-  id: number;
+  id: string;
   title: string;
   body: string;
   questionTags: string[];

@@ -105,7 +105,7 @@ const EditQuestion = () => {
         return;
       }
       const payload = {
-        id: data?.questionId as number,
+        id: data?.questionId as string,
         title,
         body,
         questionTags: tagArr,
