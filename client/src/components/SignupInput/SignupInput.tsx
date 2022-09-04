@@ -75,7 +75,7 @@ const CheckAndSubmit = styled.div`
   flex-direction: column;
   justify-content: space-between;
   div {
-    margin: 40px 0px 10px 0px;
+    margin: 60px 0px 5px 0px;
   }
 `;
 
