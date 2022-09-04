@@ -109,8 +109,9 @@ const SignupSideInfo = ({ icon, text }: Prop) => {
         </div>
         <GetTeams
           onClick={() =>
-            nav(
-              'https://stackoverflow.co/teams/?utm_source=so-owned&utm_medium=product&utm_campaign=free-50&utm_content=public-sign-up'
+            window.open(
+              'https://stackoverflow.co/teams/?utm_source=so-owned&utm_medium=product&utm_campaign=free-50&utm_content=public-sign-up',
+              '_blank'
             )
           }
         >

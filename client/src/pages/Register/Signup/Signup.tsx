@@ -118,7 +118,10 @@ const Signup = () => {
             <span>By clicking “Sign up”, you agree to our </span>
             <ServiceLink
               onClick={() =>
-                navigate('/stackoverflow.com/legal/terms-of-service/public')
+                window.open(
+                  'https://stackoverflow.com/legal/terms-of-service/public',
+                  '_blank'
+                )
               }
             >
               terms of service
@@ -126,14 +129,22 @@ const Signup = () => {
             <span>, </span>
             <PrivacyLink
               onClick={() =>
-                navigate('https://stackoverflow.com/legal/privacy-policy')
+                window.open(
+                  'https://stackoverflow.com/legal/privacy-policy',
+                  '_blank'
+                )
               }
             >
               privacy policy
             </PrivacyLink>
             <span> and </span>
             <CookieLink
-              onClick={() => 'https://stackoverflow.com/legal/cookie-policy'}
+              onClick={() =>
+                window.open(
+                  'https://stackoverflow.com/legal/cookie-policy',
+                  '_blank'
+                )
+              }
             >
               cookie policy
             </CookieLink>
