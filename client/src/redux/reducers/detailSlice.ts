@@ -3,11 +3,14 @@ import { toast } from 'react-toastify';
 
 import { AnswerInfo, DetailInitialState, Tbody } from '../../types';
 import {
-  changeVote,
+  addAnswer,
+  changeQuestionVote,
+  deleteAnswer,
   deleteQuestion,
   editQuestion,
   getDetail,
 } from '../actions';
+import { changeAnswerVote } from '../actions/detailAction';
 
 const initialState: DetailInitialState = {
   isLoading: false,
@@ -15,6 +18,7 @@ const initialState: DetailInitialState = {
   editBody: '1',
   sortOption: 'vote',
   data: null,
+  isPostLoading: false,
 };
 
 const detailSlice = createSlice({
@@ -38,14 +42,30 @@ const detailSlice = createSlice({
         state.editBody = target[0].body;
       }
     },
-    increaseVote: (state) => {
+    increaseQuestionVote: (state) => {
       if (state.data) {
         state.data.vote += 1;
       }
     },
-    decreaseVote: (state) => {
+    decreaseQuestionVote: (state) => {
       if (state.data) {
         state.data.vote -= 1;
+      }
+    },
+    increaseAnswerVote: (state, { payload }: PayloadAction<number>) => {
+      const targetIdx = state.data?.answers.data.findIndex(
+        (answer) => answer.answerId === payload
+      );
+      if (state.data) {
+        state.data.answers.data[targetIdx as number].vote += 1;
+      }
+    },
+    decreaseAnswerVote: (state, { payload }: PayloadAction<number>) => {
+      const targetIdx = state.data?.answers.data.findIndex(
+        (answer) => answer.answerId === payload
+      );
+      if (state.data) {
+        state.data.answers.data[targetIdx as number].vote -= 1;
       }
     },
   },
@@ -86,12 +106,30 @@ const detailSlice = createSlice({
         state.isLoading = false;
         toast.error(payload);
       })
-      .addCase(changeVote.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        toast.success(payload);
+      .addCase(changeQuestionVote.rejected, (state, { payload }) => {
+        toast.error(payload as string);
       })
-      .addCase(changeVote.rejected, (state, { payload }) => {
-        state.isLoading = false;
+      .addCase(addAnswer.pending, (state) => {
+        state.isPostLoading = true;
+      })
+      .addCase(addAnswer.fulfilled, (state, { payload }) => {
+        state.isPostLoading = false;
+        state.data?.answers.data.push(payload);
+      })
+      .addCase(addAnswer.rejected, (state, { payload }) => {
+        state.isPostLoading = false;
+        toast.error(payload);
+      })
+      .addCase(deleteAnswer.fulfilled, (state, { payload }) => {
+        const targetIdx = state.data?.answers.data.findIndex(
+          (answer) => answer.answerId === payload.answerId
+        );
+        state.data?.answers.data.splice(targetIdx as number, 1);
+      })
+      .addCase(deleteAnswer.rejected, (state, { payload }) => {
+        toast.error(payload);
+      })
+      .addCase(changeAnswerVote.rejected, (state, { payload }) => {
         toast.error(payload as string);
       }),
 });
@@ -99,7 +137,9 @@ const detailSlice = createSlice({
 export const {
   changeDetailSortOption,
   changeEditBody,
-  increaseVote,
-  decreaseVote,
+  increaseQuestionVote,
+  decreaseQuestionVote,
+  increaseAnswerVote,
+  decreaseAnswerVote,
 } = detailSlice.actions;
 export const detailReducer: Reducer<DetailInitialState> = detailSlice.reducer;

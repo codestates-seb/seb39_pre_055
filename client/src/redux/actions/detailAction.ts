@@ -1,7 +1,9 @@
+/* eslint-disable no-unsafe-optional-chaining */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 /* eslint-disable consistent-return */
-import { DetailData, EditBody } from '../../types';
+import { AnswerInfo, DetailData, EditBody } from '../../types';
+import { AnswerPayload } from '../../types/detail';
 import { authHeader, axiosInstance } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
@@ -13,11 +15,11 @@ export const getDetail = createAsyncThunk<
   try {
     const { sortOption } = thunkAPI.getState().detail;
     const response = await axiosInstance.get(
-      `/v1/question/${payload}?page=1&size=3&sort=${sortOption}`
+      `/v1/question/${payload}?page=1&size=999&sort=${sortOption}`
     );
     return response.data.data;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.response.data.message);
+    return thunkAPI.rejectWithValue(error.message);
   }
 });
 
@@ -50,11 +52,55 @@ export const deleteQuestion = createAsyncThunk<
   CreateAsyncThunkTypes
 >('detail/deleteQuestion', async (payload: string, thunkAPI) => {
   try {
-    const response = await axiosInstance.patch(
-      `/v1/user/question/${payload}`,
-      {
-        questionStatus: 'QUESTION_NOT_EXIST',
-      },
+    const { user } = thunkAPI.getState().user;
+    if (user) {
+      const response = await axiosInstance.patch(
+        `/v1/user/question/${payload}`,
+        {
+          questionStatus: 'QUESTION_NOT_EXIST',
+        },
+        authHeader(thunkAPI)
+      );
+      return response.data.data;
+    }
+  } catch (error: any) {
+    if (error.response.data.status === 403) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const changeQuestionVote = createAsyncThunk<
+  undefined,
+  string,
+  CreateAsyncThunkTypes
+>('detail/changeQuestionVote', async (payload, thunkAPI) => {
+  try {
+    const { data } = thunkAPI.getState().detail;
+    const body = {
+      vote: data?.vote,
+    };
+    await axiosInstance.patch(
+      `/v1/question/vote/${payload}`,
+      body,
+      authHeader(thunkAPI)
+    );
+    return;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const addAnswer = createAsyncThunk<
+  AnswerInfo,
+  AnswerPayload,
+  CreateAsyncThunkTypes
+>('detail/addAnswer', async (payload, thunkAPI) => {
+  try {
+    const response = await axiosInstance.post(
+      '/v1/user/answer/write',
+      payload,
       authHeader(thunkAPI)
     );
     return response.data.data;
@@ -63,22 +109,43 @@ export const deleteQuestion = createAsyncThunk<
   }
 });
 
-export const changeVote = createAsyncThunk<any, string, CreateAsyncThunkTypes>(
-  'detail/changeVote',
-  async (payload, thunkAPI) => {
-    try {
-      const { data } = thunkAPI.getState().detail;
-      const body = {
-        vote: data?.vote,
-      };
+export const deleteAnswer = createAsyncThunk<
+  AnswerInfo,
+  number,
+  CreateAsyncThunkTypes
+>('detail/deleteAnswer', async (payload, thunkAPI) => {
+  try {
+    const { user } = thunkAPI.getState().user;
+    if (user) {
       const response = await axiosInstance.patch(
-        `/v1/user/question/${payload}`,
-        body,
+        `v1/user/answer/${payload}`,
+        {
+          answerStatus: 'ANSWER_NOT_EXIST',
+        },
         authHeader(thunkAPI)
       );
-      return response.data;
-    } catch (error: any) {
-      return thunkAPI.rejectWithValue(error.message);
+      return response.data.data;
     }
+  } catch (error: any) {
+    if (error.response.status === 403) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+    return thunkAPI.rejectWithValue(error.message);
   }
-);
+});
+
+export const changeAnswerVote = createAsyncThunk<
+  undefined,
+  number,
+  CreateAsyncThunkTypes
+>('/detail/changeAnswerVote', async (payload, thunkAPI) => {
+  // const { data } = thunkAPI.getState().detail.data?.answers as Answer;
+  try {
+    await axiosInstance.patch(`/v1/answer/vote/${payload}`, {
+      vote: 1,
+    });
+    return;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});

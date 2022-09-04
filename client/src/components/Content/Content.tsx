@@ -12,11 +12,15 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle } from '../../hooks';
 import {
+  changeAnswerVote,
   changeEditBody,
-  changeVote,
-  decreaseVote,
+  changeQuestionVote,
+  decreaseAnswerVote,
+  decreaseQuestionVote,
+  deleteAnswer,
   deleteQuestion,
-  increaseVote,
+  increaseAnswerVote,
+  increaseQuestionVote,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
@@ -26,13 +30,15 @@ import { useModal } from '../Modal';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
 import VoteModal from './VoteModal';
 
+type PostType = 'question' | 'answer';
+
 interface Prop {
-  type: 'question' | 'answer';
+  type: PostType;
   body: string;
   tags?: Array<string>;
   user: User;
-  createdAt: string;
   vote: number;
+  createdAt: string;
   answerId?: number;
 }
 
@@ -71,12 +77,17 @@ const Content = (props: Prop) => {
     setShareModal((prev) => !prev);
   };
 
-  const handleDelete = () => {
-    dispatch(deleteQuestion(params.id as string));
-    navigate('/');
+  const handleDelete = (type: PostType) => {
+    if (type === 'question') {
+      dispatch(deleteQuestion(params.id as string));
+      navigate('/');
+    }
+    if (type === 'answer') {
+      dispatch(deleteAnswer(answerId as number));
+    }
   };
 
-  const handleEditBtnClick = () => {
+  const handlePost = () => {
     if (params.id) {
       dispatch(
         changeEditBody({
@@ -91,7 +102,7 @@ const Content = (props: Prop) => {
 
   const confirmDelete = useConfirm(
     'Delete this page?',
-    () => handleDelete(),
+    () => handleDelete(type),
     () => console.log('Cancel')
   );
 
@@ -101,8 +112,14 @@ const Content = (props: Prop) => {
       return;
     }
     if (vote > currentVote) return;
-    dispatch(increaseVote());
-    dispatch(changeVote(params.id as string));
+    if (type === 'question') {
+      dispatch(increaseQuestionVote());
+      dispatch(changeQuestionVote(params.id as string));
+    }
+    if (type === 'answer') {
+      dispatch(increaseAnswerVote(answerId as number));
+      dispatch(changeAnswerVote(answerId as number));
+    }
   }, [vote]);
 
   const downVote = useCallback(() => {
@@ -111,8 +128,14 @@ const Content = (props: Prop) => {
       return;
     }
     if (vote < currentVote) return;
-    dispatch(decreaseVote());
-    dispatch(changeVote(params.id as string));
+    if (type === 'question') {
+      dispatch(decreaseQuestionVote());
+      dispatch(changeQuestionVote(params.id as string));
+    }
+    if (type === 'answer') {
+      dispatch(decreaseAnswerVote(answerId as number));
+      dispatch(changeAnswerVote(answerId as number));
+    }
   }, [vote]);
 
   return (
@@ -133,9 +156,10 @@ const Content = (props: Prop) => {
         <Utils>
           <div>
             <TextButton name="Share" onClick={toggleShareModal} />
-            {user.userId === loginUser?.userId && (
+            {/** email 수정 예정 */}
+            {user.email === loginUser?.email && (
               <>
-                <TextButton name="Edit" onClick={handleEditBtnClick} />
+                <TextButton name="Edit" onClick={handlePost} />
                 <TextButton name="Delete" onClick={confirmDelete} />
               </>
             )}
