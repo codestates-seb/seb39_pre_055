@@ -70,7 +70,6 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   const navigate = useNavigate();
   const { token } = useAppSelector((state) => state.user.user) || {};
 
-
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       let error = false;
@@ -132,7 +131,6 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
     (async () => {
       try {
         const reqBody = {
-          userId: '1',
           title: title.value,
           body: body.value,
           questionTags: tags.value,
@@ -189,6 +187,8 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   };
 
   if (!token) {
+    toast.info('로그인 해주세요');
+
     return <Navigate to="/login" replace />;
   }
 
