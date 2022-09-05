@@ -110,13 +110,7 @@ const detailSlice = createSlice({
       })
       .addCase(addAnswer.fulfilled, (state, { payload }) => {
         state.isPostLoading = false;
-        if (state.data?.answers === null) {
-          state.data.answers = {
-            data: [payload],
-          };
-        } else {
-          state.data?.answers.data.push(payload);
-        }
+        state.data = payload;
       })
       .addCase(addAnswer.rejected, (state, { payload }) => {
         state.isPostLoading = false;

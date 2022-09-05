@@ -92,15 +92,19 @@ export const changeQuestionVote = createAsyncThunk<
 });
 
 export const addAnswer = createAsyncThunk<
-  AnswerInfo,
+  DetailData,
   AnswerPayload,
   CreateAsyncThunkTypes
 >('detail/addAnswer', async (payload, thunkAPI) => {
   try {
-    const response = await axiosInstance.post(
+    const { data } = thunkAPI.getState().detail;
+    await axiosInstance.post(
       '/v1/user/answer/write',
       payload,
       authHeader(thunkAPI)
+    );
+    const response = await axiosInstance.get(
+      `/v1/question/${data?.questionId}?page=1&size=999&sort=vote`
     );
     return response.data.data;
   } catch (error: any) {
