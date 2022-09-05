@@ -11,6 +11,7 @@ export type SearchBarSize = Pick<
 interface SearchHandler {
   callback: () => void;
   navigatePath?: string;
+  extraQuery?: string;
 }
 
 interface SearchBarProps {
@@ -37,7 +38,7 @@ const DefaultSearchBar = ({
   responsive,
 }: SearchBarProps) => {
   const navigate = useNavigate();
-  const { callback, navigatePath } = onSearch || {};
+  const { callback, navigatePath, extraQuery } = onSearch || {};
 
   const handleSearch = (e: KeyboardEvent<HTMLInputElement>) => {
     if (e.key !== 'Enter') return;
@@ -48,7 +49,7 @@ const DefaultSearchBar = ({
       callback();
     }
     if (navigatePath) {
-      navigate(`${navigatePath}${keyword}`);
+      navigate(`${navigatePath}${keyword}&${extraQuery}`);
     }
   };
 
