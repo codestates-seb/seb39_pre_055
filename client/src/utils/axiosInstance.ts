@@ -16,7 +16,7 @@ export const authHeader = (thunkAPI: any) => {
 };
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://13.125.82.209:8080', // 서버 url
+  baseURL: 'http://soyoungp.shop', // 서버 url
   transformRequest: [
     (data) => {
       if (data && 'questionTags' in data) {
