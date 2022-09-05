@@ -22,6 +22,7 @@ import {
   DefaultInput,
   TagInput,
 } from '../../../../components';
+import { useAppSelector } from '../../../../redux';
 import { axiosInstance } from '../../../../utils/axiosInstance';
 import Caption from '../MDCaptions/MDCaptions';
 import { SCaptionBox } from '../MDCaptions/style';
@@ -67,6 +68,7 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   const [isPending, setIsPending] = useState(false);
   const editorRef = useRef<Editor>(null);
   const navigate = useNavigate();
+  const { token } = useAppSelector((state) => state.user.user);
 
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -134,14 +136,20 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
           body: body.value,
           questionTags: tags.value,
         };
-        const res = await axiosInstance.post('/v1/question/write', reqBody, {
-          signal: controller.signal,
-        });
+        const res = await axiosInstance.post(
+          '/v1/user/question/write',
+          reqBody,
+          {
+            signal: controller.signal,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const { questionId } = res.data.data;
 
         navigate(`/${questionId}`);
       } catch (error: any) {
-        console.log(error);
         const { status, message } = error.response.data;
         toast.error(`${status}: ${message}`);
       }

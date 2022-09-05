@@ -26,7 +26,7 @@ const CountQuestions = memo(() => {
   return (
     <Wrapper>
       <span>{totalCounts.toLocaleString('ko-KR')}</span>
-      <span>questions</span>
+      <span>results</span>
     </Wrapper>
   );
 });

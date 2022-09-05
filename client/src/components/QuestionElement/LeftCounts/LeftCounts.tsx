@@ -9,9 +9,8 @@ interface Prop {
 }
 
 const LeftCounts = memo(({ id }: Prop) => {
-  const { vote, view /* answers */ } = useAppSelector((state) =>
-    selectQInfos(state, id)
-  );
+  const { vote, view /* answers */ } =
+    useAppSelector((state) => selectQInfos(state, id)) || {};
 
   return (
     <Container>

@@ -2,6 +2,7 @@ import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
 import { toast } from 'react-toastify';
 
 import { getSearchResults } from '../actions/searchActions';
+import { RootState } from '../store';
 
 export interface SearchResults {
   title: string;
@@ -19,13 +20,15 @@ export interface SearchResults {
 
 interface Search {
   keyword: string;
+  page: number;
   isLoading: boolean;
-  errorMsg: string;
+  errorMsg: unknown;
   result: SearchResults[];
 }
 
-const initialState = {
+const initialState: Search = {
   keyword: 'react',
+  page: 1,
   isLoading: true,
   errorMsg: 'err',
   result: [
@@ -81,14 +84,24 @@ const searchSlice = createSlice({
           state.result = payload;
         }
       )
-      .addCase(getSearchResults.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        if (payload) {
+      .addCase(
+        getSearchResults.rejected,
+        (state, { payload }: PayloadAction<unknown>) => {
+          state.isLoading = false;
           state.errorMsg = payload;
-          toast.error(state.errorMsg);
+
+          if (typeof payload === 'string') {
+            toast.error(payload);
+          }
         }
-      }),
+      ),
 });
+
+/* Selectors */
+export const selectResultIds = (state: RootState) =>
+  state.search.result.map((q) => q.question_id);
+export const selectInfos = (state: RootState, id: number) =>
+  state.search.result.filter((q) => q.question_id === id)[0];
 
 export const { setKeyword, setResults } = searchSlice.actions;
 export const searchReducer: Reducer<Search> = searchSlice.reducer;

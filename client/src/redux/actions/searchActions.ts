@@ -2,12 +2,18 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 
 import { axiosInstance } from '../../utils';
 import { SearchResults } from '../reducers/searchSlice';
-import { CreateAsyncThunkTypes } from '../store/index';
+import { AppDispatch, RootState } from '../store/index';
+
+type AsyncThunkConfigs = {
+  dispatch: AppDispatch;
+  state: RootState;
+  rejectValue: unknown;
+};
 
 export const getSearchResults = createAsyncThunk<
   SearchResults[],
   undefined,
-  CreateAsyncThunkTypes
+  AsyncThunkConfigs
 >('search/setResults', async (_, thunkAPI) => {
   try {
     const { keyword } = thunkAPI.getState().search;
@@ -16,7 +22,10 @@ export const getSearchResults = createAsyncThunk<
     );
 
     return response.data;
-  } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message);
+  } catch (error) {
+    if (error instanceof Error) {
+      return thunkAPI.rejectWithValue(error.message);
+    }
+    return thunkAPI.rejectWithValue(error);
   }
 });
