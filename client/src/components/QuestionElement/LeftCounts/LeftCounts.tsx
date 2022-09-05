@@ -6,11 +6,12 @@ import { Container, Wrapper, Wrapper2, Wrapper3 } from './style';
 
 interface Prop {
   id: number;
+  selector: any;
 }
 
-const LeftCounts = memo(({ id }: Prop) => {
+const LeftCounts = memo(({ id, selector }: Prop) => {
   const { vote, view /* answers */ } =
-    useAppSelector((state) => selectQInfos(state, id)) || {};
+    useAppSelector((state) => selector(state, id)) || {};
 
   return (
     <Container>

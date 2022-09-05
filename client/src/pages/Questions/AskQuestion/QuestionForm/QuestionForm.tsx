@@ -12,7 +12,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { css } from 'styled-components';
 
@@ -68,7 +68,7 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   const [isPending, setIsPending] = useState(false);
   const editorRef = useRef<Editor>(null);
   const navigate = useNavigate();
-  const { token } = useAppSelector((state) => state.user.user);
+  const { token } = useAppSelector((state) => state.user.user) || {};
 
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -186,6 +186,10 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
       e.preventDefault();
     }
   };
+
+  if (!token) {
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <SForm onSubmit={handleSubmit} onKeyDown={(e) => suppressFormEnter(e)}>
