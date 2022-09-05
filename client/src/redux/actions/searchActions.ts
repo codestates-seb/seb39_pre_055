@@ -1,4 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
+import { AxiosError } from 'axios';
+import { toast } from 'react-toastify';
 
 import { Question } from '../../types/question';
 import { axiosInstance } from '../../utils';
@@ -40,10 +42,17 @@ export const getSearchResults = createAsyncThunk<
     );
 
     return response.data;
-  } catch (error) {
-    if (error instanceof Error) {
-      return thunkAPI.rejectWithValue(error.message);
+  } catch (err) {
+    if (!(err instanceof AxiosError)) {
+      return thunkAPI.rejectWithValue(err);
     }
-    return thunkAPI.rejectWithValue(error);
+    const { data } = err.response || {};
+
+    if (data.message === 'Question not found') {
+      return { data: [], pageInfo: { totalElements: 0, totalPages: 1 } };
+    }
+    toast.error(err.message);
+
+    return thunkAPI.rejectWithValue(err.message);
   }
 });
