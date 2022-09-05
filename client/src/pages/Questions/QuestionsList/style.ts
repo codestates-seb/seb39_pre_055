@@ -13,7 +13,7 @@ export const SElementSection = styled.section`
 
 export const SPromoAside = styled(Aside)`
   margin: 30px 30px 30px 0px;
-  flex: 0 0 350px;
+  flex: 0 0 320px;
 `;
 
 export const TitleHeader = styled.header`
@@ -59,8 +59,10 @@ export const MainUList = styled.ul`
 
 export const SQuestionList = styled.li`
   display: flex;
+  flex-flow: row nowrap;
   row-gap: 7px;
   padding: 14px;
+  width: 100%;
   border-top: 0.2px solid var(--black-100);
 
   @media (max-width: 640px) {
