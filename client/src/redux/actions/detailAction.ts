@@ -1,9 +1,9 @@
 /* eslint-disable no-unsafe-optional-chaining */
+/* eslint-disable consistent-return */
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
-/* eslint-disable consistent-return */
 import { AnswerInfo, DetailData, EditBody } from '../../types';
-import { AnswerPayload } from '../../types/detail';
+import { AnswerPayload, Answers } from '../../types/detail';
 import { authHeader, axiosInstance } from '../../utils';
 import { CreateAsyncThunkTypes } from '../store/index';
 
@@ -13,9 +13,8 @@ export const getDetail = createAsyncThunk<
   CreateAsyncThunkTypes
 >('detail/getDetail', async (payload, thunkAPI) => {
   try {
-    const { sortOption } = thunkAPI.getState().detail;
     const response = await axiosInstance.get(
-      `/v1/question/${payload}?page=1&size=999&sort=${sortOption}`
+      `/v1/question/${payload}?page=1&size=999&sort=vote`
     );
     return response.data.data;
   } catch (error: any) {
@@ -139,12 +138,57 @@ export const changeAnswerVote = createAsyncThunk<
   number,
   CreateAsyncThunkTypes
 >('/detail/changeAnswerVote', async (payload, thunkAPI) => {
-  // const { data } = thunkAPI.getState().detail.data?.answers as Answer;
+  const { data } = thunkAPI.getState().detail.data?.answers as Answers;
+  const idx = data.findIndex((answer) => answer.answerId === payload);
   try {
     await axiosInstance.patch(`/v1/answer/vote/${payload}`, {
-      vote: 1,
+      vote: data[idx].vote,
     });
     return;
+  } catch (error: any) {
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const editAnswer = createAsyncThunk<
+  undefined,
+  {
+    answerId: number;
+    body: string;
+  },
+  CreateAsyncThunkTypes
+>('/detail/editAnswer', async (payload, thunkAPI) => {
+  const { answerId, body } = payload;
+  try {
+    await axiosInstance.patch(
+      `/v1/user/answer/${answerId}`,
+      {
+        body,
+      },
+      authHeader(thunkAPI)
+    );
+    return;
+  } catch (error: any) {
+    if (error.response.data.status === 403) {
+      return thunkAPI.rejectWithValue(error.response.data.message);
+    }
+    return thunkAPI.rejectWithValue(error.message);
+  }
+});
+
+export const sortAnswers = createAsyncThunk<
+  DetailData,
+  {
+    questionId: string;
+    value: string;
+  },
+  CreateAsyncThunkTypes
+>('detail/sortAnswers', async (payload, thunkAPI) => {
+  try {
+    const response = await axiosInstance.get(
+      `/v1/question/${payload.questionId}?page=1&size=999&sort=${payload.value}`
+    );
+    return response.data.data;
   } catch (error: any) {
     return thunkAPI.rejectWithValue(error.message);
   }

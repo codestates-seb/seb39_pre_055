@@ -54,6 +54,7 @@ const Content = (props: Prop) => {
   const { openModal, closeModal } = useModal({
     position: { x: '50%', y: '50%' },
     height: '200px',
+    width: '300px', // 수정 예정
   });
 
   useEffect(() => {
@@ -87,7 +88,7 @@ const Content = (props: Prop) => {
     }
   };
 
-  const handlePost = () => {
+  const handleEdit = () => {
     if (params.id) {
       dispatch(
         changeEditBody({
@@ -159,7 +160,7 @@ const Content = (props: Prop) => {
             {/** email 수정 예정 */}
             {user.email === loginUser?.email && (
               <>
-                <TextButton name="Edit" onClick={handlePost} />
+                <TextButton name="Edit" onClick={handleEdit} />
                 <TextButton name="Delete" onClick={confirmDelete} />
               </>
             )}

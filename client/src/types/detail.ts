@@ -2,7 +2,7 @@ export interface DetailInitialState {
   isLoading: boolean;
   editType: string;
   editBody: string;
-  sortOption: string;
+  editAnswerId: number;
   data: DetailData | null;
   isPostLoading: boolean;
 }
