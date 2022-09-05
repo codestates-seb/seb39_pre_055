@@ -1,7 +1,7 @@
 /* eslint-disable react/display-name */
 import { memo } from 'react';
 
-import { selectQInfos, useAppSelector } from '../../../redux';
+import { useAppSelector } from '../../../redux';
 import { Container, Wrapper, Wrapper2, Wrapper3 } from './style';
 
 interface Prop {
