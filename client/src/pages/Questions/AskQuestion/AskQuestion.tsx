@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import GuidelineCard from '../../../components/Accordian/Accordion';
 import { useModal } from '../../../components/Modal';
 import { useLocalStorage } from '../../../hooks/useLocalStorage';
+import { useAppSelector } from '../../../redux';
 import MoreHelpfulCard from './QuestionForm/Cards/MoreHelpfulCard';
 import NonProgCard from './QuestionForm/Cards/NonProgCard';
 import Step1Card from './QuestionForm/Cards/Step1Card';
@@ -39,7 +40,8 @@ const helpCards = [
 const AskQuestion = () => {
   const [errs, setErrs] = useState({ status: 'unknown', count: 0 });
   const { openModal, closeModal } = useModal();
-  const [hideMsg] = useLocalStorage(`${'userId'}_DONTSHOWHINT`, false);
+  const { userId } = useAppSelector((state) => state.user.user) || {};
+  const [hideMsg] = useLocalStorage(`${userId}_DONTSHOWHINT`, false);
   const step2Card = [
     {
       title: 'Step 2: Review your question',
@@ -49,12 +51,12 @@ const AskQuestion = () => {
   ];
 
   useEffect(() => {
-    if (!hideMsg) {
+    if (!hideMsg && userId) {
       openModal(<HelpModal />);
     }
 
     return () => closeModal();
-  }, [hideMsg, openModal, closeModal]);
+  }, [hideMsg, userId, openModal, closeModal]);
 
   return (
     <SQuestionBox>

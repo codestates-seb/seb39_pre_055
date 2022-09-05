@@ -43,7 +43,7 @@ const QuestionElement = ({ id, selector }: Prop) => {
       <STextP>{body}</STextP>
       <ContentFooter>
         <Tags>
-          {(questionTags || []).map((tag: any) => (
+          {(questionTags || []).map((tag: string) => (
             <Tag key={tag} name={tag} />
           ))}
         </Tags>
