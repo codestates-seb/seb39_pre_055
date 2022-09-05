@@ -34,14 +34,13 @@ const Spinner = styled.div`
   height: 17px;
   border-radius: 100%;
   margin-right: 7px;
+  background-color: rgba(146, 255, 228, 0);
 
   border-top: 2px solid rgb(255, 255, 255);
   border-right: 2px solid rgba(212, 212, 212, 0.2);
   border-left: 2px solid rgba(212, 212, 212, 0.2);
   border-bottom: 2px solid rgba(212, 212, 212, 0.2);
-  background-color: rgba(184, 184, 184, 0);
   animation: ${spin} 1s infinite linear;
-  background-color: rgba(146, 255, 228, 0);
 `;
 
 const DefaultBtn = ({

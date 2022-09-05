@@ -19,23 +19,21 @@ interface Prop {
 }
 
 const UserFooter = memo(({ id }: Prop) => {
-  const { user, createdAt } = useAppSelector((state) =>
-    selectQInfos(state, id)
-  );
+  const { user, createdAt } =
+    useAppSelector((state) => selectQInfos(state, id)) || {};
 
   return (
     <UserContainer>
-      <img width="20" alt={`thumbnail of ${user}`} src={user.image} />
-      <UserName>{user.displayName}</UserName>
+      <img width="20" alt={`thumbnail of ${user}`} src={user?.image} />
+      <UserName>{user?.displayName}</UserName>
       <UserAsked> {createdAt}</UserAsked>
     </UserContainer>
   );
 });
 
 const QuestionElement = ({ id }: Prop) => {
-  const { title, body, questionTags } = useAppSelector((state) =>
-    selectQInfos(state, id)
-  );
+  const { title, body, questionTags } =
+    useAppSelector((state) => selectQInfos(state, id)) || {};
 
   return (
     <Container>
@@ -43,7 +41,7 @@ const QuestionElement = ({ id }: Prop) => {
       <STextP>{body}</STextP>
       <ContentFooter>
         <Tags>
-          {questionTags.map((tag) => (
+          {(questionTags || []).map((tag) => (
             <Tag key={tag} name={tag} />
           ))}
         </Tags>
