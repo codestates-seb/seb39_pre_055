@@ -1,6 +1,6 @@
 import '@toast-ui/editor/dist/toastui-editor.css';
 
-import { useCallback, useEffect, useState } from 'react';
+import { useCallback, useEffect } from 'react';
 import { shallowEqual } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
@@ -14,14 +14,17 @@ import {
   changeQPage,
   changeQSortOption,
   selectQIds,
+  selectQInfos,
 } from '../../../redux/reducers/questionSlice';
 import {
-  Container,
   Footer,
   InfoContainer,
   MainUList,
   PagenationButton,
+  SElementSection,
+  SMainBox,
   SortTabs,
+  SPromoAside,
   SQuestionList,
   TitleHeader,
 } from './style';
@@ -29,8 +32,9 @@ import {
 const QuestionList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { questionList, page, totalPages, totalElements, sortOption } =
-    useAppSelector((store) => store.question);
+  const { page, totalPages, totalElements, sortOption } = useAppSelector(
+    (store) => store.question
+  );
   const qusetionIds = useAppSelector(selectQIds, shallowEqual);
 
   useEffect(() => {
@@ -57,41 +61,44 @@ const QuestionList = () => {
   };
 
   return (
-    <Container>
-      <TitleHeader>
-        <h1>All Questions</h1>
-        <BlueButton onClick={() => navigate('/ask')}>Ask Question</BlueButton>
-      </TitleHeader>
-      <InfoContainer>
-        <CountQuestions />
-        <SortTabs>
-          <SortButton
-            nameList={['Newest', 'Votes']}
-            clickedName={sortOption}
-            onClick={handleSort}
-          />
-        </SortTabs>
-      </InfoContainer>
-      <MainUList>
-        {qusetionIds.map((id) => (
-          <SQuestionList key={id}>
-            <LeftCounts id={id} />
-            <QuestionElement id={id} />
-          </SQuestionList>
-        ))}
-      </MainUList>
-      <Footer>
-        <PagenationButton>
-          <CustomPagination
-            onChange={handlePageChange}
-            activePage={page}
-            itemsCountPerPage={15}
-            totalItemsCount={totalElements}
-            pageRangeDisplayed={totalPages < 5 ? totalPages : 5}
-          />
-        </PagenationButton>
-      </Footer>
-    </Container>
+    <SMainBox>
+      <SElementSection>
+        <TitleHeader>
+          <h1>All Questions</h1>
+          <BlueButton onClick={() => navigate('/ask')}>Ask Question</BlueButton>
+        </TitleHeader>
+        <InfoContainer>
+          <CountQuestions counts={totalElements} />
+          <SortTabs>
+            <SortButton
+              nameList={['Newest', 'Votes']}
+              clickedName={sortOption}
+              onClick={handleSort}
+            />
+          </SortTabs>
+        </InfoContainer>
+        <MainUList>
+          {qusetionIds.map((id) => (
+            <SQuestionList key={id}>
+              <LeftCounts id={id} selector={selectQInfos} />
+              <QuestionElement id={id} selector={selectQInfos} />
+            </SQuestionList>
+          ))}
+        </MainUList>
+        <Footer>
+          <PagenationButton>
+            <CustomPagination
+              onChange={handlePageChange}
+              activePage={page}
+              itemsCountPerPage={15}
+              totalItemsCount={totalElements}
+              pageRangeDisplayed={totalPages < 5 ? totalPages : 5}
+            />
+          </PagenationButton>
+        </Footer>
+      </SElementSection>
+      <SPromoAside />
+    </SMainBox>
   );
 };
 

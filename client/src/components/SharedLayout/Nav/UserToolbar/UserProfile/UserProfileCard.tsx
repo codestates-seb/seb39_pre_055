@@ -5,6 +5,7 @@ import {
   useEffect,
   useRef,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import { useAppSelector } from '../../../../../redux';
 import { LogoutButton, SImg, SProfileBox, SUserNameH3 } from './style';
@@ -17,6 +18,7 @@ const ProfileCard = ({ setOpencard }: ProfileCardProps) => {
   const { image, displayName, email } =
     useAppSelector((state) => state.user.user) || {};
   const boxRef = useRef<HTMLDivElement>(null);
+  const navigate = useNavigate();
 
   const closeCard = useCallback(
     (e: MouseEvent) => {
@@ -30,6 +32,11 @@ const ProfileCard = ({ setOpencard }: ProfileCardProps) => {
     [setOpencard]
   );
 
+  const HandleLogout = () => {
+    setOpencard(false);
+    navigate('/logout');
+  };
+
   useEffect(() => {
     document.addEventListener('click', closeCard);
 
@@ -41,7 +48,7 @@ const ProfileCard = ({ setOpencard }: ProfileCardProps) => {
       <SImg src={image} />
       <SUserNameH3>{displayName}</SUserNameH3>
       <p>{email}</p>
-      <LogoutButton>Log Out</LogoutButton>
+      <LogoutButton onClick={HandleLogout}>Log Out</LogoutButton>
     </SProfileBox>
   );
 };

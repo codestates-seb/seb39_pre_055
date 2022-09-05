@@ -43,9 +43,13 @@ export const Sidebar = styled.div`
     list-style: inside;
   }
 `;
-const Aside = () => {
+
+interface Prop {
+  className?: string;
+}
+const Aside = ({ className }: Prop) => {
   return (
-    <Side>
+    <Side className={className}>
       <Sidebar>
         <header>The Overflow Blog</header>
         <ul>
