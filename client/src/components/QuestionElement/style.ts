@@ -5,7 +5,6 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 3px;
-  width: 100%;
   height: auto;
 `;
 
@@ -34,6 +33,7 @@ export const STextP = styled.p`
   max-height: 43px;
   width: calc(100%);
   overflow: hidden;
+  word-break: break-all;
 
   @media (max-width: 640px) {
     font-size: 12px;
