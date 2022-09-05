@@ -88,6 +88,9 @@ public class QuestionService {
     public Question updateQuestion(Question question){
         Question findQuestion = findVerifiedQuestion(question.getQuestionId());//요청된 질문이 DB에 없으면 에러
 
+        Optional.ofNullable(question.getUpdatedAt()) //업데이트 날짜 수정
+                .ifPresent(questionUpdatedAt->findQuestion.setUpdatedAt(questionUpdatedAt));
+
         Optional.ofNullable(question.getTitle()) //제목수정
                 .ifPresent(questionTitle->findQuestion.setTitle(questionTitle));
 

@@ -27,6 +27,9 @@ public class UserController {
         this.mapper = mapper;
     }
 
+    /**
+     * 회원가입 API
+     * **/
     @PostMapping("/sign-up")
     public ResponseEntity postUser(@Valid @RequestBody UserPostDto userDto) {
         User user = mapper.userPostDtoToUser(userDto);
