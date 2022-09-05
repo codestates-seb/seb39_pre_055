@@ -39,8 +39,12 @@ export const Container = styled.div`
   }
 `;
 
-const LoadingSpinner = () => (
-  <Container className="lds-ring">
+interface Props {
+  className?: string;
+}
+
+const LoadingSpinner = ({ className }: Props) => (
+  <Container className={`lds-ring ${className}`}>
     <div />
     <div />
     <div />
