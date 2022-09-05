@@ -123,6 +123,7 @@ export const deleteAnswer = createAsyncThunk<
         },
         authHeader(thunkAPI)
       );
+
       return response.data.data;
     }
   } catch (error: any) {
@@ -151,7 +152,10 @@ export const changeAnswerVote = createAsyncThunk<
 });
 
 export const editAnswer = createAsyncThunk<
-  undefined,
+  {
+    answerId: number;
+    data: AnswerInfo;
+  },
   {
     answerId: number;
     body: string;
@@ -160,14 +164,14 @@ export const editAnswer = createAsyncThunk<
 >('/detail/editAnswer', async (payload, thunkAPI) => {
   const { answerId, body } = payload;
   try {
-    await axiosInstance.patch(
+    const response = await axiosInstance.patch(
       `/v1/user/answer/${answerId}`,
       {
         body,
       },
       authHeader(thunkAPI)
     );
-    return;
+    return { answerId, data: response.data.data };
   } catch (error: any) {
     if (error.response.data.status === 403) {
       return thunkAPI.rejectWithValue(error.response.data.message);

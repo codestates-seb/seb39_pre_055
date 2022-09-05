@@ -110,7 +110,13 @@ const detailSlice = createSlice({
       })
       .addCase(addAnswer.fulfilled, (state, { payload }) => {
         state.isPostLoading = false;
-        state.data?.answers.data.push(payload);
+        if (state.data?.answers === null) {
+          state.data.answers = {
+            data: [payload],
+          };
+        } else {
+          state.data?.answers.data.push(payload);
+        }
       })
       .addCase(addAnswer.rejected, (state, { payload }) => {
         state.isPostLoading = false;
@@ -128,7 +134,13 @@ const detailSlice = createSlice({
       .addCase(changeAnswerVote.rejected, (_, { payload }) => {
         toast.error(payload as string);
       })
-      .addCase(editAnswer.fulfilled, (_, { payload }) => {
+      .addCase(editAnswer.fulfilled, (state, { payload }) => {
+        state.data?.answers.data.map((answer) => {
+          if (answer.answerId === payload.answerId) {
+            return { ...answer, body: payload.data.body };
+          }
+          return answer;
+        });
         toast.success('Successfully edited your answer.');
       })
       .addCase(editAnswer.rejected, (_, { payload }) => {
