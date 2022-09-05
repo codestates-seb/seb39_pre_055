@@ -51,7 +51,7 @@ const QuestionDetail = () => {
 
   if (data)
     return (
-      <Modal width="1px" height="1px" background>
+      <Modal width="500px" height="500px" background>
         <Container>
           {/* question */}
           <Header>
