@@ -80,17 +80,29 @@ export const Footer = styled.div`
   & > div > a {
     margin-left: 5px;
     color: var(--blue-600);
+    &:hover {
+      color: var(--blue-400);
+    }
   }
 `;
 
-export const ServiceLink = styled.span`
+export const ServiceLink = styled.a`
   color: var(--blue-600);
+  &:hover {
+    color: var(--blue-400);
+  }
 `;
 
-export const PrivacyLink = styled.span`
+export const PrivacyLink = styled.a`
   color: var(--blue-600);
+  &:hover {
+    color: var(--blue-400);
+  }
 `;
 
-export const CookieLink = styled.span`
+export const CookieLink = styled.a`
   color: var(--blue-600);
+  &:hover {
+    color: var(--blue-400);
+  }
 `;
