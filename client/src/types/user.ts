@@ -10,7 +10,6 @@ export interface UserInitialState {
   inName: string;
   isLoading: boolean;
   isSignupDone: boolean;
-  errorMsg: string;
 }
 
 export interface UserInfo {

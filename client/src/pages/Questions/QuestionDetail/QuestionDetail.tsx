@@ -16,12 +16,8 @@ import {
   NotFound,
   QuestionInfo,
 } from '../../../components';
-import {
-  changeDetailSortOption,
-  useAppDispatch,
-  useAppSelector,
-} from '../../../redux';
-import { getDetail } from '../../../redux/actions/detailAction';
+import { useAppDispatch, useAppSelector } from '../../../redux';
+import { getDetail, sortAnswers } from '../../../redux/actions/detailAction';
 import {
   AnswerHeader,
   Container,
@@ -33,16 +29,13 @@ import {
 
 const QuestionDetail = () => {
   const params = useParams();
-  const dispatch = useAppDispatch();
-
   const navigate = useNavigate();
-  const { data, sortOption, isLoading } = useAppSelector(
-    (state) => state.detail
-  );
+  const dispatch = useAppDispatch();
+  const { data, isLoading } = useAppSelector((state) => state.detail);
 
   useEffect(() => {
     dispatch(getDetail(params.id as string));
-  }, [dispatch, params, sortOption, data?.body]);
+  }, [dispatch, params, data?.body]);
 
   if (isLoading)
     return (
@@ -96,9 +89,14 @@ const QuestionDetail = () => {
                     <select
                       name="sort"
                       id="sort"
-                      onChange={(e) =>
-                        dispatch(changeDetailSortOption(e.target.value))
-                      }
+                      onChange={(e) => {
+                        dispatch(
+                          sortAnswers({
+                            questionId: params.id as string,
+                            value: e.target.value,
+                          })
+                        );
+                      }}
                     >
                       <option value="vote">Highest score (default)</option>
                       <option value="createdAt">
@@ -129,7 +127,7 @@ const QuestionDetail = () => {
       </Container>
     );
 
-  return <NotFound />;
+  return <div />;
 };
 
 export default QuestionDetail;

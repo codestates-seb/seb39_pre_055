@@ -13,15 +13,10 @@ export const getUserList = createAsyncThunk<
 >('user/getUser', async (_, thunkAPI) => {
   try {
     const { page, sortOption, timeStamp, inName } = thunkAPI.getState().user;
+    const fromdate = timeStamp.toString().slice(0, 10);
+    const todate = Date.now().toString().slice(0, 10);
     const response = await axios.get(
-      `${STACK_EXCHANGE_URL}/users?page=${page}&pagesize=72&fromdate=${timeStamp
-        .toString()
-        .slice(0, 10)}&todate=${Date.now()
-        .toString()
-        .slice(
-          0,
-          10
-        )}&order=desc&sort=${sortOption}&inname=${inName}&site=stackoverflow`
+      `${STACK_EXCHANGE_URL}/users?page=${page}&pagesize=72&fromdate=${fromdate}&todate=${todate}&order=desc&sort=${sortOption}&inname=${inName}&site=stackoverflow`
     );
     return response.data.items;
   } catch (error: any) {

@@ -20,7 +20,12 @@ import {
 } from '../../components';
 import { ENG_REGEX } from '../../constants/regex';
 import { useInput } from '../../hooks';
-import { editQuestion, useAppDispatch, useAppSelector } from '../../redux';
+import {
+  editAnswer,
+  editQuestion,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 import {
   ButtonsContainer,
   CancelButton,
@@ -36,7 +41,9 @@ const EditQuestion = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const editorRef = useRef<Editor>(null);
-  const { data, editType, editBody } = useAppSelector((state) => state.detail);
+  const { data, editType, editBody, editAnswerId } = useAppSelector(
+    (state) => state.detail
+  );
   const [title, titleHandler] = useInput(data?.title as string);
   const [titleError, setTitleError] = useState(false);
   const [body, setBody] = useState(data?.body as string);
@@ -92,7 +99,7 @@ const EditQuestion = () => {
     setTagArr(deletedTags);
   };
 
-  const handleEditButtonClick = useCallback(() => {
+  const handleSubmit = useCallback(() => {
     if (editType === 'question') {
       if (
         tagArr.length === 0 ||
@@ -104,23 +111,39 @@ const EditQuestion = () => {
         if (body.length < 29) setBodyError(true);
         return;
       }
-      const payload = {
-        id: data?.questionId as string,
-        title,
-        body,
-        questionTags: tagArr,
-      };
-      dispatch(editQuestion(payload));
+      dispatch(
+        editQuestion({
+          id: data?.questionId as string,
+          title,
+          body,
+          questionTags: tagArr,
+        })
+      );
     }
+
     if (editType === 'answer') {
       if (body.trim().length < 30) {
         setBodyError(true);
         return;
       }
-      console.log(body);
+      dispatch(
+        editAnswer({
+          answerId: editAnswerId,
+          body,
+        })
+      );
     }
     navigate(-1);
-  }, [title, body, tagArr, navigate, editType, data?.questionId, dispatch]);
+  }, [
+    title,
+    body,
+    tagArr,
+    navigate,
+    editType,
+    data?.questionId,
+    dispatch,
+    editAnswerId,
+  ]);
 
   return (
     <Container>
@@ -161,7 +184,7 @@ const EditQuestion = () => {
           </TagsContainer>
         )}
         <ButtonsContainer>
-          <BlueButton width="90px" onClick={handleEditButtonClick}>
+          <BlueButton width="90px" onClick={handleSubmit}>
             Save Edits
           </BlueButton>
           <CancelButton onClick={() => navigate(-1)}>Cancel</CancelButton>

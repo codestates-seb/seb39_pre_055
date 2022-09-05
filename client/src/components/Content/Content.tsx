@@ -87,7 +87,7 @@ const Content = (props: Prop) => {
     }
   };
 
-  const handlePost = () => {
+  const handleEdit = () => {
     if (params.id) {
       dispatch(
         changeEditBody({
@@ -159,7 +159,7 @@ const Content = (props: Prop) => {
             {/** email 수정 예정 */}
             {user.email === loginUser?.email && (
               <>
-                <TextButton name="Edit" onClick={handlePost} />
+                <TextButton name="Edit" onClick={handleEdit} />
                 <TextButton name="Delete" onClick={confirmDelete} />
               </>
             )}

@@ -5,7 +5,7 @@ export const UserInfo = styled.aside<{ type: 'question' | 'answer' }>`
   height: 100%;
   padding: 5px 7px;
   background-color: ${(props) =>
-    props.type === 'question' ? '#d3ebf8' : 'inherit'};
+    props.type === 'question' ? '#d3ebf8' : '#d3ebf8'};
   border-radius: 3px;
 
   span {
