@@ -68,7 +68,7 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   const [isPending, setIsPending] = useState(false);
   const editorRef = useRef<Editor>(null);
   const navigate = useNavigate();
-  const { token } = useAppSelector((state) => state.user.user);
+  const { token } = useAppSelector((state) => state.user.user!);
 
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
