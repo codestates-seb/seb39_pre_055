@@ -7,7 +7,13 @@ import LeftCounts from '../../components/QuestionElement/LeftCounts/LeftCounts';
 import QuestionElement from '../../components/QuestionElement/QuestionElement';
 import { useAppDispatch, useAppSelector } from '../../redux';
 import { getSearchResults } from '../../redux/actions/searchActions';
-import { selectResultIds, setKeyword } from '../../redux/reducers/searchSlice';
+import {
+  changeQPage,
+  changeQSortOption,
+  selectInfos,
+  selectResultIds,
+  setKeyword,
+} from '../../redux/reducers/searchSlice';
 import {
   Container,
   Footer,
@@ -24,7 +30,9 @@ const Search = () => {
   const dispatch = useAppDispatch();
   const [params] = useSearchParams();
   const search = params.get('search') || '';
-  const { keyword, page } = useAppSelector((state) => state.search);
+  const { page, totalPages, totalElements, sortOption } = useAppSelector(
+    (state) => state.search
+  );
   const resultIds = useAppSelector((state) => selectResultIds(state));
   const navigate = useNavigate();
 
@@ -33,13 +41,24 @@ const Search = () => {
     dispatch(getSearchResults());
   }, [search, dispatch]);
 
-  const handleSort = useCallback(() => {
-    'fg';
-  }, []);
+  const handleSort = useCallback(
+    (name: string) => {
+      dispatch(changeQPage(1));
+      dispatch(changeQSortOption(name));
+      dispatch(getSearchResults());
+    },
+    [dispatch]
+  );
 
-  const handlePageChange = useCallback(() => {
-    'fg';
-  }, []);
+  const handlePageChange = (page: number) => {
+    dispatch(changeQPage(page));
+    dispatch(getSearchResults());
+
+    window.scroll({
+      top: 0,
+      behavior: 'auto',
+    });
+  };
 
   return (
     <Container>
@@ -55,11 +74,11 @@ const Search = () => {
         <BlueButton onClick={() => navigate('/ask')}>Ask Question</BlueButton>
       </TitleHeader>
       <InfoContainer>
-        <CountQuestions />
+        <CountQuestions counts={totalElements} />
         <SortTabs>
           <SortButton
-            nameList={['Newest', 'Votes']}
-            clickedName="sortOption"
+            nameList={['Newest', 'Views', 'Votes']}
+            clickedName={sortOption}
             onClick={handleSort}
           />
         </SortTabs>
@@ -67,8 +86,8 @@ const Search = () => {
       <MainUList>
         {resultIds.map((id) => (
           <SQuestionList key={id}>
-            <LeftCounts id={id} />
-            <QuestionElement id={id} />
+            <LeftCounts id={id} selector={selectInfos} />
+            <QuestionElement id={id} selector={selectInfos} />
           </SQuestionList>
         ))}
       </MainUList>
@@ -78,8 +97,8 @@ const Search = () => {
             onChange={handlePageChange}
             activePage={page}
             itemsCountPerPage={15}
-            totalItemsCount={100 /* totalElements */}
-            pageRangeDisplayed={5 /* totalPages < 5 ? totalPages : 5 */}
+            totalItemsCount={totalElements}
+            pageRangeDisplayed={totalPages < 5 ? totalPages : 5}
           />
         </PagenationButton>
       </Footer>
