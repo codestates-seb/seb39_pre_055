@@ -53,8 +53,8 @@ const Content = (props: Prop) => {
   const [following, toggleFollowing] = useToggle();
   const { openModal, closeModal } = useModal({
     position: { x: '50%', y: '50%' },
-    height: '200px',
-    width: '300px', // 수정 예정
+    height: '275px',
+    width: '400px',
   });
 
   useEffect(() => {

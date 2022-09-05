@@ -1,7 +1,19 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+import { Aside } from '../../../components';
+
+export const SMainBox = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+`;
+
+export const SElementSection = styled.section`
   border-left: 0.2px solid var(--black-100);
+`;
+
+export const SPromoAside = styled(Aside)`
+  margin: 30px 30px 30px 0px;
+  flex: 0 0 350px;
 `;
 
 export const TitleHeader = styled.header`

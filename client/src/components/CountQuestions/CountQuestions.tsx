@@ -2,17 +2,17 @@
 import { memo } from 'react';
 import styled from 'styled-components';
 
-import { useAppSelector } from '../../redux';
-
 const Wrapper = styled.p`
   display: flex;
   justify-content: center;
   border: none;
   margin-top: 5px;
   font-size: 17px;
+
   span {
     margin-right: 5px;
   }
+
   @media (max-width: 640px) {
     padding-bottom: 13px;
     margin-top: 0px;
@@ -20,12 +20,14 @@ const Wrapper = styled.p`
   }
 `;
 
-const CountQuestions = memo(() => {
-  const totalCounts = useAppSelector((store) => store.question.totalElements);
+interface Props {
+  counts: number;
+}
 
+const CountQuestions = memo(({ counts }: Props) => {
   return (
     <Wrapper>
-      <span>{totalCounts.toLocaleString('ko-KR')}</span>
+      <span>{counts.toLocaleString('ko-KR')}</span>
       <span>results</span>
     </Wrapper>
   );

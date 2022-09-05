@@ -49,9 +49,9 @@ const Login = () => {
   };
 
   const handleSubmit = () => {
-    if (!EMAIL_REGEX.test(emailValue) || passwordValue.length < 4) {
+    if (!EMAIL_REGEX.test(emailValue) || passwordValue.length < 8) {
       if (!EMAIL_REGEX.test(emailValue)) setEmailError(true);
-      if (passwordValue.length < 4) setPasswordError(true);
+      if (passwordValue.length < 8) setPasswordError(true);
       return;
     }
     dispatch(

@@ -9,6 +9,14 @@ export const Side = styled.aside`
   width: 400px;
   padding-left: 20px;
 
+  & > a {
+    width: 100%;
+
+    & > img {
+      width: 100%;
+    }
+  }
+
   @media screen and (max-width: 1100px) {
     display: none;
   }
@@ -43,9 +51,13 @@ export const Sidebar = styled.div`
     list-style: inside;
   }
 `;
-const Aside = () => {
+
+interface Prop {
+  className?: string;
+}
+const Aside = ({ className }: Prop) => {
   return (
-    <Side>
+    <Side className={className}>
       <Sidebar>
         <header>The Overflow Blog</header>
         <ul>

@@ -4,6 +4,7 @@ import 'prismjs/themes/prism.css';
 
 import { Editor } from '@toast-ui/react-editor';
 import { useCallback, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { addAnswer, useAppDispatch, useAppSelector } from '../../../redux';
@@ -17,7 +18,20 @@ const Container = styled.div`
 `;
 
 const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
   margin-top: 30px;
+  gap: 20px;
+
+  & > p {
+    color: #6a737c;
+    font-style: italic;
+    vertical-align: middle;
+
+    & > a > span {
+      color: #0074cc;
+    }
+  }
 `;
 
 const AnswerEditor = () => {
@@ -27,6 +41,7 @@ const AnswerEditor = () => {
 
   const dispatch = useAppDispatch();
   const { data, isPostLoading } = useAppSelector((state) => state.detail);
+  const { user } = useAppSelector((state) => state.user);
 
   const handleEditorChange = useCallback(() => {
     if (value.length > 29) setIsError(false);
@@ -60,9 +75,23 @@ const AnswerEditor = () => {
           height="35px"
           onClick={handleSubmit}
           isPending={isPostLoading}
+          disabled={user === null}
         >
           Post Your Answer
         </BlueButton>
+        {!user && (
+          <p>
+            You need to{' '}
+            <Link to="/login">
+              <span>login</span>
+            </Link>{' '}
+            or{' '}
+            <Link to="/signup">
+              <span>signup</span>
+            </Link>{' '}
+            to add an answer.
+          </p>
+        )}
       </ButtonContainer>
     </Container>
   );

@@ -23,7 +23,7 @@ export interface DetailData {
 
 export interface Answers {
   data: AnswerInfo[];
-  pageInfo: PageInfo;
+  pageInfo?: PageInfo;
 }
 
 export interface AnswerInfo {

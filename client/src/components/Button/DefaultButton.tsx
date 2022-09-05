@@ -16,6 +16,7 @@ export interface ButtonProps {
   polymorphic?: 'li' | 'div' | 'a';
   isPending?: boolean;
   isError?: boolean;
+  disabled?: boolean;
 }
 
 const spin = keyframes`
@@ -56,6 +57,7 @@ const DefaultBtn = ({
   isPending = false,
   children,
   onClick,
+  disabled = false,
 }: ButtonProps) => {
   return (
     <Buttton
@@ -69,6 +71,7 @@ const DefaultBtn = ({
       isError={isError}
       className={className}
       onClick={onClick}
+      disabled={disabled}
     >
       {isPending && <Spinner />}
       {children}

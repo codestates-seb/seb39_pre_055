@@ -55,4 +55,15 @@ export const Buttton = styled.button`
         outline: #f0cbca solid 4px;
       }
     `}
+
+    ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+      background-color: #b7e1f7;
+
+      &:hover {
+        background-color: #b7e1f7;
+      }
+    `}
 `;
