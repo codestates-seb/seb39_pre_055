@@ -9,6 +9,14 @@ export const Side = styled.aside`
   width: 400px;
   padding-left: 20px;
 
+  & > a {
+    width: 100%;
+
+    & > img {
+      width: 100%;
+    }
+  }
+
   @media screen and (max-width: 1100px) {
     display: none;
   }
