@@ -1,7 +1,7 @@
 import { createGlobalStyle } from 'styled-components';
-import variables from './GlobalVariables';
 import { reset } from 'styled-reset';
 
+import variables from './GlobalVariables';
 
 export const GlobalStyle = createGlobalStyle`
   ${reset}
@@ -13,7 +13,13 @@ export const GlobalStyle = createGlobalStyle`
   :root {
     font-family: "Noto Sans KR", sans-serif;
     font-weight: 400;
+    --toastify-toast-width: 400px;
     ${variables}
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-size: revert;
+    /* font-weight: revert; */
   }
 
   html,
@@ -33,8 +39,12 @@ export const GlobalStyle = createGlobalStyle`
 
     &:link,
     &:visited {
-      color: black;
+      color: inherit;
     }
+  }
+
+  button {
+    cursor: pointer;
   }
 `;
 

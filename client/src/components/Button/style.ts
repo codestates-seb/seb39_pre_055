@@ -1,44 +1,58 @@
 import styled, { css } from 'styled-components';
 
-interface BtnProps {
-  color: string;
-  mainCode: string;
-  hoverCode?: string;
-}
+import { ButtonProps } from './DefaultButton';
 
-const DefaultBtn = styled.button`
-  width: 90px;
-  height: 32px;
+export const Buttton = styled.button`
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border-radius: 3px;
   border: 0px;
+  padding: 2px 9px;
   transition: 0.4s all;
+  font-size: 0.85rem;
 
   &:hover {
     transition: 0.4s all;
   }
 
-  ${({ color, mainCode, hoverCode }: BtnProps) =>
+  ${({
+    color,
+    mainCode,
+    hoverCode,
+    textColor = 'white',
+    width = 'auto',
+    height = '32px',
+  }: ButtonProps) =>
     color &&
     mainCode &&
     css`
+      color: ${textColor};
       background-color: ${`var(--${color}-${mainCode})`};
+      width: ${width};
+      height: ${height};
 
       &:hover {
         background-color: ${`var(--${color}-${
           hoverCode || Number(mainCode) + 200
         })`};
       }
+      &:focus {
+        outline: ${`var(--${color}-100)`} solid 4px;
+      }
     `}
-`;
 
-export const BlueBtn = styled(DefaultBtn)`
-  color: white;
+  ${({ isError }) =>
+    isError &&
+    css`
+      background-color: #f05b41;
 
-  width: 60px;
-`;
+      &:hover {
+        background-color: #f0321b;
+      }
 
-export const RoundBtn = styled(DefaultBtn)`
-  color: var(--black-700);
-  border-radius: 20px;
-  width: 80px;
+      &:focus {
+        outline: #f0cbca solid 4px;
+      }
+    `}
 `;

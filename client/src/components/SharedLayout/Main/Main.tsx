@@ -1,37 +1,33 @@
 import { Outlet } from 'react-router-dom';
-import styled from 'styled-components';
+import { css } from 'styled-components';
 
+import { Modal } from '../../Modal';
 import SidePanel from '../SidePanel/SidePanel';
+import { Section, SMain } from './style';
 
-// TODO: Nav 높이 바뀔 때마다 SidePanel, Section 모두 수정해줘야 함
-const Section = styled.section`
-  position: relative;
-  top: 50px;
-  width: 100%;
-  max-width: 900px;
-  height: 400vh; // 컨텐츠 높이에 맞게 수정할 수 있도록
-  background-color: aliceblue;
-  padding: 25px;
-  padding-right: 250px;
-  overflow-x: hidden;
+const AskBGColor = css`
+  background-color: var(--black-050);
 `;
 
-const SMain = styled.main`
-  position: relative;
-  width: 100vw;
-  display: flex;
-  flex-flow: row nowrap;
-  justify-content: center;
-`;
+interface MainProps {
+  asideHide: boolean;
+}
 
-const Main = () => {
+const Main = ({ asideHide }: MainProps) => {
   return (
-    <SMain>
-      <SidePanel />
-      <Section>
-        <Outlet />
-      </Section>
-    </SMain>
+    <Modal
+      width="450px"
+      height="435px"
+      position={{ x: '50%', y: '50%' }}
+      background
+    >
+      <SMain bgColor={!asideHide || AskBGColor}>
+        {!asideHide && <SidePanel />}
+        <Section>
+          <Outlet />
+        </Section>
+      </SMain>
+    </Modal>
   );
 };
 

@@ -1,31 +1,25 @@
-import styled from 'styled-components';
-
+import CopyrightsBox from './Copyrights/Copyrights';
 import MenuList from './MenuList/MenuList';
 import menus from './menuLists';
-
-const SFooter = styled.footer`
-  box-sizing: border-box; // FIXME: 삭제 예정
-  position: relative;
-  display: flex;
-  column-gap: 50px;
-  bottom: 0px;
-  height: 400px;
-  width: 100vw;
-  background-color: var(--black-800);
-  padding: 50px 80px;
-`;
+import { BottomIconBox, BottomIconSVG, BottomNav, SFooter } from './style';
 
 const Footer = () => {
   return (
     <SFooter>
-      {menus.map(({ upperMenu, to, subMenus }) => (
-        <MenuList
-          upperMenu={upperMenu}
-          to={to}
-          subMenus={subMenus}
-          key={upperMenu}
-        />
-      ))}
+      <BottomIconBox>
+        <BottomIconSVG />
+      </BottomIconBox>
+      <BottomNav>
+        {menus.map(({ menuCategory, to, subMenus }) => (
+          <MenuList
+            menuCategories={menuCategory}
+            to={to}
+            subMenus={subMenus}
+            key={menuCategory}
+          />
+        ))}
+      </BottomNav>
+      <CopyrightsBox />
     </SFooter>
   );
 };

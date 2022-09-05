@@ -1,29 +1,42 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 
-import { ReactComponent as Sprites } from './assets/img/sprites.svg';
-import { SharedLayout } from './components';
+import { NotFound, SharedLayout } from './components';
+import {
+  AskQuestion,
+  EditQuestion,
+  Login,
+  Logout,
+  QuestionDetail,
+  QuestionList,
+  Signup,
+} from './pages';
+import Search from './pages/Search/Search';
+import Tags from './pages/Tags/Tags';
+import Users from './pages/Users/Users';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
-          <Route
-            path="/questions"
-            element={<div>{'Lorem Ipsum'.repeat(200)}</div>}
-          />
-          <Route
-            path="/tags"
-            element={
-              <div>
-                <Sprites />
-              </div>
-            }
-          />
-          <Route path="/users" element={<div>users</div>} />
+          <Route index element={<QuestionList />} />
+          <Route path="/:id" element={<QuestionDetail />} />
+          <Route path="/:id/edit" element={<EditQuestion />} />
+          <Route path="/ask" element={<AskQuestion />} />
+          <Route path="/tags" element={<Tags />} />
+          <Route path="/users" element={<Users />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/logout" element={<Logout />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="/search/*" element={<SharedLayout />}>
+          <Route index element={<Search />} />
         </Route>
       </Routes>
-    </BrowserRouter>
+      <ToastContainer position="top-center" pauseOnFocusLoss theme="colored" />
+    </>
   );
 };
 

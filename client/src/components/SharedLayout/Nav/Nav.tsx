@@ -1,22 +1,38 @@
+import { Dispatch, RefObject, SetStateAction } from 'react';
 import { Link } from 'react-router-dom';
 
-import MainAuth from '../../Button/MainAuth/MainAuth';
-import MiscBtns from './MiscButtons/MiscBtns';
-import { LogoWrapper, MainLogo, SHeader, SNav } from './style';
+import { useAppSelector } from '../../../redux';
+import { Hamburger } from '../..';
+import MainAuth from './MainAuthButtons/MainAuthButtons';
+import SearchBarBox from './MainSearchBar/MainSearchBar';
+import MiniSearchIcon from './MiniSearchBox/MiniSearchIcon';
+import MiscLinks from './MiscLinks/MiscLinks';
+import { LogoBox, MainLogoSVG, SHeader, SNav } from './style';
+import UserMenus from './UserToolbar/UserToolbar';
 
-<button type="button">
-  <Link to="/login">ddddd</Link>
-</button>;
+interface NavProps {
+  setFloatSearch: Dispatch<SetStateAction<boolean>>;
+  searchInput: RefObject<HTMLInputElement>;
+}
 
-const Nav = () => {
+const Nav = ({ setFloatSearch, searchInput }: NavProps) => {
+  const isLoggedIn = !!useAppSelector((state) => state.user.user);
+
   return (
     <SHeader>
       <SNav>
-        <LogoWrapper>
-          <MainLogo />
-        </LogoWrapper>
-        <MiscBtns />
-        <MainAuth />
+        <Hamburger />
+        <LogoBox>
+          <Link to="/" />
+          <MainLogoSVG />
+        </LogoBox>
+        <MiscLinks />
+        <SearchBarBox />
+        <MiniSearchIcon
+          setFloatSearch={setFloatSearch}
+          searchInput={searchInput}
+        />
+        {isLoggedIn ? <UserMenus /> : <MainAuth />}
       </SNav>
     </SHeader>
   );
