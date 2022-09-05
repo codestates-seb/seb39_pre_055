@@ -16,7 +16,7 @@ export const authHeader = (thunkAPI: any) => {
 };
 
 export const axiosInstance = axios.create({
-  baseURL: 'http://13.209.17.182:8080', // 서버 url
+  baseURL: 'http://13.125.82.209:8080', // 서버 url
   transformRequest: [
     (data) => {
       if (data && 'questionTags' in data) {
