@@ -11,15 +11,6 @@ import { getUserList, loginUser, registerUser } from '../actions';
 
 const initialState: UserInitialState = {
   user: getUserFromLocalStorage(),
-  // {
-  //   userId: 1,
-  //   displayName: 'sangbin',
-  //   email: 'verz@gmail.com',
-  //   password: 'fd423423ccd34@!s',
-  //   image:
-  //     'https://mblogthumb-phinf.pstatic.net/MjAyMDA2MTBfMTY1/MDAxNTkxNzQ2ODcyOTI2.Yw5WjjU3IuItPtqbegrIBJr3TSDMd_OPhQ2Nw-0-0ksg.8WgVjtB0fy0RCv0XhhUOOWt90Kz_394Zzb6xPjG6I8gg.PNG.lamute/user.png?type=w800',
-  //   userStatus: 'USER_EXIST',
-  // },
   page: 1,
   userList: [],
   isLoading: false,
@@ -28,7 +19,6 @@ const initialState: UserInitialState = {
   dateOption: 'all',
   timeStamp: '',
   inName: '',
-  errorMsg: '',
 };
 
 const userSlice = createSlice({
@@ -90,10 +80,7 @@ const userSlice = createSlice({
       })
       .addCase(getUserList.rejected, (state, { payload }) => {
         state.isLoading = false;
-        if (payload) {
-          state.errorMsg = payload;
-          toast.error(state.errorMsg);
-        }
+        toast.error(payload);
       })
       .addCase(loginUser.pending, (state) => {
         state.isLoading = true;

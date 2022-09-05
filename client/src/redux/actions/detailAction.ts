@@ -190,7 +190,6 @@ export const sortAnswers = createAsyncThunk<
     );
     return response.data.data;
   } catch (error: any) {
-    console.log(error);
     return thunkAPI.rejectWithValue(error.message);
   }
 });
