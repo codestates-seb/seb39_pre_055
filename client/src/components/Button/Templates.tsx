@@ -17,6 +17,7 @@ export const BlueButton = ({
   isPending,
   className,
   onClick,
+  disabled,
 }: TemplateButtonProps) => {
   return (
     <DefaultBtn
@@ -31,6 +32,7 @@ export const BlueButton = ({
       onClick={onClick}
       isPending={isPending}
       isError={isError}
+      disabled={disabled}
     >
       {children}
     </DefaultBtn>
@@ -46,6 +48,7 @@ export const PowderButton = ({
   isPending,
   className,
   onClick,
+  disabled,
 }: TemplateButtonProps) => {
   return (
     <DefaultBtn
@@ -60,6 +63,7 @@ export const PowderButton = ({
       onClick={onClick}
       isPending={isPending}
       isError={isError}
+      disabled={disabled}
     >
       {children}
     </DefaultBtn>

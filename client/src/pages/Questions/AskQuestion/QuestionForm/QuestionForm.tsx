@@ -70,7 +70,6 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   const navigate = useNavigate();
   const { token } = useAppSelector((state) => state.user.user) || {};
 
-
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
       let error = false;
