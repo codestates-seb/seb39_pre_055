@@ -63,12 +63,14 @@ const Footer = styled.div`
   color: var(--black-400);
 `;
 
-const GetTeams = styled.div`
+const GetTeams = styled.a`
   color: var(--blue-600);
+  &:hover {
+    color: var(--blue-400);
+  }
 `;
 
 const SignupSideInfo = ({ icon, text }: Prop) => {
-  const nav = useNavigate();
   return (
     <Wrapper>
       <Info1>
