@@ -1,5 +1,4 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
+import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
@@ -15,10 +14,21 @@ import { setupStore } from './redux';
 //   worker.start();
 // }
 
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
+// const root = ReactDOM.createRoot(
+//   document.getElementById('root') as HTMLElement
+// );
+// root.render(
+//   <BrowserRouter>
+//     <Provider store={setupStore()}>
+//       <ThemeProvider theme={theme}>
+//         <GlobalStyle />
+//         <App />
+//       </ThemeProvider>
+//     </Provider>
+//   </BrowserRouter>
+// );
+
+ReactDOM.render(
   <BrowserRouter>
     <Provider store={setupStore()}>
       <ThemeProvider theme={theme}>
@@ -26,5 +36,6 @@ root.render(
         <App />
       </ThemeProvider>
     </Provider>
-  </BrowserRouter>
+  </BrowserRouter>,
+  document.getElementById('root')
 );
