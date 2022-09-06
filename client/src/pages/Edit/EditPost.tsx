@@ -37,7 +37,6 @@ import {
 } from './style';
 
 const EditQuestion = () => {
-  // question, answer 타입에 따라 input 다르게 수정
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const editorRef = useRef<Editor>(null);
