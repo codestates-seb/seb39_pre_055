@@ -21,7 +21,7 @@ export const STitleLink = styled(Link)`
   }
 
   @media (max-width: 640px) {
-    font-size: 14px;
+    font-size: 1rem;
   }
 `;
 
@@ -37,7 +37,9 @@ export const STextP = styled.p`
   word-break: break-all;
 
   @media (max-width: 640px) {
-    font-size: 12px;
+    font-size: 0.83rem;
+    line-height: 1.1rem;
+    max-height: 36px;
   }
 `;
 
@@ -51,6 +53,9 @@ export const ContentFooter = styled.footer`
 
 export const Tags = styled.div`
   display: flex;
+  flex-flow: row wrap;
+  row-gap: 1px;
+
   @media (max-width: 640px) {
     margin-bottom: 5px;
   }
@@ -64,6 +69,8 @@ export const UserContainer = styled.div`
   justify-content: space-between;
   column-gap: 6px;
   flex-wrap: wrap;
+  padding-top: 4px;
+  padding-left: 5px;
 
   img {
     border-radius: 30%;
