@@ -40,8 +40,8 @@ const helpCards = [
 const AskQuestion = () => {
   const [errs, setErrs] = useState({ status: 'unknown', count: 0 });
   const { openModal, closeModal } = useModal();
-  const { userId } = useAppSelector((state) => state.user.user) || {};
-  const [hideMsg] = useLocalStorage(`${userId}_DONTSHOWHINT`, false);
+  const { displayName } = useAppSelector((state) => state.user.user) || {};
+  const [hideMsg] = useLocalStorage(`${displayName}_DONTSHOWHINT`, false);
   const step2Card = [
     {
       title: 'Step 2: Review your question',
@@ -51,12 +51,12 @@ const AskQuestion = () => {
   ];
 
   useEffect(() => {
-    if (!hideMsg && userId) {
+    if (!hideMsg && displayName) {
       openModal(<HelpModal />);
     }
 
     return () => closeModal();
-  }, [hideMsg, userId, openModal, closeModal]);
+  }, [hideMsg, displayName, openModal, closeModal]);
 
   return (
     <SQuestionBox>
