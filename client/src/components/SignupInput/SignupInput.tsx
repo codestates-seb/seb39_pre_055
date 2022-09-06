@@ -12,6 +12,7 @@ import { registerUser, useAppDispatch, useAppSelector } from '../../redux';
 import { BlueButton } from '../Button/Templates';
 import Checkbox from '../Checkbox/Checkbox';
 import DefaultInput from '../Input/DefaultInput/DefaultInput';
+import RobotCheck from '../RobotCheck/RobotCheck';
 
 const Container = styled.div`
   display: flex;
@@ -75,7 +76,7 @@ const CheckAndSubmit = styled.div`
   flex-direction: column;
   justify-content: space-between;
   div {
-    margin: 60px 0px 5px 0px;
+    margin: 10px 0px 5px 0px;
   }
 `;
 
@@ -114,7 +115,7 @@ const SignupInput = () => {
     setPassword(e.target.value);
   };
 
-  const submitValues = { displayName, email, password };
+  // const submitValues = { displayName, email, password };
 
   const handleSubmit = () => {
     if (!EMAIL_REGEX.test(email) || password.length < 8) {
@@ -170,6 +171,7 @@ const SignupInput = () => {
           letter and 1 number.
         </PasswordComment>
       </Password>
+      <RobotCheck />
       <CheckAndSubmit>
         <Checkbox />
         <div>
