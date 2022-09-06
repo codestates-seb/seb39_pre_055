@@ -1,7 +1,5 @@
 import styled from 'styled-components';
 
-import { BlueButton } from '../../../Button/Templates';
-
 export const MiniMenuAside = styled.aside`
   padding-top: 10px;
 `;
