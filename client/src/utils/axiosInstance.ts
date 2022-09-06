@@ -17,6 +17,7 @@ export const authHeader = (thunkAPI: any) => {
 
 export const axiosInstance = axios.create({
   baseURL: 'http://soyoungp.shop', // 서버 url
+  timeout: 5000,
   transformRequest: [
     (data) => {
       if (data && 'questionTags' in data) {
