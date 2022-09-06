@@ -56,7 +56,7 @@ export const UserInputContainer = styled.div`
   width: 316px;
   height: 660px;
   padding: 24px;
-  margin-bottom: 24px;
+  margin-bottom: 45px;
 `;
 
 export const CookieInfo = styled.div`
@@ -70,27 +70,49 @@ export const Footer = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
-  width: 315px;
-  height: 78px;
-  padding: 16px;
-  margin-bottom: 24px;
+  padding: 7px;
   font-size: 13px;
   color: var(--black-700);
 
   & > div > a {
     margin-left: 5px;
     color: var(--blue-600);
+    &:hover {
+      color: var(--blue-400);
+    }
   }
 `;
 
-export const ServiceLink = styled.span`
-  color: var(--blue-600);
+export const Footer2 = styled.div`
+  font-size: 13px;
+  color: var(--black-700);
+
+  & > div > a {
+    margin-left: 5px;
+    color: var(--blue-600);
+    &:hover {
+      color: var(--blue-400);
+    }
+  }
 `;
 
-export const PrivacyLink = styled.span`
+export const ServiceLink = styled.a`
   color: var(--blue-600);
+  &:hover {
+    color: var(--blue-400);
+  }
 `;
 
-export const CookieLink = styled.span`
+export const PrivacyLink = styled.a`
   color: var(--blue-600);
+  &:hover {
+    color: var(--blue-400);
+  }
+`;
+
+export const CookieLink = styled.a`
+  color: var(--blue-600);
+  &:hover {
+    color: var(--blue-400);
+  }
 `;

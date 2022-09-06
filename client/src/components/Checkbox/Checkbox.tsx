@@ -40,7 +40,7 @@ const Info = styled.span`
   font-size: 12px;
   line-height: 15.7px;
   font-weight: 400;
-  color: var(--black-500);
+  color: var(--black-700);
 `;
 
 const Checkbox = () => {

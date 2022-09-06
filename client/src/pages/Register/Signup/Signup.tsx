@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { BiLinkExternal } from 'react-icons/bi';
 
 import SignupInput from '../../../components/SignupInput/SignupInput';
 import SignupSideInfo from '../../../components/SignupSideInfo/SignupSideInfo';
@@ -7,6 +7,7 @@ import {
   CookieInfo,
   CookieLink,
   Footer,
+  Footer2,
   PrivacyLink,
   ServiceLink,
   SideContainer,
@@ -69,6 +70,14 @@ const Signup = () => {
             <a href="http://localhost:3000/login">Log in</a>
           </div>
         </Footer>
+        <Footer2>
+          <div>
+            Are you an employer?
+            <a href="https://talent.stackoverflow.com/users/login">
+              Sign up on Talent <BiLinkExternal />
+            </a>
+          </div>
+        </Footer2>
       </SignUpContainer>
     </Container>
   );

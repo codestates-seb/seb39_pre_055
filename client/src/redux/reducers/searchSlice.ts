@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction, Reducer } from '@reduxjs/toolkit';
-import { toast } from 'react-toastify';
 
 import { Question } from '../../types/question';
 import { getSearchResults } from '../actions/searchActions';
@@ -63,10 +62,6 @@ const searchSlice = createSlice({
       .addCase(getSearchResults.rejected, (state, { payload }) => {
         state.isLoading = false;
         state.errorMsg = payload;
-
-        if (typeof payload === 'string') {
-          toast.error(payload);
-        }
       }),
 });
 

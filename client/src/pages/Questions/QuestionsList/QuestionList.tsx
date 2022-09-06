@@ -26,15 +26,15 @@ import {
   SortTabs,
   SPromoAside,
   SQuestionList,
+  SSPinner,
   TitleHeader,
 } from './style';
 
 const QuestionList = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const { page, totalPages, totalElements, sortOption } = useAppSelector(
-    (store) => store.question
-  );
+  const { page, totalPages, totalElements, sortOption, isLoading } =
+    useAppSelector((store) => store.question);
   const qusetionIds = useAppSelector(selectQIds, shallowEqual);
 
   useEffect(() => {
@@ -77,14 +77,19 @@ const QuestionList = () => {
             />
           </SortTabs>
         </InfoContainer>
-        <MainUList>
-          {qusetionIds.map((id) => (
-            <SQuestionList key={id}>
-              <LeftCounts id={id} selector={selectQInfos} />
-              <QuestionElement id={id} selector={selectQInfos} />
-            </SQuestionList>
-          ))}
-        </MainUList>
+        {isLoading ? (
+          <SSPinner />
+        ) : (
+          <MainUList>
+            {qusetionIds.map((id) => (
+              <SQuestionList key={id}>
+                <LeftCounts id={id} selector={selectQInfos} />
+                <QuestionElement id={id} selector={selectQInfos} />
+              </SQuestionList>
+            ))}
+          </MainUList>
+        )}
+
         <Footer>
           <PagenationButton>
             <CustomPagination
