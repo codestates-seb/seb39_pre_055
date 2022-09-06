@@ -8,6 +8,7 @@ import be.question.repository.QuestionRepository;
 import be.user.entity.User;
 import be.user.service.UserService;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
@@ -67,14 +68,28 @@ public class QuestionService {
 
     public Page<Question> searchQuestions(String keyWord,int page, int size,String sort){//전체 question에 pagenation과 sort 구현
 
-        Page<Question> searchResult = questionRepository.searchQuestionsByKeyWord( //삭제된 글 빼고 전체 질문글 가져옴
-                PageRequest.of(page,size,Sort.by(sort).descending()),
+        PageRequest pageRequest =PageRequest.of(page,size,Sort.by(sort).descending());
+        List<Question> searchResult = questionRepository.searchQuestionsByKeyWord( //삭제된 글 빼고 전체 질문글 가져옴
                 keyWord);
 
+        int start = (int)pageRequest.getOffset();
+        int end = Math.min((start + pageRequest.getPageSize()), searchResult.size());
+        Page<Question> questions = new PageImpl<>(searchResult.subList(start, end), pageRequest, searchResult.size());
 
-        VerifiedNoQuestion(searchResult);//status가 QUESTION_EXIST인 List 데이터가 0이면 예외발생
 
-        return searchResult;
+        VerifiedNoQuestion(questions);//status가 QUESTION_EXIST인 List 데이터가 0이면 예외발생
+
+        return questions;
+
+
+//        Page<Question> searchResult = questionRepository.searchQuestionsByKeyWord( //삭제된 글 빼고 전체 질문글 가져옴
+//                PageRequest.of(page,size,Sort.by(sort).descending()),
+//                keyWord);
+//
+//
+//        VerifiedNoQuestion(searchResult);//status가 QUESTION_EXIST인 List 데이터가 0이면 예외발생
+//
+//        return searchResult;
 
     }
     public Question voteQuestion(long questionId,int vote){ //추천수 바꿔주는 메소드
