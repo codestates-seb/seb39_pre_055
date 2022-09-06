@@ -32,7 +32,9 @@ const QuestionDetail = () => {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const { data, isLoading } = useAppSelector((state) => state.detail);
+  const { data, isLoading, isPostLoading } = useAppSelector(
+    (state) => state.detail
+  );
 
   useEffect(() => {
     dispatch(getDetail(params.id as string));
@@ -122,7 +124,7 @@ const QuestionDetail = () => {
               )}
               {/* editor */}
               <h3>Your Answer</h3>
-              <AnswerEditor />
+              {!isPostLoading && <AnswerEditor />}
             </section>
             <Aside />
           </SMain>

@@ -72,6 +72,10 @@ export const Checkbox = styled.div`
   margin: 15px 0;
   color: #0c0d0e;
   font-size: 12px;
+
+  & > label {
+    margin-top: 3.5px;
+  }
 `;
 
 export const ButtonContainer = styled.div`
