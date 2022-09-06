@@ -14,6 +14,7 @@ export const MiscBox = styled.div`
     @media screen and (max-width: ${theme.breakPoints.tablet}) {
       margin-top: 40px;
       min-height: 40px;
+      max-width: 100%;
     }
   `}
 `;
@@ -29,6 +30,7 @@ export const StSocialsUList = styled(SubMenuUList)`
 
 export const SocialsList = styled(SubMenuList)`
   margin-bottom: auto;
+
   ${({ theme }) => css`
     @media screen and (max-width: ${theme.breakPoints.tablet}) {
       flex-flow: column wrap;

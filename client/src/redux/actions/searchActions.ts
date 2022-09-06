@@ -46,13 +46,7 @@ export const getSearchResults = createAsyncThunk<
     if (!(err instanceof AxiosError)) {
       return thunkAPI.rejectWithValue(err);
     }
-    const { data } = err.response || {};
 
-    if (data.message === 'Question not found') {
-      return { data: [], pageInfo: { totalElements: 0, totalPages: 1 } };
-    }
-    toast.error(err.message);
-
-    return thunkAPI.rejectWithValue(err.message);
+    return { data: [], pageInfo: { totalElements: 0, totalPages: 1 } };
   }
 });

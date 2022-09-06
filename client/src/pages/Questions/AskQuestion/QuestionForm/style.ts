@@ -3,7 +3,12 @@ import styled from 'styled-components';
 export const SForm = styled.form`
   display: flex;
   flex-flow: column;
-  min-width: 780px;
+  flex: 1 1 auto;
+
+  @media screen and (max-width: ${(props) => props.theme.breakPoints.tablet}) {
+    column-gap: 0px;
+    width: calc(100vw - 40px);
+  }
 `;
 
 export const SBox = styled.div`
