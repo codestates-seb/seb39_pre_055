@@ -3,12 +3,18 @@ import styled, { css } from 'styled-components';
 import { ReactComponent as BottomIcon } from '../../../assets/img/sprites.svg';
 
 export const SFooter = styled.footer`
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  background-color: var(--black-800);
+`;
+
+export const SFooterBox = styled.div`
+  flex: 1 1 auto;
   position: relative;
   display: flex;
   flex-flow: row wrap;
-  bottom: 0px;
-  width: 100vw;
-  background-color: var(--black-800);
+  max-width: 1300px;
   padding: 40px 30px 40px 30px;
 
   & > * {
@@ -26,6 +32,7 @@ export const SFooter = styled.footer`
 export const BottomNav = styled.nav`
   display: flex;
   flex-flow: row nowrap;
+  justify-content: space-around;
   column-gap: 40px;
   margin-right: 20px;
   margin-bottom: 30px;
@@ -44,6 +51,9 @@ export const BottomNav = styled.nav`
 `;
 
 export const BottomIconBox = styled.div`
+  flex: 0 0 auto;
+  margin: 0px 10px 10px 0px;
+
   ${({ theme }) => css`
     @media screen and (max-width: ${theme.breakPoints.tablet}) {
       width: 60px;

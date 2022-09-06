@@ -21,7 +21,7 @@ export const Buttton = styled.button`
     mainCode,
     hoverCode,
     textColor = 'white',
-    width = 'auto',
+    width = 'max-content',
     height = '32px',
   }: ButtonProps) =>
     color &&

@@ -1,7 +1,8 @@
 /* eslint-disable react/display-name */
 import { memo } from 'react';
 
-import { useAppSelector } from '../../redux';
+import { RootState, useAppSelector } from '../../redux';
+import { Question } from '../../types/question';
 import { getDateToString } from '../../utils';
 import Tag from '../Tag/Tag';
 import {
@@ -17,7 +18,7 @@ import {
 
 interface Prop {
   id: number;
-  selector: any;
+  selector: (state: RootState, id: number) => Question;
 }
 const UserFooter = memo(({ id, selector }: Prop) => {
   const { user, createdAt } =

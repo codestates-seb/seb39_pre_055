@@ -28,7 +28,7 @@ const SharedLayout = () => {
       <Nav setFloatSearch={setFloatSearch} searchInput={searchInput} />
       {floatSearch && (
         <SearchBarBox
-          width="560px"
+          width="calc(100vw - 35px)"
           responsive={false}
           onSearchHandler={() => setFloatSearch(false)}
           onBlurHandler={() => setFloatSearch(false)}
