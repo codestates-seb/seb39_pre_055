@@ -11,8 +11,8 @@ export const MainSearchBox = styled.div`
       @media screen and (max-width: ${theme.breakPoints.mobile}) {
         position: fixed;
         left: 0px;
-        top: 50px;
-        flex: 1 1 100vw;
+        top: 51px;
+        flex: 0 1 10vw;
         background-color: var(--black-050);
         z-index: 1;
       }
