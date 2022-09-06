@@ -3,12 +3,13 @@ import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin
 import 'prismjs/themes/prism.css';
 
 import { Editor } from '@toast-ui/react-editor';
-import { useCallback, useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 import { addAnswer, useAppDispatch, useAppSelector } from '../../../redux';
 import { BlueButton } from '../../Button/Templates';
+import LoadingSpinner from '../../LoadingSpinner/LoadingSpinner';
 import CustomEditor from '../CustomEditor/CustomEditor';
 
 const Container = styled.div`
@@ -55,10 +56,15 @@ const AnswerEditor = () => {
       setIsError(true);
       return;
     }
-    if (data?.questionId) {
-      dispatch(addAnswer({ questionId: data.questionId, body: value }));
-    }
+    setIsError(false);
+    dispatch(
+      addAnswer({ questionId: data?.questionId as string, body: value })
+    );
   }, [value, dispatch, data?.questionId]);
+
+  // if (isPostLoading) {
+  //   return <div />;
+  // }
 
   return (
     <Container>
