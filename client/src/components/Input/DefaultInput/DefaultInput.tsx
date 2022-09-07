@@ -1,6 +1,6 @@
 import { MdError } from 'react-icons/md';
 
-import { ERROR_MSG_01, ERROR_MSG_02 } from '../../../constants';
+import { ERROR_MSG_02 } from '../../../constants';
 import { SCommentP, SInput, SInputWrapper, SLabel, Wrapper } from './style';
 
 interface Prop {

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-non-null-assertion */
 import { RefObject, useCallback, useEffect, useRef, useState } from 'react';
 
 import { SearchBar } from '../../..';
@@ -40,7 +41,6 @@ const MainSearchBar = ({
   const repositionModal = useCallback(() => {
     if (!searchRef.current) return;
     const { offsetTop, offsetHeight } = searchRef.current.parentElement!;
-    const { offsetTop: refTop, offsetHeight: refHeight } = searchRef.current;
     const left = searchRef.current.offsetLeft;
     const top = offsetTop + offsetHeight;
 
@@ -75,7 +75,6 @@ const MainSearchBar = ({
     return () => window.removeEventListener('resize', handleReposition);
   }, [isFocused, repositionModal]);
 
-  // 1. resize 없이 처음 Modal을 열었을 때 사이즈가 useState() 초기값 그대로인 문제 수정
   useEffect(() => {
     resizeModal();
   }, [resizeModal]);

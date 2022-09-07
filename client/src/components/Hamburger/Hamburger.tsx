@@ -1,5 +1,4 @@
 import { Dispatch, SetStateAction, useState } from 'react';
-import { useLocation } from 'react-router-dom';
 import { ThemeProvider } from 'styled-components';
 
 import { Modal, useModal } from '../Modal';
@@ -17,7 +16,6 @@ const HamContainer = ({ clicked, setClicked }: HamContainerProps) => {
     height: '500px',
     position: { x: '0px', y: '51px' },
   });
-  // const { pathname } = useLocation(); // 왜 useLocation 쓰면 MainSearchBar의 Modal의 크기가 Hamburger로 변경되나?
 
   const closeMenu = () => {
     setClicked(false);
