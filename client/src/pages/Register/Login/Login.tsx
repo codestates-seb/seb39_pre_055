@@ -42,7 +42,7 @@ const Login = () => {
   };
 
   const handleChangePassword = (e: ChangeEvent<HTMLInputElement>) => {
-    if (e.target.value.length > 3) {
+    if (e.target.value.length > 7) {
       setPasswordError(false);
     }
     setPasswordValue(e.target.value);

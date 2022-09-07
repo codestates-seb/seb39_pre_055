@@ -11,12 +11,12 @@ interface Prop {
 const AnchorCard = ({ type }: Prop) => {
   const ref = useRef<HTMLInputElement>(null);
   const currentUrl = window.location.href;
-  const handleCopyClick = useCallback(() => {
+  const handleCopyClick = () => {
     navigator.clipboard.writeText(currentUrl);
     toast.success('Link copied to clipboard.', {
       theme: 'colored',
     });
-  }, [currentUrl]);
+  };
 
   useEffect(() => {
     ref.current?.focus();
