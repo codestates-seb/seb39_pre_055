@@ -1,20 +1,8 @@
-import { Context, useContext } from 'react';
+import { useContext } from 'react';
 
 import { OpenCtx } from './ModalContext';
 import { Background, ModalMain } from './style';
 import { ModalProps } from './types';
-
-type Nullable<S> = S | void;
-
-function useAppContext<T /* extends Nullable<T> */>(ctx: Context<T>): T {
-  const context = useContext(ctx);
-
-  if (!context || !ctx) {
-    throw new Error('useAppContext must be within Context Provider');
-  }
-
-  return context;
-}
 
 const Modal = ({
   width,

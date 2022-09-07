@@ -14,7 +14,7 @@ type useModalProps =
   | undefined;
 
 const useModal = (props?: useModalProps) => {
-  const { width, height, position, borderRadius, boxShadow } = props || {};
+  const { width, height, position } = props || {};
   const { openModal, closeModal } = useContext(MainCtx) || {};
   const { setSize, setPosition } = useContext(CustomizeCtx) || {};
 

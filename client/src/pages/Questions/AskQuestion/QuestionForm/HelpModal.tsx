@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { BlueButton } from '../../../../components';
 import { useModal } from '../../../../components/Modal';
 import { useLocalStorage } from '../../../../hooks/useLocalStorage';
+import { useAppSelector } from '../../../../redux';
 
 export const SArticle = styled.article`
   padding: 25px;
@@ -73,7 +74,8 @@ export const SDONTButton = styled(BlueButton)`
 
 const HelpModal = () => {
   const { closeModal } = useModal();
-  const [, setHideMsg] = useLocalStorage(`${'userId'}_DONTSHOWHINT`, false);
+  const { displayName } = useAppSelector((state) => state.user.user) || {};
+  const [, setHideMsg] = useLocalStorage(`${displayName}_DONTSHOWHINT`, false);
 
   const dontShowHints = () => {
     closeModal();

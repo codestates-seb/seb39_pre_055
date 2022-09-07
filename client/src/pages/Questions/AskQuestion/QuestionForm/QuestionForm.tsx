@@ -74,7 +74,7 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
     (e: ChangeEvent<HTMLInputElement>) => {
       let error = false;
 
-      if (title.value.trim().length <= 14) {
+      if (e.target.value.trim().length <= 14) {
         error = true;
       }
       setTitle({ value: e.target.value, isError: error });
@@ -97,7 +97,7 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   }, []);
 
   const handleAddTags = useCallback(
-    (e: any) => {
+    (e: KeyboardEvent) => {
       if (e.key !== 'Enter') return;
       if (tagInput === '') {
         setTags((prev) => ({ ...prev, isError: true }));

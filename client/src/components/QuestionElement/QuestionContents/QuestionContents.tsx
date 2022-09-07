@@ -19,15 +19,8 @@ const Container = styled.div`
   }
 `;
 
-const limitLength = 182;
-
 const QuestionContents = ({ contents }: Prop) => {
   const txt = contents;
-
-  /* if (contents.length > limitLength) {
-    txt = `${contents.slice(0, limitLength)} ...`;
-  } */
-
   return <Container>{txt}</Container>;
 };
 

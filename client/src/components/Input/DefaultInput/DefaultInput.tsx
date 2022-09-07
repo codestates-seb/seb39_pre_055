@@ -1,10 +1,10 @@
 import { MdError } from 'react-icons/md';
 
-import { ERROR_MSG_01, ERROR_MSG_02 } from '../../../constants';
+import { ERROR_MSG_02 } from '../../../constants';
 import { SCommentP, SInput, SInputWrapper, SLabel, Wrapper } from './style';
 
 interface Prop {
-  type?: 'password' | 'text'; // 필요시 추가
+  type?: 'password' | 'text';
   label?: string;
   id: string;
   value: string;

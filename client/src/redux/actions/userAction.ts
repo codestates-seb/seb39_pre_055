@@ -20,7 +20,7 @@ export const getUserList = createAsyncThunk<
     );
     return response.data.items;
   } catch (error: any) {
-    return thunkAPI.rejectWithValue(error.message);
+    return thunkAPI.rejectWithValue('Too much request!');
   }
 });
 
