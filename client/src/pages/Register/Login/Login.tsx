@@ -83,7 +83,12 @@ const Login = () => {
           errorMsg={ERROR_MSG_03}
           onChange={handleChangePassword}
         />
-        <BlueButton height="35px" onClick={handleSubmit} isPending={isLoading}>
+        <BlueButton
+          width="100%"
+          height="35px"
+          onClick={handleSubmit}
+          isPending={isLoading}
+        >
           Log in
         </BlueButton>
       </LoginCard>
