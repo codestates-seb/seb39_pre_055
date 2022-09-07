@@ -1,6 +1,15 @@
 ## 🍻 Intro
 
 [배포링크](https://stackoverflow-liart.vercel.app/) 
+<br />
+테스트 계정
+<br />
+id: test1@gamil.com
+<br />
+pssword: 11111111 (1 여덟개)
+
+<br />
+
 <div align="center"><img src="https://velog.velcdn.com/images/devfrank9/post/1df259b2-e4cb-473b-8bcd-0388761a596a/image.png" alt="logo" /></div>
 
 <br />
