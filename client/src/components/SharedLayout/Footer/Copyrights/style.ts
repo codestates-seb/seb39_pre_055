@@ -8,6 +8,7 @@ export const MiscBox = styled.div`
   justify-content: space-between;
   width: 200px;
   row-gap: 15px;
+  max-width: 300px;
 
   ${({ theme }) => css`
     @media screen and (max-width: ${theme.breakPoints.tablet}) {

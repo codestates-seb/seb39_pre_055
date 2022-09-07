@@ -1,7 +1,9 @@
 /* eslint-disable react/display-name */
 import { memo } from 'react';
 
-import { selectQInfos, useAppSelector } from '../../redux';
+import { RootState, useAppSelector } from '../../redux';
+import { Question } from '../../types/question';
+import { getDateToString } from '../../utils';
 import Tag from '../Tag/Tag';
 import {
   Container,
@@ -16,25 +18,24 @@ import {
 
 interface Prop {
   id: number;
+  selector: (state: RootState, id: number) => Question;
 }
-
-const UserFooter = memo(({ id }: Prop) => {
-  const { user, createdAt } = useAppSelector((state) =>
-    selectQInfos(state, id)
-  );
+const UserFooter = memo(({ id, selector }: Prop) => {
+  const { user, createdAt } =
+    useAppSelector((state) => selector(state, id)) || {};
 
   return (
     <UserContainer>
-      <img width="20" alt={`thumbnail of ${user}`} src={user.image} />
-      <UserName>{user.displayName}</UserName>
-      <UserAsked> {createdAt}</UserAsked>
+      <img width="20" alt={`thumbnail of ${user}`} src={user?.image} />
+      <UserName>{user?.displayName}</UserName>
+      <UserAsked> {`asked ${getDateToString(createdAt)}`}</UserAsked>
     </UserContainer>
   );
 });
 
-const QuestionElement = ({ id }: Prop) => {
+const QuestionElement = ({ id, selector }: Prop) => {
   const { title, body, questionTags } = useAppSelector((state) =>
-    selectQInfos(state, id)
+    selector(state, id)
   );
 
   return (
@@ -43,11 +44,11 @@ const QuestionElement = ({ id }: Prop) => {
       <STextP>{body}</STextP>
       <ContentFooter>
         <Tags>
-          {questionTags.map((tag) => (
+          {(questionTags || []).map((tag: string) => (
             <Tag key={tag} name={tag} />
           ))}
         </Tags>
-        <UserFooter id={id} />
+        <UserFooter id={id} selector={selector} />
       </ContentFooter>
     </Container>
   );

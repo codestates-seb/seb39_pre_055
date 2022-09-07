@@ -13,6 +13,7 @@ export const MenuUList = styled.ul`
   flex-flow: column wrap;
   overflow-x: hidden;
   color: var(--black-500);
+  margin-bottom: 15px;
 `;
 
 export const Li = styled.li`

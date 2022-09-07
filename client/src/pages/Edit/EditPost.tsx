@@ -20,7 +20,12 @@ import {
 } from '../../components';
 import { ENG_REGEX } from '../../constants/regex';
 import { useInput } from '../../hooks';
-import { editQuestion, useAppDispatch, useAppSelector } from '../../redux';
+import {
+  editAnswer,
+  editQuestion,
+  useAppDispatch,
+  useAppSelector,
+} from '../../redux';
 import {
   ButtonsContainer,
   CancelButton,
@@ -33,27 +38,26 @@ import {
 
 const EditQuestion = () => {
   // question, answer 타입에 따라 input 다르게 수정
-  const { data, editType, editBody } = useAppSelector((state) => state.detail);
+  const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   const editorRef = useRef<Editor>(null);
+  const { data, editType, editBody, editAnswerId } = useAppSelector(
+    (state) => state.detail
+  );
   const [title, titleHandler] = useInput(data?.title as string);
+  const [titleError, setTitleError] = useState(false);
   const [body, setBody] = useState(data?.body as string);
+  const [bodyError, setBodyError] = useState(false);
   const [tagInput, setTagInput] = useState('');
   const [tagArr, setTagArr] = useState(data?.questionTags as string[]);
-  const [titleError, setTitleError] = useState(false);
-  const [bodyError, setBodyError] = useState(false);
   const [tagError, setTagError] = useState(false);
-  const dispatch = useAppDispatch();
-  const navigate = useNavigate();
 
-  const handleTitleChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      if (title.trim().length > 14) {
-        setTitleError(false);
-      }
-      titleHandler(e);
-    },
-    [titleHandler, title]
-  );
+  const handleTitleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    if (title.trim().length > 14) {
+      setTitleError(false);
+    }
+    titleHandler(e);
+  };
 
   const handleEditorChange = useCallback(() => {
     if (
@@ -83,25 +87,19 @@ const EditQuestion = () => {
     [tagArr]
   );
 
-  const handleTagInputChange = useCallback(
-    (e: ChangeEvent<HTMLInputElement>) => {
-      const { value } = e.target;
-      if (ENG_REGEX.test(value)) {
-        setTagInput(value);
-      }
-    },
-    []
-  );
+  const handleTagInputChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    if (ENG_REGEX.test(value)) {
+      setTagInput(value);
+    }
+  };
 
-  const handleTagDelete = useCallback(
-    (name: string) => {
-      const deletedTags = tagArr.filter((tag) => tag !== name);
-      setTagArr(deletedTags);
-    },
-    [tagArr]
-  );
+  const handleTagDelete = (name: string) => {
+    const deletedTags = tagArr.filter((tag) => tag !== name);
+    setTagArr(deletedTags);
+  };
 
-  const handleEditButtonClick = useCallback(() => {
+  const handleSubmit = useCallback(() => {
     if (editType === 'question') {
       if (
         tagArr.length === 0 ||
@@ -113,23 +111,39 @@ const EditQuestion = () => {
         if (body.length < 29) setBodyError(true);
         return;
       }
-      const payload = {
-        id: data?.questionId as number,
-        title,
-        body,
-        questionTags: tagArr,
-      };
-      dispatch(editQuestion(payload));
+      dispatch(
+        editQuestion({
+          id: data?.questionId as string,
+          title,
+          body,
+          questionTags: tagArr,
+        })
+      );
     }
+
     if (editType === 'answer') {
       if (body.trim().length < 30) {
         setBodyError(true);
         return;
       }
-      console.log(body);
+      dispatch(
+        editAnswer({
+          answerId: editAnswerId,
+          body,
+        })
+      );
     }
     navigate(-1);
-  }, [title, body, tagArr, navigate, editType, data?.questionId, dispatch]);
+  }, [
+    title,
+    body,
+    tagArr,
+    navigate,
+    editType,
+    data?.questionId,
+    dispatch,
+    editAnswerId,
+  ]);
 
   return (
     <Container>
@@ -170,7 +184,7 @@ const EditQuestion = () => {
           </TagsContainer>
         )}
         <ButtonsContainer>
-          <BlueButton width="90px" onClick={handleEditButtonClick}>
+          <BlueButton width="90px" onClick={handleSubmit}>
             Save Edits
           </BlueButton>
           <CancelButton onClick={() => navigate(-1)}>Cancel</CancelButton>

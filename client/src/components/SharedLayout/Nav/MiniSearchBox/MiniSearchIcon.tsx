@@ -18,6 +18,7 @@ const MiniSearchIcon = ({
       searchInput.current.focus();
     }, 0);
   };
+
   return (
     <SearchButton onClick={clickHandler}>
       <Icon />

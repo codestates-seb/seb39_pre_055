@@ -1,9 +1,11 @@
 import styled, { css } from 'styled-components';
 
 export const HamburgerBox = styled.div`
-  flex: 0 0 36px;
+  flex: 0 0 33px;
   display: none;
-  padding-top: 2px;
+  padding-left: 10px;
+  padding-right: 4px;
+  margin-top: -2px;
 
   ${({ theme }) =>
     css`

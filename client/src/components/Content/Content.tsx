@@ -7,59 +7,60 @@ import 'prismjs/themes/prism.css';
 import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight';
 import { Viewer } from '@toast-ui/react-editor';
 import Prism from 'prismjs';
-import { useCallback, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useConfirm, useToggle } from '../../hooks';
 import {
+  changeAnswerVote,
   changeEditBody,
-  changeVote,
-  decreaseVote,
+  changeQuestionVote,
+  decreaseAnswerVote,
+  decreaseQuestionVote,
+  deleteAnswer,
   deleteQuestion,
-  increaseVote,
+  increaseAnswerVote,
+  increaseQuestionVote,
   useAppDispatch,
   useAppSelector,
 } from '../../redux';
+import { User } from '../../types';
 import { AnchorCard, Tag, TextButton, Triangle, UserInfoCard } from '../index';
+import { useModal } from '../Modal';
 import { MainContents, Tags, TextArea, Utils, Votes } from './style';
+import VoteModal from './VoteModal';
+
+type PostType = 'question' | 'answer';
 
 interface Prop {
-  type: 'question' | 'answer';
+  type: PostType;
   body: string;
   tags?: Array<string>;
-  user: {
-    userId: number;
-    displayName: string;
-    email: string;
-    password: string;
-    image: string;
-    userStatus: string;
-  };
-  createdAt: string;
+  user: User;
   vote: number;
+  createdAt: string;
   answerId?: number;
 }
 
-const Content = ({
-  type,
-  body,
-  tags,
-  user,
-  createdAt,
-  vote,
-  answerId,
-}: Prop) => {
-  const [following, toggleFollowing] = useToggle();
-  const [shareModal, setShareModal] = useState(false);
+const Content = (props: Prop) => {
+  const { type, body, tags, user, createdAt, vote, answerId } = props;
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const { user: loginUser } = useAppSelector((state) => state.user);
-  const confirmDelete = useConfirm(
-    'Delete this page?',
-    () => dispatch(deleteQuestion(params.id as string)),
-    () => console.log('Aborted')
-  );
+  const currentVote = useMemo(() => vote, []);
+  const [shareModal, setShareModal] = useState(false);
+  const [following, toggleFollowing] = useToggle();
+  const { openModal, closeModal } = useModal({
+    position: { x: '50%', y: '50%' },
+    height: '275px',
+    width: '400px',
+  });
+
+  useEffect(() => {
+    return () => closeModal();
+  }, []);
+
   const closeShareModal = useCallback((e: React.MouseEvent) => {
     const { tagName, parentElement } = e.target as HTMLElement;
     if (
@@ -77,7 +78,17 @@ const Content = ({
     setShareModal((prev) => !prev);
   };
 
-  const handleEditBtnClick = () => {
+  const handleDelete = (type: PostType) => {
+    if (type === 'question') {
+      dispatch(deleteQuestion(params.id as string));
+      navigate('/');
+    }
+    if (type === 'answer') {
+      dispatch(deleteAnswer(answerId as number));
+    }
+  };
+
+  const handleEdit = () => {
     if (params.id) {
       dispatch(
         changeEditBody({
@@ -90,19 +101,43 @@ const Content = ({
     }
   };
 
-  const currentVote = useMemo(() => vote, []);
+  const confirmDelete = useConfirm(
+    'Delete this page?',
+    () => handleDelete(type),
+    () => console.log('Cancel')
+  );
 
-  const upVote = () => {
+  const upVote = useCallback(() => {
+    if (!loginUser) {
+      openModal(<VoteModal type="upvote" />);
+      return;
+    }
     if (vote > currentVote) return;
-    dispatch(increaseVote());
-    dispatch(changeVote(params.id as string));
-  };
+    if (type === 'question') {
+      dispatch(increaseQuestionVote());
+      dispatch(changeQuestionVote(params.id as string));
+    }
+    if (type === 'answer') {
+      dispatch(increaseAnswerVote(answerId as number));
+      dispatch(changeAnswerVote(answerId as number));
+    }
+  }, [vote]);
 
-  const downVote = () => {
+  const downVote = useCallback(() => {
+    if (!loginUser) {
+      openModal(<VoteModal type="downvote" />);
+      return;
+    }
     if (vote < currentVote) return;
-    dispatch(decreaseVote());
-    dispatch(changeVote(params.id as string));
-  };
+    if (type === 'question') {
+      dispatch(decreaseQuestionVote());
+      dispatch(changeQuestionVote(params.id as string));
+    }
+    if (type === 'answer') {
+      dispatch(decreaseAnswerVote(answerId as number));
+      dispatch(changeAnswerVote(answerId as number));
+    }
+  }, [vote]);
 
   return (
     <MainContents onClick={closeShareModal}>
@@ -122,9 +157,10 @@ const Content = ({
         <Utils>
           <div>
             <TextButton name="Share" onClick={toggleShareModal} />
-            {user.userId === loginUser?.userId && (
+            {/** email 수정 예정 */}
+            {user.email === loginUser?.email && (
               <>
-                <TextButton name="Edit" onClick={handleEditBtnClick} />
+                <TextButton name="Edit" onClick={handleEdit} />
                 <TextButton name="Delete" onClick={confirmDelete} />
               </>
             )}

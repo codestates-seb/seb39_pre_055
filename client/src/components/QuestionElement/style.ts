@@ -5,8 +5,8 @@ export const Container = styled.section`
   display: flex;
   flex-direction: column;
   row-gap: 3px;
-  width: 100%;
   height: auto;
+  width: 100%;
 `;
 
 export const STitleLink = styled(Link)`
@@ -34,6 +34,7 @@ export const STextP = styled.p`
   max-height: 43px;
   width: calc(100%);
   overflow: hidden;
+  word-break: break-all;
 
   @media (max-width: 640px) {
     font-size: 12px;
@@ -58,18 +59,16 @@ export const Tags = styled.div`
 export const UserContainer = styled.div`
   display: flex;
   align-items: center;
-  margin: 0px 20px 0px auto;
+  margin-left: auto;
   font-size: 12px;
-
   justify-content: space-between;
+  column-gap: 6px;
   flex-wrap: wrap;
 
   img {
-    margin: 5px 5px 5px 0px;
+    border-radius: 30%;
   }
-  div {
-    margin-right: 5px;
-  }
+
   @media (max-width: 640px) {
   }
 `;

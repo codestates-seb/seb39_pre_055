@@ -1,5 +1,12 @@
 import styled from 'styled-components';
 
+export const Wrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+`;
+
 export const SMain = styled.div`
   display: flex;
   width: 100%;
@@ -31,9 +38,10 @@ export const Header = styled.header`
   h1 {
     flex-basis: 85%;
     font-size: 27px;
+    font-weight: 600;
     color: var(--black-700);
     word-break: break-all;
-    line-height: 31px;
+    line-height: 36px;
   }
 
   @media screen and (max-width: ${({ theme }) => theme.breakPoints.tablet}) {

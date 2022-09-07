@@ -4,9 +4,10 @@ import 'prismjs/themes/prism.css';
 
 import { Editor } from '@toast-ui/react-editor';
 import { useCallback, useRef, useState } from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-import { useAppDispatch } from '../../../redux';
+import { addAnswer, useAppDispatch, useAppSelector } from '../../../redux';
 import { BlueButton } from '../../Button/Templates';
 import CustomEditor from '../CustomEditor/CustomEditor';
 
@@ -17,7 +18,20 @@ const Container = styled.div`
 `;
 
 const ButtonContainer = styled.div`
+  display: flex;
+  align-items: center;
   margin-top: 30px;
+  gap: 20px;
+
+  & > p {
+    color: #6a737c;
+    font-style: italic;
+    vertical-align: middle;
+
+    & > a > span {
+      color: #0074cc;
+    }
+  }
 `;
 
 const AnswerEditor = () => {
@@ -26,6 +40,8 @@ const AnswerEditor = () => {
   const [isError, setIsError] = useState(false);
 
   const dispatch = useAppDispatch();
+  const { data, isPostLoading } = useAppSelector((state) => state.detail);
+  const { user } = useAppSelector((state) => state.user);
 
   const handleEditorChange = useCallback(() => {
     if (value.length > 29) setIsError(false);
@@ -39,9 +55,11 @@ const AnswerEditor = () => {
       setIsError(true);
       return;
     }
-    // addAnswer(value);
-    console.log('submit');
-  }, [value]);
+    setIsError(false);
+    dispatch(
+      addAnswer({ questionId: data?.questionId as string, body: value })
+    );
+  }, [value, dispatch, data?.questionId]);
 
   return (
     <Container>
@@ -53,9 +71,28 @@ const AnswerEditor = () => {
         onChange={handleEditorChange}
       />
       <ButtonContainer>
-        <BlueButton width="140px" height="35px" onClick={handleSubmit}>
+        <BlueButton
+          width="180px"
+          height="35px"
+          onClick={handleSubmit}
+          isPending={isPostLoading}
+          disabled={user === null}
+        >
           Post Your Answer
         </BlueButton>
+        {!user && (
+          <p>
+            You need to{' '}
+            <Link to="/login">
+              <span>login</span>
+            </Link>{' '}
+            or{' '}
+            <Link to="/signup">
+              <span>signup</span>
+            </Link>{' '}
+            to add an answer.
+          </p>
+        )}
       </ButtonContainer>
     </Container>
   );

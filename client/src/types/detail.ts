@@ -2,12 +2,13 @@ export interface DetailInitialState {
   isLoading: boolean;
   editType: string;
   editBody: string;
-  sortOption: string;
+  editAnswerId: number;
   data: DetailData | null;
+  isPostLoading: boolean;
 }
 
 export interface DetailData {
-  questionId: number;
+  questionId: string;
   questionStatus: string;
   title: string;
   body: string;
@@ -22,7 +23,7 @@ export interface DetailData {
 
 export interface Answers {
   data: AnswerInfo[];
-  pageInfo: PageInfo;
+  pageInfo?: PageInfo;
 }
 
 export interface AnswerInfo {
@@ -39,9 +40,9 @@ export interface User {
   userId: number;
   displayName: string;
   email: string;
-  password: string;
   image: string;
   userStatus: string;
+  token: string;
 }
 
 export interface PageInfo {
@@ -49,4 +50,22 @@ export interface PageInfo {
   size: number;
   totalElements: number;
   totalPages: number;
+}
+
+export type Tbody = {
+  type: 'question' | 'answer';
+  body: string;
+  answerId?: number;
+};
+
+export interface EditBody {
+  id: string;
+  title: string;
+  body: string;
+  questionTags: string[];
+}
+
+export interface AnswerPayload {
+  questionId: string;
+  body: string;
 }

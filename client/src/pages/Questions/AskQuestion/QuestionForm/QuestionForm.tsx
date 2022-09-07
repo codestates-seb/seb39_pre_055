@@ -12,7 +12,7 @@ import {
   useRef,
   useState,
 } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Navigate, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import { css } from 'styled-components';
 
@@ -22,6 +22,7 @@ import {
   DefaultInput,
   TagInput,
 } from '../../../../components';
+import { useAppSelector } from '../../../../redux';
 import { axiosInstance } from '../../../../utils/axiosInstance';
 import Caption from '../MDCaptions/MDCaptions';
 import { SCaptionBox } from '../MDCaptions/style';
@@ -67,6 +68,7 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
   const [isPending, setIsPending] = useState(false);
   const editorRef = useRef<Editor>(null);
   const navigate = useNavigate();
+  const { token } = useAppSelector((state) => state.user.user) || {};
 
   const handleTitleChange = useCallback(
     (e: ChangeEvent<HTMLInputElement>) => {
@@ -129,19 +131,24 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
     (async () => {
       try {
         const reqBody = {
-          userId: '1',
           title: title.value,
           body: body.value,
           questionTags: tags.value,
         };
-        const res = await axiosInstance.post('/v1/question/write', reqBody, {
-          signal: controller.signal,
-        });
+        const res = await axiosInstance.post(
+          '/v1/user/question/write',
+          reqBody,
+          {
+            signal: controller.signal,
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         const { questionId } = res.data.data;
 
         navigate(`/${questionId}`);
       } catch (error: any) {
-        console.log(error);
         const { status, message } = error.response.data;
         toast.error(`${status}: ${message}`);
       }
@@ -178,6 +185,12 @@ const QuestionForm = ({ errCount, setErrs }: QuestionFormProps) => {
       e.preventDefault();
     }
   };
+
+  if (!token) {
+    toast.info('로그인 해주세요');
+
+    return <Navigate to="/login" replace />;
+  }
 
   return (
     <SForm onSubmit={handleSubmit} onKeyDown={(e) => suppressFormEnter(e)}>

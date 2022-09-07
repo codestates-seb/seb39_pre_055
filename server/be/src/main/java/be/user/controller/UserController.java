@@ -39,6 +39,7 @@ public class UserController {
                 HttpStatus.CREATED);
     }
 
+
     /**
      * 토근에 해당하는 User 정보를
      * 클라이언트에게 전달
@@ -51,5 +52,6 @@ public class UserController {
                 new SingleResponseDto<>(mapper.userToUserResponseDto(user)),
                 HttpStatus.OK);
     }
+
 
 }

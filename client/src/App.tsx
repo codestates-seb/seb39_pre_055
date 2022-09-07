@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 
 import { NotFound, SharedLayout } from './components';
@@ -17,7 +17,7 @@ import Users from './pages/Users/Users';
 
 const App = () => {
   return (
-    <BrowserRouter>
+    <>
       <Routes>
         <Route path="/" element={<SharedLayout />}>
           <Route index element={<QuestionList />} />
@@ -36,7 +36,7 @@ const App = () => {
         </Route>
       </Routes>
       <ToastContainer position="top-center" pauseOnFocusLoss theme="colored" />
-    </BrowserRouter>
+    </>
   );
 };
 

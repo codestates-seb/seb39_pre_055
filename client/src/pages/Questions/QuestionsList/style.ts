@@ -1,7 +1,30 @@
 import styled from 'styled-components';
 
-export const Container = styled.div`
+import { Aside, LoadingSpinner } from '../../../components';
+
+export const SMainBox = styled.div`
+  display: flex;
+  flex-flow: row nowrap;
+  width: 100%;
+`;
+
+export const SElementSection = styled.section`
   border-left: 0.2px solid var(--black-100);
+  width: 100%;
+`;
+
+export const SPromoAside = styled(Aside)`
+  margin: 30px 30px 30px 0px;
+  flex: 0 0 320px;
+`;
+
+export const SSPinner = styled(LoadingSpinner)`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  width: 100%;
+  height: 60vh;
 `;
 
 export const TitleHeader = styled.header`
@@ -47,8 +70,10 @@ export const MainUList = styled.ul`
 
 export const SQuestionList = styled.li`
   display: flex;
+  flex-flow: row nowrap;
   row-gap: 7px;
   padding: 14px;
+  width: 100%;
   border-top: 0.2px solid var(--black-100);
 
   @media (max-width: 640px) {

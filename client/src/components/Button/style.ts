@@ -21,7 +21,7 @@ export const Buttton = styled.button`
     mainCode,
     hoverCode,
     textColor = 'white',
-    width = 'auto',
+    width = 'max-content',
     height = '32px',
   }: ButtonProps) =>
     color &&
@@ -53,6 +53,17 @@ export const Buttton = styled.button`
 
       &:focus {
         outline: #f0cbca solid 4px;
+      }
+    `}
+
+    ${({ disabled }) =>
+    disabled &&
+    css`
+      cursor: not-allowed;
+      background-color: #b7e1f7;
+
+      &:hover {
+        background-color: #b7e1f7;
       }
     `}
 `;

@@ -64,7 +64,7 @@ const Tags = () => {
           ))
         )}
       </TagsContainer>
-      {tagList.length > 89 && (
+      {tagList.length > 89 && !isLoading && (
         <PaginationContainer>
           <CustomPagination
             activePage={page}

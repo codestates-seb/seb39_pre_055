@@ -9,7 +9,7 @@ export interface UserInitialState {
   timeStamp: string | number;
   inName: string;
   isLoading: boolean;
-  errorMsg: string;
+  isSignupDone: boolean;
 }
 
 export interface UserInfo {
@@ -59,4 +59,10 @@ export interface Collective {
 export interface ExternalLink {
   type: string;
   link: string;
+}
+
+export interface LoginPayload {
+  displayName?: string;
+  email: string;
+  password: string;
 }

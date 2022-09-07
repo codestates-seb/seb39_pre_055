@@ -1,18 +1,38 @@
 /* eslint-disable react/no-unescaped-entities */
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 
 import { BlueButton, DefaultInput } from '../../../components';
 import { ERROR_MSG_01, ERROR_MSG_03 } from '../../../constants';
+import {
+  changeSignupIsDone,
+  loginUser,
+  useAppDispatch,
+  useAppSelector,
+} from '../../../redux';
 import { EMAIL_REGEX } from '../../../utils';
 import { BottomIconSVG, Container, LoginCard, TextCard } from './style';
 
 const Login = () => {
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
+  const { isLoading, user, isSignupDone } = useAppSelector(
+    (state) => state.user
+  );
   const [emailValue, setEmailValue] = useState('');
   const [emailError, setEmailError] = useState(false);
   const [passwordValue, setPasswordValue] = useState('');
   const [passwordError, setPasswordError] = useState(false);
+
+  useEffect(() => {
+    if (user) {
+      navigate('/');
+    }
+
+    if (isSignupDone) {
+      dispatch(changeSignupIsDone());
+    }
+  }, [user, navigate, dispatch, isSignupDone]);
 
   const handleChangeEmail = (e: ChangeEvent<HTMLInputElement>) => {
     if (EMAIL_REGEX.test(e.target.value)) {
@@ -29,12 +49,17 @@ const Login = () => {
   };
 
   const handleSubmit = () => {
-    if (!EMAIL_REGEX.test(emailValue) || passwordValue.length < 4) {
+    if (!EMAIL_REGEX.test(emailValue) || passwordValue.length < 8) {
       if (!EMAIL_REGEX.test(emailValue)) setEmailError(true);
-      if (passwordValue.length < 4) setPasswordError(true);
+      if (passwordValue.length < 8) setPasswordError(true);
       return;
     }
-    navigate('/');
+    dispatch(
+      loginUser({
+        email: emailValue,
+        password: passwordValue,
+      })
+    );
   };
 
   return (
@@ -58,7 +83,7 @@ const Login = () => {
           errorMsg={ERROR_MSG_03}
           onChange={handleChangePassword}
         />
-        <BlueButton height="35px" onClick={handleSubmit}>
+        <BlueButton height="35px" onClick={handleSubmit} isPending={isLoading}>
           Log in
         </BlueButton>
       </LoginCard>
