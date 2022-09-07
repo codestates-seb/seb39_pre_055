@@ -13,9 +13,9 @@ public class QuestionPostDto {
     @Positive
     private Long questionId;
 
-    @NotNull(message = "유저Id를 적어주세요")
-    @Positive
-    private Long userId;
+//    @NotNull(message = "유저Id를 적어주세요")
+//    @Positive
+//    private Long userId;
 
     @NotBlank(message = "질문 제목을 적어주세요")
     private String title;

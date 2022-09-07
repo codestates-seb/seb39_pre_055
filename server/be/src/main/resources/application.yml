@@ -1,5 +1,4 @@
 server:
-  port: 8080
   servlet:
     context-path: /
     encoding:
@@ -10,7 +9,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://pre055.cxerpdhgfjnw.ap-northeast-2.rds.amazonaws.com:3306/pre055?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    url: jdbc:mysql://pre055.cixzxikdlatt.ap-northeast-2.rds.amazonaws.com:3306/pre055?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
     username: admin
     password: psy411301
   jpa:

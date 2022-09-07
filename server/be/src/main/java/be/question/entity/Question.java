@@ -44,7 +44,7 @@ public class Question extends BaseEntity {
     private String body;
 
     @Column(nullable = false)
-    private int vote;
+    private Integer vote=0;
 
     @Column(nullable = false)
     private int view;

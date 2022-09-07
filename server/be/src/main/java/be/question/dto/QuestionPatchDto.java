@@ -22,8 +22,7 @@ public class QuestionPatchDto {
     @Setter
     private List<QuestionTagDto> questionTags;
 
-    //추천 수 수정
-    private int vote;
+
 
     //글 삭제
     private Question.QuestionStatus questionStatus;

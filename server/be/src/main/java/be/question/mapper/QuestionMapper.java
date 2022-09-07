@@ -4,9 +4,11 @@ import be.answer.entity.Answer;
 import be.answer.mapper.AnswerMapper;
 import be.answer.service.AnswerService;
 import be.exception.BusinessLogicException;
+import be.exception.ExceptionCode;
 import be.question.dto.*;
 import be.question.entity.Question;
 import be.question.entity.QuestionTag;
+import be.question.service.QuestionService;
 import be.response.MultiResponseDto;
 import be.user.entity.User;
 import be.user.mapper.UserMapper;
@@ -42,9 +44,9 @@ public interface QuestionMapper {
 
         question.setBody(questionPostDto.getBody());
         question.setTitle(questionPostDto.getTitle());
-        question.setUser(userService.findUser(  //questionPostDto에 입력받은 userId에 해당하는 User 객체 불러옴
-                questionPostDto.getUserId()
-        ));
+
+        question.setUser( // 현재 로그인한 토큰으로 유저정보 불러옴
+                userService.getLoginUser());
 
         return question;
     }
@@ -59,8 +61,10 @@ public interface QuestionMapper {
         }).collect(Collectors.toList());
     }
 
-
-    default  Question questionPatchDtoToQuestion(QuestionPatchDto questionPatchDto){
+    default  Question questionPatchDtoToQuestion(QuestionService questionService,UserService userService, QuestionPatchDto questionPatchDto){
+        if(userService.getLoginUser().getUserId()!= questionService.findQuestionUser(questionPatchDto.getQuestionId()).getUserId()){ //해당 유저가 쓴 질문글 아니므로 수정 삭제 불가
+            throw new BusinessLogicException(ExceptionCode.ACCESS_DENIED_USER);
+        }
         Question question = new Question();
         question.setQuestionId(questionPatchDto.getQuestionId());
 
@@ -74,7 +78,6 @@ public interface QuestionMapper {
         System.out.println(questionTags);
         question.setBody(questionPatchDto.getBody());
         question.setTitle(questionPatchDto.getTitle());
-        question.setVote(questionPatchDto.getVote());
         question.setQuestionStatus(questionPatchDto.getQuestionStatus());
 
         return question;
