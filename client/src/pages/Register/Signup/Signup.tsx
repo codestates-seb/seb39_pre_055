@@ -23,7 +23,7 @@ const Signup = () => {
           <span>Join Stack Overflow </span>
           <span>community</span>
         </h1>
-        <SignupSideInfo icon="icon" text="Get unstuck — ask a question" />
+        <SignupSideInfo />
       </SideContainer>
       <SignUpContainer>
         <UserInputContainer>
