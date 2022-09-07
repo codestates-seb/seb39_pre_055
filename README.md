@@ -8,7 +8,7 @@
 
 |모상빈 (FE 팀장)|심소영 (FE 서기)|김성현 (FE 팀원)|윤준영 (BE 팀원)|박소영 (BE 팀원)|
 |:-:|:-:|:-:|:-:|:-:|
-|<img src="https://velog.velcdn.com/images/sangbin2/post/40523b88-00ae-4280-a486-5fdfb9383965/image.png" width=150>|<img src="https://user-images.githubusercontent.com/104320234/188777706-76429756-9753-46cb-93e1-b7f0bc167aac.jpeg" width=150>|<img src="https://user-images.githubusercontent.com/6335046/188773314-b7b00c99-52bb-4a5b-94b3-0ed6f26bdcfd.png" width=100 >|<img src="https://velog.velcdn.com/images/sangbin2/post/40523b88-00ae-4280-a486-5fdfb9383965/image.png" width=150>|<img src="https://velog.velcdn.com/images/sangbin2/post/40523b88-00ae-4280-a486-5fdfb9383965/image.png" width=150>|
+|<img src="https://velog.velcdn.com/images/sangbin2/post/40523b88-00ae-4280-a486-5fdfb9383965/image.png" width=150>|<img src="https://user-images.githubusercontent.com/104320234/188778037-50ae88a3-b1a4-45a6-bb26-e156978e8e6f.jpeg" width=150>|<img src="https://user-images.githubusercontent.com/6335046/188773314-b7b00c99-52bb-4a5b-94b3-0ed6f26bdcfd.png" width=100 >|<img src="https://velog.velcdn.com/images/sangbin2/post/40523b88-00ae-4280-a486-5fdfb9383965/image.png" width=150>|<img src="https://velog.velcdn.com/images/sangbin2/post/40523b88-00ae-4280-a486-5fdfb9383965/image.png" width=150>|
 |[@Topbin2](https://github.com/Topbin2)|[@so191925](https://github.com/so191925)|[@ksheer506](https://github.com/ksheer506)|[@Topbin2](https://github.com/Topbin2)|[@Topbin2](https://github.com/Topbin2)|
 
 <br />
