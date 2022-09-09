@@ -53,12 +53,12 @@ pssword: 11111111 (1 여덟개)
 ### Back-end
 
 <p>
-  <img src="https://user-images.githubusercontent.com/61177857/188972264-ee94f10c-6959-4a1c-9b97-6330b14ce996.png" width=15%>
-  <img src="https://user-images.githubusercontent.com/61177857/188972961-20aff836-436b-4653-a650-3f18935ee412.png" width=15%>
-  <img src="https://user-images.githubusercontent.com/61177857/188973455-ecc9c549-9b23-4b00-aab7-1ef042bceeb1.png" width=15%>
-  <img src="https://user-images.githubusercontent.com/61177857/188973727-c87dcc33-9777-420f-bb51-11074c3bd2f4.png" width=15%>
-  <img src="https://user-images.githubusercontent.com/61177857/188974204-472258b0-5f49-41e2-a6d3-44bf53068bd8.png" width=15%>
-  <img src="https://user-images.githubusercontent.com/61177857/188974521-9bb4a55d-0e6c-49be-8b7c-04fbb516c099.png" width=15%>
+  <img src="https://user-images.githubusercontent.com/61177857/188972264-ee94f10c-6959-4a1c-9b97-6330b14ce996.png" width=150 height=150>
+  <img src="https://user-images.githubusercontent.com/61177857/188972961-20aff836-436b-4653-a650-3f18935ee412.png" width=150 height=150>
+  <img src="https://user-images.githubusercontent.com/61177857/188973455-ecc9c549-9b23-4b00-aab7-1ef042bceeb1.png" width=150 height=150>
+  <img src="https://user-images.githubusercontent.com/61177857/188973727-c87dcc33-9777-420f-bb51-11074c3bd2f4.png" width=150 height=150>
+  <img src="https://user-images.githubusercontent.com/61177857/188974204-472258b0-5f49-41e2-a6d3-44bf53068bd8.png" width=150 height=150>
+  <img src="https://user-images.githubusercontent.com/61177857/188974521-9bb4a55d-0e6c-49be-8b7c-04fbb516c099.png" width=150 height=150>
 </p>
 
 <br />
