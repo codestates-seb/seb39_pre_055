@@ -4,7 +4,7 @@
 <br />
 테스트 계정
 <br />
-id: test1@gamil.com
+id: test@gamil.com
 <br />
 pssword: 11111111 (1 여덟개)
 
