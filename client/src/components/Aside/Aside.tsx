@@ -76,12 +76,6 @@ const Aside = ({ className }: Prop) => {
           <li>WSO2 launches, and Google Go sunsets</li>
         </ul>
       </Sidebar>
-      <a href="https://www.udemy.com/" target="_blank" rel="noreferrer">
-        <img
-          src="https://tpc.googlesyndication.com/simgad/8943515588817423167"
-          alt="udemy"
-        />
-      </a>
       <EditSidebar width="100%" />
     </Side>
   );
